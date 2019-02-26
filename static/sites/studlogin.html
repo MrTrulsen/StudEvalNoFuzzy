@@ -11,10 +11,10 @@
 
     <title>EDUEVAL</title>
     <link rel="icon" href="https://pbs.twimg.com/profile_images/671984499648020481/FixFBnRN_400x400.png">
-    <link rel="stylesheet" href="bootstrap/css/bootstrap.css">
-    <link rel="stylesheet" href="css/style.css">
-    <script src="bootstrap/js/jquery.min.js"></script>
-    <script src="bootstrap/js/bootstrap.bundle.js"></script>
+    <link rel="stylesheet" href="../bootstrap/css/bootstrap.css">
+    <link rel="stylesheet" href="../css/style.css">
+    <script src="../bootstrap/js/jquery.min.js"></script>
+    <script src="../bootstrap/js/bootstrap.bundle.js"></script>
   </head>
 
   <body dir="ltr" class="body">
@@ -34,22 +34,25 @@
             <div id="authArea" class="groupMargin">
               <div id="loginArea">
                 <div class="groupMargin bigText">
-                  <p>Logg på</p>
+                  <p>Logg på - Student</p>
                 </div>
 
                 <div id="loginField" class="groupMargin">
-                  <a href="sites/studlogin.html">
-                    <button id="studentButton" class="btn btn-outline-success my-2 my-sm-0" type="submit">Student</button>
-                  </a>
-                  <a href="sites/admlogin.html">
-                    <button id="teacherButton" class="btn btn-outline-success my-2 my-sm-0" type="submit">Teacher</button>
-                  </a>
+                  <p>Skriv inn din innlogingsinformasjon.</p>
+                  <input class="form-control mr-sm-2" type="text" placeholder="Email" aria-label="Email">
+                  <input class="form-control mr-sm-2" type="password" placeholder="Passord" aria-label="Passord" style="margin-bottom: 30px">
+                  <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Log in</button>
                 </div>
               </div>
             </div>
           </div>
 
           <div id="footerPlaceholder">
+          </div>
+          <div class="goBackField">
+            <form class="goBack" action="../index.html" method="post">
+              <button id="backButton" class="btn btn-outline-success my-2 my-sm-0" type="submit">Go back</button>
+            </form>
           </div>
         </div>
 

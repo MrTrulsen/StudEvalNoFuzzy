@@ -14,12 +14,10 @@ label.col-sm-2.col-form-label.text-danger
   background-color: #007bff;
   border-color: #007bff;
 }
-#errorArea
+#loginArea
 {
 	max-width: 100%;
 }
-
-
 * {
 	margin:0px;
 	padding:0px;
@@ -126,6 +124,20 @@ body
 #workArea
 {
     margin-bottom:90px;
+}
+#teacherLogin
+{
+	margin-top: 15px;
+}
+#studentButton
+{
+	display: block;
+	width: 100%;
+}
+#teacherButton
+{
+	display: block;
+	width: 100%;
 }
 #footerPlaceholder
 {
