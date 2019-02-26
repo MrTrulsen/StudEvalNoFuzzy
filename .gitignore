@@ -30,3 +30,5 @@ HELP.md
 out/
 
 src/main/resources/
+
+\.vagrant/
