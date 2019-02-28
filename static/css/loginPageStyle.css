@@ -108,7 +108,7 @@ body {
 	margin-top: 20px;
 }
 
-#loginButton
+#submitButton
 {
 	float: left;
 	width: 47%;
@@ -165,10 +165,6 @@ body {
 
 a:hover {
 	text-decoration: none;
-}
-
-form {
-	margin-bottom: 20px;
 }
 
 input {
