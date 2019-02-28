@@ -12,7 +12,7 @@
     <title>EDUEVAL</title>
     <link rel="icon" href="https://pbs.twimg.com/profile_images/671984499648020481/FixFBnRN_400x400.png">
     <link rel="stylesheet" href="../bootstrap/css/bootstrap.css">
-    <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="../css/loginPageStyle.css">
     <script src="../bootstrap/js/jquery.min.js"></script>
     <script src="../bootstrap/js/bootstrap.bundle.js"></script>
   </head>
@@ -34,23 +34,26 @@
             <div id="authArea" class="groupMargin">
               <div id="loginArea">
                 <div class="groupMargin bigText">
-                  <p>Logg på - Student</p>
+                  <p>Log in- Student</p>
                 </div>
 
                 <div id="loginField" class="groupMargin">
-                  <p>Skriv inn din innlogingsinformasjon.</p>
-                  <div class="inputWrapper">
-                    <input id="emailInput" class="form-control mr-sm-2" type="text" placeholder="Email" aria-label="Email">
-                    <input id="passwordInput" class="form-control mr-sm-2" type="password" placeholder="Passord" aria-label="Passord">
-                  </div>
-                  <div id="buttonWrapper">
-                    <a href="#">
-                      <button id="loginButton" class="btn btn-primary" type="submit">Logg inn</button>
-                    </a>
-                    <a href="../index.html">
-                      <button id="backButton" class="btn btn-primary" type="submit">Tilbake</button>
-                    </a>
-                  </div>
+                  <p>Write in your login information.</p>
+                  <form>
+                    <div class="form-group">
+                      <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Email">
+                    </div>
+
+                    <div class="form-group">
+                      <input type="password" class="form-control" id="exampleInputPassword1" placeholder="Password">
+                    </div>
+
+                    <button id="submitButton" type="submit" class="btn btn-primary">Submit</button>
+                  </form>
+
+                  <a href="../index.html">
+                    <button id="backButton" class="btn btn-primary" type="submit">Go back</button>
+                  </a>
                 </div>
               </div>
             </div>
