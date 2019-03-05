@@ -23,7 +23,8 @@
 
           </li>
           <li class="nav-item active">
-            <a class="nav-link" href="#">Add Course<span class="sr-only">(current)</span></a>
+
+            <button type="button" onclick="createCourse()" >Add Course<span class="sr-only">(current)</span></button>
 
           </li>
           <li class="nav-item">
@@ -47,6 +48,59 @@
       </div>
     </div>
 
+<script>
+function addCourse(){
+  var newButton =document.createElement("");
+
+  var newCourse = document.createTextNode("New Course");
+  newButton.appendChild(newCourse);
+  document.body.appendChild(newButton);
+
+}
+function createCourse() {
+      var div = document.createElement("div");
+
+      var button = document.createElement("button");
+      button.className = "btn btn-secondary dropdown-toggle";
+      button.id = "dropdownMenuButton";
+      button.setAttribute("data-toggle", "dropdown");
+      button.setAttribute("aria-haspopup", "true");
+      button.setAttribute("aria-expanded", "false");
+      button.innerText="Dropdown button";
+
+      div.append(button);
+      div.className="dropdown";
+
+      var linkDiv = document.createElement("div");
+      linkDiv.className="dropdown-menu";
+      linkDiv.setAttribute("aria-labelledby","dropdownMenuButton");
+
+      var a = document.createElement("a")
+      a.href="#"
+      a.className="btn btn-secondary"
+      a.id="testbtn"
+      a.setAttribute("onclick", "javascript('ActionTxT1' , 'dropdownMenuButton', 'btn btn-secondary')")
+      a.innerText="Edit"
+
+      var b = document.createElement("b")
+      b.href="#"
+      b.className="btn btn-secondary"
+      b.id="testbtn1"
+      b.setAttribute("onclick", "javascript('ActionTxT1' , 'dropdownMenuButton', 'btn btn-secondary')")
+      b.innerText="Results"
+
+
+
+      linkDiv.append(a);
+      div.append(linkDiv);
+
+      document.body.append(div);
+    }
+
+
+
+
+</script>
 
   </body>
 </html>
