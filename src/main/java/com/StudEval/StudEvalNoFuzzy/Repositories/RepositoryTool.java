@@ -1,4 +1,4 @@
 package com.StudEval.StudEvalNoFuzzy.Repositories;
 
-public class TeacherRepository {
+public class RepositoryTool {
 }
