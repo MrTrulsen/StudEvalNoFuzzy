@@ -4,14 +4,14 @@
 }
 
 html, body {
-    height: 100%;
-    width: 100%;
-		min-width: 500px;
-    background-color: #ffffff;
-    color: #000000;
-    font-weight: normal;
-    font-family: "Segoe UI" , "Segoe" , "SegoeUI-Regular-final", Tahoma, Helvetica, Arial, sans-serif;
-    	-ms-overflow-style: -ms-autohiding-scrollbar;
+  height: 100%;
+  width: 100%;
+	min-width: 500px;
+  background-color: #ffffff;
+  color: #000000;
+  font-weight: normal;
+  font-family: "Segoe UI" , "Segoe" , "SegoeUI-Regular-final", Tahoma, Helvetica, Arial, sans-serif;
+  	-ms-overflow-style: -ms-autohiding-scrollbar;
 }
 
 body {
@@ -59,6 +59,9 @@ body {
   margin-left: -500px;
 	margin-right: 0px;
   overflow: auto;
+	border-left: solid;
+  border-width: 1px;
+  border-color: #696969;
   background-color: #FFFFFF;
 }
 
@@ -72,7 +75,6 @@ body {
 #header {
   font-size: 200%;
   font-weight: lighter;
-  font-family: "Segoe UI Light" , "Segoe" , "SegoeUI-Light-final", Tahoma, Helvetica, Arial, sans-serif;
   padding-top: 90px;
   margin-bottom: 60px;
   min-height: 100px;
@@ -83,7 +85,6 @@ body {
   margin-bottom: 90px;
 }
 
-
 #workArea, #header {
   word-wrap: break-word;
   width: 350px;
@@ -93,40 +94,25 @@ body {
 	max-width: 100%;
 }
 
-#studentButton {
-	display: block;
+#studentButton, #teacherButton {
 	width: 100%;
 }
 
-#teacherButton {
-	display: block;
-	width: 100%;
-}
-
-#buttonWrapper
-{
+#buttonWrapper {
 	margin-top: 20px;
 }
 
-#submitButton
-{
+#submitButton, #backButton {
 	float: left;
 	width: 47%;
 }
 
-#backButton
-{
-	float: right;
-	width: 47%;
-}
-
-#footerPlaceholder {
+#footerPlaceholder, #footer {
   height: 40px;
 }
 
 #footer {
 	position:relative ;
-  height: 40px;
 	padding: 10px 50px 0px 50px;
   color: #666666;
   font-size: 71%;
@@ -159,8 +145,8 @@ body {
 }
 
 .btn-primary:hover {
-  background-color: #007bff;
-  border-color: #007bff;
+  background-color: #4488DD;
+  border-color: #4488DD;
 }
 
 a:hover {
