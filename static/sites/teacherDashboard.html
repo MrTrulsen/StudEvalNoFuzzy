@@ -36,7 +36,7 @@
         </form>
       </div>
     </nav>
-
+<div id ="test">
     <div class="dropdown">
       <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenu2" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
         Evaluation course 1
@@ -44,9 +44,10 @@
       <div class="dropdown-menu" aria-labelledby="dropdownMenu2">
         <button class="dropdown-item" type="button">Edit </button>
         <button class="dropdown-item" type="button">Results</button>
-        <button class="dropdown-item" type="button">Remove</button>
+        <button class="dropdown-item" onclick="removeElement()" type="button">Remove</button>
       </div>
     </div>
+  </div>
 
 <script>
 function addCourse(){
@@ -55,6 +56,20 @@ function addCourse(){
   var newCourse = document.createTextNode("New Course");
   newButton.appendChild(newCourse);
   document.body.appendChild(newButton);
+
+
+    function removeElement(btn) {
+  // Removes an element from the document
+  var btn = document.getElementById("test");
+  ((btn.parentNode).parentNode).removeChild(btn.parentNode);
+}
+    function newCourse() {
+    var itm = document.getElementById("evaluationCard").lastChild;
+
+    var cln = itm.cloneNode(true);
+    document.getElementById("body").appendChild(cln);
+  }
+
 
 }
 function createCourse() {
