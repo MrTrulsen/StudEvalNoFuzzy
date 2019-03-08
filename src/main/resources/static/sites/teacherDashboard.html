@@ -11,6 +11,8 @@
     <link rel="stylesheet" href="../css/mainStyle.css">
     <script src="../bootstrap/js/jquery.min.js"></script>
     <script src="../bootstrap/js/bootstrap.bundle.js"></script>
+    <script src="../js/addEvaluation.js"></script>
+
   </head>
 
   <body id="body">
@@ -30,22 +32,16 @@
           <div class="collapse navbar-collapse" id="navbarTogglerDemo01">
             <div class="navbar-nav mr-auto mt-2 mt-lg-0">
               <div id="addEvaluation" class="nav-item">
-                <a href="#">
-                  <button id="navButton" class="btn btn-primary">Add evaluation</button>
-                </a>
+                <button id="navButton" class="btn btn-primary" onclick="addEvaluation()">Add evaluation</button>
               </div>
 
               <div id="registerStudents" class="nav-item">
-                <a href="#">
-                  <button id="navButton" class="btn btn-primary">Register students</button>
-                </a>
+                <button id="navButton" class="btn btn-primary" onclick="location.href='#'">Register students</button>
               </div>
             </div>
 
             <div id="logout" class="nav-item">
-              <a href="#">
-                <button id="navButton" class="btn btn-primary" type="submit">Log out</button>
-              </a>
+              <button id="navButton" class="btn btn-primary" onclick="location.href='#'" type="submit">Log out</button>
             </div>
           </div>
         </nav>
@@ -63,63 +59,9 @@
                 <div class="card-body">
                   <h5 class="card-title">Special title treatment</h5>
                   <p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
-                  <a href="#">
-                    <button id="cardButton" class="btn btn-primary" type="submit">See evaluation</button>
-                  </a>
-                  <a href="#">
-                    <button id="cardButton" class="btn btn-primary" type="submit">Result</button>
-                  </a>
-                  <a href="#">
-                    <button id="cardButton" class="btn btn-primary" type="submit">Remove</button>
-                  </a>
-                </div>
-
-                <div class="card-footer text-muted">
-                  2 days ago (TIMESTAMP DATE)
-                </div>
-              </div>
-
-              <div id="evaluationCard" class="card text-center">
-                <div class="card-header">
-                  Featured
-                </div>
-
-                <div class="card-body">
-                  <h5 class="card-title">Special title treatment</h5>
-                  <p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
-                  <a href="#">
-                    <button id="cardButton" class="btn btn-primary" type="submit">See evaluation</button>
-                  </a>
-                  <a href="#">
-                    <button id="cardButton" class="btn btn-primary" type="submit">Result</button>
-                  </a>
-                  <a href="#">
-                    <button id="cardButton" class="btn btn-primary" type="submit">Remove</button>
-                  </a>
-                </div>
-
-                <div class="card-footer text-muted">
-                  2 days ago (TIMESTAMP DATE)
-                </div>
-              </div>
-
-              <div id="evaluationCard" class="card text-center">
-                <div class="card-header">
-                  Featured
-                </div>
-
-                <div class="card-body">
-                  <h5 class="card-title">Special title treatment</h5>
-                  <p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
-                  <a href="#">
-                    <button id="cardButton" class="btn btn-primary" type="submit">See evaluation</button>
-                  </a>
-                  <a href="#">
-                    <button id="cardButton" class="btn btn-primary" type="submit">Result</button>
-                  </a>
-                  <a href="#">
-                    <button id="cardButton" class="btn btn-primary" type="submit">Remove</button>
-                  </a>
+                  <button id="cardButton" class="btn btn-primary" onclick="location.href='#'" type="submit">See evaluation</button>
+                  <button id="cardButton" class="btn btn-primary" onclick="location.href='#'" type="submit">Result</button>
+                  <button id="cardButton" class="btn btn-primary" onclick="location.href='#'" type="submit">Remove</button>
                 </div>
 
                 <div class="card-footer text-muted">
