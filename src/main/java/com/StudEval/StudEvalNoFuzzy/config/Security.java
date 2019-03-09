@@ -27,12 +27,12 @@ public class Security extends WebSecurityConfigurerAdapter {
                 .antMatchers("/index**").permitAll()
                 .antMatchers("/login**").permitAll()
                 .antMatchers("/teacherlogin**").permitAll()
-                .antMatchers("/studentlogin**").permitAll()
+                .antMatchers("/studentlogin**").permitAll();
                 //.anyRequest()
                 //.permitAll()
-                .and()
+                //.and()
                 //.httpBasic();
-                .formLogin();
+                //.formLogin();
         httpSecurity.csrf().disable();
     }
 }
