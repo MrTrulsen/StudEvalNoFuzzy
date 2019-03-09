@@ -11,7 +11,8 @@
     <link rel="stylesheet" href="../css/mainStyle.css">
     <script src="../bootstrap/js/jquery.min.js"></script>
     <script src="../bootstrap/js/bootstrap.bundle.js"></script>
-    <script src="../js/addEvaluation.js"></script>
+    <script src="../js/dashboard.js"></script>
+    <script src="../js/canvasjs.min.js"></script>
 
   </head>
 
@@ -32,7 +33,7 @@
           <div class="collapse navbar-collapse" id="navbarTogglerDemo01">
             <div class="navbar-nav mr-auto mt-2 mt-lg-0">
               <div id="addEvaluation" class="nav-item">
-                <button id="navButton" class="btn btn-primary" onclick="addEvaluation()">Add evaluation</button>
+                <button id="navButton" class="btn btn-primary" data-toggle="modal" data-target="#modalAddEval">Add evaluation</button>
               </div>
 
               <div id="registerStudents" class="nav-item">
@@ -69,6 +70,70 @@
                 </div>
               </div>
             </div>
+
+            <div id="modalResult" class="modal fade bd-example-modal-xl" style="height: 100%;" tabindex="-1" role="dialog" aria-labelledby="myExtraLargeModalLabel" aria-hidden="true">
+              <div class="modal-dialog modal-xl">
+                <div class="modal-content">
+                  <div class="modal-header">
+                    <h5 class="modal-title h4" id="myExtraLargeModalLabel">Evaluation Result</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                      <span aria-hidden="true">×</span>
+                    </button>
+                  </div>
+
+                  <div id="modalBody" class="modal-body">
+                    <div id="chartContainer"></div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="modal fade" id="modalAddEval" tabindex="-1" role="dialog" aria-labelledby="modalAddEvalTitle" aria-hidden="true">
+              <div class="modal-dialog modal-dialog-scrollable" role="document">
+                <div class="modal-content">
+                  <form action="index.html" method="post">
+                    <div class="modal-header">
+                      <h5 class="modal-title" id="modalAddEvalTitle">Modal title</h5>
+                      <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                      </button>
+                    </div>
+                    <div class="modal-body">
+
+                      <div class="input-group mb-3">
+                        <div class="input-group-prepend">
+                          <span class="input-group-text" id="inputGroup-sizing-default">Course ID:</span>
+                        </div>
+                        <input type="text" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default">
+                      </div>
+
+                      <div class="input-group mb-4">
+                        <div class="custom-file">
+                          <input type="file" class="custom-file-input" id="inputGroupFile02">
+                          <label class="custom-file-label" for="inputGroupFile02" aria-describedby="inputGroupFileAddon02">Register Student:</label>
+                        </div>
+                        <div class="input-group-append">
+                          <span class="input-group-text" id="inputGroupFileAddon02">Upload</span>
+                        </div>
+                      </div>
+
+                      <div class="input-group mb-5">
+                        <div class="input-group-prepend">
+                          <span class="input-group-text" id="inputGroup-sizing-default">Choose amount of eval questions:</span>
+                        </div>
+                        <input type="text" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default">
+                      </div>
+
+                    </div>
+                    <div class="modal-footer">
+                      <button type="button" class="btn btn-primary" data-dismiss="modal">Close</button>
+                      <button type="button" class="btn btn-primary" type="submit" onclick="addEvaluation()">Save evaluation</button>
+                    </div>
+                  </form>
+                </div>
+              </div>
+            </div>
+
           </div>
         </div>
       </div>

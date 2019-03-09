@@ -66,6 +66,10 @@ html, body {
   background-color: #F7F7F7;
 }
 
+#modalBody {
+  height: 430px;
+}
+
 #navWrapper {
   position: sticky;
   position: -webkit-sticky;
@@ -123,4 +127,9 @@ html, body {
   #navButton, #cardButton {
     width: 100%;
   }
+}
+
+@media (min-width: 992px)
+.modal-lg, .modal-xl {
+    min-height: 800px;
 }
