@@ -1,7 +1,10 @@
 package com.StudEval.StudEvalNoFuzzy.config;
 
+import com.StudEval.StudEvalNoFuzzy.Evaluation.Question;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+
+import java.util.List;
 
 @Controller
 public class TeacherPagesController {
@@ -30,4 +33,6 @@ public class TeacherPagesController {
     public String teacherEvaluationResults(){
         return "sites/evaluationResults.html";
     }
+
+
 }

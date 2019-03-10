@@ -10,7 +10,6 @@ public class QuestionRowMapper implements RowMapper<Question> {
 
     @Override
     public Question mapRow(ResultSet rs, int rowIndex) throws SQLException {
-
        return new Question (rs.getInt("question_id"),
                 rs.getString("question_text"),
                 rs.getFloat("complexity"),
