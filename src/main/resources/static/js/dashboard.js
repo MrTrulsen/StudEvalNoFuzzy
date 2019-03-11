@@ -145,3 +145,9 @@ var chart = new CanvasJS.Chart("chartContainer", {
 });
 chart.render();
 }
+
+
+function closeSelf(){
+    self.close();
+    return true;
+}
