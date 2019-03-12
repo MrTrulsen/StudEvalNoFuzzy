@@ -2,24 +2,28 @@ package com.StudEval.StudEvalNoFuzzy.config;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.core.annotation.Order;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.builders.WebSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
-import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 
 import javax.sql.DataSource;
 
 @EnableWebSecurity
 @Configuration
-public class Security extends WebSecurityConfigurerAdapter {
+@Order(2)
+public class TeacherSecurity extends WebSecurityConfigurerAdapter {
 
+    @Autowired
+    Securityhandler successHandler ;
 
+    @Autowired
+    private BCryptPasswordEncoder passwordEncoder;
 
     @Autowired
     private DataSource dataSource;
@@ -34,10 +38,7 @@ public class Security extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(AuthenticationManagerBuilder auth) throws Exception{
         auth.jdbcAuthentication().usersByUsernameQuery(usersQuery).authoritiesByUsernameQuery(rolesQuery)
-                .dataSource(dataSource).passwordEncoder(passwordEncoder());
-                /*.withUser("frode@ntnu.no").password(passwordEncoder().encode("password420")).authorities("STUDENT")
-                .and()
-                .withUser("arne").password("password69").roles("TEACHER");*/
+                .dataSource(dataSource).passwordEncoder(passwordEncoder);
     }
 
     @Override
@@ -47,7 +48,6 @@ public class Security extends WebSecurityConfigurerAdapter {
                 .antMatchers("/").permitAll()
                 .antMatchers("/teacherlogin").permitAll()
                 .antMatchers("/register").permitAll()
-
                 .antMatchers("/teacherpage").hasAuthority("TEACHER_USER")
                 .anyRequest().authenticated()
                 .and()
@@ -56,9 +56,9 @@ public class Security extends WebSecurityConfigurerAdapter {
                 .csrf().disable().formLogin()
                 .loginPage("/teacherlogin")
                 .failureUrl("/login?error=true")
-                .defaultSuccessUrl("/teacherpage")
+                .successHandler(successHandler)
 
-                .usernameParameter("email")
+                .usernameParameter("teacherEmail")
                 .passwordParameter("password")
                 .and()
                 //logout
@@ -74,10 +74,6 @@ public class Security extends WebSecurityConfigurerAdapter {
         web.ignoring().antMatchers("/resources/**", "/static/**", "/css/**", "/js/**", "/images/**", "/bootstrap/**");
     }
 
-    @Bean
-    public PasswordEncoder passwordEncoder() {
-        return new BCryptPasswordEncoder();
-    }
 }
 
 

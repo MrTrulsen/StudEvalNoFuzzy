@@ -32,5 +32,4 @@ public class TeacherPagesController {
         return "sites/evaluationResults.html";
     }
 
-
 }
