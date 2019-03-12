@@ -12,8 +12,65 @@
   <body>
     <h1>EduEval Survey for Exam:</h1> <!-- implement field for exam input after Exam:  -->
       <br/><br/>
+      <script>
+         questionNumber = prompt("Please enter question" + myNumber(), "");
+            document.getElementById("a1");
+            questions.innerHTML("Question" + number(n) + ":" + question);
 
-    <a>Question 1:</a><br/><br/>
+
+
+              document.getElementById("myBtn").addEventListener("click", myFunction);
+
+
+              function myNumberUp() {
+              document.getElementById("myNumber").stepUp(1);
+              }
+
+              function myNumberDown() {
+                document.getElementById("myNumber").stepDown(1);
+              }
+
+
+
+
+              var txt;
+
+              function enterQuestion() {
+
+
+
+                var value = parseInt(document.getElementById('number'));
+                value = isNaN(value) ? 0 : value;
+                value++;
+                document.getElementById('number').value = value;
+
+                var question = prompt("Please enter Question "+ value +" : ", "");
+                if (question == null || question == "") {
+                  txt = "User didnt put in a Question.";
+                } else {
+                  txt = "Question " + value + " : " + question;
+
+
+                }
+                document.getElementById("a1").innerHTML = txt;
+              }
+              //var slider = document.getElementById("myRange");
+//var output = document.getElementById("demo");
+//output.innerHTML = slider.value; // Display the default slider value
+
+// Update the current slider value (each time you drag the slider handle)
+//slider.oninput = rangeFunction() {
+  //output.innerHTML = this.value;}
+
+              function yesnoCheck() {
+    if (document.getElementById('yesCheck').checked) {
+        document.getElementById('ifYes').style.visibility = 'visible';
+    } else {
+        document.getElementById('ifYes').style.visibility = 'hidden';
+    }}
+            </script>
+
+    <p id ="a1"><a id="number"></a></p><br/><br/>
 
 <section>
 
@@ -22,16 +79,18 @@
     <div id="col-2">
 
 <ul>
-      <p>Difficulty:</p><input type="range" min="1" max="100" value="50" class="slider" id="myRange"><br/>
-      <p>Complexity:</p><input type="range" min="1" max="100" value="50" class="slider" id="myRange"><br/>
-      <p>Time:</p><input type="range" min="1" max="240" value="50" class="slider" id="myRange"><br/>
+      <p>Difficulty:</p><input type="range" min="1" max="100" value="50" class="slider" id="myRange" ><br/>
+      <p>Complexity:</p><input type="range" min="1" max="100" value="50" class="slider" id="myRange" ><br/>
+      <p>Time:</p><input type="range" min="1" max="240" value="50" class="slider" id="myRange" ><br/>
       <p>Accuracy:</p><input type="range" min="1" max="100" value="50"  class="slider" id="myRange"><br/>
 </ul>
     </div>
 
 </section>
-<footer id="footer">
-  <input type="button" onclick="location.href='2.html';" value="Next" />
+<footer id="myBtn">
+  <input type="button" onclick="window.history.go(-1);" value="Previous" />
+
+  <input type="button" onclick="enterQuestion();" value="Next" />
 </footer>
 
 <a class="btn btn-primary" href="Admin.html" role="button">Teacher Homepage</a>
