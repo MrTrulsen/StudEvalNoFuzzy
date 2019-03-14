@@ -1,149 +1,179 @@
 <!DOCTYPE html>
 <html lang="en" dir="ltr">
-  <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
 
-    <title>EDUEVAL</title>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
 
-    <link rel="icon" href="https://pbs.twimg.com/profile_images/671984499648020481/FixFBnRN_400x400.png">
-    <link rel="stylesheet" href="../bootstrap/css/bootstrap.css">
-    <link rel="stylesheet" href="../css/mainStyle.css">
-    <script src="../bootstrap/js/jquery.min.js"></script>
-    <script src="../bootstrap/js/bootstrap.bundle.js"></script>
-    <script src="../js/dashboard.js"></script>
-    <script src="../js/canvasjs.min.js"></script>
+  <title>EDUEVAL</title>
 
-  </head>
+  <link rel="icon" href="https://pbs.twimg.com/profile_images/671984499648020481/FixFBnRN_400x400.png">
+  <link rel="stylesheet" href="../bootstrap/css/bootstrap.css">
+  <link rel="stylesheet" href="../css/mainStyle.css">
+  <link rel="stylesheet" href="../css/tempusdominus-bootstrap-4.css">
+  <script src="../bootstrap/js/jquery.min.js"></script>
+  <script src="../bootstrap/js/bootstrap.bundle.js"></script>
+  <script src="../js/dashboard.js"></script>
+  <script src="../js/canvasjs.min.js"></script>
+  <script src="../js/moment.js"></script>
+  <script src="../jquery/jquery-3.3.1.min.js"></script>
+  <script src="../js/tempusdominus-bootstrap-4.js"></script>
 
-  <body id="body">
-    <section id="fullPage">
-      <div id="headerWrapper">
-        <div id="header" class="container">
-          <p>EDUEVAL</p>
-        </div>
+</head>
+
+<body id="body">
+  <section id="fullPage">
+    <div id="headerWrapper">
+      <div id="header" class="container">
+        <p>EDUEVAL</p>
       </div>
+    </div>
 
-      <div id="navWrapper">
-        <nav id="navbar" class="navbar navbar-expand-md navbar-light container">
-          <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarTogglerDemo01" aria-controls="navbarTogglerDemo01" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
-          </button>
+    <div id="navWrapper">
+      <nav id="navbar" class="navbar navbar-expand-md navbar-light container">
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarTogglerDemo01" aria-controls="navbarTogglerDemo01" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
 
-          <div class="collapse navbar-collapse" id="navbarTogglerDemo01">
-            <div class="navbar-nav mr-auto mt-2 mt-lg-0">
-              <div id="addEvaluation" class="nav-item">
-                <button id="navButton" class="btn btn-primary" data-toggle="modal" data-target="#modalAddEval">Add evaluation</button>
-              </div>
+        <div class="collapse navbar-collapse" id="navbarTogglerDemo01">
+          <div class="navbar-nav mr-auto mt-2 mt-lg-0">
+            <div id="addEvaluation" class="nav-item">
+              <button id="navButton" class="btn btn-primary" data-toggle="modal" data-target="#modalAddEval">Add evaluation</button>
+            </div>
 
-          <!--  <div id="registerStudents" class="nav-item">
+            <!-- <div id="registerStudents" class="nav-item">
                 <button id="navButton" class="btn btn-primary" onclick="location.href='#'">Register students</button>
               </div>
-            </div>
--->
+            </div> -->
+
             <div id="logout" class="nav-item">
               <button id="navButton" class="btn btn-primary" onclick="location.href='/logout'" type="submit">Log out</button>
             </div>
           </div>
-        </nav>
-      </div>
+      </nav>
+    </div>
 
-      <div id="contentWrapper">
-        <div id="content" class="container">
-          <div id="workArea">
-            <div id="cardArea">
-              <div id="evaluationCard" class="card text-center">
-                <div class="card-header">
-                  Featured
+    <script>
+
+    </script>
+
+    <div id="contentWrapper">
+      <div id="content" class="container">
+        <div id="workArea">
+          <div id="cardArea">
+            <div id="evaluationCard" class="card text-center">
+              <div class="card-header">
+                Featured
+              </div>
+
+              <div class="card-body">
+                <h5 class="card-title">Special title treatment</h5>
+                <p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
+                <button id="cardButton" class="btn btn-primary" onclick="location.href='#'" type="submit">See evaluation</button>
+                <button id="cardButton" class="btn btn-primary" onclick="location.href='#'" type="submit">Result</button>
+                <button id="cardButton" class="btn btn-primary" onclick="location.href='#'" type="submit">Remove</button>
+              </div>
+
+              <div class="card-footer text-muted">
+                2 days ago (TIMESTAMP DATE)
+              </div>
+            </div>
+          </div>
+
+          <div id="modalResult" class="modal fade bd-example-modal-xl" style="height: 100%;" tabindex="-1" role="dialog" aria-labelledby="myExtraLargeModalLabel" aria-hidden="true">
+            <div class="modal-dialog modal-xl">
+              <div class="modal-content">
+                <div class="modal-header">
+                  <h5 class="modal-title h4" id="myExtraLargeModalLabel">Evaluation Result</h5>
+                  <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">×</span>
+                  </button>
                 </div>
 
-                <div class="card-body">
-                  <h5 class="card-title">Special title treatment</h5>
-                  <p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
-                  <button id="cardButton" class="btn btn-primary" onclick="location.href='#'" type="submit">See evaluation</button>
-                  <button id="cardButton" class="btn btn-primary" onclick="location.href='#'" type="submit">Result</button>
-                  <button id="cardButton" class="btn btn-primary" onclick="location.href='#'" type="submit">Remove</button>
-                </div>
-
-                <div class="card-footer text-muted">
-                  2 days ago (TIMESTAMP DATE)
+                <div id="modalBody" class="modal-body">
+                  <div id="chartContainer"></div>
                 </div>
               </div>
             </div>
+          </div>
 
-            <div id="modalResult" class="modal fade bd-example-modal-xl" style="height: 100%;" tabindex="-1" role="dialog" aria-labelledby="myExtraLargeModalLabel" aria-hidden="true">
-              <div class="modal-dialog modal-xl">
-                <div class="modal-content">
+          <div class="modal fade" id="modalAddEval" tabindex="-1" role="dialog" aria-labelledby="modalAddEvalTitle" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-scrollable" role="document">
+              <div class="modal-content">
+                <form action="index.html" method="post">
                   <div class="modal-header">
-                    <h5 class="modal-title h4" id="myExtraLargeModalLabel">Evaluation Result</h5>
+                    <h5 class="modal-title" id="modalAddEvalTitle">Add evaluation</h5>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                      <span aria-hidden="true">×</span>
+                      <span aria-hidden="true">&times;</span>
                     </button>
                   </div>
+                  <div class="modal-body">
 
-                  <div id="modalBody" class="modal-body">
-                    <div id="chartContainer"></div>
+                    <div class="input-group mb-3">
+                      <div class="input-group-prepend">
+                        <span class="input-group-text" id="inputGroup-sizing-default">Course ID</span>
+                      </div>
+                      <input id="courseIdInput" type="text" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default">
+                    </div>
+
+                    <div class="input-group mb-3">
+                      <div class="input-group-prepend">
+                        <span class="input-group-text" id="inputGroup-sizing-default">Course Name</span>
+                      </div>
+                      <input id="courseNameInput" type="text" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default">
+                    </div>
+
+                    <!-- <div class="input-group mb-3">
+                      <div class="input-group-prepend">
+                        <span class="input-group-text" id="inputGroup-sizing-default">Evaluation Start</span>
+                      </div>
+                      <input id="datetimepicker7" type="text" class="form-control datetimepicker-input" data-target="#datetimepicker7" data-target-input="nearest"/>
+                      <div class="input-group-append" data-target="#datetimepicker7" data-toggle="datetimepicker">
+                        <div class="input-group-text"><i class="fa fa-calendar"></i></div>
+                      </div>
+                    </div>
+
+                    <div class="input-group mb-3">
+                      <div class="input-group-prepend">
+                        <span class="input-group-text" id="inputGroup-sizing-default">Evaluation Stop</span>
+                      </div>
+                      <input id="datetimepicker8" type="text" class="form-control datetimepicker-input" data-target="#datetimepicker8" data-target-input="nearest"/>
+                      <div class="input-group-append" data-target="#datetimepicker8" data-toggle="datetimepicker">
+                        <div class="input-group-text"><i class="fa fa-calendar"></i></div>
+                      </div>
+                    </div> -->
+
+                    <div class="input-group">
+                      <div class="input-group-prepend">
+                        <span class="input-group-text">Date of exam</span>
+                      </div>
+
+                      <input id="dateInput" type="text" placeholder="Date" aria-label="Date" class="form-control">
+                      <input id="monthInput" type="text" placeholder="Month" aria-label="Month" class="form-control">
+                      <input id="yearInput" type="text" placeholder="Year" aria-label="Year" class="form-control">
+                    </div>
                   </div>
-                </div>
+
+                  <div class="modal-footer">
+                    <button type="button" class="btn btn-primary" data-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-primary" data-dismiss="modal" type="submit" onclick="addEvaluation()">Save evaluation</button>
+                  </div>
+                </form>
               </div>
             </div>
-
-            <div class="modal fade" id="modalAddEval" tabindex="-1" role="dialog" aria-labelledby="modalAddEvalTitle" aria-hidden="true">
-              <div class="modal-dialog modal-dialog-scrollable" role="document">
-                <div class="modal-content">
-                  <form action="index.html" method="post">
-                    <div class="modal-header">
-                      <h5 class="modal-title" id="modalAddEvalTitle">Modal title</h5>
-                      <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                      </button>
-                    </div>
-                    <div class="modal-body">
-
-                      <div class="input-group mb-3">
-                        <div class="input-group-prepend">
-                          <span class="input-group-text" id="inputGroup-sizing-default">Course ID:</span>
-                        </div>
-                        <input type="text" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default">
-                      </div>
-
-                      <div class="input-group mb-4">
-                        <div class="custom-file">
-                          <input type="file" class="custom-file-input" id="inputGroupFile02">
-                          <label class="custom-file-label" for="inputGroupFile02" aria-describedby="inputGroupFileAddon02">Register Student:</label>
-                        </div>
-                        <div class="input-group-append">
-                          <span class="input-group-text" id="inputGroupFileAddon02">Upload</span>
-                        </div>
-                      </div>
-
-                      <div class="input-group mb-5">
-                        <div class="input-group-prepend">
-                          <span class="input-group-text" id="inputGroup-sizing-default">Choose amount of eval questions:</span>
-                        </div>
-                        <input type="text" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default">
-                      </div>
-
-                    </div>
-                    <div class="modal-footer">
-                      <button type="button" class="btn btn-primary" data-dismiss="modal">Close</button>
-                      <button type="button" class="btn btn-primary" type="submit" onclick="addEvaluation()">Save evaluation</button>
-                    </div>
-                  </form>
-                </div>
-              </div>
-            </div>
-
           </div>
+
         </div>
       </div>
-      <!-- Working footer, but not corresponding to bottom placement in the CSS
+    </div>
+    <!-- Working footer, but not corresponding to bottom placement in the CSS
       <div id="footer">
         <div id="footerLinks">
           <div><span id="copyright">© 2019 EDUEVAL</span>
           </div>
         </div>
-      </div>-->
-    </section>
-  </body>
+      </div> -->
+  </section>
+</body>
+
 </html>
