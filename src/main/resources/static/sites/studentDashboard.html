@@ -1,114 +1,81 @@
 <!DOCTYPE html>
 <html lang="en" dir="ltr">
-  <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
 
-    <title>EDUEVAL</title>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
 
-    <link rel="icon" href="https://pbs.twimg.com/profile_images/671984499648020481/FixFBnRN_400x400.png">
-    <link rel="stylesheet" href="../bootstrap/css/bootstrap.css">
-    <link rel="stylesheet" href="../css/mainStyle.css">
-    <script src="../bootstrap/js/jquery.min.js"></script>
-    <script src="../bootstrap/js/bootstrap.bundle.js"></script>
-  </head>
+  <title>EDUEVAL</title>
 
-  <body id="body">
-    <section id="fullPage">
-      <div id="headerWrapper">
-        <div id="header" class="container">
-          <p>EDUEVAL</p>
-        </div>
+  <link rel="icon" href="https://pbs.twimg.com/profile_images/671984499648020481/FixFBnRN_400x400.png">
+  <script src="../bootstrap/js/jquery.min.js"></script>
+  <link rel="stylesheet" href="../bootstrap/css/bootstrap.css">
+  <link rel="stylesheet" href="../css/mainStyle.css">
+  <script src="../bootstrap/js/bootstrap.bundle.js"></script>
+  <script src="../js/dashboard.js"></script>
+  <script src="../js/canvasjs.min.js"></script>
+  <script src="../js/moment.js"></script>
+</head>
+
+<body id="body">
+  <section id="fullPage">
+    <div id="headerWrapper">
+      <div id="header" class="container">
+        <p>EDUEVAL</p>
       </div>
+    </div>
 
-      <div id="navWrapper">
-        <nav id="navbar" class="navbar navbar-expand-md navbar-light container">
-          <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarTogglerDemo01" aria-controls="navbarTogglerDemo01" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
-          </button>
+    <!-- Navigation bar  -->
+    <div id="navWrapper">
+      <nav id="navbar" class="navbar navbar-expand-md navbar-light container">
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarTogglerDemo01" aria-controls="navbarTogglerDemo01" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
 
-          <div class="collapse navbar-collapse" id="navbarTogglerDemo01">
-            <div class="navbar-nav mr-auto mt-2 mt-lg-0">
-              </p>
-            </div>
-
-            <div id="logout" class="nav-item">
-              <a href="#">
-                <button id="navButton" class="btn btn-primary" type="submit">Log out</button>
-              </a>
-            </div>
+        <!-- Class for collapseable navbar  -->
+        <div class="collapse navbar-collapse" id="navbarTogglerDemo01">
+          <div class="navbar-nav mr-auto mt-2 mt-lg-0">
           </div>
-        </nav>
-      </div>
+          <div id="logoutNav" class="nav-item">
+            <!-- Button for logging out  -->
+            <button id="logoutButton" class="btn btn-primary" onclick="location.href='#'" type="submit">Log out</button>
+          </div>
+        </div>
+      </nav>
+    </div>
 
-      <div id="contentWrapper">
-        <div id="content" class="container">
-          <div id="workArea">
-            <div id="cardArea">
-              <div id="evaluationCard" class="card text-center">
-                <div class="card-header">
-                  Featured
-                </div>
-
-                <div class="card-body">
-                  <h5 class="card-title">Special title treatment</h5>
-                  <p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
-                  <a href="#">
-                    <button id="cardButton" class="btn btn-primary" type="submit" style="width: 50%">Take evaluation</button>
-                  </a>
-                </div>
-
-                <div class="card-footer text-muted">
-                  2 days ago (TIMESTAMP DATE)
-                </div>
+    <div id="contentWrapper">
+      <div id="content" class="container">
+        <!-- IDEA: Put the content under here -->
+        <div id="workArea">
+          <div id="cardArea">
+            <div id="evaluationCard" class="card text-center">
+              <div class="card-header">
+                Featured
+              </div>
+              <div class="card-body">
+                <h5 class="card-title">Special title treatment</h5>
+                <p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
+                <button id="takeEvalButton" class="btn btn-primary" onclick="location.href='#'" type="submit">Take evaluation</button>
               </div>
 
-              <div id="evaluationCard" class="card text-center">
-                <div class="card-header">
-                  Featured
-                </div>
-
-                <div class="card-body">
-                  <h5 class="card-title">Special title treatment</h5>
-                  <p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
-                  <a href="#">
-                    <button id="cardButton" class="btn btn-primary" type="submit" style="width: 50%">Take evaluation</button>
-                  </a>
-                </div>
-
-                <div class="card-footer text-muted">
-                  2 days ago (TIMESTAMP DATE)
-                </div>
-              </div>
-
-              <div id="evaluationCard" class="card text-center">
-                <div class="card-header">
-                  Featured
-                </div>
-
-                <div class="card-body">
-                  <h5 class="card-title">Special title treatment</h5>
-                  <p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
-                  <button id="cardButton" class="btn btn-primary" onclick="location.href='#'" type="submit">See evaluation</button>
-                  <button id="cardButton" class="btn btn-primary" onclick="location.href='#'" type="submit">Result</button>
-                  <button id="cardButton" class="btn btn-primary" onclick="location.href='#'" type="submit">Remove</button>
-                </div>
-
-                <div class="card-footer text-muted">
-                  2 days ago (TIMESTAMP DATE)
-                </div>
+              <div class="card-footer text-muted">
+                2 days ago (TIMESTAMP DATE)
               </div>
             </div>
           </div>
+          <!-- IDEA: Dont put any content outside here -->
         </div>
       </div>
-      <!-- Working footer, but not corresponding to bottom placement in the CSS
+    </div>
+    <!-- Working footer, but not corresponding to bottom placement in the CSS
       <div id="footer">
         <div id="footerLinks">
           <div><span id="copyright">© 2019 EDUEVAL</span>
           </div>
         </div>
       </div>-->
-    </section>
-  </body>
+  </section>
+</body>
+
 </html>

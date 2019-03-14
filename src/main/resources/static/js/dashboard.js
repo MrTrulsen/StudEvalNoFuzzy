@@ -13,40 +13,34 @@ function addEvaluation() {
   var courseName = document.getElementById("courseNameInput").value;
   var course = courseId + " - " + courseName;
 
-  var dateInput = document.getElementById("dateInput").value;
-  var monthInput = document.getElementById("monthInput").value;
-  var yearInput = document.getElementById("yearInput").value;
+  var date = document.getElementById("dateInput").value;
+  var month = document.getElementById("monthInput").value;
+  var year = document.getElementById("yearInput").value;
 
-  var date;
-  var extraDay;
-  dateFormat();
-  addEvaluationCard(course, date, date1, extraDay);
+  var closed;
+  var opened;
+  dateFormat(date, month, year);
+  addEvaluationCard(course, opened, closed);
 
-  function dateFormat() {
-    extraDay = Number(parseInt(dateInput) + 1);
-    dateInput = dateInput.concat(" ");
-    monthInput = monthInput.concat(" ");
-
-    var headerDate = monthInput.concat(extraDay).concat(yearInput);
-    var footerDate = monthInput.concat(dateInput).concat(yearInput);
-
+  function dateFormat(date, month, year) {
+    var headerDate = month.concat(Number(parseInt(date) + 1)).concat(year);
+    var footerDate = month.concat(" ").concat(date.concat(" ")).concat(year);
     var format = "MMM Do YYYY";
 
-    date = moment(footerDate, format).format(format);
-    date1 = moment(headerDate, format).format(format);
-    console.log(date);
+    closed = moment(headerDate, format).format(format);
+    opened = moment(footerDate, format).format(format);
   }
 }
 
-//Draws a evaluation card at the dashboard based on the input fields
-function addEvaluationCard(course, date, date1, extraDay) {
+//Draws a evaluation card at the dashboard based on the fields
+function addEvaluationCard(course, opened, closed) {
   var card = document.createElement("div");
   card.id = "evaluationCard";
   card.className = "card text-center";
 
   var cardHeader = document.createElement("div");
   cardHeader.className = "card-header";
-  cardHeader.innerHTML = "Open until: " + date1;
+  cardHeader.innerHTML = "Open until: " + closed;
   card.append(cardHeader);
 
   var cardBody = document.createElement("div");
@@ -64,7 +58,7 @@ function addEvaluationCard(course, date, date1, extraDay) {
   cardBody.append(p);
 
   var button = document.createElement("button");
-  button.id = "cardButton"
+  button.id = "seeEvalButton"
   button.className = "btn btn-primary";
   button.setAttribute("onclick", "location.href='#'");
   button.type = "submit";
@@ -72,7 +66,7 @@ function addEvaluationCard(course, date, date1, extraDay) {
   cardBody.append(button);
 
   var button = document.createElement("button");
-  button.id = "cardButton"
+  button.id = "resultButton"
   button.className = "btn btn-primary";
   button.setAttribute("data-toggle", "modal");
   button.setAttribute("data-target", "#modalResult");
@@ -81,19 +75,19 @@ function addEvaluationCard(course, date, date1, extraDay) {
   cardBody.append(button);
 
   var button = document.createElement("button");
-  button.id = "cardButton"
+  button.id = "removeButton"
   button.className = "btn btn-primary";
-  button.setAttribute("onclick", "removeEvaluation()");
+  button.setAttribute("data-toggle", "modal");
+  button.setAttribute("data-target", "#modalRemove");
   button.type = "submit";
   button.innerText = "Remove";
   cardBody.append(button);
 
   var cardFooter = document.createElement("div");
   cardFooter.className = "card-footer text-muted";
-  cardFooter.innerHTML = "Opened: " + date;
+  cardFooter.innerHTML = "Opened: " + opened;
   card.append(cardFooter);
 
-  console.log(date)
   document.getElementById("cardArea").appendChild(card);
 }
 
@@ -191,17 +185,3 @@ function closeSelf(){
     self.close();
     return true;
 }
-
-//Makes the datemepicker possbile to interact with
-$(function () {
-       $('#datetimepicker7').datetimepicker();
-       $('#datetimepicker8').datetimepicker({
-           useCurrent: false
-       });
-       $("#datetimepicker7").on("change.datetimepicker", function (e) {
-           $('#datetimepicker8').datetimepicker('minDate', e.date);
-       });
-       $("#datetimepicker8").on("change.datetimepicker", function (e) {
-           $('#datetimepicker7').datetimepicker('maxDate', e.date);
-       });
-   });

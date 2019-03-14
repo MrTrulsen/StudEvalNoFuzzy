@@ -8,17 +8,13 @@
   <title>EDUEVAL</title>
 
   <link rel="icon" href="https://pbs.twimg.com/profile_images/671984499648020481/FixFBnRN_400x400.png">
+  <script src="../bootstrap/js/jquery.min.js"></script>
   <link rel="stylesheet" href="../bootstrap/css/bootstrap.css">
   <link rel="stylesheet" href="../css/mainStyle.css">
-  <link rel="stylesheet" href="../css/tempusdominus-bootstrap-4.css">
-  <script src="../bootstrap/js/jquery.min.js"></script>
   <script src="../bootstrap/js/bootstrap.bundle.js"></script>
   <script src="../js/dashboard.js"></script>
   <script src="../js/canvasjs.min.js"></script>
   <script src="../js/moment.js"></script>
-  <script src="../jquery/jquery-3.3.1.min.js"></script>
-  <script src="../js/tempusdominus-bootstrap-4.js"></script>
-
 </head>
 
 <body id="body">
@@ -29,49 +25,50 @@
       </div>
     </div>
 
+    <!-- Navigation bar  -->
     <div id="navWrapper">
       <nav id="navbar" class="navbar navbar-expand-md navbar-light container">
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarTogglerDemo01" aria-controls="navbarTogglerDemo01" aria-expanded="false" aria-label="Toggle navigation">
           <span class="navbar-toggler-icon"></span>
         </button>
 
+        <!-- Class for collapseable navbar  -->
         <div class="collapse navbar-collapse" id="navbarTogglerDemo01">
           <div class="navbar-nav mr-auto mt-2 mt-lg-0">
-            <div id="addEvaluation" class="nav-item">
-              <button id="navButton" class="btn btn-primary" data-toggle="modal" data-target="#modalAddEval">Add evaluation</button>
+            <div id="addEvalNav" class="nav-item">
+              <!-- Button for adding evaluation  -->
+              <button id="addEvalButton" class="btn btn-primary" data-toggle="modal" data-target="#modalAddEval">Add evaluation</button>
             </div>
 
             <!-- <div id="registerStudents" class="nav-item">
                 <button id="navButton" class="btn btn-primary" onclick="location.href='#'">Register students</button>
-              </div>
-            </div> -->
-
-            <div id="logout" class="nav-item">
-              <button id="navButton" class="btn btn-primary" onclick="location.href='#'" type="submit">Log out</button>
-            </div>
+              </div> -->
           </div>
+
+          <div id="logoutNav" class="nav-item">
+            <!-- Button for logging out  -->
+            <button id="logoutButton" class="btn btn-primary" onclick="location.href='#'" type="submit">Log out</button>
+          </div>
+        </div>
       </nav>
     </div>
 
-    <script>
-
-    </script>
-
     <div id="contentWrapper">
       <div id="content" class="container">
+        <!-- IDEA: Put the content under here -->
         <div id="workArea">
           <div id="cardArea">
+            <!-- Evaluation card  -->
             <div id="evaluationCard" class="card text-center">
               <div class="card-header">
                 Featured
               </div>
-
               <div class="card-body">
                 <h5 class="card-title">Special title treatment</h5>
                 <p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
-                <button id="cardButton" class="btn btn-primary" onclick="location.href='#'" type="submit">See evaluation</button>
-                <button id="cardButton" class="btn btn-primary" onclick="location.href='#'" type="submit">Result</button>
-                <button id="cardButton" class="btn btn-primary" onclick="location.href='#'" type="submit">Remove</button>
+                <button id="seeEvalButton" class="btn btn-primary" onclick="location.href='#'" type="submit">See evaluation</button>
+                <button id="resultButton" class="btn btn-primary" data-toggle="modal" data-target="#modalResult" type="submit">Result</button>
+                <button id="removeButton" class="btn btn-primary" data-toggle="modal" data-target="#modalRemove" type="submit">Remove</button>
               </div>
 
               <div class="card-footer text-muted">
@@ -79,8 +76,10 @@
               </div>
             </div>
           </div>
+          <!-- IDEA: Dont put any content outside here -->
 
-          <div id="modalResult" class="modal fade bd-example-modal-xl" style="height: 100%;" tabindex="-1" role="dialog" aria-labelledby="myExtraLargeModalLabel" aria-hidden="true">
+          <!-- Modal for printing results in bar graph  -->
+          <div id="modalResult" class="modal fade bd-example-modal-xl" tabindex="-1" role="dialog" aria-labelledby="myExtraLargeModalLabel" aria-hidden="true">
             <div class="modal-dialog modal-xl">
               <div class="modal-content">
                 <div class="modal-header">
@@ -97,6 +96,7 @@
             </div>
           </div>
 
+          <!-- Modal for adding evaluation with user input  -->
           <div class="modal fade" id="modalAddEval" tabindex="-1" role="dialog" aria-labelledby="modalAddEvalTitle" aria-hidden="true">
             <div class="modal-dialog modal-dialog-scrollable" role="document">
               <div class="modal-content">
@@ -123,26 +123,6 @@
                       <input id="courseNameInput" type="text" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default">
                     </div>
 
-                    <!-- <div class="input-group mb-3">
-                      <div class="input-group-prepend">
-                        <span class="input-group-text" id="inputGroup-sizing-default">Evaluation Start</span>
-                      </div>
-                      <input id="datetimepicker7" type="text" class="form-control datetimepicker-input" data-target="#datetimepicker7" data-target-input="nearest"/>
-                      <div class="input-group-append" data-target="#datetimepicker7" data-toggle="datetimepicker">
-                        <div class="input-group-text"><i class="fa fa-calendar"></i></div>
-                      </div>
-                    </div>
-
-                    <div class="input-group mb-3">
-                      <div class="input-group-prepend">
-                        <span class="input-group-text" id="inputGroup-sizing-default">Evaluation Stop</span>
-                      </div>
-                      <input id="datetimepicker8" type="text" class="form-control datetimepicker-input" data-target="#datetimepicker8" data-target-input="nearest"/>
-                      <div class="input-group-append" data-target="#datetimepicker8" data-toggle="datetimepicker">
-                        <div class="input-group-text"><i class="fa fa-calendar"></i></div>
-                      </div>
-                    </div> -->
-
                     <div class="input-group">
                       <div class="input-group-prepend">
                         <span class="input-group-text">Date of exam</span>
@@ -163,6 +143,26 @@
             </div>
           </div>
 
+          <!-- Modal for removing evaluations  -->
+          <div class="modal fade" id="modalRemove" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+              <div class="modal-content">
+                <div class="modal-header">
+                  <h5 class="modal-title" id="exampleModalLabel">Removing evaluation</h5>
+                  <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                  </button>
+                </div>
+                <div class="modal-body">
+                  Are you sure you want to remove the evaluation?
+                </div>
+                <div class="modal-footer">
+                  <button type="button" class="btn btn-primary" data-dismiss="modal">Close</button>
+                  <button type="button" class="btn btn-primary" data-dismiss="modal" onclick="removeEvaluation()">Remove evaluation</button>
+                </div>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
     </div>
