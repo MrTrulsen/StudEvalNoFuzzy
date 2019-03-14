@@ -13,54 +13,49 @@
     <h1>EduEval Survey for Exam:</h1> <!-- implement field for exam input after Exam:  -->
       <br/><br/>
       <script>
-         questionNumber = prompt("Please enter question" + myNumber(), "");
-            document.getElementById("a1");
-            questions.innerHTML("Question" + number(n) + ":" + question);
-
-
-
-              document.getElementById("myBtn").addEventListener("click", myFunction);
-
-
-              function myNumberUp() {
-              document.getElementById("myNumber").stepUp(1);
-              }
-
-              function myNumberDown() {
-                document.getElementById("myNumber").stepDown(1);
-              }
 
 
 
 
-              var txt;
+var value=1;
+
+function getQuestionNumber(){
+return  value= parseInt(document.getElementById('number').value);
+
+}
+function increaseQuestionNumber(newValue){
+  this.value = parseInt(document.getElementById("number").value);
+  isNaN(value)?0:value;
+    newValue=value++;
+  document.getElementById("number").value = value;
+}
 
               function enterQuestion() {
 
+                var newValue=value++;
+
+                var txt;
 
 
-                var value = parseInt(document.getElementById('number'));
-                value = isNaN(value) ? 0 : value;
-                value++;
-                document.getElementById('number').value = value;
-
-                var question = prompt("Please enter Question "+ value +" : ", "");
+                var question = prompt("Please enter Question "+ newValue+" : ", "");
                 if (question == null || question == "") {
                   txt = "User didnt put in a Question.";
                 } else {
-                  txt = "Question " + value + " : " + question;
+                  txt = "Question " + newValue + " : " + question;
 
 
                 }
                 document.getElementById("a1").innerHTML = txt;
-              }
-              //var slider = document.getElementById("myRange");
-//var output = document.getElementById("demo");
-//output.innerHTML = slider.value; // Display the default slider value
 
-// Update the current slider value (each time you drag the slider handle)
-//slider.oninput = rangeFunction() {
-  //output.innerHTML = this.value;}
+              }
+
+              var slider = document.getElementById("range");
+              var output = document.getElementById("myRange");
+              output.innerHTML = slider.value; // Display the default slider value
+
+//Update the current slider value (each time you drag the slider handle)
+              slider.oninput = rangeFunction() {
+              output.innerHTML = this.value;}
 
               function yesnoCheck() {
     if (document.getElementById('yesCheck').checked) {
@@ -90,10 +85,10 @@
 <footer id="myBtn">
   <input type="button" onclick="window.history.go(-1);" value="Previous" />
 
-  <input type="button" onclick="enterQuestion();" value="Next" />
+  <input id="nextButton" type="button" onclick="enterQuestion();" value="Next" />
 </footer>
 
-<a class="btn btn-primary" href="Admin.html" role="button">Teacher Homepage</a>
+<a class="btn btn-primary" href="teacherDashboard.html" role="button">Teacher Homepage</a>
 
 <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.6/umd/popper.min.js" integrity="sha384-wHAiFfRlMFy6i5SRaxvfOCifBUQy1xHdJ/yoi7FRNXMRBu5WHdZYu1hA6ZOblgut" crossorigin="anonymous"></script>
