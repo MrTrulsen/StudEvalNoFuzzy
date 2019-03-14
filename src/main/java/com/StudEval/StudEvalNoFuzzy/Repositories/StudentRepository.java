@@ -7,6 +7,7 @@ import com.StudEval.StudEvalNoFuzzy.RowMappers.CourseRowMapper;
 import com.StudEval.StudEvalNoFuzzy.RowMappers.QuestionRowMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.jdbc.support.rowset.SqlRowSet;
 import org.springframework.stereotype.Repository;
 
 import java.util.ArrayList;
@@ -44,13 +45,31 @@ public class StudentRepository {
 
     /**
      * Fetches the related questions one question at a time
-     * @param id
+     * @param course_id
      * @return The question with this id.
      */
-    public Question findRelatedQuestionsToCourse(Integer id){
-        Question questions;
-        String query = "SELECT * FROM questions WHERE question_id =?";
-        questions = jdbcTemplate.queryForObject(query, new Object[] {id},questionRowMapper);
+    public List findRelatedQuestionsToCourse(String course_id){
+        List<Question> questions = new ArrayList<>();
+        String query = "SELECT q.* FROM questions q INNER JOIN course_ques_junc j ON q.question_id = j.question_id WHERE course_id=?";
+        SqlRowSet rs = jdbcTemplate.queryForRowSet(query, new Object[] {course_id});
+        if(rs.first()){
+           Question question = new Question(rs.getInt("question_id"),
+                    rs.getString("question_text"),
+                    rs.getFloat("complexity"),
+                    rs.getFloat("time_use"),
+                    rs.getFloat("difficulty"),
+                    rs.getFloat("importance"));
+            questions.add(question);
+            while(rs.next()){
+                question = new Question(rs.getInt("question_id"),
+                        rs.getString("question_text"),
+                        rs.getFloat("complexity"),
+                        rs.getFloat("time_use"),
+                        rs.getFloat("difficulty"),
+                        rs.getFloat("importance"));
+                questions.add(question);
+            }
+        }
         return questions;
     }
 
