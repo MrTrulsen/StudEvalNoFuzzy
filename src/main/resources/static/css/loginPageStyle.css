@@ -98,6 +98,10 @@ body {
 	width: 100%;
 }
 
+#registerText {
+	color: #666666;
+}
+
 #buttonWrapper {
 	margin-top: 20px;
 }
@@ -109,6 +113,7 @@ body {
 #submitButton, #backButton {
 	float: left;
 	width: 47%;
+	margin-bottom: 20px;
 }
 
 #footerPlaceholder, #footer {

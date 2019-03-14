@@ -13,34 +13,40 @@ function addEvaluation() {
   var courseName = document.getElementById("courseNameInput").value;
   var course = courseId + " - " + courseName;
 
-
-  console.log();
-
   var dateInput = document.getElementById("dateInput").value;
   var monthInput = document.getElementById("monthInput").value;
   var yearInput = document.getElementById("yearInput").value;
 
+  var date;
+  var extraDay;
+  dateFormat();
+  addEvaluationCard(course, date, date1, extraDay);
 
-// TODO: Implement time functions
-  moment().date(dateInput);
-  //timestamp.setDate(dateInput);
-  //timestamp.setMonth(monthInput);
-  //timestamp.setYear(yearInput);
+  function dateFormat() {
+    extraDay = Number(parseInt(dateInput) + 1);
+    dateInput = dateInput.concat(" ");
+    monthInput = monthInput.concat(" ");
 
-  var timestamp = moment().format("MMM Do YYYY");
+    var headerDate = monthInput.concat(extraDay).concat(yearInput);
+    var footerDate = monthInput.concat(dateInput).concat(yearInput);
 
-  addEvaluationCard(course, timestamp);
+    var format = "MMM Do YYYY";
+
+    date = moment(footerDate, format).format(format);
+    date1 = moment(headerDate, format).format(format);
+    console.log(date);
+  }
 }
 
 //Draws a evaluation card at the dashboard based on the input fields
-function addEvaluationCard(course, timestamp) {
+function addEvaluationCard(course, date, date1, extraDay) {
   var card = document.createElement("div");
   card.id = "evaluationCard";
   card.className = "card text-center";
 
   var cardHeader = document.createElement("div");
   cardHeader.className = "card-header";
-  cardHeader.innerHTML = "Open until: " + timestamp;
+  cardHeader.innerHTML = "Open until: " + date1;
   card.append(cardHeader);
 
   var cardBody = document.createElement("div");
@@ -84,9 +90,10 @@ function addEvaluationCard(course, timestamp) {
 
   var cardFooter = document.createElement("div");
   cardFooter.className = "card-footer text-muted";
-  cardFooter.innerHTML = "Opened: " + timestamp;
+  cardFooter.innerHTML = "Opened: " + date;
   card.append(cardFooter);
 
+  console.log(date)
   document.getElementById("cardArea").appendChild(card);
 }
 
