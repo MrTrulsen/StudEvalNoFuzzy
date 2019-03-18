@@ -20,7 +20,7 @@ function addEvaluation() {
   var closed;
   var opened;
   dateFormat(date, month, year);
-  addEvaluationCard(course, opened, closed);
+  addEvaluationCard(courseId, course, opened, closed);
 
   function dateFormat(date, month, year) {
     var headerDate = month.concat(" ").concat(Number(parseInt(date) + 1)).concat(" ").concat(year);
@@ -33,9 +33,9 @@ function addEvaluation() {
 }
 
 //Draws a evaluation card at the dashboard based on the fields
-function addEvaluationCard(course, opened, closed) {
+function addEvaluationCard(courseId, course, opened, closed) {
   var card = document.createElement("div");
-  card.id = "evaluationCard";
+  card.id = "evaluationCard" + courseId;
   card.className = "card text-center";
 
   var cardHeader = document.createElement("div");
@@ -58,16 +58,16 @@ function addEvaluationCard(course, opened, closed) {
   cardBody.append(p);
 
   var button = document.createElement("button");
-  button.id = "seeEvalButton"
-  button.className = "btn btn-primary";
+  button.id = "seeEvalButton" + courseId;
+  button.className = "btn btn-primary evalButton";
   button.setAttribute("onclick", "location.href='#'");
   button.type = "submit";
   button.innerText = "See evaluation";
   cardBody.append(button);
 
   var button = document.createElement("button");
-  button.id = "resultButton"
-  button.className = "btn btn-primary";
+  button.id = "resultButton" + courseId;
+  button.className = "btn btn-primary evalButton";
   button.setAttribute("data-toggle", "modal");
   button.setAttribute("data-target", "#modalResult");
   button.type = "submit";
@@ -75,8 +75,8 @@ function addEvaluationCard(course, opened, closed) {
   cardBody.append(button);
 
   var button = document.createElement("button");
-  button.id = "removeButton"
-  button.className = "btn btn-primary";
+  button.id = "removeButton" + courseId;
+  button.className = "btn btn-primary evalButton";
   button.setAttribute("data-toggle", "modal");
   button.setAttribute("data-target", "#modalRemove");
   button.type = "submit";
@@ -93,8 +93,20 @@ function addEvaluationCard(course, opened, closed) {
 
 //Removes a evaluation when user press on the remove button inside the card
 function removeEvaluation() {
-  var remove = document.getElementById("evaluationCard");
-  remove.parentNode.removeChild(remove);
+  var courseId = document.getElementById("removeCourse");
+  var removeCourse = document.getElementById("removeCourse");
+  removeCourse.classList.remove("is-invalid");
+
+  if (courseId.value.length == 0) {
+    removeCourse.classList.add("is-invalid");
+  }
+  else {
+    var remove = document.getElementById("evaluationCard" + courseId);
+    remove.parentNode.removeChild(remove);
+    removeCourse.setAttribute("data-dismiss", "modal");
+    removeCourse.setAttribute("type", "submit");
+    console.log("hei");
+  }
 }
 
 //Toggles the data inside the graph drawing

@@ -31,7 +31,7 @@ html, body {
   margin-bottom: 100px;
 }
 
-#seeEvalButton, #resultButton, #removeButton {
+.evalButton {
   width: 20%;
   margin-left: 5px;
   margin-right: 5px;
@@ -100,7 +100,7 @@ html, body {
   border-color: #696969;
 }
 
-#evaluationCard {
+.text-center {
   margin-bottom: 25px;
 }
 
@@ -132,7 +132,7 @@ html, body {
     width: 100%;
   }
 
-  #addEvalButton, #logoutButton, #seeEvalButton, #resultButton, #removeButton, #takeEvalButton {
+  #addEvalButton, #logoutButton, #takeEvalButton, .evalButton {
     width: 100%;
   }
 
