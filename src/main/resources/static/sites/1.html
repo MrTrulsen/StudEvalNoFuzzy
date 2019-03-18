@@ -17,18 +17,7 @@
 
 
 
-var value=1;
-
-function getQuestionNumber(){
-return  value= parseInt(document.getElementById('number').value);
-
-}
-function increaseQuestionNumber(newValue){
-  this.value = parseInt(document.getElementById("number").value);
-  isNaN(value)?0:value;
-    newValue=value++;
-  document.getElementById("number").value = value;
-}
+var value = 1;
 
               function enterQuestion() {
 
@@ -49,20 +38,10 @@ function increaseQuestionNumber(newValue){
 
               }
 
-              var slider = document.getElementById("range");
-              var output = document.getElementById("myRange");
-              output.innerHTML = slider.value; // Display the default slider value
 
-//Update the current slider value (each time you drag the slider handle)
-              slider.oninput = rangeFunction() {
-              output.innerHTML = this.value;}
 
-              function yesnoCheck() {
-    if (document.getElementById('yesCheck').checked) {
-        document.getElementById('ifYes').style.visibility = 'visible';
-    } else {
-        document.getElementById('ifYes').style.visibility = 'hidden';
-    }}
+
+
             </script>
 
     <p id ="a1"><a id="number"></a></p><br/><br/>
@@ -74,18 +53,18 @@ function increaseQuestionNumber(newValue){
     <div id="col-2">
 
 <ul>
-      <p>Difficulty:</p><input type="range" min="1" max="100" value="50" class="slider" id="myRange" ><br/>
-      <p>Complexity:</p><input type="range" min="1" max="100" value="50" class="slider" id="myRange" ><br/>
-      <p>Time:</p><input type="range" min="1" max="240" value="50" class="slider" id="myRange" ><br/>
-      <p>Accuracy:</p><input type="range" min="1" max="100" value="50"  class="slider" id="myRange"><br/>
+      <p>Difficulty:</p><input type="range" min="1" max="100" value="50" class="slider" id="myRange" oninput="document.getElementById('slider1').innerHTML = this.value"><label id="slider1"></label><br/>
+      <p>Complexity:</p><input type="range" min="1" max="100" value="50" class="slider" id="myRange" oninput="document.getElementById('slider2').innerHTML = this.value"><label id="slider2"></label><br/>
+      <p>Time:</p><input type="range" min="1" max="240" value="120" class="slider" id="myRange" oninput="document.getElementById('slider3').innerHTML = this.value"><label id="slider3"></label><br/>
+      <p>Accuracy:</p><input type="range" min="1" max="100" value="50"  class="slider" id="myRange" oninput="document.getElementById('slider4').innerHTML = this.value"><label id="slider4"></label><br/>
 </ul>
     </div>
 
 </section>
 <footer id="myBtn">
-  <input type="button" onclick="window.history.go(-1);" value="Previous" />
+  <input type="button" value="Previous" />
 
-  <input id="nextButton" type="button" onclick="enterQuestion();" value="Next" />
+  <input id="nextButton" type="button" onclick="enterQuestion();" value="Add Question" />
 </footer>
 
 <a class="btn btn-primary" href="teacherDashboard.html" role="button">Teacher Homepage</a>
