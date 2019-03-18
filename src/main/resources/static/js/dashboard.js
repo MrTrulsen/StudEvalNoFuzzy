@@ -23,7 +23,7 @@ function addEvaluation() {
   addEvaluationCard(course, opened, closed);
 
   function dateFormat(date, month, year) {
-    var headerDate = month.concat(Number(parseInt(date) + 1)).concat(year);
+    var headerDate = month.concat(" ").concat(Number(parseInt(date) + 1)).concat(" ").concat(year);
     var footerDate = month.concat(" ").concat(date.concat(" ")).concat(year);
     var format = "MMM Do YYYY";
 
