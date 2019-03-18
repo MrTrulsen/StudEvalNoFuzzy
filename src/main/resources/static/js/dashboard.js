@@ -93,19 +93,19 @@ function addEvaluationCard(courseId, course, opened, closed) {
 
 //Removes a evaluation when user press on the remove button inside the card
 function removeEvaluation() {
-  var courseId = document.getElementById("removeCourse");
+  var courseId = document.getElementById("removeCourse").value;
   var removeCourse = document.getElementById("removeCourse");
   removeCourse.classList.remove("is-invalid");
 
-  if (courseId.value.length == 0) {
+  if (courseId.length == 0) {
     removeCourse.classList.add("is-invalid");
   }
+  
   else {
     var remove = document.getElementById("evaluationCard" + courseId);
+    var removeCourseButton = document.getElementById("removeCourseButton");
     remove.parentNode.removeChild(remove);
-    removeCourse.setAttribute("data-dismiss", "modal");
-    removeCourse.setAttribute("type", "submit");
-    console.log("hei");
+    removeCourseButton.setAttribute("data-dismiss", "modal");
   }
 }
 
