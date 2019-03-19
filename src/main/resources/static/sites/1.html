@@ -5,70 +5,13 @@
     <link rel="styleSheet1" type="text/css"href="StyleSheet1.css">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css" integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossorigin="anonymous">
 
-    <script src="Script.js"></script>
+    <script src="../js/dynamicQuestionPage.js"></script>
 
     <title>EduEval.net</title>
   </head>
   <body>
     <h1>EduEval Survey for Exam:</h1> <!-- implement field for exam input after Exam:  -->
       <br/><br/>
-      <script>
-         questionNumber = prompt("Please enter question" + myNumber(), "");
-            document.getElementById("a1");
-            questions.innerHTML("Question" + number(n) + ":" + question);
-
-
-
-              document.getElementById("myBtn").addEventListener("click", myFunction);
-
-
-              function myNumberUp() {
-              document.getElementById("myNumber").stepUp(1);
-              }
-
-              function myNumberDown() {
-                document.getElementById("myNumber").stepDown(1);
-              }
-
-
-
-
-              var txt;
-
-              function enterQuestion() {
-
-
-
-                var value = parseInt(document.getElementById('number'));
-                value = isNaN(value) ? 0 : value;
-                value++;
-                document.getElementById('number').value = value;
-
-                var question = prompt("Please enter Question "+ value +" : ", "");
-                if (question == null || question == "") {
-                  txt = "User didnt put in a Question.";
-                } else {
-                  txt = "Question " + value + " : " + question;
-
-
-                }
-                document.getElementById("a1").innerHTML = txt;
-              }
-              //var slider = document.getElementById("myRange");
-//var output = document.getElementById("demo");
-//output.innerHTML = slider.value; // Display the default slider value
-
-// Update the current slider value (each time you drag the slider handle)
-//slider.oninput = rangeFunction() {
-  //output.innerHTML = this.value;}
-
-              function yesnoCheck() {
-    if (document.getElementById('yesCheck').checked) {
-        document.getElementById('ifYes').style.visibility = 'visible';
-    } else {
-        document.getElementById('ifYes').style.visibility = 'hidden';
-    }}
-            </script>
 
     <p id ="a1"><a id="number"></a></p><br/><br/>
 
@@ -79,21 +22,21 @@
     <div id="col-2">
 
 <ul>
-      <p>Difficulty:</p><input type="range" min="1" max="100" value="50" class="slider" id="myRange" ><br/>
-      <p>Complexity:</p><input type="range" min="1" max="100" value="50" class="slider" id="myRange" ><br/>
-      <p>Time:</p><input type="range" min="1" max="240" value="50" class="slider" id="myRange" ><br/>
-      <p>Accuracy:</p><input type="range" min="1" max="100" value="50"  class="slider" id="myRange"><br/>
+      <p>Difficulty:</p><input type="range" min="1" max="100" value="50" class="slider" id="myRange" oninput="document.getElementById('slider1').innerHTML = this.value"><label id="slider1"></label><br/>
+      <p>Complexity:</p><input type="range" min="1" max="100" value="50" class="slider" id="myRange" oninput="document.getElementById('slider2').innerHTML = this.value"><label id="slider2"></label><br/>
+      <p>Time:</p><input type="range" min="1" max="240" value="120" class="slider" id="myRange" oninput="document.getElementById('slider3').innerHTML = this.value"><label id="slider3"></label><br/>
+      <p>Accuracy:</p><input type="range" min="1" max="100" value="50"  class="slider" id="myRange" oninput="document.getElementById('slider4').innerHTML = this.value"><label id="slider4"></label><br/>
 </ul>
     </div>
 
 </section>
 <footer id="myBtn">
-  <input type="button" onclick="window.history.go(-1);" value="Previous" />
+  <input type="button" value="Previous" />
 
-  <input type="button" onclick="enterQuestion();" value="Next" />
+  <input id="nextButton" type="button" onclick="enterQuestion();" value="Add Question" />
 </footer>
 
-<a class="btn btn-primary" href="Admin.html" role="button">Teacher Homepage</a>
+<a class="btn btn-primary" href="teacherDashboard.html" role="button">Teacher Homepage</a>
 
 <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.6/umd/popper.min.js" integrity="sha384-wHAiFfRlMFy6i5SRaxvfOCifBUQy1xHdJ/yoi7FRNXMRBu5WHdZYu1hA6ZOblgut" crossorigin="anonymous"></script>

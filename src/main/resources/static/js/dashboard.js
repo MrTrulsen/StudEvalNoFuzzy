@@ -13,34 +13,34 @@ function addEvaluation() {
   var courseName = document.getElementById("courseNameInput").value;
   var course = courseId + " - " + courseName;
 
+  var date = document.getElementById("dateInput").value;
+  var month = document.getElementById("monthInput").value;
+  var year = document.getElementById("yearInput").value;
 
-  console.log();
+  var closed;
+  var opened;
+  dateFormat(date, month, year);
+  addEvaluationCard(courseId, course, opened, closed);
 
-  var dateInput = document.getElementById("dateInput").value;
-  var monthInput = document.getElementById("monthInput").value;
-  var yearInput = document.getElementById("yearInput").value;
+  function dateFormat(date, month, year) {
+    var headerDate = month.concat(" ").concat(Number(parseInt(date) + 1)).concat(" ").concat(year);
+    var footerDate = month.concat(" ").concat(date.concat(" ")).concat(year);
+    var format = "MMM Do YYYY";
 
-
-// TODO: Implement time functions
-  moment().date(dateInput);
-  //timestamp.setDate(dateInput);
-  //timestamp.setMonth(monthInput);
-  //timestamp.setYear(yearInput);
-
-  var timestamp = moment().format("MMM Do YYYY");
-
-  addEvaluationCard(course, timestamp);
+    closed = moment(headerDate, format).format(format);
+    opened = moment(footerDate, format).format(format);
+  }
 }
 
-//Draws a evaluation card at the dashboard based on the input fields
-function addEvaluationCard(course, timestamp) {
+//Draws a evaluation card at the dashboard based on the fields
+function addEvaluationCard(courseId, course, opened, closed) {
   var card = document.createElement("div");
-  card.id = "evaluationCard";
+  card.id = "evaluationCard" + courseId;
   card.className = "card text-center";
 
   var cardHeader = document.createElement("div");
   cardHeader.className = "card-header";
-  cardHeader.innerHTML = "Open until: " + timestamp;
+  cardHeader.innerHTML = "Open until: " + closed;
   card.append(cardHeader);
 
   var cardBody = document.createElement("div");
@@ -58,16 +58,16 @@ function addEvaluationCard(course, timestamp) {
   cardBody.append(p);
 
   var button = document.createElement("button");
-  button.id = "cardButton"
-  button.className = "btn btn-primary";
+  button.id = "seeEvalButton" + courseId;
+  button.className = "btn btn-primary evalButton";
   button.setAttribute("onclick", "location.href='#'");
   button.type = "submit";
   button.innerText = "See evaluation";
   cardBody.append(button);
 
   var button = document.createElement("button");
-  button.id = "cardButton"
-  button.className = "btn btn-primary";
+  button.id = "resultButton" + courseId;
+  button.className = "btn btn-primary evalButton";
   button.setAttribute("data-toggle", "modal");
   button.setAttribute("data-target", "#modalResult");
   button.type = "submit";
@@ -75,16 +75,17 @@ function addEvaluationCard(course, timestamp) {
   cardBody.append(button);
 
   var button = document.createElement("button");
-  button.id = "cardButton"
-  button.className = "btn btn-primary";
-  button.setAttribute("onclick", "removeEvaluation()");
+  button.id = "removeButton" + courseId;
+  button.className = "btn btn-primary evalButton";
+  button.setAttribute("data-toggle", "modal");
+  button.setAttribute("data-target", "#modalRemove");
   button.type = "submit";
   button.innerText = "Remove";
   cardBody.append(button);
 
   var cardFooter = document.createElement("div");
   cardFooter.className = "card-footer text-muted";
-  cardFooter.innerHTML = "Opened: " + timestamp;
+  cardFooter.innerHTML = "Opened: " + opened;
   card.append(cardFooter);
 
   document.getElementById("cardArea").appendChild(card);
@@ -92,8 +93,20 @@ function addEvaluationCard(course, timestamp) {
 
 //Removes a evaluation when user press on the remove button inside the card
 function removeEvaluation() {
-  var remove = document.getElementById("evaluationCard");
-  remove.parentNode.removeChild(remove);
+  var courseId = document.getElementById("removeCourse").value;
+  var removeCourse = document.getElementById("removeCourse");
+  removeCourse.classList.remove("is-invalid");
+
+  if (courseId.length == 0) {
+    removeCourse.classList.add("is-invalid");
+  }
+  
+  else {
+    var remove = document.getElementById("evaluationCard" + courseId);
+    var removeCourseButton = document.getElementById("removeCourseButton");
+    remove.parentNode.removeChild(remove);
+    removeCourseButton.setAttribute("data-dismiss", "modal");
+  }
 }
 
 //Toggles the data inside the graph drawing
@@ -184,17 +197,3 @@ function closeSelf(){
     self.close();
     return true;
 }
-
-//Makes the datemepicker possbile to interact with
-$(function () {
-       $('#datetimepicker7').datetimepicker();
-       $('#datetimepicker8').datetimepicker({
-           useCurrent: false
-       });
-       $("#datetimepicker7").on("change.datetimepicker", function (e) {
-           $('#datetimepicker8').datetimepicker('minDate', e.date);
-       });
-       $("#datetimepicker8").on("change.datetimepicker", function (e) {
-           $('#datetimepicker7').datetimepicker('maxDate', e.date);
-       });
-   });

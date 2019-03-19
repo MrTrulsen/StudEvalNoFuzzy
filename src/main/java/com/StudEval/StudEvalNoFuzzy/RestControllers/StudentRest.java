@@ -27,14 +27,10 @@ public class StudentRest {
 
     @RequestMapping("/somequestions")
     public List<Question> listRelatedQuestions(){
-        //TO DO; implement ID to come in
+        //TO DO; implement course_ID to come in
         String course_id = "ID202712";
-        List<Integer> idList = studentRepository.findRelatedQuestionIdToCourse(course_id);
         List<Question> questionsList = new ArrayList<>();
-        for(Integer id : idList){
-            Question question = studentRepository.findRelatedQuestionsToCourse(id);
-            questionsList.add(question);
-        }
+        questionsList = studentRepository.findRelatedQuestionsToCourse(course_id);
         return questionsList;
     }
 }

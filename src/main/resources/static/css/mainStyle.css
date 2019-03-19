@@ -31,10 +31,14 @@ html, body {
   margin-bottom: 100px;
 }
 
-#cardButton {
+.evalButton {
   width: 20%;
   margin-left: 5px;
   margin-right: 5px;
+}
+
+#takeEvalButton {
+  width: 50%;
 }
 
 #header {
@@ -45,7 +49,7 @@ html, body {
   overflow: hidden;
 }
 
-#addEvaluation {
+#addEvalNav {
   display: inline;
   margin-right: 15px;
 }
@@ -54,9 +58,13 @@ html, body {
   display: inline;
 }
 
-#logout {
+#logoutNav {
   display: block;
-  float: left;
+  float: right;
+}
+
+#addEvalButton, #logoutButton {
+  width: 150px;
 }
 
 #footer {
@@ -92,7 +100,7 @@ html, body {
   border-color: #696969;
 }
 
-#evaluationCard {
+.text-center {
   margin-bottom: 25px;
 }
 
@@ -102,8 +110,8 @@ html, body {
   background-color: #FFFFFF;
   margin-top: 10px;
   margin-bottom: 10px;
-  width: 150px;
 }
+
 
 .btn-primary:hover {
   background-color: #4488DD;
@@ -120,12 +128,16 @@ html, body {
     margin-right: 0;
   }
 
-  #addEvaluation, #registerStudents, #logout {
+  #addEvaluation, #registerStudents, #logoutNav {
     width: 100%;
   }
 
-  #navButton, #cardButton {
+  #addEvalButton, #logoutButton, #takeEvalButton, .evalButton {
     width: 100%;
+  }
+
+  #addEvalNav {
+    margin-right: 0;
   }
 }
 
