@@ -1,7 +1,7 @@
 package com.StudEval.StudEvalNoFuzzy.RestControllers;
 
-import com.StudEval.StudEvalNoFuzzy.Evaluation.Course;
 import com.StudEval.StudEvalNoFuzzy.Evaluation.Question;
+import com.StudEval.StudEvalNoFuzzy.Repositories.MainRepository;
 import com.StudEval.StudEvalNoFuzzy.Repositories.StudentRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -14,13 +14,17 @@ import java.util.List;
 public class StudentRest {
 
     private final StudentRepository studentRepository;
+    private final MainRepository mainRepository;
+
 
     @Autowired
-    public StudentRest(StudentRepository studentRepository) {
+    public StudentRest(StudentRepository studentRepository, MainRepository mainRepository) {
         this.studentRepository = studentRepository;
+        this.mainRepository = mainRepository;
     }
 
-    @RequestMapping("/questions")
+    //Test for getting all the questions
+    @RequestMapping("/allQuestions")
     public List<Question> listAllQuestions(){
         return studentRepository.findAllQuestions();
     }
@@ -30,7 +34,7 @@ public class StudentRest {
         //TO DO; implement course_ID to come in
         String course_id = "ID202712";
         List<Question> questionsList = new ArrayList<>();
-        questionsList = studentRepository.findRelatedQuestionsToCourse(course_id);
+        questionsList = mainRepository.findRelatedQuestionsToCourse(course_id);
         return questionsList;
     }
 }
