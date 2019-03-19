@@ -1,4 +1,4 @@
-package com.StudEval.StudEvalNoFuzzy.config;
+package com.StudEval.StudEvalNoFuzzy.Security;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;

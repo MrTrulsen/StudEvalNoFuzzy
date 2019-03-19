@@ -1,4 +1,4 @@
-package com.StudEval.StudEvalNoFuzzy.config;
+package com.StudEval.StudEvalNoFuzzy.Security;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
