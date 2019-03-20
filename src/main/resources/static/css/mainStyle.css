@@ -31,13 +31,13 @@ html, body {
   margin-bottom: 100px;
 }
 
-.evalButton {
+.evalBtn {
   width: 20%;
   margin-left: 5px;
   margin-right: 5px;
 }
 
-#takeEvalButton {
+#takeEvalBtn {
   width: 50%;
 }
 
@@ -63,7 +63,7 @@ html, body {
   float: right;
 }
 
-#addEvalButton, #logoutButton {
+#addEvalBtn, #logoutBtn {
   width: 150px;
 }
 
@@ -132,7 +132,7 @@ html, body {
     width: 100%;
   }
 
-  #addEvalButton, #logoutButton, #takeEvalButton, .evalButton {
+  #addEvalBtn, #logoutBtn, #takeEvalBtn, .evalBtn {
     width: 100%;
   }
 

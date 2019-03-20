@@ -1,12 +1,3 @@
-
-
-
-
-
-
-
-
-
 //Adds a new evaluation by making a card with user input at the dashboard
 function addEvaluation() {
   var courseId = document.getElementById("courseIdInput").value;
@@ -32,168 +23,119 @@ function addEvaluation() {
   }
 }
 
-//Draws a evaluation card at the dashboard based on the fields
+//Generates a evaluation card at the dashboard based on the user input
 function addEvaluationCard(courseId, course, opened, closed) {
   var card = document.createElement("div");
   card.id = "evaluationCard" + courseId;
   card.className = "card text-center";
 
-  var cardHeader = document.createElement("div");
-  cardHeader.className = "card-header";
-  cardHeader.innerHTML = "Open until: " + closed;
-  card.append(cardHeader);
+  generateCardContent("div", "card-header", "Open until: ", closed);
 
   var cardBody = document.createElement("div");
   cardBody.className = "card-body";
   card.append(cardBody);
 
-  var h5 = document.createElement("h5");
-  h5.className = "card-title";
-  h5.innerHTML = course;
-  cardBody.append(h5);
-
-  var p = document.createElement("p");
-  p.className = "card-text";
-  p.innerHTML = "With supporting text below as a natural lead-in to additional content.";
-  cardBody.append(p);
-
-  var button = document.createElement("button");
-  button.id = "seeEvalButton" + courseId;
-  button.className = "btn btn-primary evalButton";
-  button.setAttribute("onclick", "location.href='#'");
-  button.type = "submit";
-  button.innerText = "See evaluation";
-  cardBody.append(button);
-
-  var button = document.createElement("button");
-  button.id = "resultButton" + courseId;
-  button.className = "btn btn-primary evalButton";
-  button.setAttribute("data-toggle", "modal");
-  button.setAttribute("data-target", "#modalResult");
-  button.type = "submit";
-  button.innerText = "Result";
-  cardBody.append(button);
-
-  var button = document.createElement("button");
-  button.id = "removeButton" + courseId;
-  button.className = "btn btn-primary evalButton";
-  button.setAttribute("data-toggle", "modal");
-  button.setAttribute("data-target", "#modalRemove");
-  button.type = "submit";
-  button.innerText = "Remove";
-  cardBody.append(button);
-
-  var cardFooter = document.createElement("div");
-  cardFooter.className = "card-footer text-muted";
-  cardFooter.innerHTML = "Opened: " + opened;
-  card.append(cardFooter);
+  generateCardContent2("h5", "card-title", course);
+  generateCardContent2("p", "card-text", "With supporting text below as a natural lead-in to additional content.");
+  generateBtn("seeEval", courseId, 1, "onclick", "location.href='#'", null, null, null, null, "See evaluation");
+  generateBtn("result", courseId, 2, "data-toggle", "modal", "data-target", "#modalResult", null, null, "Result");
+  generateBtn("remove", courseId, 2, "data-toggle", "modal", "data-target", "#modalRemove", "onclick", "removeErrorMessage()", "Remove");
+  generateCardContent("div", "card-footer text-muted", "Opened: ", opened);
 
   document.getElementById("cardArea").appendChild(card);
+
+  //Generates buttons
+  function generateBtn(type, courseId, numOfAttributes, attribute, data, attribute2, data2, attribute3, data3, text) {
+    var btn = document.createElement("button");
+    btn.id = type + "btn" + courseId;
+    btn.className = "btn btn-primary evalBtn";
+    btn.setAttribute(attribute, data);
+    btn.setAttribute(attribute2, data2);
+    btn.setAttribute(attribute3, data3);
+    btn.type = "submit";
+    btn.innerText = text;
+    cardBody.append(btn);
+  }
+
+  //Generates content inside the cards with date
+  function generateCardContent(element, className, innerHtml, date) {
+    var content = document.createElement(element);
+    content.className = className;
+    content.innerHTML = innerHtml + date;
+    card.append(content);
+  }
+
+  //Generates content inside the cards
+  function generateCardContent2(element, className, innerHtml) {
+    var content = document.createElement(element);
+    content.className = className;
+    content.innerHTML = innerHtml;
+    cardBody.append(content);
+  }
 }
 
 //Removes a evaluation when user press on the remove button inside the card
 function removeEvaluation() {
   var courseId = document.getElementById("removeCourse").value;
-  var removeCourse = document.getElementById("removeCourse");
-  removeCourse.classList.remove("is-invalid");
+  var inputField = document.getElementById("removeCourse");
+  var removeCourseBtn = document.getElementById("removeCourseBtn");
 
+  removeCourseBtn.removeAttribute("data-dismiss", "modal");
+
+  //If length = 0 it will return an error message and not continue
   if (courseId.length == 0) {
-    removeCourse.classList.add("is-invalid");
+    showErrorMessage(inputField, "modalRemoveBody", "modalRemoveContent");
   }
-  
+
   else {
     var remove = document.getElementById("evaluationCard" + courseId);
-    var removeCourseButton = document.getElementById("removeCourseButton");
-    remove.parentNode.removeChild(remove);
-    removeCourseButton.setAttribute("data-dismiss", "modal");
+    if (remove == null) {
+      showErrorMessage(inputField, "modalRemoveBody", "modalRemoveContent");
+    }
+    else {
+      remove.parentNode.removeChild(remove);
+      removeCourseBtn.setAttribute("data-dismiss", "modal");
+    }
   }
 }
 
-//Toggles the data inside the graph drawing
-function toggleDataSeries(e) {
-	if (typeof (e.dataSeries.visible) === "undefined" || e.dataSeries.visible) {
-		e.dataSeries.visible = false;
-	} else {
-		e.dataSeries.visible = true;
-	}
-	e.chart.render();
+function removeErrorMessage() {
+  document.getElementById("removeCourse").classList.remove("is-invalid");
 }
 
-window.onload = function ()  {
+//Prints out an error message to the user
+function showErrorMessage(inputField, element, errorPlacement) {
+  var feedback = document.getElementById(errorPlacement);
+  var errorMessage = document.createElement("div");
+  var body = document.getElementById(element);
 
-var chart = new CanvasJS.Chart("chartContainer", {
-	exportEnabled: true,
-	animationEnabled: true,
-  zoomEnabled: true,
-	title:{
-		text: "Question scores before and after evaluation"
-	},
-	axisX: {
-		title: "Questions"
-	},
-	axisY: {
-		title: "Question scores in %"
-	},
-	toolTip: {
-		shared: true
-	},
-	legend: {
-		cursor: "pointer",
-		itemclick: toggleDataSeries
-	},
-	data: [{
-		type: "column",
-		name: "Before",
-		showInLegend: true,
-		yValueFormatString: "#,##0.#",
-		dataPoints: [
-			{ label: "1", y: 10 },
-			{ label: "2", y: 4 },
-			{ label: "3", y: 5 },
-			{ label: "4", y: 7 },
-			{ label: "5", y: 9 },
-      { label: "6", y: 3 },
-			{ label: "7", y: 10 },
-			{ label: "8", y: 7 },
-			{ label: "9", y: 4 },
-			{ label: "10", y: 5 },
-      { label: "11", y: 6 },
-			{ label: "12", y: 9 },
-			{ label: "13", y: 8 },
-			{ label: "14", y: 7 },
-			{ label: "15", y: 4 }
-		]
-	},
-	{
-		type: "column",
-		name: "After",
-		axisYType: "secondary",
-		showInLegend: true,
-		yValueFormatString: "#,##0.#",
-		dataPoints: [
-			{ label: "1", y: 12 },
-			{ label: "2", y: 8 },
-			{ label: "3", y: 7 },
-			{ label: "4", y: 9 },
-			{ label: "5", y: 7 },
-      { label: "6", y: 5 },
-			{ label: "7", y: 8 },
-			{ label: "8", y: 4 },
-			{ label: "9", y: 6 },
-			{ label: "10", y: 3 },
-      { label: "11", y: 9 },
-			{ label: "12", y: 7 },
-			{ label: "13", y: 5 },
-			{ label: "14", y: 4 },
-			{ label: "15", y: 6 }
-		]
-	}]
-});
-chart.render();
+  removeElementsByClass("invalid-feedback");
+  inputField.classList.add("is-invalid");
+  body.classList.add("is-invalid");
+
+  errorMessage.className = "invalid-feedback";
+  errorMessage.innerHTML = "Please enter the correct value";
+  feedback.append(errorMessage);
 }
 
-//Closes the active element
-function closeSelf(){
-    self.close();
-    return true;
+//Removes elements by class name
+function removeElementsByClass(className) {
+  var elements = document.getElementsByClassName("invalid-feedback");
+  while (elements.length > 0) {
+    elements[0].parentNode.removeChild(elements[0]);
+  }
+}
+
+//TODO: Remove if not being used later in the project
+function getCount(parent, getChildrensChildren){
+    var relevantChildren = 0;
+    var children = parent.childNodes.length;
+    for(var i=0; i < children; i++){
+        if(parent.childNodes[i].nodeType != 3){
+            if(getChildrensChildren)
+                relevantChildren += getCount(parent.childNodes[i],true);
+            relevantChildren++;
+        }
+    }
+    return relevantChildren;
 }

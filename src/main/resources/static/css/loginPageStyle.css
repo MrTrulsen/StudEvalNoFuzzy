@@ -94,7 +94,7 @@ body {
 	max-width: 100%;
 }
 
-#studentButton, #teacherButton {
+#studentBtn, #teacherBtn {
 	width: 100%;
 }
 
@@ -102,15 +102,15 @@ body {
 	color: #666666;
 }
 
-#buttonWrapper {
+#btnWrapper {
 	margin-top: 20px;
 }
 
-#submitButton {
+#submitBtn {
 	margin-right: 20px;
 }
 
-#submitButton, #backButton {
+#submitBtn, #backBtn {
 	float: left;
 	width: 47%;
 	margin-bottom: 20px;

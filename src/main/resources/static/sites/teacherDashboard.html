@@ -12,9 +12,10 @@
   <link rel="stylesheet" href="../bootstrap/css/bootstrap.css">
   <link rel="stylesheet" href="../css/mainStyle.css">
   <script src="../bootstrap/js/bootstrap.bundle.js"></script>
-  <script src="../js/dashboard.js"></script>
   <script src="../js/canvasjs.min.js"></script>
   <script src="../js/moment.js"></script>
+  <script src="../js/dashboard.js"></script>
+  <script src="../js/graph.js"></script>
 </head>
 
 <body id="body">
@@ -66,9 +67,9 @@
               <div class="card-body">
                 <h5 class="card-title">Special title treatment</h5>
                 <p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
-                <button id="seeEvalButton" class="btn btn-primary evalButton" onclick="location.href='#'" type="submit">See evaluation</button>
-                <button id="resultButton" class="btn btn-primary evalButton" data-toggle="modal" data-target="#modalResult" type="submit">Result</button>
-                <button id="removeButton" class="btn btn-primary evalButton" data-toggle="modal" data-target="#modalRemove" type="submit">Remove</button>
+                <button id="seeEvalBtn" class="btn btn-primary evalBtn" onclick="location.href='#'" type="submit">See evaluation</button>
+                <button id="resultBtn" class="btn btn-primary evalBtn" data-toggle="modal" data-target="#modalResult" type="submit">Result</button>
+                <button id="removeBtn" class="btn btn-primary evalBtn" onclick="removeErrorMessage()" data-toggle="modal" data-target="#modalRemove" type="submit">Remove</button>
               </div>
 
               <div class="card-footer text-muted">
@@ -153,18 +154,23 @@
                     <span aria-hidden="true">&times;</span>
                   </button>
                 </div>
+
                 <div id="modalRemoveBody" class="modal-body">
                   <p>Are you sure you want to remove the evaluation? If you want so, please write in the Course ID of the evaluation.</p>
-                  <div class="input-group mb-3">
+                  <div id="modalRemoveContent" class="input-group mb-3">
                     <div class="input-group-prepend">
                       <span class="input-group-text" id="inputGroup-sizing-default">Course ID</span>
                     </div>
                     <input id="removeCourse" type="text" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default">
+                    <div id="test" class="">
+
+                    </div>
                   </div>
                 </div>
+
                 <div class="modal-footer">
                   <button type="button" class="btn btn-primary" data-dismiss="modal">Close</button>
-                  <button id="removeCourseButton" type="button" class="btn btn-primary" onclick="removeEvaluation()">Remove evaluation</button>
+                  <button id="removeCourseBtn" type="button" class="btn btn-primary" onclick="removeEvaluation()">Remove evaluation</button>
                 </div>
               </div>
             </div>
