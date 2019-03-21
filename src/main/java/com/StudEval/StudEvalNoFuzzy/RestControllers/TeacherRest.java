@@ -16,6 +16,7 @@ import java.util.List;
 public class TeacherRest {
     private final TeacherRepository teacherRepository;
     private final MainRepository mainRepository;
+
     @Autowired
     public TeacherRest(TeacherRepository teacherRepository, MainRepository mainRepository) {
         this.teacherRepository = teacherRepository;
@@ -45,6 +46,22 @@ public class TeacherRest {
         String course_id = "ID202712";
         List<Student> studentList = teacherRepository.findStudentsInCourse(course_id);
         return studentList;
+    }
+
+    //test
+    @RequestMapping("/addStudents")
+    public String addStudents(){
+        List<Student> students = new ArrayList<>();
+        Student stud = new Student(3,"Test@ntnu.no", "",false);
+        Student stud1 = new Student(4,"Test3@ntnu.no", "",false);
+        Student stud2 = new Student(5,"Test4@ntnu.no", "",false);
+        Student stud3 = new Student(8,"Test5@ntnu.no", "",false);
+        students.add(stud);
+        students.add(stud1);
+        students.add(stud2);
+        students.add(stud3);
+        teacherRepository.importStudentsToCourse(students,"ID202712");
+        return "";
     }
 
 

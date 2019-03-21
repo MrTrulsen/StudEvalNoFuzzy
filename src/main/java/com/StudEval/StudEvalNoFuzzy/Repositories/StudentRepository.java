@@ -18,8 +18,7 @@ import java.util.List;
 public class StudentRepository {
     private final JdbcTemplate jdbcTemplate;
     private QuestionRowMapper questionRowMapper = new QuestionRowMapper();
-    private CourseRowMapper courseRowMapper = new CourseRowMapper();
-    private CourseIdRowMapper courseIdRowMapper = new CourseIdRowMapper();
+
 
     @Autowired
     public StudentRepository(JdbcTemplate jdbcTemplate) {
@@ -28,7 +27,6 @@ public class StudentRepository {
 
     //This in only for testing
     public List<Question> findAllQuestions(){
-        List<Question> questions = new ArrayList<>();
         return jdbcTemplate.query("SELECT * FROM questions", questionRowMapper);
     }
 
