@@ -7,9 +7,9 @@ import com.StudEval.StudEvalNoFuzzy.RowMappers.CourseRowMapper;
 import com.StudEval.StudEvalNoFuzzy.RowMappers.QuestionRowMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
-import org.springframework.jdbc.support.rowset.SqlRowSet;
+//import org.springframework.jdbc.support.rowset.SqlRowSet;
 import org.springframework.stereotype.Repository;
-import sun.applet.Main;
+//import sun.applet.Main;
 
 import java.util.ArrayList;
 import java.util.List;

@@ -76,36 +76,41 @@ function addEvaluationCard(courseId, course, opened, closed) {
 
 //Removes a evaluation when user press on the remove button inside the card
 function removeEvaluation() {
-  var courseId = document.getElementById("removeCourse").value;
-  var inputField = document.getElementById("removeCourse");
-  var removeCourseBtn = document.getElementById("removeCourseBtn");
+  var inputValue = document.getElementById("removeEvaluation").value;
+  var inputField = document.getElementById("removeEvaluation");
+  var btn = document.getElementById("removeEvaluationBtn");
 
-  removeCourseBtn.removeAttribute("data-dismiss", "modal");
+  btn.removeAttribute("data-dismiss", "modal");
 
-  //If length = 0 it will return an error message and not continue
-  if (courseId.length == 0) {
-    showErrorMessage(inputField, "modalRemoveBody", "modalRemoveContent");
-  }
+  checkForError(inputValue, inputField, btn);
 
-  else {
-    var remove = document.getElementById("evaluationCard" + courseId);
-    if (remove == null) {
-      showErrorMessage(inputField, "modalRemoveBody", "modalRemoveContent");
+  //Checks for error at user input
+  function checkForError(inputValue, inputField, btn) {
+    //If length = 0 it will return an error message and not continue
+    if (inputValue.length == 0) {
+      showErrorMessage(inputField, "modalRemoveBody", "modalRemoveContent", "The field can not be empty");
     }
     else {
-      remove.parentNode.removeChild(remove);
-      removeCourseBtn.setAttribute("data-dismiss", "modal");
+      var action = document.getElementById("evaluationCard" + inputValue);
+      if (action == null) {
+        showErrorMessage(inputField, "modalRemoveBody", "modalRemoveContent", "Please enter the correct value");
+      }
+      else {
+        action.parentNode.removeChild(action);
+        btn.setAttribute("data-dismiss", "modal");
+      }
     }
   }
 }
 
+//Shows error message
 function removeErrorMessage() {
-  document.getElementById("removeCourse").classList.remove("is-invalid");
+  document.getElementById("removeEvaluation").classList.remove("is-invalid");
 }
 
 //Prints out an error message to the user
-function showErrorMessage(inputField, element, errorPlacement) {
-  var feedback = document.getElementById(errorPlacement);
+function showErrorMessage(inputField, element, error, text) {
+  var feedback = document.getElementById(error);
   var errorMessage = document.createElement("div");
   var body = document.getElementById(element);
 
@@ -114,7 +119,7 @@ function showErrorMessage(inputField, element, errorPlacement) {
   body.classList.add("is-invalid");
 
   errorMessage.className = "invalid-feedback";
-  errorMessage.innerHTML = "Please enter the correct value";
+  errorMessage.innerHTML = text;
   feedback.append(errorMessage);
 }
 

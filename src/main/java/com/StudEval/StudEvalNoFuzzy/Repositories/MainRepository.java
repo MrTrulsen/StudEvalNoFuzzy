@@ -7,7 +7,7 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.support.rowset.SqlRowSet;
 import org.springframework.stereotype.Repository;
-import sun.applet.Main;
+//import sun.applet.Main;
 
 import java.util.ArrayList;
 import java.util.List;
