@@ -4,14 +4,20 @@
 
 var value = 1;
 
+
+
+
+
+
+
 function enterQuestion() {
 
-    var newValue=value++;
+
 
     var txt;
 
-
-    var question = prompt("Please enter Question "+ newValue+" : ", "");
+    var newValue= value++;
+    var question = prompt("Please enter Question "+ newValue +" : ", "");
     if (question == null || question == "") {
         txt = "User didnt put in a Question.";
     } else {
@@ -24,6 +30,9 @@ function enterQuestion() {
 }
 
 
+function newQuestionButton(){
+ var newButton = document.createElement("button");
+ newButton.innerHTML=newValue;
+ document.body.appendChild(newButton);
 
-
-
+}
