@@ -38,7 +38,7 @@
           <div class="navbar-nav mr-auto mt-2 mt-lg-0">
             <div id="addEvalNav" class="nav-item">
               <!-- Button for adding evaluation  -->
-              <button id="addEvalButton" class="btn btn-primary" data-toggle="modal" data-target="#modalAddEval">Add evaluation</button>
+              <button id="addEvalBtn" class="btn btn-primary" data-toggle="modal" data-target="#modalAddEval">Add evaluation</button>
             </div>
 
             <!-- <div id="registerStudents" class="nav-item">
@@ -48,7 +48,7 @@
 
           <div id="logoutNav" class="nav-item">
             <!-- Button for logging out  -->
-            <button id="logoutButton" class="btn btn-primary" onclick="location.href='#'" type="submit">Log out</button>
+            <button id="logoutBtn" class="btn btn-primary" onclick="location.href='#'" type="submit">Log out</button>
           </div>
         </div>
       </nav>
@@ -67,7 +67,7 @@
               <div class="card-body">
                 <h5 class="card-title">Special title treatment</h5>
                 <p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
-                <button id="seeEvalBtn" class="btn btn-primary evalBtn" onclick="location.href='#'" type="submit">See evaluation</button>
+                <button id="editEvalBtn" class="btn btn-primary evalBtn" onclick="location.href='#'" type="submit">Edit evaluation</button>
                 <button id="resultBtn" class="btn btn-primary evalBtn" data-toggle="modal" data-target="#modalResult" type="submit">Result</button>
                 <button id="removeBtn" class="btn btn-primary evalBtn" onclick="removeErrorMessage()" data-toggle="modal" data-target="#modalRemove" type="submit">Remove</button>
               </div>
@@ -108,36 +108,39 @@
                       <span aria-hidden="true">&times;</span>
                     </button>
                   </div>
-                  <div class="modal-body">
+                  <div id="modalAddEvalBody" class="modal-body">
+                    <form>
+                      <div id="modalAddEvalContent" class="input-group mb-3">
+                        <div class="input-group-prepend">
+                          <span class="input-group-text" id="inputGroup-sizing-default">Course ID</span>
+                        </div>
 
-                    <div class="input-group mb-3">
-                      <div class="input-group-prepend">
-                        <span class="input-group-text" id="inputGroup-sizing-default">Course ID</span>
-                      </div>
-                      <input id="courseIdInput" type="text" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default">
-                    </div>
-
-                    <div class="input-group mb-3">
-                      <div class="input-group-prepend">
-                        <span class="input-group-text" id="inputGroup-sizing-default">Course Name</span>
-                      </div>
-                      <input id="courseNameInput" type="text" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default">
-                    </div>
-
-                    <div class="input-group">
-                      <div class="input-group-prepend">
-                        <span class="input-group-text">Date of exam</span>
+                        <input id="courseIdInput" type="text" class="form-control addEvalInput" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default">
                       </div>
 
-                      <input id="dateInput" type="text" placeholder="Date" aria-label="Date" class="form-control">
-                      <input id="monthInput" type="text" placeholder="Month" aria-label="Month" class="form-control">
-                      <input id="yearInput" type="text" placeholder="Year" aria-label="Year" class="form-control">
-                    </div>
+                      <div class="input-group mb-3">
+                        <div class="input-group-prepend">
+                          <span class="input-group-text" id="inputGroup-sizing-default">Course Name</span>
+                        </div>
+
+                        <input id="courseNameInput" type="text" class="form-control addEvalInput" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default">
+                      </div>
+
+                      <div class="input-group">
+                        <div class="input-group-prepend">
+                          <span class="input-group-text">Date of exam</span>
+                        </div>
+
+                        <input id="dateInput" type="text" placeholder="Date" aria-label="Date" class="form-control addEvalInput">
+                        <input id="monthInput" type="text" placeholder="Month" aria-label="Month" class="form-control addEvalInput">
+                        <input id="yearInput" type="text" placeholder="Year" aria-label="Year" class="form-control addEvalInput">
+                      </div>
+                    </form>
                   </div>
 
                   <div class="modal-footer">
                     <button type="button" class="btn btn-primary" data-dismiss="modal">Close</button>
-                    <button type="button" class="btn btn-primary" data-dismiss="modal" type="submit" onclick="addEvaluation()">Save evaluation</button>
+                    <button type="button" class="btn btn-primary" type="submit" onclick="addEvaluation()">Save evaluation</button>
                   </div>
                 </form>
               </div>
@@ -158,19 +161,19 @@
                 <div id="modalRemoveBody" class="modal-body">
                   <p>Are you sure you want to remove the evaluation? If you want so, please write in the Course ID of the evaluation.</p>
                   <div id="modalRemoveContent" class="input-group mb-3">
-                    <div class="input-group-prepend">
-                      <span class="input-group-text" id="inputGroup-sizing-default">Course ID</span>
-                    </div>
-                    <input id="removeCourse" type="text" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default">
-                    <div id="test" class="">
+                    <form>
+                      <div class="input-group-prepend">
+                        <span class="input-group-text" id="inputGroup-sizing-default">Course ID</span>
+                      </div>
+                    </form>
 
-                    </div>
+                    <input id="removeEvaluation" type="text" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default">
                   </div>
                 </div>
 
                 <div class="modal-footer">
                   <button type="button" class="btn btn-primary" data-dismiss="modal">Close</button>
-                  <button id="removeCourseBtn" type="button" class="btn btn-primary" onclick="removeEvaluation()">Remove evaluation</button>
+                  <button id="removeEvaluationBtn" type="button" class="btn btn-primary" onclick="removeEvaluation()">Remove evaluation</button>
                 </div>
               </div>
             </div>
