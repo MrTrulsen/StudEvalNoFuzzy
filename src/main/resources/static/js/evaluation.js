@@ -22,6 +22,33 @@ function questionValue() {
 }
 console.log(questions);
 
+function addQuestion() {
+  console.log(questions);
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 var value = 1;
 var newValue = 1;

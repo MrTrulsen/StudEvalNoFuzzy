@@ -104,6 +104,26 @@ html, body {
   border-color: #696969;
 }
 
+#questionHeader {
+  background-color: #F7F7F7;
+}
+
+.sliders {
+
+}
+
+.container {
+  margin-top: 20px;
+}
+
+.page {
+  display: none;
+}
+
+.page-active {
+  display: block;
+}
+
 .text-center {
   margin-bottom: 25px;
 }

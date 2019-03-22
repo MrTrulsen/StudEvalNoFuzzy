@@ -11,6 +11,7 @@
   <script src="../bootstrap/js/jquery.min.js"></script>
   <link rel="stylesheet" href="../bootstrap/css/bootstrap.css">
   <link rel="stylesheet" href="../css/mainStyle.css">
+  <link rel="stylesheet" href="../css/sliders.css">
   <script src="../bootstrap/js/bootstrap.bundle.js"></script>
   <script src="../js/evaluation.js"></script>
 </head>
@@ -35,7 +36,7 @@
           <div class="navbar-nav mr-auto mt-2 mt-lg-0">
             <div id="addEvalNav" class="nav-item">
               <!-- Button for adding questions  -->
-              <button id="addQuestionBtn" class="btn btn-primary">Add question</button>
+              <button id="addQuestionBtn" class="btn btn-primary" onclick="addQuestion()">Add question</button>
             </div>
           </div>
 
@@ -52,18 +53,85 @@
         <div id="workArea">
           <!-- IDEA: Put the content under here -->
           <div id="questionArea">
-            <div class="col-2">
-              <ul>
-                <p>Difficulty:</p><input type="range" min="1" max="100" value="50" class="slider" id="myRange" oninput="document.getElementById('slider1').innerHTML = this.value"><label id="slider1"></label><br />
-                <p>Complexity:</p><input type="range" min="1" max="100" value="50" class="slider" id="myRange" oninput="document.getElementById('slider2').innerHTML = this.value"><label id="slider2"></label><br />
-                <p>Time:</p><input type="range" min="1" max="240" value="120" class="slider" id="myRange" oninput="document.getElementById('slider3').innerHTML = this.value"><label id="slider3"></label><br />
-                <p>Accuracy:</p><input type="range" min="1" max="100" value="50" class="slider" id="myRange" oninput="document.getElementById('slider4').innerHTML = this.value"><label id="slider4"></label><br />
-              </ul>
+            <div id="questionHeaderWrapper">
+              <div id="questionHeader">
+                <h1>Question 1</h1>
+              </div>
+            </div>
+
+            <div id="slidersWrapper" class="col-2 container">
+              <div id="difficultySlider" class="sliders">
+                <p>Difficulty:</p>
+                <div class="row">
+                  <div class="col-xs-6">
+                    <div class="range">
+                      <input type="range" name="range" min="1" max="100" value="50" onchange="range.value=value">
+                      <output id="range">50</output>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <div id="complexitySlider" class="sliders">
+                <p>Complexity:</p>
+                <div class="row">
+                  <div class="col-xs-6">
+                    <div class="range">
+                      <input type="range" name="range" min="1" max="100" value="50" onchange="range.value=value">
+                      <output id="range">50</output>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <div id="timeSlider" class="sliders">
+                <p>Time:</p>
+                <div class="row">
+                  <div class="col-xs-6">
+                    <div class="range">
+                      <input type="range" name="range" min="1" max="100" value="50" onchange="range.value=value">
+                      <output id="range">50</output>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <div id="accuracySlider" class="sliders">
+                <p>Importance:</p>
+                <div class="row">
+                  <div class="col-xs-6">
+                    <div class="range">
+                      <input type="range" name="range" min="1" max="100" value="50" onchange="range.value=value">
+                      <output id="range">50</output>
+                    </div>
+                  </div>
+                </div>
+              </div>
             </div>
           </div>
-          <div id="buttonWrapper" class="">
-            <button id="prevQuestionBtn" class="btn btn-primary evalBtn" type="submit">Previous question</button>
-            <button id="nextQuestionBtn" class="btn btn-primary evalBtn" type="submit">Next question</button>
+
+          <div id="footerWrapper">
+            <div id="footer">
+              <div id="pageSelector">
+                <ul class="pagination pagination-lg justify-content-center">
+                  <li class="page-item">
+                    <a class="page-link" href="#" aria-label="Previous">
+                      <span aria-hidden="true">&laquo;</span>
+                      <span class="sr-only">Previous</span>
+                    </a>
+                  </li>
+                  <li class="page-item"><a class="page-link" href="#">1</a></li>
+                  <li class="page-item"><a class="page-link" href="#">2</a></li>
+                  <li class="page-item"><a class="page-link" href="#">3</a></li>
+                  <li class="page-item">
+                    <a class="page-link" href="#" aria-label="Next">
+                      <span aria-hidden="true">&raquo;</span>
+                      <span class="sr-only">Next</span>
+                    </a>
+                  </li>
+                </ul>
+              </div>
+            </div>
           </div>
           <!-- IDEA: Dont put any content outside here -->
         </div>
