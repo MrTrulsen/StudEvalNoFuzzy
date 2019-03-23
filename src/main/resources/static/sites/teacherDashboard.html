@@ -46,6 +46,11 @@
               </div> -->
           </div>
 
+          <div id="settingsNav" class="nav-item">
+            <!-- Button for logging out  -->
+            <button id="settingsBtn" class="btn btn-primary" data-toggle="modal" data-target="#modalSettings">Settings</button>
+          </div>
+
           <div id="logoutNav" class="nav-item">
             <!-- Button for logging out  -->
             <button id="logoutBtn" class="btn btn-primary" onclick="location.href='/logout'" type="submit">Log out</button>
@@ -174,6 +179,41 @@
                 <div class="modal-footer">
                   <button type="button" class="btn btn-primary" data-dismiss="modal">Close</button>
                   <button id="removeEvaluationBtn" type="button" class="btn btn-primary" onclick="removeEvaluation()">Remove evaluation</button>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Modal for changing user settings  -->
+          <div class="modal fade" id="modalSettings" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+              <div class="modal-content">
+                <div class="modal-header">
+                  <h5 class="modal-title" id="exampleModalLabel">User settings</h5>
+                  <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                  </button>
+                </div>
+
+                <div id="modalSettingsBody" class="modal-body">
+                  <div id="modalSettingsContent" class="input-group mb-3">
+                    <div id="changePassword">
+                      <p>If you want to change the user password, you can press here.</p>
+                      <button id="changePasswordBtn" class="btn btn-primary" onclick="location.href='#'" type="submit">Change password</button>
+                    </div>
+
+                    <div id="deleteAccount">
+                      <p>If you want to delete your account, push this button.</p>
+                      <p id="modalSettingsInfo">WARNING:</p>
+                      <p>If your account is deleted, there is no way to restore it. All evaluations made with this user would get deleted.</p>
+                      <button id="deleteAccountBtn" class="btn btn-danger" onclick="location.href='#'" type="submit">Delete account</button>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="modal-footer">
+                  <button type="button" class="btn btn-primary" data-dismiss="modal">Close</button>
+                  <button id="saveSettingsBtn" type="button" class="btn btn-primary" data-dismiss="modal">Save settings</button>
                 </div>
               </div>
             </div>
