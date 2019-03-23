@@ -31,13 +31,13 @@ html, body {
   margin-bottom: 100px;
 }
 
-.evalButton {
+.evalBtn {
   width: 20%;
   margin-left: 5px;
   margin-right: 5px;
 }
 
-#takeEvalButton {
+#takeEvalBtn {
   width: 50%;
 }
 
@@ -63,8 +63,12 @@ html, body {
   float: right;
 }
 
-#addEvalButton, #logoutButton {
+#addEvalBtn, #logoutBtn, #addQuestionBtn {
   width: 150px;
+}
+
+#prevQuestionBtn, #nextQuestionBtn {
+  width: 200px;
 }
 
 #footer {
@@ -100,6 +104,26 @@ html, body {
   border-color: #696969;
 }
 
+#questionHeader {
+  background-color: #F7F7F7;
+}
+
+.sliders {
+
+}
+
+.container {
+  margin-top: 20px;
+}
+
+.page {
+  display: none;
+}
+
+.page-active {
+  display: block;
+}
+
 .text-center {
   margin-bottom: 25px;
 }
@@ -128,11 +152,8 @@ html, body {
     margin-right: 0;
   }
 
-  #addEvaluation, #registerStudents, #logoutNav {
-    width: 100%;
-  }
-
-  #addEvalButton, #logoutButton, #takeEvalButton, .evalButton {
+  #addEvaluation, #registerStudents, #addQuestionBtn, #logoutNav,
+  #addEvalBtn, #logoutBtn, #takeEvalBtn, .evalBtn, #prevQuestionBtn, #nextQuestionBtn {
     width: 100%;
   }
 

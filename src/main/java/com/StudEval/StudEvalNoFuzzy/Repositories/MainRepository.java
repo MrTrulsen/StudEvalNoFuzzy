@@ -2,23 +2,26 @@ package com.StudEval.StudEvalNoFuzzy.Repositories;
 
 import com.StudEval.StudEvalNoFuzzy.Evaluation.Question;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.support.rowset.SqlRowSet;
 import org.springframework.stereotype.Repository;
-import sun.applet.Main;
+//import sun.applet.Main;
 
 import java.util.ArrayList;
 import java.util.List;
 
 @Repository
 public class MainRepository {
-    private final JdbcTemplate jdbcTemplate;
+    private JdbcTemplate jdbcTemplate;
 
 
     @Autowired
     public MainRepository(JdbcTemplate jdbcTemplate) {
         this.jdbcTemplate = jdbcTemplate;
     }
+
 
     /**
      * Fetches the related questions to the right course

@@ -1,62 +1,150 @@
 <!DOCTYPE html>
 <html lang="en" dir="ltr">
-  <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
 
-    <title>EDUEVAL</title>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
 
-    <link rel="icon" href="https://pbs.twimg.com/profile_images/671984499648020481/FixFBnRN_400x400.png">
-    <link rel="stylesheet" href="../bootstrap/css/bootstrap.css">
-    <link rel="stylesheet" href="../css/mainStyle.css">
-    <script src="../bootstrap/js/jquery.min.js"></script>
-    <script src="../bootstrap/js/bootstrap.bundle.js"></script>
-  </head>
+  <title>EDUEVAL</title>
 
-  <body id="body">
-    <section id="fullPage">
-      <div id="headerWrapper">
-        <div id="header" class="container">
-          <p>EDUEVAL</p>
-        </div>
+  <link rel="icon" href="https://pbs.twimg.com/profile_images/671984499648020481/FixFBnRN_400x400.png">
+  <script src="../bootstrap/js/jquery.min.js"></script>
+  <link rel="stylesheet" href="../bootstrap/css/bootstrap.css">
+  <link rel="stylesheet" href="../css/mainStyle.css">
+  <link rel="stylesheet" href="../css/sliders.css">
+  <script src="../bootstrap/js/bootstrap.bundle.js"></script>
+  <script src="../js/evaluation.js"></script>
+</head>
+
+<body id="body">
+  <section id="fullPage">
+    <div id="headerWrapper">
+      <div id="header" class="container">
+        <p>EDUEVAL</p>
       </div>
+    </div>
 
-      <div id="navWrapper">
-        <nav id="navbar" class="navbar navbar-expand-md navbar-light container">
-          <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarTogglerDemo01" aria-controls="navbarTogglerDemo01" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
-          </button>
+    <!-- Navigation bar  -->
+    <div id="navWrapper">
+      <nav id="navbar" class="navbar navbar-expand-md navbar-light container">
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarTogglerDemo01" aria-controls="navbarTogglerDemo01" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
 
-          <div class="collapse navbar-collapse" id="navbarTogglerDemo01">
-            <div class="navbar-nav mr-auto mt-2 mt-lg-0">
-              </p>
-            </div>
-
-            <div id="logout" class="nav-item">
-              <a href="#">
-                <button id="navButton" class="btn btn-primary" type="submit">Log out</button>
-              </a>
+        <!-- Class for collapseable navbar  -->
+        <div class="collapse navbar-collapse" id="navbarTogglerDemo01">
+          <div class="navbar-nav mr-auto mt-2 mt-lg-0">
+            <div id="addEvalNav" class="nav-item">
+              <!-- Button for adding questions  -->
+              <button id="addQuestionBtn" class="btn btn-primary" onclick="addQuestion()">Add question</button>
             </div>
           </div>
-        </nav>
-      </div>
 
-      <div id="contentWrapper">
-        <div id="content" class="container">
-          <div id="workArea">
-            <!-- IDEA: Enter content here -->
-
-            <!-- IDEA: Do not change outside this  -->
+          <div id="logoutNav" class="nav-item">
+            <!-- Button for logging out  -->
+            <button id="logoutBtn" class="btn btn-primary" onclick="location.href='/logout'" type="submit">Log out</button>
           </div>
         </div>
+      </nav>
+    </div>
+
+    <div id="contentWrapper">
+      <div id="content" class="container">
+        <div id="workArea">
+          <!-- IDEA: Put the content under here -->
+          <div id="questionArea">
+            <div id="questionHeaderWrapper">
+              <div id="questionHeader">
+                <h1>Question 1</h1>
+              </div>
+            </div>
+
+            <div id="slidersWrapper" class="col-2 container">
+              <div id="difficultySlider" class="sliders">
+                <p>Difficulty:</p>
+                <div class="row">
+                  <div class="col-xs-6">
+                    <div class="range">
+                      <input type="range" name="range" min="1" max="100" value="50" onchange="range.value=value">
+                      <output id="range">50</output>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <div id="complexitySlider" class="sliders">
+                <p>Complexity:</p>
+                <div class="row">
+                  <div class="col-xs-6">
+                    <div class="range">
+                      <input type="range" name="range" min="1" max="100" value="50" onchange="range.value=value">
+                      <output id="range">50</output>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <div id="timeSlider" class="sliders">
+                <p>Time:</p>
+                <div class="row">
+                  <div class="col-xs-6">
+                    <div class="range">
+                      <input type="range" name="range" min="1" max="100" value="50" onchange="range.value=value">
+                      <output id="range">50</output>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <div id="accuracySlider" class="sliders">
+                <p>Importance:</p>
+                <div class="row">
+                  <div class="col-xs-6">
+                    <div class="range">
+                      <input type="range" name="range" min="1" max="100" value="50" onchange="range.value=value">
+                      <output id="range">50</output>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div id="footerWrapper">
+            <div id="footer">
+              <div id="pageSelector">
+                <ul class="pagination pagination-lg justify-content-center">
+                  <li class="page-item">
+                    <a class="page-link" href="#" aria-label="Previous">
+                      <span aria-hidden="true">&laquo;</span>
+                      <span class="sr-only">Previous</span>
+                    </a>
+                  </li>
+                  <li class="page-item"><a class="page-link" href="#">1</a></li>
+                  <li class="page-item"><a class="page-link" href="#">2</a></li>
+                  <li class="page-item"><a class="page-link" href="#">3</a></li>
+                  <li class="page-item">
+                    <a class="page-link" href="#" aria-label="Next">
+                      <span aria-hidden="true">&raquo;</span>
+                      <span class="sr-only">Next</span>
+                    </a>
+                  </li>
+                </ul>
+              </div>
+            </div>
+          </div>
+          <!-- IDEA: Dont put any content outside here -->
+        </div>
       </div>
-      <!-- Working footer, but not corresponding to bottom placement in the CSS
+    </div>
+    <!-- Working footer, but not corresponding to bottom placement in the CSS
       <div id="footer">
         <div id="footerLinks">
           <div><span id="copyright">© 2019 EDUEVAL</span>
           </div>
         </div>
-      </div>-->
-    </section>
-  </body>
+      </div> -->
+  </section>
+</body>
+
 </html>
