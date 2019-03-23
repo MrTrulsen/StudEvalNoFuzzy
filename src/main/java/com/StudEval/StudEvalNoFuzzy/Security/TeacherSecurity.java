@@ -48,6 +48,7 @@ public class TeacherSecurity extends WebSecurityConfigurerAdapter {
                 .antMatchers("/").permitAll()
                 .antMatchers("/teacherlogin").permitAll()
                 .antMatchers("/register").permitAll()
+                .antMatchers("/registeruser").permitAll()
                 .antMatchers("/teacherpage").hasAuthority("TEACHER_USER")
                 .anyRequest().authenticated()
                 .and()

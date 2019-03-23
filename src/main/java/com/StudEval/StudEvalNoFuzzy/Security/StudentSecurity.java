@@ -48,6 +48,7 @@ public class StudentSecurity extends WebSecurityConfigurerAdapter {
                 .antMatchers("/").permitAll()
                 .antMatchers("/studentlogin").permitAll()
                 .antMatchers("/register").permitAll()
+                .antMatchers("/registeruser").permitAll()
                 .antMatchers("/studentpage").hasAuthority("STUDENT_USER")
                 .anyRequest().authenticated()
                 .and()
