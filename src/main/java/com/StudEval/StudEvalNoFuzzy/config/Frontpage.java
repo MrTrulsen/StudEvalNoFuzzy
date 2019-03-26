@@ -18,19 +18,19 @@ public class Frontpage {
     @Autowired
     UserService userService;
 
-    @RequestMapping("/")
+    @RequestMapping(value = "/", method = RequestMethod.GET)
     public String index(){
-        return "index.html";
+        return "index";
     }
 
-    @RequestMapping(value = { "/teacherlogin" }, method = RequestMethod.GET)
+    @RequestMapping(value =  "/teacherlogin" , method = RequestMethod.GET)
     public String teacherLogin(){
-        return "sites/teacherLogin.html";
+        return "teacherLogin";
     }
 
-    @RequestMapping("/studentlogin")
+    @RequestMapping(value = "/studentlogin", method = RequestMethod.GET)
     public String studentLogin(){
-        return "sites/studentLogin.html";
+        return "studentlogin";
     }
 
     @RequestMapping(value = "/register", method = RequestMethod.GET)
@@ -38,11 +38,11 @@ public class Frontpage {
         ModelAndView modelAndView = new ModelAndView();
         User user = new User();
         modelAndView.addObject("user", user);
-        modelAndView.setViewName("sites/register.html");
+        modelAndView.setViewName("register");
         return modelAndView;
     }
 
-    @RequestMapping(value="/register", method=RequestMethod.POST)
+    @RequestMapping(value="/register", method = RequestMethod.POST)
     public ModelAndView registerUser(@Valid User user, BindingResult bindingResult, ModelMap modelMap) {
         ModelAndView modelAndView = new ModelAndView();
         // Check for the validations

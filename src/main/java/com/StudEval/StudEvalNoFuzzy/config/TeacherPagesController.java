@@ -9,27 +9,27 @@ public class TeacherPagesController {
 
     @RequestMapping(value = { "/teacherpage" }, method = RequestMethod.GET)
     public String teacherDashboard(){
-        return "sites/teacherDashboard.html";
+        return "teacherdashboard.html";
     }
 
     @RequestMapping("/teacherpage/registerstudents")
     public String teacherRegisterStudent(){
-        return "sites/registerStudents.html";
+        return "registerstudents.html";
     }
 
     @RequestMapping("/teacherpage/addevaluation")
     public String teacherAddEvaluation(){
-        return "sites/addEvaluation.html";
+        return "addevaluation.html";
     }
 
     @RequestMapping("/teacherpage/evaluation")
     public String teacherEvaluation(){
-        return "sites/evaluation.html";
+        return "evaluation.html";
     }
 
     @RequestMapping("/teacherpage/evaluationResults")
     public String teacherEvaluationResults(){
-        return "sites/evaluationResults.html";
+        return "evaluationResults.html";
     }
 
 }

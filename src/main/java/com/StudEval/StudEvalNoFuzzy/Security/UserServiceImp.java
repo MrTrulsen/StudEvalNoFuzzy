@@ -36,7 +36,7 @@ public class UserServiceImp implements UserService {
 
     @Override
     public boolean isUserAlreadyPresent(User user) {
-        // Try to implement this method, as assignment.
+        // TODO: 26.03.2019 Implement check for existing user.
         return false;
     }
 
