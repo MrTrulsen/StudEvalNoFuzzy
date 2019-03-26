@@ -6,7 +6,11 @@ import com.StudEval.StudEvalNoFuzzy.Repositories.MainRepository;
 import com.StudEval.StudEvalNoFuzzy.Repositories.TeacherRepository;
 import com.StudEval.StudEvalNoFuzzy.User.Student;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.ArrayList;
@@ -49,21 +53,28 @@ public class TeacherRest {
     }
 
     //test
-    @RequestMapping("/addStudents")
-    public String addStudents(){
-        List<Student> students = new ArrayList<>();
-        Student stud = new Student(3,"Test@ntnu.no", "",false);
-        Student stud1 = new Student(4,"Test3@ntnu.no", "",false);
-        Student stud2 = new Student(5,"Test4@ntnu.no", "",false);
-        Student stud3 = new Student(8,"Test5@ntnu.no", "",false);
-        students.add(stud);
-        students.add(stud1);
-        students.add(stud2);
-        students.add(stud3);
-        teacherRepository.importStudentsToCourse(students,"ID202712");
-        return "";
-    }
+    @RequestMapping(value = "/addStudents", method = RequestMethod.PUT)
+    public ResponseEntity<String> addStudents(@RequestBody List<Student> students, String course_id){
 
+        //this is just a temp test
+        List<Student> studentTemp = new ArrayList<>();
+        Student stud2 = new Student(3,"ors@gmail.com", "", false);
+        Student stud1  = new Student(2,"os@gmail.com", "", false);
+        Student stud  = new Student(1,"ors@gmail.com", "", false);
+        studentTemp.add(stud);
+        studentTemp.add(stud1);
+        studentTemp.add(stud2);
+        course_id = "ID202712";
+
+        String error = teacherRepository.importStudentsToCourse(studentTemp,course_id);
+        if(error == null){
+            return new ResponseEntity<>(HttpStatus.OK);
+        }
+        else {
+            return new ResponseEntity<>(error, HttpStatus.BAD_REQUEST);
+        }
+
+    }
 
 }
 

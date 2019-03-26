@@ -89,20 +89,27 @@ public class TeacherRepository {
         return emails;
     }
 
-    public void importStudentsToCourse(List<Student> students, String course_id) {
+    public String importStudentsToCourse(List<Student> students, String course_id) {
         List<String> studentEmailsInDb = findStudentEmailsInDb();
+        int numRows = 0;
         for (Student student : students) {
             if (!studentEmailsInDb.contains(student.getEmail())) {
                 addUser(student);
             }
             String query = "REPLACE INTO course_stud_junc(user_id,course_id) VALUES(?,?)";
             try {
-                jdbcTemplate.update(query, student.getStudent_id(), course_id);
+                numRows = jdbcTemplate.update(query, student.getStudent_id(), course_id);
+
             } catch (Exception ex) {
-                throw ex;
+                return "Could not add students: " + ex.getMessage();
             }
         }
-
+        if(numRows == 1){
+            return null;
+        }
+        else {
+            return "Could not add students right.";
+        }
     }
 
     public void addUser(Student student) {
