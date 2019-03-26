@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" dir="ltr">
+<html lang="en" dir="ltr" xmlns:th="http://www.w3.org/1999/xhtml">
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
@@ -35,13 +35,13 @@
 
                 <div id="loginField" class="groupMargin">
                   <p>Write in your login information.</p>
-                  <form>
+                  <form  method="POST" class="form-signin">
                     <div class="form-group">
-                      <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Email">
+                      <input type="email" class="form-control" id="studentEmail" name="studentEmail" aria-describedby="emailHelp" placeholder="Email">
                     </div>
 
                     <div class="form-group">
-                      <input type="password" class="form-control" id="exampleInputPassword1" placeholder="Password">
+                      <input type="password" class="form-control" id="password" name="password" placeholder="Password">
                     </div>
 
                     <button id="submitBtn" type="submit" class="btn btn-primary">Submit</button>
