@@ -1,84 +1,71 @@
 
 
 
-
-
-
 var questions = [];
 
-questionValue();
+var questionNumber = 1;
 
-function questionValue() {
+function questionValue(question) {
   var complexity = 0.25;
-  var time_use = 0.25;
+  var time_use = document.getElementById('myTime').value;
   var difficulty = 0.25;
   var importance = 0.25;
 
-  var q1 = [complexity, time_use, difficulty, importance];
-  var test = questions.push(q1);
 
-  var q2 = [complexity, time_use, difficulty, importance];
-  var test2 = questions.push(q2);
-}
+  var q1 = [question, complexity, time_use, difficulty, importance];
+  var newQuestion = questions.push(q1);
+console.log(time_use);
 console.log(questions);
+
+
+}
+
 
 function addQuestion() {
   console.log(questions);
+
 }
 
 
 
+function showQuestion(index){
+document.getElementById("a1").innerHTML = questions[index][0];
+}
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-var value = 1;
-var newValue = 1;
-console.log(newValue);
-
-function enterQuestion(newValue) {
-
-
-
+function enterQuestion() {
     var txt;
-    newValue = value++;
-    console.log(newValue);
-    var question = prompt("Please enter Question "+ newValue +" : ", "");
+
+    var question = prompt("Please enter Question "+ questionNumber +" : ", "");
     if (question == null || question == "") {
-        txt = "User didnt put in a Question.";
+
+        txt = " User didnt put in a Question.";
+
+
     } else {
-        txt = "Question " + newValue + " : " + question;
+
+        txt = question;
+        newQuestionButton();
+        questionValue(question);
+        questionNumber++;
 
 
     }
     document.getElementById("a1").innerHTML = txt;
-    return newValue;
+
 }
 
 
-function newQuestionButton(value){
+function newQuestionButton(){
 
-  console.log(value);
+  console.log(questionNumber);
   var newButton = document.createElement("button");
-  newButton.innerHTML= value;
+  newButton.innerHTML= questionNumber;
+var questionIndex = questionNumber-1;
+  newButton.addEventListener('click', function() {
+    showQuestion(questionIndex);
+  }, false);
+
   document.body.appendChild(newButton);
 
 }
