@@ -1,10 +1,38 @@
+* {
+  box-sizing: border-box;
+}
+
 html, body {
   height: 100%;
   width: 100%;
   background-color: #ffffff;
   color: #000000;
-  font-weight: normal;
+  font-weight: 340;
   font-family: "Segoe UI", "Segoe", "SegoeUI-Regular-final", Tahoma, Helvetica, Arial, sans-serif;
+}
+
+h1 {
+  text-align: center;
+  font-weight: 340;
+  padding-bottom: 25px;
+  margin-bottom: 20px;
+  border-bottom: solid 1px;
+}
+
+h2 {
+  font-weight: 340;
+  padding-bottom: 20px;
+  margin-bottom: 40px;
+  border-bottom: solid 1px;
+}
+
+#questionTextWrapper {
+  margin-bottom: 50px;
+}
+
+#questionText {
+  font-weight: 340;
+  text-align: center;
 }
 
 #fullPage {
@@ -31,14 +59,32 @@ html, body {
   margin-bottom: 100px;
 }
 
-.evalButton {
-  width: 20%;
+.evalBtn {
+  width: 25%;
   margin-left: 5px;
   margin-right: 5px;
 }
 
-#takeEvalButton {
+#takeEvalBtn {
   width: 50%;
+}
+
+#changePasswordBtn, #deleteAccountBtn, #changePassword, #deleteAccount {
+  width: 100%;
+}
+#changePassword {
+  margin-bottom: 15px;
+}
+
+#deleteAccount {
+  padding-top: 15px;
+  border-top: solid;
+  border-width: 1px;
+  border-color: #696969;
+}
+
+#modalSettingsInfo {
+  margin: 0;
 }
 
 #header {
@@ -49,22 +95,25 @@ html, body {
   overflow: hidden;
 }
 
-#addEvalNav {
-  display: inline;
-  margin-right: 15px;
-}
-
 #registerStudents {
   display: inline;
 }
 
-#logoutNav {
-  display: block;
+#logoutNav, #settingsNav {
+  display: inline;
   float: right;
 }
 
-#addEvalButton, #logoutButton {
+#settingsNav {
+  margin-right: 15px;
+}
+
+#addEvalBtn, #settingsBtn, #logoutBtn, #addQuestionBtn {
   width: 150px;
+}
+
+#prevQuestionBtn, #nextQuestionBtn {
+  width: 200px;
 }
 
 #footer {
@@ -100,6 +149,14 @@ html, body {
   border-color: #696969;
 }
 
+.page {
+  display: none;
+}
+
+.page-active {
+  display: block;
+}
+
 .text-center {
   margin-bottom: 25px;
 }
@@ -123,20 +180,74 @@ html, body {
   color: #FFFFFF;
 }
 
+.sliders {
+  margin-bottom: 80px;
+}
+
+.slider {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 100%;
+  height: 15px;
+  border-radius: 5px;
+  background: #D3D3D3;
+  outline: none;
+  opacity: 0.7;
+  -webkit-transition: .2s;
+  transition: opacity .2s;
+}
+
+.slider:hover {
+  opacity: 1;
+}
+
+.slider::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 25px;
+  height: 25px;
+  border-radius: 50%;
+  background: #007BFF;
+  cursor: pointer;
+}
+
+.slider::-moz-range-thumb {
+  width: 25px;
+  height: 25px;
+  border-radius: 50%;
+  background: #007BFF;
+  cursor: pointer;
+}
+
+.sliderticks {
+  display: flex;
+  justify-content: space-between;
+  padding: 0 10px;
+}
+
+.sliderticks p {
+  position: relative;
+  display: flex;
+  justify-content: center;
+  text-align: center;
+  width: 1px;
+  background: #D3D3D3;
+  height: 10px;
+  line-height: 40px;
+  margin: 0 0 20px 0;
+}
+
 @media (max-width: 767px) {
   #addEvaluation {
     margin-right: 0;
   }
 
-  #addEvaluation, #registerStudents, #logoutNav {
+  #addEvaluation, #registerStudents, #addQuestionBtn, #settingsNav, #logoutNav,
+  #addEvalBtn, #settingsBtn, #logoutBtn, #takeEvalBtn, .evalBtn, #prevQuestionBtn, #nextQuestionBtn {
     width: 100%;
   }
 
-  #addEvalButton, #logoutButton, #takeEvalButton, .evalButton {
-    width: 100%;
-  }
-
-  #addEvalNav {
+  #settingsNav {
     margin-right: 0;
   }
 }

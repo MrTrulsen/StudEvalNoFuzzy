@@ -5,15 +5,15 @@
     <link rel="styleSheet1" type="text/css"href="StyleSheet1.css">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css" integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossorigin="anonymous">
 
-    <script src="../js/dynamicQuestionPage.js"></script>
+    <script src="../js/evaluation.js"></script>
 
     <title>EduEval.net</title>
   </head>
   <body>
     <h1>EduEval Survey for Exam:</h1> <!-- implement field for exam input after Exam:  -->
       <br/><br/>
-
-    <p id ="a1"><a id="number"></a></p><br/><br/>
+<nav id="QuestionButton"></nav>
+    <p id ="a1"></p><br/><br/>
 
 <section>
 
@@ -22,21 +22,25 @@
     <div id="col-2">
 
 <ul>
-      <p>Difficulty:</p><input type="range" min="1" max="100" value="50" class="slider" id="myRange" oninput="document.getElementById('slider1').innerHTML = this.value"><label id="slider1"></label><br/>
-      <p>Complexity:</p><input type="range" min="1" max="100" value="50" class="slider" id="myRange" oninput="document.getElementById('slider2').innerHTML = this.value"><label id="slider2"></label><br/>
-      <p>Time:</p><input type="range" min="1" max="240" value="120" class="slider" id="myRange" oninput="document.getElementById('slider3').innerHTML = this.value"><label id="slider3"></label><br/>
-      <p>Accuracy:</p><input type="range" min="1" max="100" value="50"  class="slider" id="myRange" oninput="document.getElementById('slider4').innerHTML = this.value"><label id="slider4"></label><br/>
+      <p>Difficulty:</p><input type="range" min="1" max="100" value="50" class="slider" id="myRange" oninput="document.getElementById('Difficulty').innerHTML = this.value"><br/><label id="Difficulty"></label><br/>
+      <p>Complexity:</p><input type="range" min="1" max="100" value="50" class="slider" id="myRange" oninput="document.getElementById('Complexity').innerHTML = this.value"><br/><label id="Complexity"></label><br/>
+      <p>Time:</p><input type="range" min="1" max="240" value="120" class="slider" id="myTime" oninput="document.getElementById('Time').innerHTML = this.value"><br/><label id="Time"></label><br/>
+      <p>Accuracy:</p><input type="range" min="1" max="100" value="50"  class="slider" id="myRange" oninput="document.getElementById('Accuracy').innerHTML = this.value"><br/><label id="Accuracy"></label><br/>
 </ul>
+
+
+
     </div>
+    <p id="displayedQuestion"></p>
 
 </section>
 <footer id="myBtn">
-  <input type="button" value="Previous" />
+
 
   <input id="nextButton" type="button" onclick="enterQuestion();" value="Add Question" />
 </footer>
-
-<a class="btn btn-primary" href="teacherDashboard.html" role="button">Teacher Homepage</a>
+</br>
+<input href="teacherDashboard.html" type="button" value="Teacher Homepage"/>
 
 <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.6/umd/popper.min.js" integrity="sha384-wHAiFfRlMFy6i5SRaxvfOCifBUQy1xHdJ/yoi7FRNXMRBu5WHdZYu1hA6ZOblgut" crossorigin="anonymous"></script>
