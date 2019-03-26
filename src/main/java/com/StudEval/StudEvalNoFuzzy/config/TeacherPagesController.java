@@ -1,15 +1,13 @@
 package com.StudEval.StudEvalNoFuzzy.config;
 
-import com.StudEval.StudEvalNoFuzzy.Evaluation.Question;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
-
-import java.util.List;
+import org.springframework.web.bind.annotation.RequestMethod;
 
 @Controller
 public class TeacherPagesController {
 
-    @RequestMapping("/teacherpage")
+    @RequestMapping(value = { "/teacherpage" }, method = RequestMethod.GET)
     public String teacherDashboard(){
         return "sites/teacherDashboard.html";
     }
@@ -33,6 +31,5 @@ public class TeacherPagesController {
     public String teacherEvaluationResults(){
         return "sites/evaluationResults.html";
     }
-
 
 }
