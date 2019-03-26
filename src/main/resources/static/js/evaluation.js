@@ -4,10 +4,10 @@ var questions = [];
 var questionNumber = 1;
 
 function questionValue(question) {
-  var complexity = 0.25;
-  var time_use = document.getElementById('difficultySlider').value;
-  var difficulty = 0.25;
-  var importance = 0.25;
+  var complexity = document.getElementById('difficultyOutput').value;
+  var time_use = document.getElementById('timeOutput').value;
+  var difficulty = document.getElementById('difficultyOutput').value;
+  var importance = document.getElementById('importanceOutput').value;
 
   var q1 = [question, complexity, time_use, difficulty, importance];
   var newQuestion = questions.push(q1);
@@ -15,22 +15,21 @@ function questionValue(question) {
   console.log(questions);
 }
 
-function addQuestion() {
-  console.log(questions);
-}
-
 function showQuestion(index) {
   document.getElementById("questionText").innerHTML = questions[index][0];
 }
 
-function enterQuestion() {
+function addQuestion() {
   var txt;
 
-  var question = prompt("Please enter Question " + questionNumber + " : ", "");
+  var question = document.getElementById("questionInput").value; //= prompt("Please enter Question " + questionNumber + " : ", "");
   if (question == null || question == "") {
     txt = " User didnt put in a Question.";
 
-  } else {
+  }
+  else {
+    var btn = document.getElementById("saveQuestionBtn");
+    btn.setAttribute("data-dismiss", "modal")
     txt = question;
     newQuestionButton();
     questionValue(question);
@@ -53,18 +52,12 @@ function newQuestionButton() {
   document.body.appendChild(newButton);
 }
 
-function addQuestion() {
-  console.log(questions);
-}
-
-function displaySliderValue() {
-  var slider = document.getElementById("difficultySlider");
-  var output = document.getElementById("difficultyOutput");
+function displaySliderValue(slider) {
+  var output = document.getElementById(slider.id.slice(0, - 6) + "Output");
   output.value = slider.value;
 }
 
-function updateSlider() {
-  var slider = document.getElementById("difficultySlider");
-  var output = document.getElementById("difficultyOutput");
+function updateSlider(output) {
+  var slider = document.getElementById(output.id.slice(0, - 6) + "Slider");
   slider.value = output.value;
 }
