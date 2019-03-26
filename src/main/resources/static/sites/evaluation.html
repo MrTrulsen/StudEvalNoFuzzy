@@ -54,58 +54,60 @@
           <!-- IDEA: Put the content under here -->
           <div id="questionArea">
             <div id="questionHeaderWrapper">
+              <input id="nextButton" type="button" onclick="enterQuestion();" value="Add Question" />
               <div id="questionHeader">
                 <h1>Question 1</h1>
               </div>
+              <div id="questionTextWrapper" class="container">
+                <h5 id="questionText">This is an example of a text that should explain what the question is about.</h5>
+              </div>
             </div>
 
-            <div id="slidersWrapper" class="col-2 container">
-              <div id="difficultySlider" class="sliders">
-                <p>Difficulty:</p>
-                <div class="row">
-                  <div class="col-xs-6">
-                    <div class="range">
-                      <input type="range" name="range" min="1" max="100" value="50" onchange="range.value=value">
-                      <output id="range">50</output>
-                    </div>
-                  </div>
+            <!-- Div for all sliders -->
+            <div id="sliderWrapper" class="container">
+              <div id="difficultyContent" class="container sliders">
+                <h2>Difficulty</h2>
+                <p></p>
+                <input id="difficultySlider" type="range" min="1" max="100" value="50" class="slider" onchange="displaySliderValue()">
+                <div id="difficultyTicks" class="sliderticks">
+                  <p>1</p>
+                  <p>50</p>
+                  <p>100</p>
                 </div>
+                <p>Value: <input id="difficultyOutput" class="form-control valueOutput" onchange="updateSlider()" type="text" name="" value="50" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default"></input></p>
               </div>
 
-              <div id="complexitySlider" class="sliders">
-                <p>Complexity:</p>
-                <div class="row">
-                  <div class="col-xs-6">
-                    <div class="range">
-                      <input type="range" name="range" min="1" max="100" value="50" onchange="range.value=value">
-                      <output id="range">50</output>
-                    </div>
-                  </div>
+              <div id="ComplexityContent" class="container sliders">
+                <h2>Complexity</h2>
+                <input id="ComplexitySlider" type="range" min="1" max="100" value="50" class="slider" onchange="displaySliderValue()">
+                <div class="sliderticks">
+                  <p>1</p>
+                  <p>50</p>
+                  <p>100</p>
                 </div>
+                <p>Value: <input id="ComplexityOutput" class="form-control valueOutput" onchange="updateSlider()" type="text" name="" value="50" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default"></input></p>
               </div>
 
-              <div id="timeSlider" class="sliders">
-                <p>Time:</p>
-                <div class="row">
-                  <div class="col-xs-6">
-                    <div class="range">
-                      <input type="range" name="range" min="1" max="100" value="50" onchange="range.value=value">
-                      <output id="range">50</output>
-                    </div>
-                  </div>
+              <div id="timeContent" class="container sliders">
+                <h2>Time</h2>
+                <input id="timeSlider" type="range" min="1" max="100" value="50" class="slider" onchange="displaySliderValue()">
+                <div class="sliderticks">
+                  <p>1</p>
+                  <p>50</p>
+                  <p>100</p>
                 </div>
+                <p>Value: <input id="timeOutput" class="form-control valueOutput" onchange="updateSlider()" type="text" name="" value="50" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default"></input></p>
               </div>
 
-              <div id="accuracySlider" class="sliders">
-                <p>Importance:</p>
-                <div class="row">
-                  <div class="col-xs-6">
-                    <div class="range">
-                      <input type="range" name="range" min="1" max="100" value="50" onchange="range.value=value">
-                      <output id="range">50</output>
-                    </div>
-                  </div>
+              <div id="accuracyContent" class="container sliders">
+                <h2>Accuracy</h2>
+                <input id="accuracySlider" type="range" min="1" max="100" value="50" class="slider" onchange="displaySliderValue()">
+                <div class="sliderticks">
+                  <p>1</p>
+                  <p>50</p>
+                  <p>100</p>
                 </div>
+                <p>Value: <input id="accuracyOutput" class="form-control valueOutput" onchange="updateSlider()" type="text" name="" value="50" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default"></input></p>
               </div>
             </div>
           </div>
