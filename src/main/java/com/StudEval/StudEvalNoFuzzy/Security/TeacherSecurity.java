@@ -46,7 +46,7 @@ public class TeacherSecurity extends WebSecurityConfigurerAdapter {
         httpSecurity
                 .authorizeRequests()
                 .antMatchers("/").permitAll()
-                .antMatchers("/teacherlogin").permitAll()
+                .antMatchers("/login").permitAll()
                 .antMatchers("/register").permitAll()
                 .antMatchers("/registeruser").permitAll()
                 .antMatchers("/teacherpage").hasAuthority("TEACHER_USER")
@@ -55,17 +55,18 @@ public class TeacherSecurity extends WebSecurityConfigurerAdapter {
 
                 //form login
                 .csrf().disable().formLogin()
-                .loginPage("/teacherlogin")
+                .loginPage("/login")
                 .failureUrl("/login?error=true")
+                .successForwardUrl("/teacherpage")
                 .successHandler(successHandler)
 
-                .usernameParameter("teacherEmail")
+                .usernameParameter("username")
                 .passwordParameter("password")
                 .and()
                 //logout
                 .logout()
                 .logoutRequestMatcher(new AntPathRequestMatcher("/logout"))
-                .logoutSuccessUrl("/").and()
+                .logoutSuccessUrl("/login").and()
                 .exceptionHandling()
                 .accessDeniedPage("/access-denied");
     }

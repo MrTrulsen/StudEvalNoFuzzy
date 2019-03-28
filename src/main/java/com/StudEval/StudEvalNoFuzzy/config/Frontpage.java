@@ -23,15 +23,16 @@ public class Frontpage {
         return "index";
     }
 
-    @RequestMapping(value =  "/teacherlogin" , method = RequestMethod.GET)
-    public String teacherLogin(){
-        return "teacherLogin";
+    //@RequestMapping(value =  "/teacherlogin" , method = RequestMethod.GET)
+    //public String teacherLogin(){
+    //    return "teacherlogin";
+    //}
+
+    @RequestMapping(value = "/login")
+    public String studentLogin(){
+            return "studentlogin";
     }
 
-    @RequestMapping(value = "/studentlogin", method = RequestMethod.GET)
-    public String studentLogin(){
-        return "studentlogin";
-    }
 
     @RequestMapping(value = "/register", method = RequestMethod.GET)
     public ModelAndView register() {
