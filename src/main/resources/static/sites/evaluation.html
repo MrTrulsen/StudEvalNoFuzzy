@@ -163,7 +163,7 @@
                           <span class="input-group-text" id="inputGroup-sizing-default">Difficulty</span>
                         </div>
 
-                        <input id="difficultyInput" type="text" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default"></input>
+                        <input id="difficultyInput" type="text" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default" oninput="var input=this; importValue(input);"></input>
                       </div>
 
                       <div class="input-group mb-3">
@@ -171,7 +171,7 @@
                           <span class="input-group-text" id="inputGroup-sizing-default">Complexity</span>
                         </div>
 
-                        <input id="complexityInput" type="text" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default"></input>
+                        <input id="complexityInput" type="text" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default" oninput="var input=this; importValue(input);"></input>
                       </div>
 
                       <div class="input-group mb-3">
@@ -179,7 +179,7 @@
                           <span class="input-group-text" id="inputGroup-sizing-default">Time</span>
                         </div>
 
-                        <input id="timeInput" type="text" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default"></input>
+                        <input id="timeInput" type="text" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default" oninput="var input=this; importValue(input);"></input>
                       </div>
 
                       <div class="input-group mb-3">
@@ -187,14 +187,14 @@
                           <span class="input-group-text" id="inputGroup-sizing-default">Importance</span>
                         </div>
 
-                        <input id="importanceInput" type="text" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default"></input>
+                        <input id="importanceInput" type="text" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default" oninput="var input=this; importValue(input);"></input>
                       </div>
                     </form>
                   </div>
 
                   <div class="modal-footer">
                     <button type="button" class="btn btn-primary" data-dismiss="modal">Close</button>
-                    <button id="saveQuestionBtn" type="button" class="btn btn-primary" type="submit" onclick="addQuestion()">Save question</button>
+                    <button id="saveQuestionBtn" type="button" class="btn btn-primary" type="submit" onclick="addQuestion();">Save question</button>
                   </div>
                 </form>
               </div>

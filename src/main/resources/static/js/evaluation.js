@@ -4,12 +4,12 @@ var questions = [];
 var questionNumber = 1;
 
 function questionValue(question) {
-  var complexity = document.getElementById('difficultyOutput').value;
-  var time_use = document.getElementById('timeOutput').value;
-  var difficulty = document.getElementById('difficultyOutput').value;
-  var importance = document.getElementById('importanceOutput').value;
+  var complexity = document.getElementById('complexityInput').value;
+  var time_use = document.getElementById('timeInput').value;
+  var difficulty = document.getElementById('difficultyInput').value;
+  var importance = document.getElementById('importanceInput').value;
 
-  var q1 = [question, complexity, time_use, difficulty, importance];
+  var q1 = [question, difficulty, complexity, time_use, importance];
   var newQuestion = questions.push(q1);
   console.log(time_use);
   console.log(questions);
@@ -50,6 +50,16 @@ function newQuestionButton() {
   }, false);
 
   document.body.appendChild(newButton);
+}
+function importValue(input){
+  console.log(input);
+    var slider = document.getElementById(input.id.slice(0, - 5) + "Slider");
+    var output = document.getElementById(input.id.slice(0, - 5) + "Output");
+     slider.value = input.value;
+     output.value = input.value;
+console.log(slider);
+console.log(input);
+console.log(output);
 }
 
 function displaySliderValue(slider) {
