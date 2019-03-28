@@ -4,12 +4,12 @@ import javax.persistence.*;
 import java.util.Set;
 
 @Entity
-@Table(name = "auth_user")
+@Table(name = "user")
 public class User {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "auth_user_id", unique = true, nullable = false)
+    @Column(name = "user_id", unique = true, nullable = false)
     private long id;
 
     @Column(name = "email", unique = true, nullable = false)
@@ -18,11 +18,11 @@ public class User {
     @Column(name = "password")
     private String password;
 
-    @Column(name = "status")
-    private String status;
+    @Column(name = "is_active")
+    private int status;
 
-    @ManyToMany(cascade = CascadeType.ALL)
-    @JoinTable(name = "auth_user_role", joinColumns = @JoinColumn(name = "auth_user_id"), inverseJoinColumns = @JoinColumn(name = "auth_role_id"))
+    @ManyToMany
+    @JoinTable(name = "user_role", joinColumns = @JoinColumn(name = "user_id"), inverseJoinColumns = @JoinColumn(name = "role_id"))
     private Set<Role> roles;
 
     public long getId() {
@@ -49,11 +49,11 @@ public class User {
         this.password = password;
     }
 
-    public String getStatus() {
+    public int getStatus() {
         return status;
     }
 
-    public void setStatus(String status) {
+    public void setStatus(int status) {
         this.status = status;
     }
 
