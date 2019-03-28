@@ -45,7 +45,7 @@ public class TeacherSecurity extends WebSecurityConfigurerAdapter {
     protected void configure(HttpSecurity httpSecurity) throws Exception{
         httpSecurity
                 .authorizeRequests()
-                .antMatchers("/").permitAll()
+                //.antMatchers("/").permitAll()
                 .antMatchers("/login").permitAll()
                 .antMatchers("/register").permitAll()
                 .antMatchers("/registeruser").permitAll()

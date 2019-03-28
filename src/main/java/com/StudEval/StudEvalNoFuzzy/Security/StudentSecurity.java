@@ -45,7 +45,7 @@ public class StudentSecurity extends WebSecurityConfigurerAdapter {
     protected void configure(HttpSecurity httpSecurity) throws Exception{
         httpSecurity
                 .authorizeRequests()
-                .antMatchers("/").permitAll()
+                //.antMatchers("/").permitAll()
                 .antMatchers("/login").permitAll()
                 .antMatchers("/register").permitAll()
                 .antMatchers("/registeruser").permitAll()
@@ -55,7 +55,6 @@ public class StudentSecurity extends WebSecurityConfigurerAdapter {
 
                 //form login
                 .csrf().disable().formLogin()
-                .loginPage("/studentlogin")
                 .loginPage("/login")
                 .successHandler(successHandler)
 

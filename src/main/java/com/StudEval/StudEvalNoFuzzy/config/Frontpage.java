@@ -18,19 +18,9 @@ public class Frontpage {
     @Autowired
     UserService userService;
 
-    @RequestMapping(value = "/", method = RequestMethod.GET)
-    public String index(){
-        return "index";
-    }
-
-    //@RequestMapping(value =  "/teacherlogin" , method = RequestMethod.GET)
-    //public String teacherLogin(){
-    //    return "teacherlogin";
-    //}
-
     @RequestMapping(value = "/login")
     public String studentLogin(){
-            return "studentlogin";
+            return "login";
     }
 
 
