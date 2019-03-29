@@ -10,13 +10,24 @@
   <title>EDUEVAL</title>
 
   <link rel="icon" href="https://pbs.twimg.com/profile_images/671984499648020481/FixFBnRN_400x400.png">
-  <script th:href="@{/bootstrap/js/jquery.min.js}"></script>
+  <script th:src="@{/bootstrap/js/jquery.min.js}"></script>
   <link rel="stylesheet" th:href="@{/bootstrap/css/bootstrap.css}">
   <link rel="stylesheet" th:href="@{/css/mainStyle.css}">
   <script th:src="@{/bootstrap/js/bootstrap.bundle.js}"></script>
   <script th:src="@{/js/dashboard.js}"></script>
   <script th:src="@{/js/canvasjs.min.js}"></script>
   <script th:src="@{/js/moment.js}"></script>
+
+  <!--
+  <link rel="icon" href="https://pbs.twimg.com/profile_images/671984499648020481/FixFBnRN_400x400.png">
+  <script th:inline="@{/bootstrap/js/jquery.min.js}"></script>
+  <link rel="stylesheet" th:href="@{/bootstrap/css/bootstrap.css}">
+  <link rel="stylesheet" th:href="@{/css/mainStyle.css}">
+  <script th:inline="@{/bootstrap/js/bootstrap.bundle.js}"></script>
+  <script th:inline="@{/js/dashboard.js}"></script>
+  <script th:inline="@{/js/canvasjs.min.js}"></script>
+  <script th:inline="@{/js/moment.js}"></script>
+  -->
 </head>
 
 <body id="body">
@@ -39,11 +50,11 @@
           <div class="navbar-nav mr-auto mt-2 mt-lg-0">
             <div id="addEvalNav" class="nav-item">
               <!-- Button for adding evaluation  -->
-              <button id="addEvalButton" class="btn btn-primary" data-toggle="modal" data-target="#modalAddEval">Add evaluation</button>
+              <button id="addEvalButton" class="btn btn-primary" data-toggle="modal" th:attr="data-target='#modalAddEval'">Add evaluation</button>
             </div>
 
             <!-- <div id="registerStudents" class="nav-item">
-                <button id="navButton" class="btn btn-primary" onclick="location.href='#'">Register students</button>
+                <button id="navBtn" class="btn btn-primary" onclick="location.href='#'">Register students</button>
               </div> -->
           </div>
 
@@ -68,9 +79,9 @@
               <div class="card-body">
                 <h5 class="card-title">Special title treatment</h5>
                 <p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
-                <button id="seeEvalButton" class="btn btn-primary evalButton" onclick="location.href='#'" type="submit">See evaluation</button>
-                <button id="resultButton" class="btn btn-primary evalButton" data-toggle="modal" data-target="#modalResult" type="submit">Result</button>
-                <button id="removeButton" class="btn btn-primary evalButton" data-toggle="modal" data-target="#modalRemove" type="submit">Remove</button>
+                <button id="seeEvalButton" class="btn btn-primary evalBtn" onclick="location.href='#'" type="submit">See evaluation</button>
+                <button id="resultButton" class="btn btn-primary evalBtn" data-toggle="modal" th:attr="data-target='#modalResult'" type="submit">Result</button>
+                <button id="removeButton" class="btn btn-primary evalBtn" data-toggle="modal" th:attr="data-target='#modalRemove'" type="submit">Remove</button>
               </div>
 
               <div class="card-footer text-muted">
@@ -81,7 +92,7 @@
           <!-- IDEA: Dont put any content outside here -->
 
           <!-- Modal for printing results in bar graph  -->
-          <div id="modalResult" class="modal fade bd-example-modal-xl" tabindex="-1" role="dialog" aria-labelledby="myExtraLargeModalLabel" aria-hidden="true">
+          <div th:id="modalResult" class="modal fade bd-example-modal-xl" tabindex="-1" role="dialog" aria-labelledby="myExtraLargeModalLabel" aria-hidden="true">
             <div class="modal-dialog modal-xl">
               <div class="modal-content">
                 <div class="modal-header">
@@ -99,7 +110,7 @@
           </div>
 
           <!-- Modal for adding evaluation with user input  -->
-          <div class="modal fade" id="modalAddEval" tabindex="-1" role="dialog" aria-labelledby="modalAddEvalTitle" aria-hidden="true">
+          <div class="modal fade" th:id="modalAddEval" tabindex="-1" role="dialog" aria-labelledby="modalAddEvalTitle" aria-hidden="true">
             <div class="modal-dialog modal-dialog-scrollable" role="document">
               <div class="modal-content">
                 <form action="index.html" method="post">
@@ -138,7 +149,7 @@
 
                   <div class="modal-footer">
                     <button type="button" class="btn btn-primary" data-dismiss="modal">Close</button>
-                    <button type="button" class="btn btn-primary" data-dismiss="modal" onclick="addEvaluation()">Save evaluation</button>
+                    <button type="button" class="btn btn-primary" data-dismiss="modal" th:onclick="'addEvaluation()'">Save evaluation</button>
                   </div>
                 </form>
               </div>
@@ -146,7 +157,7 @@
           </div>
 
           <!-- Modal for removing evaluations  -->
-          <div class="modal fade" id="modalRemove" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+          <div class="modal fade" th:id="modalRemove" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
             <div class="modal-dialog" role="document">
               <div class="modal-content">
                 <div class="modal-header">
