@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr"
+      xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+  <title>EDUEVAL</title>
+
+  <link rel="icon" href="https://pbs.twimg.com/profile_images/671984499648020481/FixFBnRN_400x400.png">
+  <script th:src="@{/bootstrap/js/jquery.min.js}"></script>
+  <link rel="stylesheet" th:href="@{/bootstrap/css/bootstrap.css}">
+  <link rel="stylesheet" th:href="@{/css/mainStyle.css}">
+  <script th:src="@{/bootstrap/js/bootstrap.bundle.js}"></script>
+  <script th:src="@{/js/dashboard.js}"></script>
+  <script th:src="@{/js/canvasjs.min.js}"></script>
+  <script th:src="@{/js/moment.js}"></script>
+
+  <!--
+  <link rel="icon" href="https://pbs.twimg.com/profile_images/671984499648020481/FixFBnRN_400x400.png">
+  <script th:inline="@{/bootstrap/js/jquery.min.js}"></script>
+  <link rel="stylesheet" th:href="@{/bootstrap/css/bootstrap.css}">
+  <link rel="stylesheet" th:href="@{/css/mainStyle.css}">
+  <script th:inline="@{/bootstrap/js/bootstrap.bundle.js}"></script>
+  <script th:inline="@{/js/dashboard.js}"></script>
+  <script th:inline="@{/js/canvasjs.min.js}"></script>
+  <script th:inline="@{/js/moment.js}"></script>
+  -->
+</head>
+
+<body id="body">
+  <section id="fullPage">
+    <div id="headerWrapper">
+      <div id="header" class="container">
+        <p>EDUEVAL</p>
+      </div>
+    </div>
+
+    <!-- Navigation bar  -->
+    <div id="navWrapper">
+      <nav id="navbar" class="navbar navbar-expand-md navbar-light container">
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarTogglerDemo01" aria-controls="navbarTogglerDemo01" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <!-- Class for collapseable navbar  -->
+        <div class="collapse navbar-collapse" id="navbarTogglerDemo01">
+          <div class="navbar-nav mr-auto mt-2 mt-lg-0">
+            <div id="addEvalNav" class="nav-item">
+              <!-- Button for adding evaluation  -->
+              <button id="addEvalButton" class="btn btn-primary" data-toggle="modal" th:attr="data-target='#modalAddEval'">Add evaluation</button>
+            </div>
+
+            <!-- <div id="registerStudents" class="nav-item">
+                <button id="navBtn" class="btn btn-primary" onclick="location.href='#'">Register students</button>
+              </div> -->
+          </div>
+
+          <div id="logoutNav" class="nav-item">
+            <!-- Button for logging out  -->
+            <button id="logoutButton" class="btn btn-primary" onclick="location.href='/logout'" type="submit">Log out</button>
+          </div>
+        </div>
+      </nav>
+    </div>
+
+    <div id="contentWrapper">
+      <div id="content" class="container">
+        <div id="workArea">
+          <!-- IDEA: Put the content under here -->
+          <div id="cardArea">
+            <!-- Evaluation card  -->
+            <div id="evaluationCard" class="card text-center">
+              <div class="card-header">
+                Featured
+              </div>
+              <div class="card-body">
+                <h5 class="card-title">Special title treatment</h5>
+                <p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
+                <button id="seeEvalButton" class="btn btn-primary evalBtn" onclick="location.href='#'" type="submit">See evaluation</button>
+                <button id="resultButton" class="btn btn-primary evalBtn" data-toggle="modal" th:attr="data-target='#modalResult'" type="submit">Result</button>
+                <button id="removeButton" class="btn btn-primary evalBtn" data-toggle="modal" th:attr="data-target='#modalRemove'" type="submit">Remove</button>
+              </div>
+
+              <div class="card-footer text-muted">
+                2 days ago (TIMESTAMP DATE)
+              </div>
+            </div>
+          </div>
+          <!-- IDEA: Dont put any content outside here -->
+
+          <!-- Modal for printing results in bar graph  -->
+          <div th:id="modalResult" class="modal fade bd-example-modal-xl" tabindex="-1" role="dialog" aria-labelledby="myExtraLargeModalLabel" aria-hidden="true">
+            <div class="modal-dialog modal-xl">
+              <div class="modal-content">
+                <div class="modal-header">
+                  <h5 class="modal-title h4" id="myExtraLargeModalLabel">Evaluation Result</h5>
+                  <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">×</span>
+                  </button>
+                </div>
+
+                <div id="modalBody" class="modal-body">
+                  <div id="chartContainer"></div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Modal for adding evaluation with user input  -->
+          <div class="modal fade" th:id="modalAddEval" tabindex="-1" role="dialog" aria-labelledby="modalAddEvalTitle" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-scrollable" role="document">
+              <div class="modal-content">
+                <form action="index.html" method="post">
+                  <div class="modal-header">
+                    <h5 class="modal-title" id="modalAddEvalTitle">Add evaluation</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                      <span aria-hidden="true">&times;</span>
+                    </button>
+                  </div>
+                  <div class="modal-body">
+
+                    <div class="input-group mb-3">
+                      <div class="input-group-prepend">
+                        <span class="input-group-text" id="inputGroup-sizing-default">Course ID</span>
+                      </div>
+                      <input id="courseIdInput" type="text" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default">
+                    </div>
+
+                    <div class="input-group mb-3">
+                      <div class="input-group-prepend">
+                        <span class="input-group-text" id="inputGroup-sizing-default">Course Name</span>
+                      </div>
+                      <input id="courseNameInput" type="text" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default">
+                    </div>
+
+                    <div class="input-group">
+                      <div class="input-group-prepend">
+                        <span class="input-group-text">Date of exam</span>
+                      </div>
+
+                      <input id="dateInput" type="text" placeholder="Date" aria-label="Date" class="form-control">
+                      <input id="monthInput" type="text" placeholder="Month" aria-label="Month" class="form-control">
+                      <input id="yearInput" type="text" placeholder="Year" aria-label="Year" class="form-control">
+                    </div>
+                  </div>
+
+                  <div class="modal-footer">
+                    <button type="button" class="btn btn-primary" data-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-primary" data-dismiss="modal" th:onclick="'addEvaluation()'">Save evaluation</button>
+                  </div>
+                </form>
+              </div>
+            </div>
+          </div>
+
+          <!-- Modal for removing evaluations  -->
+          <div class="modal fade" th:id="modalRemove" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+              <div class="modal-content">
+                <div class="modal-header">
+                  <h5 class="modal-title" id="exampleModalLabel">Removing evaluation</h5>
+                  <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                  </button>
+                </div>
+                <div id="modalRemoveBody" class="modal-body">
+                  <p>Are you sure you want to remove the evaluation? If you want so, please write in the Course ID of the evaluation.</p>
+                  <div class="input-group mb-3">
+                    <div class="input-group-prepend">
+                      <span class="input-group-text" id="inputGroup-sizing-default">Course ID</span>
+                    </div>
+                    <input id="removeCourse" type="text" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default">
+                  </div>
+                </div>
+                <div class="modal-footer">
+                  <button type="button" class="btn btn-primary" data-dismiss="modal">Close</button>
+                  <button id="removeCourseButton" type="button" class="btn btn-primary" onclick="removeEvaluation()">Remove evaluation</button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- Working footer, but not corresponding to bottom placement in the CSS
+      <div id="footer">
+        <div id="footerLinks">
+          <div><span id="copyright">© 2019 EDUEVAL</span>
+          </div>
+        </div>
+      </div> -->
+  </section>
+</body>
+
+</html>
