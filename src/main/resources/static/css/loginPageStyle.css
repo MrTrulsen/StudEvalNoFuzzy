@@ -110,9 +110,8 @@ body {
 	margin-right: 20px;
 }
 
-#submitBtn, #backBtn {
-	float: left;
-	width: 47%;
+#submitBtn {
+	width: 100%;
 	margin-bottom: 20px;
 }
 

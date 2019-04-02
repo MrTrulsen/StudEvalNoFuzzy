@@ -80,8 +80,6 @@ function removeEvaluation() {
   var inputField = document.getElementById("removeEvaluation");
   var btn = document.getElementById("removeEvaluationBtn");
 
-  btn.removeAttribute("data-dismiss", "modal");
-
   checkForError(inputValue, inputField, btn);
 
   //Checks for error at user input
@@ -89,11 +87,13 @@ function removeEvaluation() {
     //If length = 0 it will return an error message and not continue
     if (inputValue.length == 0) {
       showErrorMessage(inputField, "modalRemoveBody", "modalRemoveContent", "The field can not be empty");
+      btn.removeAttribute("data-dismiss", "modal");
     }
     else {
       var action = document.getElementById("evaluationCard" + inputValue);
       if (action == null) {
         showErrorMessage(inputField, "modalRemoveBody", "modalRemoveContent", "Please enter the correct value");
+        btn.removeAttribute("data-dismiss", "modal");
       }
       else {
         action.parentNode.removeChild(action);

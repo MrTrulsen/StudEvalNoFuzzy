@@ -11,7 +11,6 @@
   <script src="../bootstrap/js/jquery.min.js"></script>
   <link rel="stylesheet" href="../bootstrap/css/bootstrap.css">
   <link rel="stylesheet" href="../css/mainStyle.css">
-  <link rel="stylesheet" href="../css/sliders.css">
   <script src="../bootstrap/js/bootstrap.bundle.js"></script>
   <script src="../js/evaluation.js"></script>
 </head>
@@ -37,10 +36,14 @@
             <div id="addEvalNav" class="nav-item">
               <!-- Button for adding questions  -->
               <button id="addQuestionBtn" class="btn btn-primary" data-toggle="modal" data-target="#modalAddQuestion" onclick="">Add question</button>
+            </div>
+
+            <div id="addStudentNav" class="nav-item">
+              <!-- Button for adding evaluation  -->
               <button id="addStudentBtn" class="btn btn-primary"  data-toggle="modal" data-target="#modalAddStudent" onclick="">Add Student</button>
             </div>
-            </div>
           </div>
+
 
           <div id="logoutNav" class="nav-item">
             <!-- Button for logging out  -->
@@ -57,7 +60,7 @@
           <div id="questionArea">
             <div id="questionHeaderWrapper">
               <div id="questionHeader">
-                <h1> </h1>
+                <h1 id="questionNumberDisplay">Question: <!-- Enter question number here--></h1>
               </div>
               <div id="questionTextWrapper" class="container">
                 <h5 id="questionText"></h5>

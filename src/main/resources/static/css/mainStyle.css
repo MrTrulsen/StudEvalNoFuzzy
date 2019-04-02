@@ -7,20 +7,20 @@ html, body {
   width: 100%;
   background-color: #ffffff;
   color: #000000;
-  font-weight: 340;
+  font-weight: 300;
   font-family: "Segoe UI", "Segoe", "SegoeUI-Regular-final", Tahoma, Helvetica, Arial, sans-serif;
 }
 
 h1 {
   text-align: center;
-  font-weight: 340;
+  font-weight: 300;
   padding-bottom: 25px;
   margin-bottom: 20px;
   border-bottom: solid 1px;
 }
 
 h2 {
-  font-weight: 340;
+  font-weight: 300;
   padding-bottom: 20px;
   margin-bottom: 40px;
   border-bottom: solid 1px;
@@ -31,7 +31,7 @@ h2 {
 }
 
 #questionText {
-  font-weight: 340;
+  font-weight: 300;
   text-align: center;
 }
 
@@ -72,6 +72,7 @@ h2 {
 #changePasswordBtn, #deleteAccountBtn, #changePassword, #deleteAccount {
   width: 100%;
 }
+
 #changePassword {
   margin-bottom: 15px;
 }
@@ -95,20 +96,16 @@ h2 {
   overflow: hidden;
 }
 
-#registerStudents {
-  display: inline;
-}
-
 #logoutNav, #settingsNav {
   display: inline;
   float: right;
 }
 
-#settingsNav {
+#settingsNav, #addQuestionBtn {
   margin-right: 15px;
 }
 
-#addEvalBtn, #settingsBtn, #logoutBtn, #addQuestionBtn {
+#addEvalBtn, #settingsBtn, #logoutBtn, #addQuestionBtn, #addStudentBtn {
   width: 150px;
 }
 
@@ -242,17 +239,12 @@ h2 {
     margin-right: 0;
   }
 
-  #addEvaluation, #registerStudents, #addQuestionBtn, #settingsNav, #logoutNav,
-  #addEvalBtn, #settingsBtn, #logoutBtn, #takeEvalBtn, .evalBtn, #prevQuestionBtn, #nextQuestionBtn {
+  #addEvaluation, #registerStudents, #addQuestionBtn, #settingsNav, #logoutNav, #addEvalBtn,
+  #settingsBtn, #logoutBtn, #takeEvalBtn, .evalBtn, #prevQuestionBtn, #nextQuestionBtn, #addStudentBtn {
     width: 100%;
   }
 
   #settingsNav {
     margin-right: 0;
   }
-}
-
-@media (min-width: 992px)
-.modal-lg, .modal-xl {
-    min-height: 800px;
 }
