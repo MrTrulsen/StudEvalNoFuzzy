@@ -44,17 +44,17 @@ public class TeacherRest {
     }
 
     @RequestMapping("/studentsInThisCourse")
-    public List<Student> listStudents(){
+    public List<User> listStudents(){
         //TO DO; implement course_ID to come in
-        String course_id = "ID202712";
-        List<Student> studentList = teacherRepository.findStudentsInCourse(course_id);
+        Integer evalId = 1;
+        List<User> studentList = teacherRepository.findStudentsInEvaluation(evalId);
         return studentList;
     }
 
-    @RequestMapping(value = "/addStudents/{eval_id}" , method = RequestMethod.POST)
-    public ResponseEntity<String> addStudents(@RequestBody List<User> users, @PathVariable Integer eval_id){
+    @RequestMapping(value = "/addStudents/{evalId}" , method = RequestMethod.POST)
+    public ResponseEntity<String> addStudents(@RequestBody List<User> users, @PathVariable Integer evalId){
 
-        String error = teacherRepository.importStudentsToEvaluation(users,eval_id);
+        String error = teacherRepository.importStudentsToEvaluation(users,evalId);
         if(error == null){
             return new ResponseEntity<>(HttpStatus.OK);
         }

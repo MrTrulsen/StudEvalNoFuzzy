@@ -30,4 +30,6 @@ public class StudentRepository {
         return jdbcTemplate.query("SELECT * FROM questions", questionRowMapper);
     }
 
+
+
 }
