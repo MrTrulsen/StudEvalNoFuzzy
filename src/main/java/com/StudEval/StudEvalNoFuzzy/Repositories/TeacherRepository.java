@@ -1,6 +1,8 @@
 package com.StudEval.StudEvalNoFuzzy.Repositories;
 
 import com.StudEval.StudEvalNoFuzzy.Evaluation.Answer;
+import com.StudEval.StudEvalNoFuzzy.Evaluation.Course;
+import com.StudEval.StudEvalNoFuzzy.Evaluation.Evaluation;
 import com.StudEval.StudEvalNoFuzzy.RowMappers.CourseIdRowMapper;
 import com.StudEval.StudEvalNoFuzzy.User.Student;
 import com.StudEval.StudEvalNoFuzzy.User.User;
@@ -13,6 +15,7 @@ import org.springframework.stereotype.Repository;
 import javax.sql.RowSet;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 @Repository
 public class TeacherRepository {
@@ -41,13 +44,13 @@ public class TeacherRepository {
     /**
      * Fetches the related questions
      *
-     * @param course_id
+     * @param courseId
      * @return The question with this id.
      */
-    public List findRelatedAnswersToCourseId(String course_id) {
+    public List findRelatedAnswersToCourseId(String courseId) {
         List<Answer> answers = new ArrayList<>();
         String query = "SELECT r.* FROM responses r INNER JOIN course_ques_junc j ON r.question_id = j.question_id WHERE course_id=?";
-        SqlRowSet rowSet = jdbcTemplate.queryForRowSet(query, new Object[]{course_id});
+        SqlRowSet rowSet = jdbcTemplate.queryForRowSet(query, new Object[]{courseId});
         if (rowSet.first()) {
             Answer answer = new Answer(rowSet.getInt("answer_id"),
                     rowSet.getInt("question_id"),
@@ -94,10 +97,10 @@ public class TeacherRepository {
     /**
      * Importing students to the actual course.
      * @param users
-     * @param eval_id
+     * @param evalId
      * @return null if success, if not success "Could not add students."
      */
-    public String importStudentsToEvaluation(List<User> users, Integer eval_id) {
+    public String importStudentsToEvaluation(List<User> users, Integer evalId) {
         List<User> usersExistingInDb = findUsersInDb();
         int numRows = 0;
         for (User user : users) {
@@ -108,7 +111,7 @@ public class TeacherRepository {
             }
             String query = "REPLACE INTO eval_user_junc(user_id,eval_id) VALUES(?,?)";
             try {
-                numRows = jdbcTemplate.update(query, user.getId(), eval_id);
+                numRows = jdbcTemplate.update(query, user.getId(), evalId);
 
             } catch (Exception ex) {
                 return "Could not add students: " + ex.getMessage();
@@ -135,6 +138,11 @@ public class TeacherRepository {
         }
     }
 
+    /**
+     * Gets the new user_id of requested user recently added.
+     * @param email
+     * @return user id of requested email
+     */
     public int getNewUserId(String email){
         String query = "SELECT user_id FROM user WHERE email=?";
         Integer user_id;
@@ -146,5 +154,67 @@ public class TeacherRepository {
         }
         return user_id;
     }
+
+    /**
+     * Adds new evaluation
+     * @param evaluation
+     * @return null if success, "Could not add evaluation" else
+     */
+    public String addNewEvaluation(Evaluation evaluation,String courseName){
+       String query = "INSERT INTO evaluation (date, course_id) VALUES (?,?)";
+       List<String> courses = getAllCourses();
+       Integer numRows;
+       for(String course : courses){
+           if(!courses.contains(courseName)){
+               addCourse(evaluation.getCourse_id(),courseName);
+               courses.add(courseName);
+           }
+       }
+       try{
+           numRows = jdbcTemplate.update(query,evaluation.getDate(),evaluation.getCourse_id());
+       }
+       catch(Exception ex){
+           return "Could not add evaluation" + ex;
+        }
+        if(numRows == 1){
+            return null;
+        }
+        else {
+            return "Could not add evaluation";
+        }
+    }
+
+    /**
+     * Adds a course
+     * @param courseName
+     */
+    private void addCourse(String courseId, String courseName) {
+        String query = "INSERT INTO course (course_id,name) VALUES (?,?)";
+        try {
+            jdbcTemplate.update(query,courseId,courseName);
+        } catch (Exception ex) {
+            throw ex;
+        }
+
+    }
+
+    private List<String> getAllCourses() {
+        String query = "SELECT name FROM course";
+        List<String> courses = new ArrayList<String>();
+        String courseName = "";
+        try{
+             SqlRowSet rs = jdbcTemplate.queryForRowSet(query);
+            while (rs.next()) {
+                String course = (rs.getString("name"));
+                courses.add(course);
+            }
+        }
+        catch(Exception ex){
+            throw ex;
+        }
+        return courses;
+
+    }
+
 
 }

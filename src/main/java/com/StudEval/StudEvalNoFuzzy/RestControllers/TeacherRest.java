@@ -1,6 +1,7 @@
 package com.StudEval.StudEvalNoFuzzy.RestControllers;
 
 import com.StudEval.StudEvalNoFuzzy.Evaluation.Answer;
+import com.StudEval.StudEvalNoFuzzy.Evaluation.Evaluation;
 import com.StudEval.StudEvalNoFuzzy.Evaluation.Question;
 import com.StudEval.StudEvalNoFuzzy.Repositories.MainRepository;
 import com.StudEval.StudEvalNoFuzzy.Repositories.TeacherRepository;
@@ -54,6 +55,19 @@ public class TeacherRest {
     public ResponseEntity<String> addStudents(@RequestBody List<User> users, @PathVariable Integer eval_id){
 
         String error = teacherRepository.importStudentsToEvaluation(users,eval_id);
+        if(error == null){
+            return new ResponseEntity<>(HttpStatus.OK);
+        }
+        else {
+            return new ResponseEntity<>(error, HttpStatus.BAD_REQUEST);
+        }
+
+    }
+
+    @RequestMapping(value = "/addEvaluation/{course_name}" , method = RequestMethod.POST)
+    public ResponseEntity<String> addEvaluation(@RequestBody Evaluation evaluation, @PathVariable String course_name){
+
+        String error = teacherRepository.addNewEvaluation(evaluation,course_name);
         if(error == null){
             return new ResponseEntity<>(HttpStatus.OK);
         }
