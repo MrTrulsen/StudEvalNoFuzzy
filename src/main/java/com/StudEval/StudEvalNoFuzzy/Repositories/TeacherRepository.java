@@ -3,6 +3,7 @@ package com.StudEval.StudEvalNoFuzzy.Repositories;
 import com.StudEval.StudEvalNoFuzzy.Evaluation.Answer;
 import com.StudEval.StudEvalNoFuzzy.RowMappers.CourseIdRowMapper;
 import com.StudEval.StudEvalNoFuzzy.User.Student;
+import com.StudEval.StudEvalNoFuzzy.User.User;
 import javassist.bytecode.stackmap.BasicBlock;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
@@ -73,32 +74,41 @@ public class TeacherRepository {
         return null;
     }
 
-
-    public List<String> findStudentEmailsInDb() {
-        List<String> emails = new ArrayList<>();
-        String query = "SELECT email FROM user";
+    /**
+     * Finding all the current users in db
+     * @return List of users in db
+     */
+    public List<User> findUsersInDb() {
+        List<User> users = new ArrayList<>();
+        String query = "SELECT user_id, email, is_active FROM user";
         SqlRowSet rs = jdbcTemplate.queryForRowSet(query);
-        if (rs.first()) {
-            String studentEmail = rs.getString("email");
-            emails.add(studentEmail);
-        }
         while (rs.next()) {
-            String studentEmail = rs.getString("email");
-            emails.add(studentEmail);
+            User user = new User(rs.getString("email"),
+                    "",
+                    rs.getInt("is_active"));
+            users.add(user);
         }
-        return emails;
+        return users;
     }
 
-    public String importStudentsToCourse(List<Student> students, String course_id) {
-        List<String> studentEmailsInDb = findStudentEmailsInDb();
+    /**
+     * Importing students to the actual course.
+     * @param users
+     * @param eval_id
+     * @return null if success, if not success "Could not add students."
+     */
+    public String importStudentsToEvaluation(List<User> users, Integer eval_id) {
+        List<User> usersExistingInDb = findUsersInDb();
         int numRows = 0;
-        for (Student student : students) {
-            if (!studentEmailsInDb.contains(student.getEmail())) {
-                addUser(student);
+        for (User user : users) {
+            if (!usersExistingInDb.contains(user.getEmail())) {
+                user.setStatus(0);
+                addUser(user);
+                user.setId(getNewUserId(user.getEmail()));
             }
-            String query = "REPLACE INTO course_stud_junc(user_id,course_id) VALUES(?,?)";
+            String query = "REPLACE INTO eval_user_junc(user_id,eval_id) VALUES(?,?)";
             try {
-                numRows = jdbcTemplate.update(query, student.getStudent_id(), course_id);
+                numRows = jdbcTemplate.update(query, user.getId(), eval_id);
 
             } catch (Exception ex) {
                 return "Could not add students: " + ex.getMessage();
@@ -108,17 +118,33 @@ public class TeacherRepository {
             return null;
         }
         else {
-            return "Could not add students right.";
+            return "Could not add students.";
         }
     }
 
-    public void addUser(Student student) {
-        String query = "INSERT INTO user (email) VALUES (?)";
+    /**
+     * Adds a user in db if the user have not registred yet.
+     * @param user
+     */
+    public void addUser(User user) {
+        String query = "INSERT INTO user (email,is_active) VALUES (?,?)";
         try {
-            jdbcTemplate.update(query, student.getEmail());
+            jdbcTemplate.update(query, user.getEmail(),user.getStatus());
         } catch (Exception ex) {
             throw ex;
         }
+    }
+
+    public int getNewUserId(String email){
+        String query = "SELECT user_id FROM user WHERE email=?";
+        Integer user_id;
+        try{
+             user_id = jdbcTemplate.queryForObject(query,new Object[]{email},Integer.class);
+        }
+        catch(Exception ex){
+            throw ex;
+        }
+        return user_id;
     }
 
 }
