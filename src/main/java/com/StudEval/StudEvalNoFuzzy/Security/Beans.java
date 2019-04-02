@@ -12,6 +12,7 @@ public class Beans {
         BCryptPasswordEncoder bCryptPasswordEncoder = new BCryptPasswordEncoder();
         return bCryptPasswordEncoder;
     }
+
 /*
     @Bean
     public UserDetailsService userDetailsService() throws Exception {

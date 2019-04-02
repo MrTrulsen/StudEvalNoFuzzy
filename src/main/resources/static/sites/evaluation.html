@@ -36,7 +36,9 @@
           <div class="navbar-nav mr-auto mt-2 mt-lg-0">
             <div id="addEvalNav" class="nav-item">
               <!-- Button for adding questions  -->
-              <button id="addQuestionBtn" class="btn btn-primary" onclick="addQuestion()">Add question</button>
+              <button id="addQuestionBtn" class="btn btn-primary" data-toggle="modal" data-target="#modalAddQuestion" onclick="">Add question</button>
+              <button id="addStudentBtn" class="btn btn-primary"  data-toggle="modal" data-target="#modalAddStudent" onclick="">Add Student</button>
+            </div>
             </div>
           </div>
 
@@ -55,57 +57,58 @@
           <div id="questionArea">
             <div id="questionHeaderWrapper">
               <div id="questionHeader">
-                <h1>Question 1</h1>
+                <h1> </h1>
+              </div>
+              <div id="questionTextWrapper" class="container">
+                <h5 id="questionText"></h5>
               </div>
             </div>
 
-            <div id="slidersWrapper" class="col-2 container">
-              <div id="difficultySlider" class="sliders">
-                <p>Difficulty:</p>
-                <div class="row">
-                  <div class="col-xs-6">
-                    <div class="range">
-                      <input type="range" name="range" min="1" max="100" value="50" onchange="range.value=value">
-                      <output id="range">50</output>
-                    </div>
-                  </div>
+            <!-- Div for all sliders -->
+            <div id="sliderWrapper" class="container">
+              <div id="difficultyContent" class="container sliders">
+                <h2>Difficulty</h2>
+                <p></p>
+                <input id="difficultySlider" type="range" min="1" max="100" value="50" class="slider" onchange="var slider = this; displaySliderValue(slider);">
+                <div id="difficultyTicks" class="sliderticks">
+                  <p>1</p>
+                  <p>50</p>
+                  <p>100</p>
                 </div>
+                <p>Value: <input id="difficultyOutput" class="form-control valueOutput" onchange="var output = this; updateSlider(output)" type="text" name="" value="50" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default"></input></p>
               </div>
 
-              <div id="complexitySlider" class="sliders">
-                <p>Complexity:</p>
-                <div class="row">
-                  <div class="col-xs-6">
-                    <div class="range">
-                      <input type="range" name="range" min="1" max="100" value="50" onchange="range.value=value">
-                      <output id="range">50</output>
-                    </div>
-                  </div>
+              <div id="complexityContent" class="container sliders">
+                <h2>Complexity</h2>
+                <input id="complexitySlider" type="range" min="1" max="100" value="50" class="slider" onchange="var slider = this; displaySliderValue(slider);">
+                <div class="sliderticks">
+                  <p>1</p>
+                  <p>50</p>
+                  <p>100</p>
                 </div>
+                <p>Value: <input id="complexityOutput" class="form-control valueOutput" onchange="var output = this; updateSlider(output)" type="text" name="" value="50" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default"></input></p>
               </div>
 
-              <div id="timeSlider" class="sliders">
-                <p>Time:</p>
-                <div class="row">
-                  <div class="col-xs-6">
-                    <div class="range">
-                      <input type="range" name="range" min="1" max="100" value="50" onchange="range.value=value">
-                      <output id="range">50</output>
-                    </div>
-                  </div>
+              <div id="timeContent" class="container sliders">
+                <h2>Time</h2>
+                <input id="timeSlider" type="range" min="1" max="240" value="50" class="slider" onchange="var slider = this; displaySliderValue(slider);">
+                <div class="sliderticks">
+                  <p>1</p>
+                  <p>50</p>
+                  <p>100</p>
                 </div>
+                <p>Value: <input id="timeOutput" class="form-control valueOutput" onchange="var output = this; updateSlider(output)" type="text" name="" value="50" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default"></input></p>
               </div>
 
-              <div id="accuracySlider" class="sliders">
-                <p>Importance:</p>
-                <div class="row">
-                  <div class="col-xs-6">
-                    <div class="range">
-                      <input type="range" name="range" min="1" max="100" value="50" onchange="range.value=value">
-                      <output id="range">50</output>
-                    </div>
-                  </div>
+              <div id="importanceContent" class="container sliders">
+                <h2>Importance</h2>
+                <input id="importanceSlider" type="range" min="1" max="100" value="50" class="slider" onchange="var slider = this; displaySliderValue(slider);">
+                <div class="sliderticks">
+                  <p>1</p>
+                  <p>50</p>
+                  <p>100</p>
                 </div>
+                <p>Value: <input id="importanceOutput" class="form-control valueOutput" onchange="var output = this; updateSlider(output)" type="text" name="" value="50" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default"></input></p>
               </div>
             </div>
           </div>
@@ -133,7 +136,126 @@
               </div>
             </div>
           </div>
+
+          <!--  used for button placement in footer id  -->
+          <footer id="footer"></footer>
+
           <!-- IDEA: Dont put any content outside here -->
+
+          <!-- Modal for adding evaluation with user input  -->
+          <div class="modal fade" id="modalAddQuestion" tabindex="-1" role="dialog" aria-labelledby="modalAddQuestionTitle" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-scrollable" role="document">
+              <div class="modal-content">
+                <form action="index.html" method="post">
+                  <div class="modal-header">
+                    <h5 class="modal-title" id="modalAddQuestionTitle">Add question</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                      <span aria-hidden="true">&times;</span>
+                    </button>
+                  </div>
+
+                  <div id="modalAddQuestionBody" class="modal-body">
+                    <form>
+                      <div id="modalAddQuestionContent" class="input-group mb-3">
+                        <div class="input-group-prepend">
+                          <span class="input-group-text" id="inputGroup-sizing-default">Question</span>
+                        </div>
+
+                        <input id="questionInput" type="text" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default"></input>
+                      </div>
+
+                      <div class="input-group mb-3">
+                        <div class="input-group-prepend">
+                          <span class="input-group-text" id="inputGroup-sizing-default">Difficulty</span>
+                        </div>
+
+                        <input id="difficultyInput" type="text" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default" oninput="var input=this; importValue(input);"></input>
+                      </div>
+
+                      <div class="input-group mb-3">
+                        <div class="input-group-prepend">
+                          <span class="input-group-text" id="inputGroup-sizing-default">Complexity</span>
+                        </div>
+
+                        <input id="complexityInput" type="text" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default" oninput="var input=this; importValue(input);"></input>
+                      </div>
+
+                      <div class="input-group mb-3">
+                        <div class="input-group-prepend">
+                          <span class="input-group-text" id="inputGroup-sizing-default">Time</span>
+                        </div>
+
+                        <input id="timeInput" type="text" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default" oninput="var input=this; importValue(input);"></input>
+                      </div>
+
+                      <div class="input-group mb-3">
+                        <div class="input-group-prepend">
+                          <span class="input-group-text" id="inputGroup-sizing-default">Importance</span>
+                        </div>
+
+                        <input id="importanceInput" type="text" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default" oninput="var input=this; importValue(input);"></input>
+                      </div>
+                    </form>
+                  </div>
+
+                  <div class="modal-footer">
+                    <button type="button" class="btn btn-primary" data-dismiss="modal">Close</button>
+                    <button id="saveQuestionBtn" type="button" class="btn btn-primary" type="submit" onclick="addQuestion();">Save question</button>
+                  </div>
+                </form>
+              </div>
+            </div>
+          </div>
+
+<!-- MODAL for adding students-->
+          <div class="modal fade" id="modalAddStudent" tabindex="-1" role="dialog" aria-labelledby="modalAddStudent" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-scrollable" role="document">
+              <div class="modal-content">
+                <form action="index.html" method="post">
+                  <div class="modal-header">
+                    <h5 class="modal-title" id="modalAddStudent">Add Student</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                      <span aria-hidden="true">&times;</span>
+                    </button>
+                  </div>
+
+                  <div id="modalAddStudentBody" class="modal-body">
+                    <form>
+                      <div id="modalAddStudentBody" class="input-group mb-3">
+                        <div class="input-group-prepend">
+                          <span class="input-group-text" id="inputGroup-sizing-default">Student ID</span>
+                        </div>
+
+                        <input id="questionInput" type="text" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default"></input>
+                      </div>
+
+                      <div class="input-group mb-3">
+                        <div class="input-group-prepend">
+                          <span class="input-group-text" id="inputGroup-sizing-default">Student E-Mail</span>
+                        </div>
+
+                        <input id="StudentEMail" type="text" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default" oninput=""></input>
+                      </div>
+
+
+
+
+
+
+                    </form>
+                  </div>
+
+                  <div class="modal-footer">
+                    <button type="button" class="btn btn-primary" data-dismiss="modal">Close</button>
+                    <button id="saveQuestionBtn" type="button" class="btn btn-primary" type="submit" onclick="">Save Student</button>
+                  </div>
+                </form>
+              </div>
+            </div>
+          </div>
+
+
+
         </div>
       </div>
     </div>

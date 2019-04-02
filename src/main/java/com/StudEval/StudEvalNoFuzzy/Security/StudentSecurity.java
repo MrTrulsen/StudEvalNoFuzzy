@@ -45,26 +45,26 @@ public class StudentSecurity extends WebSecurityConfigurerAdapter {
     protected void configure(HttpSecurity httpSecurity) throws Exception{
         httpSecurity
                 .authorizeRequests()
-                .antMatchers("/").permitAll()
-                .antMatchers("/studentlogin").permitAll()
+                //.antMatchers("/").permitAll()
+                .antMatchers("/login").permitAll()
                 .antMatchers("/register").permitAll()
+                .antMatchers("/registeruser").permitAll()
                 .antMatchers("/studentpage").hasAuthority("STUDENT_USER")
                 .anyRequest().authenticated()
                 .and()
 
                 //form login
                 .csrf().disable().formLogin()
-                .loginPage("/studentlogin")
-                .failureUrl("/login?error=true")
+                .loginPage("/login")
                 .successHandler(successHandler)
 
-                .usernameParameter("studentEmail")
+                .usernameParameter("username")
                 .passwordParameter("password")
                 .and()
                 //logout
                 .logout()
                 .logoutRequestMatcher(new AntPathRequestMatcher("/logout"))
-                .logoutSuccessUrl("/").and()
+                .logoutSuccessUrl("/login").and()
                 .exceptionHandling()
                 .accessDeniedPage("/access-denied");
     }
