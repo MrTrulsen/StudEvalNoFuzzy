@@ -37,6 +37,8 @@
             <div id="addEvalNav" class="nav-item">
               <!-- Button for adding questions  -->
               <button id="addQuestionBtn" class="btn btn-primary" data-toggle="modal" data-target="#modalAddQuestion" onclick="">Add question</button>
+              <button id="addStudentBtn" class="btn btn-primary"  data-toggle="modal" data-target="#modalAddStudent" onclick="">Add Student</button>
+            </div>
             </div>
           </div>
 
@@ -55,10 +57,10 @@
           <div id="questionArea">
             <div id="questionHeaderWrapper">
               <div id="questionHeader">
-                <h1>Question 1</h1>
+                <h1> </h1>
               </div>
               <div id="questionTextWrapper" class="container">
-                <h5 id="questionText">This is an example of a text that should explain what the question is about.</h5>
+                <h5 id="questionText"></h5>
               </div>
             </div>
 
@@ -89,7 +91,7 @@
 
               <div id="timeContent" class="container sliders">
                 <h2>Time</h2>
-                <input id="timeSlider" type="range" min="1" max="100" value="50" class="slider" onchange="var slider = this; displaySliderValue(slider);">
+                <input id="timeSlider" type="range" min="1" max="240" value="50" class="slider" onchange="var slider = this; displaySliderValue(slider);">
                 <div class="sliderticks">
                   <p>1</p>
                   <p>50</p>
@@ -134,6 +136,10 @@
               </div>
             </div>
           </div>
+
+          <!--  used for button placement in footer id  -->
+          <footer id="footer"></footer>
+
           <!-- IDEA: Dont put any content outside here -->
 
           <!-- Modal for adding evaluation with user input  -->
@@ -200,6 +206,56 @@
               </div>
             </div>
           </div>
+
+<!-- MODAL for adding students-->
+          <div class="modal fade" id="modalAddStudent" tabindex="-1" role="dialog" aria-labelledby="modalAddStudent" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-scrollable" role="document">
+              <div class="modal-content">
+                <form action="index.html" method="post">
+                  <div class="modal-header">
+                    <h5 class="modal-title" id="modalAddStudent">Add Student</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                      <span aria-hidden="true">&times;</span>
+                    </button>
+                  </div>
+
+                  <div id="modalAddStudentBody" class="modal-body">
+                    <form>
+                      <div id="modalAddStudentBody" class="input-group mb-3">
+                        <div class="input-group-prepend">
+                          <span class="input-group-text" id="inputGroup-sizing-default">Student ID</span>
+                        </div>
+
+                        <input id="questionInput" type="text" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default"></input>
+                      </div>
+
+                      <div class="input-group mb-3">
+                        <div class="input-group-prepend">
+                          <span class="input-group-text" id="inputGroup-sizing-default">Student E-Mail</span>
+                        </div>
+
+                        <input id="StudentEMail" type="text" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default" oninput=""></input>
+                      </div>
+
+
+
+
+
+
+                    </form>
+                  </div>
+
+                  <div class="modal-footer">
+                    <button type="button" class="btn btn-primary" data-dismiss="modal">Close</button>
+                    <button id="saveQuestionBtn" type="button" class="btn btn-primary" type="submit" onclick="">Save Student</button>
+                  </div>
+                </form>
+              </div>
+            </div>
+          </div>
+
+
+
         </div>
       </div>
     </div>

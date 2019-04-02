@@ -49,7 +49,7 @@ function newQuestionButton() {
     showQuestion(questionIndex);
   }, false);
 
-  document.body.appendChild(newButton);
+  document.getElementById("footer").appendChild(newButton);
 }
 function importValue(input){
   console.log(input);
