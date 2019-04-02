@@ -4,15 +4,27 @@ function addEvaluation() {
   var courseName = document.getElementById("courseNameInput").value;
   var course = courseId + " - " + courseName;
 
-  var date = document.getElementById("dateInput").value;
-  var month = document.getElementById("monthInput").value;
-  var year = document.getElementById("yearInput").value;
+  var opened = document.getElementById("datepicker").value;
 
-  var closed;
-  var opened;
-  dateFormat(date, month, year);
+  console.log(opened);
+  
+  var closed =
+    $('.next-day').on("click", function () {
+    var date = $('#datepicker').datepicker('getDate');
+    date.setTime(date.getTime() + (1000*60*60*24))
+    $('#datepicker').datepicker("setDate", date).val();
+  });
+
+  console.log(closed);
+
+  //var date = document.getElementById("dateInput").value;
+  //var month = document.getElementById("monthInput").value;
+  //var year = document.getElementById("yearInput").value;
+
+  //dateFormat(date, month, year);
   addEvaluationCard(courseId, course, opened, closed);
 
+  //TODO: Remove if not used later in the project
   function dateFormat(date, month, year) {
     var headerDate = month.concat(" ").concat(Number(parseInt(date) + 1)).concat(" ").concat(year);
     var footerDate = month.concat(" ").concat(date.concat(" ")).concat(year);
@@ -144,3 +156,13 @@ function getCount(parent, getChildrensChildren){
     }
     return relevantChildren;
 }
+
+$( function() {
+  $('#datepicker').datepicker(
+    {
+      dateFormat: 'DD / d MM, yy',
+      showAnim: 'slideDown',
+      showWeek: true
+    })
+    .val();
+} );
