@@ -28,30 +28,16 @@ public class TeacherRepository {
         this.jdbcTemplate = jdbcTemplate;
     }
 
-
-    /**
-     * Fetches the id's of the questions to a specific course
-     *
-     * @param course_id
-     * @return list of questions id (int)
-     */
-    public List<Integer> findRelatedQuestionIdToCourse(String course_id) {
-        List<Integer> questionIdList = new ArrayList<>();
-        String query = "SELECT question_id FROM course_ques_junc WHERE course_id =?";
-        questionIdList = jdbcTemplate.query(query, new Object[]{course_id}, courseIdRowMapper);
-        return questionIdList;
-    }
-
     /**
      * Fetches the related questions
      *
-     * @param courseId
+     * @param evalId
      * @return The question with this id.
      */
-    public List findRelatedAnswersToCourseId(String courseId) {
+    public List findRelatedAnswersToCourseId(Integer evalId) {
         List<Answer> answers = new ArrayList<>();
-        String query = "SELECT r.* FROM responses r INNER JOIN course_ques_junc j ON r.question_id = j.question_id WHERE course_id=?";
-        SqlRowSet rowSet = jdbcTemplate.queryForRowSet(query, new Object[]{courseId});
+        String query = "SELECT r.* FROM responses r INNER JOIN eval_ques_junc j ON r.question_id = j.question_id WHERE eval_id=?";
+        SqlRowSet rowSet = jdbcTemplate.queryForRowSet(query, new Object[]{evalId});
         if (rowSet.first()) {
             Answer answer = new Answer(rowSet.getInt("answer_id"),
                     rowSet.getInt("question_id"),
@@ -74,8 +60,13 @@ public class TeacherRepository {
     }
 
 
-    public List<User> findStudentsInEvaluation(Integer evalId) {
-        List<User> studentsInCurrentEval = new ArrayList<>();
+    /**
+     * Fetches the students(users with role id = 2) in given evaluation.
+     * @param evalId
+     * @return
+     */
+    public List<String> findStudentsInEvaluation(Integer evalId) {
+        List<String> studentsEmailsInCurrentEval = new ArrayList<>();
 
         //Kan gjøre denne om denne query senere for å få ut eventuelle lærere til emne
         String query = "SELECT u.* FROM user u " +
@@ -85,12 +76,10 @@ public class TeacherRepository {
 
         SqlRowSet rs = jdbcTemplate.queryForRowSet(query, new Object[]{evalId});
         while (rs.next()) {
-            User user = new User(rs.getString("email"),
-                    "",
-                    rs.getInt("is_active"));
-            studentsInCurrentEval.add(user);
+            String userEmail = new String(rs.getString("email"));
+            studentsEmailsInCurrentEval.add(userEmail);
         }
-        return studentsInCurrentEval;
+        return studentsEmailsInCurrentEval;
     }
 
 

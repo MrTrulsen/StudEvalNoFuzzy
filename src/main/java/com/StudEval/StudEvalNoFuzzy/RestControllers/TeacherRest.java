@@ -26,29 +26,23 @@ public class TeacherRest {
         this.mainRepository = mainRepository;
     }
 
-    @RequestMapping("/answers")
-    public List<Answer> listRelatedAnswers(){
-        //TO DO; implement ID to come in
-        String course_id = "ID202712";
-        List<Answer> answerList = teacherRepository.findRelatedAnswersToCourseId(course_id);
+    @RequestMapping("/getAnswersInEval/{evalId}")
+    public List<Answer> listRelatedAnswers(@PathVariable Integer evalId){
+        List<Answer> answerList = teacherRepository.findRelatedAnswersToCourseId(evalId);
         return answerList;
     }
 
-    @RequestMapping("/questionsToCourse")
-    public List<Question> listRelatedQuestions(){
-        //TO DO; implement course_ID to come in
-        String course_id = "ID202712";
+    @RequestMapping("/getQuestionsInEval/{evalId}")
+    public List<Question> listRelatedQuestions(@PathVariable Integer evalId){
         List<Question> questionsList = new ArrayList<>();
-        questionsList = mainRepository.findRelatedQuestionsToCourse(course_id);
+        questionsList = mainRepository.findRelatedQuestionsToEval(evalId);
         return questionsList;
     }
 
-    @RequestMapping("/studentsInThisCourse")
-    public List<User> listStudents(){
-        //TO DO; implement course_ID to come in
-        Integer evalId = 1;
-        List<User> studentList = teacherRepository.findStudentsInEvaluation(evalId);
-        return studentList;
+    @RequestMapping("/studentsEmailsInEval/{evalId}")
+    public List<String> listStudentEmailsInEval(@PathVariable Integer evalId){
+        List<String> studentEmailList = teacherRepository.findStudentsInEvaluation(evalId);
+        return studentEmailList;
     }
 
     @RequestMapping(value = "/addStudents/{evalId}" , method = RequestMethod.POST)

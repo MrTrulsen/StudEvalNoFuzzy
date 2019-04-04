@@ -29,12 +29,12 @@ public class StudentRest {
         return studentRepository.findAllQuestions();
     }
 
-    @RequestMapping("/somequestions")
+    @RequestMapping("/.")
     public List<Question> listRelatedQuestions(){
         //TO DO; implement course_ID to come in
-        String course_id = "ID202712";
+        Integer evalId = 1;
         List<Question> questionsList = new ArrayList<>();
-        questionsList = mainRepository.findRelatedQuestionsToCourse(course_id);
+        questionsList = mainRepository.findRelatedQuestionsToEval(evalId);
         return questionsList;
     }
 }

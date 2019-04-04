@@ -25,13 +25,13 @@ public class MainRepository {
 
     /**
      * Fetches the related questions to the right course
-     * @param course_id
+     * @param evalId
      * @return The question with this id.
      */
-    public List findRelatedQuestionsToCourse(String course_id){
+    public List findRelatedQuestionsToEval(Integer evalId){
         List<Question> questions = new ArrayList<>();
-        String query = "SELECT q.* FROM questions q INNER JOIN course_ques_junc j ON q.question_id = j.question_id WHERE course_id=?";
-        SqlRowSet rs = jdbcTemplate.queryForRowSet(query, new Object[] {course_id});
+        String query = "SELECT q.* FROM questions q INNER JOIN eval_ques_junc j ON q.question_id = j.question_id WHERE eval_id=?";
+        SqlRowSet rs = jdbcTemplate.queryForRowSet(query, new Object[] {evalId});
         if(rs.first()){
             Question question = new Question(rs.getInt("question_id"),
                     rs.getString("question_text"),
