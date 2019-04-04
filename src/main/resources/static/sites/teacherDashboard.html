@@ -18,6 +18,10 @@
   <script src="../js/moment.js"></script>
   <script src="../js/dashboard.js"></script>
   <script src="../js/graph.js"></script>
+
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/momentjs/latest/moment.min.js"></script>
+<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.min.js"></script>
+<link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.css" />
 </head>
 
 <body id="body">
@@ -128,11 +132,18 @@
                           <input id="courseNameInput" type="text" class="form-control" aria-label="Sizing example input" aria-describedby="courseName">
                         </div>
 
-                        <div id="dateOfExam" class="input-group">
+                        <div id="evalStart" class="input-group">
                           <div class="input-group-prepend">
-                            <span class="input-group-text">Date of exam</span>
+                            <span class="input-group-text">Start</span>
                           </div>
-                          <input id="datepicker" type="text" aria-label="Sizing example input" aria-describedby="dateOfExam" readonly>
+                          <input id="evalStartInput" type="text" name="datetimesEvalStart">
+                        </div>
+
+                        <div id="evalEnd" class="input-group">
+                          <div class="input-group-prepend">
+                            <span class="input-group-text">End</span>
+                          </div>
+                          <input id="evalEndInput" type="text" name="datetimesEvalEnd">
                         </div>
                         <!--
                         <input id="dateInput" type="text" placeholder="Date" aria-label="Date" class="form-control">

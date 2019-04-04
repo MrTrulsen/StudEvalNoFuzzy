@@ -176,12 +176,54 @@ function getCount(parent, getChildrensChildren){
     return relevantChildren;
 }
 
-$( function() {
-  $('#datepicker').datepicker(
-    {
-      dateFormat: 'DD / d MM, yy',
-      showAnim: 'slideDown',
-      showWeek: true
-    })
-    .val();
-} );
+var startDate;
+
+$(function() {
+  $('input[name="datetimesEvalStart"]').daterangepicker({
+    singleDatePicker: true,
+    showDropdowns: true,
+    showWeekNumbers: true,
+    startDate: moment(),
+    minDate: moment(),
+    locale: {
+      format: 'YYYY-MM-DD'
+    },
+  });
+  function test() {
+    startDate = start;
+    console.log(startDate);
+  }
+});
+
+$(function() {
+  $('input[name="datetimesEvalEnd"]').daterangepicker({
+    singleDatePicker: true,
+    showDropdowns: true,
+    showWeekNumbers: true,
+    minDate: moment(),
+    maxDate: moment().add(1, 'week'),
+    locale: {
+      format: 'YYYY-MM-DD'
+    },
+  });
+});
+
+// $( function() {
+//   $('#examEndDatepicker').datepicker(
+//     {
+//       dateFormat: 'DD / d MM, yy',
+//       showAnim: 'slideDown',
+//       showWeek: true
+//     })
+//     .val();
+// } );
+//
+// $( function() {
+//   $('#evalEndDatepicker').datepicker(
+//     {
+//       dateFormat: 'DD / d MM, yy',
+//       showAnim: 'slideDown',
+//       showWeek: true
+//     })
+//     .val();
+// } );
