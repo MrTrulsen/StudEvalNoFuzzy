@@ -15,6 +15,7 @@ import org.springframework.stereotype.Repository;
 
 import javax.sql.RowSet;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -62,6 +63,7 @@ public class TeacherRepository {
 
     /**
      * Fetches the students(users with role id = 2) in given evaluation.
+     *
      * @param evalId
      * @return
      */
@@ -170,20 +172,18 @@ public class TeacherRepository {
      * @return null if success, "Could not add evaluation" else
      */
     public String addNewEvaluation(Evaluation evaluation, String courseName) {
-        String query = "INSERT INTO evaluation (date, course_id) VALUES (?,?)";
-        List<String> courses = getAllCourses();
+        String query = "INSERT INTO evaluation (date_start,date_stop, course_id, time_of_exam) VALUES (?,?,?,?)";
+        List<String> courseIds = getAllCourses();
         Integer numRows;
-        for (String course : courses) {
-            if (!courses.contains(courseName)) {
-                addCourse(evaluation.getCourse_id(), courseName);
-                courses.add(courseName);
+
+        for (String courseId : courseIds) {
+            if (!courseIds.contains(evaluation.getCourseId())) {
+                addCourse(evaluation.getCourseId(), courseName);
+                //This is not working properly.
+                //courseIds.add(courseName);
             }
         }
-        try {
-            numRows = jdbcTemplate.update(query, evaluation.getDate(), evaluation.getCourse_id());
-        } catch (Exception ex) {
-            return "Could not add evaluation" + ex;
-        }
+        numRows = jdbcTemplate.update(query, evaluation.getStartDate(), evaluation.getStopDate(), evaluation.getCourseId(), evaluation.getTimeOfExam());
         if (numRows == 1) {
             return null;
         } else {
@@ -207,20 +207,19 @@ public class TeacherRepository {
     }
 
     /**
-     * Fetches all the courses
+     * Fetches all the courses with time
      *
      * @return
      */
     private List<String> getAllCourses() {
-        String query = "SELECT name FROM course";
-        List<String> courses = new ArrayList<>();
+        String query = "SELECT course_id FROM course";
+        List<String> courseIds = new ArrayList<>();
         SqlRowSet rs = jdbcTemplate.queryForRowSet(query);
         while (rs.next()) {
-            String course = (rs.getString("name"));
-            courses.add(course);
+            String courseId = (rs.getString("course_id"));
+            courseIds.add(courseId);
         }
-        return courses;
+        return courseIds;
     }
-
 
 }

@@ -1,7 +1,6 @@
 package com.StudEval.StudEvalNoFuzzy.RowMappers;
 
 import com.StudEval.StudEvalNoFuzzy.Evaluation.Course;
-import com.StudEval.StudEvalNoFuzzy.Evaluation.Question;
 import org.springframework.jdbc.core.RowMapper;
 
 import java.sql.ResultSet;

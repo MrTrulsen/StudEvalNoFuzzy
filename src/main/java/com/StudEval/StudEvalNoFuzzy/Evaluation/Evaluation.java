@@ -3,37 +3,62 @@ package com.StudEval.StudEvalNoFuzzy.Evaluation;
 import java.util.Date;
 
 public class Evaluation {
-    private int eval_id;
-    private Date date;
-    private String course_id;
+    private int evalId;
+    private Date startDate;
+    private Date stopDate;
+    private String courseId;
+    private Integer timeOfExam;
 
-    public Evaluation(int eval_id, Date date, String course_id) {
-        this.eval_id = eval_id;
-        this.date = date;
-        this.course_id = course_id;
+
+    public Evaluation(int evalId, Date startDate, Date stopDate, String courseId, int timeOfExam) {
+        this.evalId = evalId;
+        this.startDate = startDate;
+        this.stopDate = stopDate;
+        this.courseId = courseId;
+        this.timeOfExam = timeOfExam;
     }
 
-    public int getEval_id() {
-        return eval_id;
+
+    public Date getStartDate() {
+        return startDate;
     }
 
-    public Date getDate() {
-        return date;
+    public void setStartDate(Date startDate) {
+        this.startDate = startDate;
     }
 
-    public String getCourse_id() {
-        return course_id;
+    public Date getStopDate() {
+        return stopDate;
     }
 
-    public void setEval_id(int eval_id) {
-        this.eval_id = eval_id;
+    public void setStopDate(Date stopDate) {
+        this.stopDate = stopDate;
     }
 
-    public void setDate(Date date) {
-        this.date = date;
+
+    public int getEvalId() {
+        return evalId;
     }
 
-    public void setCourse_id(String course_id) {
-        this.course_id = course_id;
+    public void setEvalId(int evalId) {
+        this.evalId = evalId;
     }
+
+
+    public String getCourseId() {
+        return courseId;
+    }
+
+    public void setCourseId(String courseId) {
+        this.courseId = courseId;
+    }
+
+    public Integer getTimeOfExam() {
+        return timeOfExam;
+    }
+
+    public void setTimeOfExam(Integer timeOfExam) {
+        this.timeOfExam = timeOfExam;
+    }
+
 }
