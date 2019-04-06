@@ -11,17 +11,13 @@
   <script src="../bootstrap/js/jquery.min.js"></script>
   <link rel="stylesheet" href="../bootstrap/css/bootstrap.css">
   <link rel="stylesheet" href="../css/mainStyle.css">
-  <link rel="stylesheet" href="../jquery/jquery-ui.css">
+  <link rel="stylesheet" href="../css/daterangepicker.css">
   <script src="../bootstrap/js/bootstrap.bundle.js"></script>
-  <script src="../jquery/jquery-ui.js"></script>
-  <script src="../js/canvasjs.min.js"></script>
   <script src="../js/moment.js"></script>
+  <script src="../js/daterangepicker.js"></script>
+  <script src="../js/canvasjs.min.js"></script>
   <script src="../js/dashboard.js"></script>
   <script src="../js/graph.js"></script>
-
-  <script type="text/javascript" src="https://cdn.jsdelivr.net/momentjs/latest/moment.min.js"></script>
-<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.min.js"></script>
-<link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.css" />
 </head>
 
 <body id="body">
@@ -105,7 +101,7 @@
             </div>
 
             <!-- Modal for adding evaluation with user input  -->
-            <div class="modal fade" id="modalAddEval" tabindex="-1" role="dialog" aria-labelledby="modalAddEvalTitle" aria-hidden="true">
+            <div class="modal fade" id="modalAddEval"  tabindex="-1" role="dialog" aria-labelledby="modalAddEvalTitle" aria-hidden="true">
               <div class="modal-dialog modal-dialog-scrollable" role="document">
                 <div class="modal-content">
                   <form action="index.html" method="post">
@@ -132,24 +128,12 @@
                           <input id="courseNameInput" type="text" class="form-control" aria-label="Sizing example input" aria-describedby="courseName">
                         </div>
 
-                        <div id="evalStart" class="input-group">
+                        <div id="evalDates" class="input-group">
                           <div class="input-group-prepend">
-                            <span class="input-group-text">Start</span>
+                            <span class="input-group-text">Date</span>
                           </div>
-                          <input id="evalStartInput" type="text" name="datetimesEvalStart">
+                          <input id="evalDatesInput" type="text" name="datetimeEval" aria-label="Sizing example input" aria-describedby="evalDates">
                         </div>
-
-                        <div id="evalEnd" class="input-group">
-                          <div class="input-group-prepend">
-                            <span class="input-group-text">End</span>
-                          </div>
-                          <input id="evalEndInput" type="text" name="datetimesEvalEnd">
-                        </div>
-                        <!--
-                        <input id="dateInput" type="text" placeholder="Date" aria-label="Date" class="form-control">
-                        <input id="monthInput" type="text" placeholder="Month" aria-label="Month" class="form-control">
-                        <input id="yearInput" type="text" placeholder="Year" aria-label="Year" class="form-control">
-                        -->
                       </div>
                     </div>
 

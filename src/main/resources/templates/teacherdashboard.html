@@ -12,11 +12,12 @@
       <script th:src="@{/bootstrap/js/jquery.min.js}"></script>
       <link rel="stylesheet" th:href="@{/bootstrap/css/bootstrap.css}">
       <link rel="stylesheet" th:href="@{/css/mainStyle.css}">
-      <link rel="stylesheet" th:href="@{/jquery/jquery-ui.css}">
+      <link rel="stylesheet" th:href="@{/css/daterangepicker.css}">
       <script th:src="@{/bootstrap/js/bootstrap.bundle.js}"></script>
-      <script th:src="@{/jquery/jquery-ui.js}"></script>
-      <script th:src="@{/js/dashboard.js}"></script>
+      <script th:src="@{/js/moment.js}"></script>
+      <script th:src="@{/js/daterangepicker.js}"></script>
       <script th:src="@{/js/canvasjs.min.js}"></script>
+      <script th:src="@{/js/dashboard.js}"></script>
       <script th:src="@{/js/graph.js}"></script>
   </head>
 
@@ -128,17 +129,12 @@
                                         <input id="courseNameInput" type="text" class="form-control" aria-label="Sizing example input" aria-describedby="courseName">
                                     </div>
 
-                                    <div id="dateOfExam" class="input-group">
+                                    <div id="evalDates" class="input-group">
                                         <div class="input-group-prepend">
-                                            <span class="input-group-text">Date of exam</span>
+                                            <span class="input-group-text">Date</span>
                                         </div>
-                                        <input id="datepicker" type="text" aria-label="Sizing example input" aria-describedby="dateOfExam" readonly>
+                                        <input id="evalDatesInput" type="text" name="datetimeEval" aria-label="Sizing example input" aria-describedby="evalDates">
                                     </div>
-                                    <!--
-                                    <input id="dateInput" type="text" placeholder="Date" aria-label="Date" class="form-control">
-                                    <input id="monthInput" type="text" placeholder="Month" aria-label="Month" class="form-control">
-                                    <input id="yearInput" type="text" placeholder="Year" aria-label="Year" class="form-control">
-                                    -->
                                 </div>
                             </div>
 
