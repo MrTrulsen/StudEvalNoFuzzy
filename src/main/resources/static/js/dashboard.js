@@ -1,3 +1,8 @@
+//Cleans the input field for dates at adding evaluations
+window.addEventListener('load', function() {
+  removeInputValue(document.getElementById('evalDatesInput'));
+})
+
 //Adds a new evaluation by making a card with user input at the dashboard
 function addEvaluation() {
   var courseId = document.getElementById("courseIdInput");

@@ -6,49 +6,88 @@
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
       xsi:schemaLocation="http://www.thymeleaf.org/thymeleaf-extras-springsecurity http://www.ultraq.net.nz/thymeleaf/layout">
+
 <head>
-    <title>Registration Form</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+    <title>EDUEVAL</title>
+
+    <link rel="icon" href="https://pbs.twimg.com/profile_images/671984499648020481/FixFBnRN_400x400.png">
     <!-- link rel="stylesheet" type="text/css" th:href="@{/css/registration.css}" /-->
     <link rel="stylesheet" th:href="@{/bootstrap/css/bootstrap.css}">
+    <link rel="stylesheet" th:href="@{/css/loginPageStyle.css}">
     <script th:src="@{/bootstrap/js/jquery.min.js}"></script>
     <script th:src="@{/bootstrap/js/bootstrap.bundle.js}"></script>
 </head>
-<body style="background-color: #ededed;">
-<div style="background-color: #337ab7; height: 50px;"></div>
-<div class="container-fluid" style="margin-top: 30px;">
 
-    <div class="row col-lg-4 col-lg-offset-4"
-         style="margin-top: 40px; background-color: #fff; padding: 20px; border: solid 1px #ddd;">
-        <form autocomplete="off" action="#" th:action="@{/register}" th:object="${user}" method="post"
-              class="form-signin" role="form">
-            <h3 class="form-signin-heading">Registration Form</h3>
-            <div class="form-group">
-                <div class="">
-                    <input type="text" th:field="*{email}" placeholder="Email" class="form-control"/>
+<body id="body">
+    <section id="fullPage">
+        <div id="brandingWrapper" class="float">
+            <div id="branding" class="illustrationClass">
+            </div>
+        </div>
+
+        <div id="contentWrapper" class="float">
+            <div id="content">
+                <div id="header">
+                    <p>EDUEVAL</p>
+                </div>
+
+                <div id="workArea">
+                    <div id="authArea" class="groupMargin">
+                        <div id="registerArea">
+                            <div class="groupMargin bigText">
+                                <p>Register</p>
+                            </div>
+
+                            <div id="registerField" class="groupMargin">
+                                <p>Write in your information to register.</p>
+                                <form autocomplete="off" action="#" th:action="@{/register}" th:object="${user}" method="post" class="form-signin" role="form">
+                                    <span th:utext="${successMessage}"></span>
+                                    <div class="alert alert-success alert-dismissible" th:if="${(bindingResult != null && bindingResult.getAllErrors() != null)}">
+                                        <ul th:each="data : ${bindingResult.getAllErrors()}">
+                                            <li th:text="${data.getObjectName() + ' :: ' + data.getDefaultMessage()}"></li>
+                                        </ul>
+                                    </div>
+
+                                    <div class="form-group">
+                                        <div class="">
+                                            <input type="text" th:field="*{email}" placeholder="Email" class="form-control" />
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group">
+                                        <div class="">
+                                            <input type="password" th:field="*{password}" placeholder="Password" class="form-control" />
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group">
+                                        <div class="">
+                                            <button id="registerBtn" type="submit" class="btn btn-primary btn-block">Register User</button>
+                                        </div>
+                                    </div>
+                                </form>
+
+                                <p id="loginText">Click <a href="/login">here</a> to get back to the frontpage.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div id="footerPlaceholder">
                 </div>
             </div>
-            <div class="form-group">
-                <div class="">
-                    <input type="password" th:field="*{password}" placeholder="Password" class="form-control"/>
+
+            <div id="footer">
+                <div id="footerLinks" class="float">
+                    <div><span id="copyright">© 2019 EDUEVAL</span>
+                    </div>
                 </div>
             </div>
-            <div class="form-group">
-                <div class="">
-                    <button type="submit" class="btn btn-primary btn-block">Register User</button>
-                </div>
-            </div>
-            <span th:utext="${successMessage}"></span>
-            <div class="alert alert-success alert-dismissible col-sm-12"
-                 th:if="${(bindingResult != null && bindingResult.getAllErrors() != null)}">
-                <button type="button" class="close" data-dismiss="alert"
-                        aria-hidden="true">×
-                </button>
-                <ul th:each="data : ${bindingResult.getAllErrors()}">
-                    <li th:text="${data.getObjectName() + ' :: ' + data.getDefaultMessage()}"></li>
-                </ul>
-            </div>
-        </form>
-    </div>
-</div>
+        </div>
+    </section>
 </body>
+
 </html>

@@ -180,6 +180,12 @@ h2 {
   margin-bottom: 25px;
 }
 
+.applyBtn {
+  color: #FFFFFF !important;
+  border-color: #FFFFFF !important;
+  background-color: #357EBD !important;
+}
+
 .btn-primary {
   color: #696969;
   border-color: #696969;
