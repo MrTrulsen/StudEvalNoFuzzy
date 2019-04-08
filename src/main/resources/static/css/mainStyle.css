@@ -101,11 +101,11 @@ h2 {
   float: right;
 }
 
-#settingsNav, #addQuestionBtn {
+#settingsNav, #homeNav, #addQuestionBtn {
   margin-right: 15px;
 }
 
-#addEvalBtn, #settingsBtn, #logoutBtn, #addQuestionBtn, #addStudentBtn {
+#addEvalBtn, #homeBtn, #settingsBtn, #logoutBtn, #addQuestionBtn, #addStudentBtn {
   width: 150px;
 }
 
@@ -267,12 +267,12 @@ h2 {
     margin-right: 0;
   }
 
-  #addEvaluation, #registerStudents, #addQuestionBtn, #settingsNav, #logoutNav, #addEvalBtn,
-  #settingsBtn, #logoutBtn, #takeEvalBtn, .evalBtn, #prevQuestionBtn, #nextQuestionBtn, #addStudentBtn {
+  #addEvaluation, #registerStudents, #addQuestionBtn, #homeNav #settingsNav, #logoutNav, #addEvalBtn,
+  #homeBtn, #settingsBtn, #logoutBtn, #takeEvalBtn, .evalBtn, #prevQuestionBtn, #nextQuestionBtn, #addStudentBtn {
     width: 100%;
   }
 
-  #settingsNav {
+  #settingsNav, #homeNav {
     margin-right: 0;
   }
 }
