@@ -40,4 +40,9 @@ public class UserServiceImp implements UserService {
         return foundUser != null;
     }
 
+    @Override
+    public boolean isPasswordConfirmationValid(User user){
+        return user.getPassword().equals(user.getPasswordConfirm());
+    }
+
 }
