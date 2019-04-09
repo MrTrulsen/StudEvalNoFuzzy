@@ -4,8 +4,6 @@ import com.StudEval.StudEvalNoFuzzy.Evaluation.Answer;
 import com.StudEval.StudEvalNoFuzzy.Evaluation.Evaluation;
 import com.StudEval.StudEvalNoFuzzy.Evaluation.Question;
 import com.StudEval.StudEvalNoFuzzy.Repositories.MainRepository;
-import com.StudEval.StudEvalNoFuzzy.Repositories.TeacherRepository;
-import com.StudEval.StudEvalNoFuzzy.User.Student;
 import com.StudEval.StudEvalNoFuzzy.User.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -17,18 +15,16 @@ import java.util.List;
 
 @RestController
 public class TeacherRest {
-    private final TeacherRepository teacherRepository;
     private final MainRepository mainRepository;
 
     @Autowired
-    public TeacherRest(TeacherRepository teacherRepository, MainRepository mainRepository) {
-        this.teacherRepository = teacherRepository;
+    public TeacherRest(MainRepository mainRepository) {
         this.mainRepository = mainRepository;
     }
 
     @RequestMapping("/getAnswersInEval/{evalId}")
     public List<Answer> listRelatedAnswers(@PathVariable Integer evalId){
-        List<Answer> answerList = teacherRepository.findRelatedAnswersToCourseId(evalId);
+        List<Answer> answerList = mainRepository.findRelatedAnswersToCourseId(evalId);
         return answerList;
     }
 
@@ -41,14 +37,14 @@ public class TeacherRest {
 
     @RequestMapping("/studentsEmailsInEval/{evalId}")
     public List<String> listStudentEmailsInEval(@PathVariable Integer evalId){
-        List<String> studentEmailList = teacherRepository.findStudentsInEvaluation(evalId);
+        List<String> studentEmailList = mainRepository.findStudentsInEvaluation(evalId);
         return studentEmailList;
     }
 
     @RequestMapping(value = "/addStudents/{evalId}" , method = RequestMethod.POST)
     public ResponseEntity<String> addStudents(@RequestBody List<User> users, @PathVariable Integer evalId){
 
-        String error = teacherRepository.importStudentsToEvaluation(users,evalId);
+        String error = mainRepository.importStudentsToEvaluation(users,evalId);
         if(error == null){
             return new ResponseEntity<>(HttpStatus.OK);
         }
@@ -61,7 +57,7 @@ public class TeacherRest {
     @RequestMapping(value = "/addEvaluation/{course_name}" , method = RequestMethod.POST)
     public ResponseEntity<String> addEvaluation(@RequestBody Evaluation evaluation, @PathVariable String course_name){
 
-        String error = teacherRepository.addNewEvaluation(evaluation,course_name);
+        String error = mainRepository.addNewEvaluation(evaluation,course_name);
         if(error == null){
             return new ResponseEntity<>(HttpStatus.OK);
         }
