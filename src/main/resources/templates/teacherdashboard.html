@@ -18,12 +18,13 @@
       <script th:src="@{/js/daterangepicker.js}"></script>
       <script th:src="@{/js/canvasjs.min.js}"></script>
       <script th:src="@{/js/dashboard.js}"></script>
+      <script th:src="@{/js/teacherRest.js}"></script>
       <script th:src="@{/js/graph.js}"></script>
   </head>
 
   <body id="body">
     <section id="fullPage">
-      <div id="headerWrapper">
+      <div id="headerWrapper" onclick="location.href='/teacherPage'">
         <div id="header" class="container">
           <p>EDUEVAL</p>
         </div>
@@ -38,7 +39,7 @@
 
           <!-- Class for collapseable navbar  -->
           <div class="collapse navbar-collapse" id="navbarTogglerDemo01">
-            <div class="navbar-nav mr-auto mt-2 mt-lg-0">
+              <div class="navbar-nav mr-auto">
               <div id="addEvalNav" class="nav-item">
                 <!-- Button for adding evaluation  -->
                 <button id="addEvalBtn" class="btn btn-primary" data-toggle="modal" th:attr="data-target='#modalAddEval'">Add evaluation</button>
@@ -135,12 +136,19 @@
                                         </div>
                                         <input id="evalDatesInput" type="text" name="datetimeEval" aria-label="Sizing example input" aria-describedby="evalDates" readonly>
                                     </div>
+
+                                    <div id="examTime" class="input-group">
+                                        <div class="input-group-prepend">
+                                            <span class="input-group-text">Exam Time</span>
+                                        </div>
+                                        <input id="examTimeInput" type="text" class="form-control" aria-label="Sizing example input" aria-describedby="examTime" >
+                                    </div>
                                 </div>
                             </div>
 
                     <div class="modal-footer">
                       <button type="button" class="btn btn-primary" data-dismiss="modal">Close</button>
-                      <button id="saveEvaluationBtn" type="button" class="btn btn-primary" data-dismiss="modal" th:onclick="'addEvaluation()'">Save evaluation</button>
+                      <button id="saveEvaluationBtn" type="button" class="btn btn-primary" data-dismiss="modal" th:onclick="'generateEvaluation()'">Save evaluation</button>
                     </div>
                   </form>
                 </div>

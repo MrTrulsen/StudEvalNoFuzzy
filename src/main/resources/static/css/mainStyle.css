@@ -267,7 +267,7 @@ h2 {
     margin-right: 0;
   }
 
-  #addEvaluation, #registerStudents, #addQuestionBtn, #homeNav #settingsNav, #logoutNav, #addEvalBtn,
+  #addEvaluation, #registerStudents, #addQuestionBtn, #homeNav, #settingsNav, #logoutNav, #addEvalBtn,
   #homeBtn, #settingsBtn, #logoutBtn, #takeEvalBtn, .evalBtn, #prevQuestionBtn, #nextQuestionBtn, #addStudentBtn {
     width: 100%;
   }

@@ -19,7 +19,7 @@
 
   <body id="body">
     <section id="fullPage">
-      <div id="headerWrapper">
+      <div id="headerWrapper" onclick="location.href='/teacherPage'">
         <div id="header" class="container">
           <p>EDUEVAL</p>
         </div>
@@ -34,7 +34,7 @@
 
           <!-- Class for collapseable navbar  -->
           <div class="collapse navbar-collapse" id="navbarTogglerDemo01">
-            <div class="navbar-nav mr-auto mt-2 mt-lg-0">
+            <div class="navbar-nav mr-auto">
               <div id="addEvalNav" class="nav-item">
                 <!-- Button for adding questions  -->
                 <button id="addQuestionBtn" class="btn btn-primary" data-toggle="modal" data-target="#modalAddQuestion" onclick="">Add question</button>
@@ -45,7 +45,6 @@
                 <button id="addStudentBtn" class="btn btn-primary"  data-toggle="modal" data-target="#modalAddStudent" onclick="">Add Student</button>
               </div>
             </div>
-
 
             <div id="logoutNav" class="nav-item">
               <!-- Button for logging out  -->

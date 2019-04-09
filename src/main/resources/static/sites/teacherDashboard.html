@@ -17,12 +17,13 @@
   <script src="../js/daterangepicker.js"></script>
   <script src="../js/canvasjs.min.js"></script>
   <script src="../js/dashboard.js"></script>
+  <script src="../js/teacherRest.js"></script>
   <script src="../js/graph.js"></script>
 </head>
 
 <body id="body">
   <section id="fullPage">
-    <div id="headerWrapper">
+    <div id="headerWrapper" onclick="location.href='../sites/teacherDashboard.html'">
       <div id="header" class="container">
         <p>EDUEVAL</p>
       </div>
@@ -37,7 +38,7 @@
 
         <!-- Class for collapseable navbar  -->
         <div class="collapse navbar-collapse" id="navbarTogglerDemo01">
-          <div class="navbar-nav mr-auto mt-2 mt-lg-0">
+          <div class="navbar-nav mr-auto">
             <div id="addEvalNav" class="nav-item">
               <!-- Button for adding evaluation  -->
               <button id="addEvalBtn" class="btn btn-primary" data-toggle="modal" data-target="#modalAddEval">Add evaluation</button>
@@ -70,7 +71,7 @@
               <div class="card-body">
                 <h5 class="card-title">Special title treatment</h5>
                 <p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
-                <button id="seeEvalBtn" class="btn btn-primary evalBtn" onclick="location.href='#'" type="submit">See evaluation</button>
+                <button id="editEvalBtn" class="btn btn-primary evalBtn" onclick="location.href='../sites/evaluation.html'" type="submit">Edit evaluation</button>
                 <button id="resultBtn" class="btn btn-primary evalBtn" data-toggle="modal" data-target="#modalResult" type="submit">Result</button>
                 <button id="removeBtn" class="btn btn-primary evalBtn" data-toggle="modal" data-target="#modalRemove" onclick="var element = document.getElementById('removeEvaluation'); removeInputValue(element)" type="submit">Remove</button>
               </div>
@@ -147,7 +148,7 @@
 
                   <div class="modal-footer">
                     <button type="button" class="btn btn-primary" data-dismiss="modal">Close</button>
-                    <button id="saveEvaluationBtn" type="button" class="btn btn-primary" onclick="addEvaluation()">Save evaluation</button>
+                    <button id="saveEvaluationBtn" type="button" class="btn btn-primary" onclick="generateEvaluation()">Save evaluation</button>
                   </div>
                 </form>
               </div>

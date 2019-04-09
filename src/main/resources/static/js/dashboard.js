@@ -1,23 +1,31 @@
+
+
 //Cleans the input field for dates at adding evaluations
 window.addEventListener('load', function() {
   removeInputValue(document.getElementById('evalDatesInput'));
 })
 
 //Adds a new evaluation by making a card with user input at the dashboard
-function addEvaluation() {
+function generateEvaluation() {
   var courseId = document.getElementById("courseIdInput");
   var courseName = document.getElementById("courseNameInput");
   var course = courseId.value + " - " + courseName.value;
 
   var evalDates = document.getElementById('evalDatesInput');
-  var btn = document.getElementById("saveEvaluationBtn")
+  var examTime = document.getElementById('examTimeInput');
+  var btn = document.getElementById("saveEvaluationBtn");
 
   var evalDatesArray = evalDates.value.split(" - ", 2); //TODO: Change the split string to " / " when the formatting works
   var start = evalDatesArray[0];
   var end = evalDatesArray[1];
 
-  var evalValues = [courseId.value, courseName.value, start, end];
-  console.log(evalValues);
+  var object = {
+    courseId: courseId.value,
+    startDate: start,
+    stopDate: end,
+    timeOfExam: examTime.value
+  };
+  console.log(object);
 
   start = moment(start).format('dddd / MMMM Do YYYY');
   end = moment(end).format('dddd / MMMM Do YYYY');
@@ -44,11 +52,7 @@ function addEvaluation() {
     }
 
     else {
-      addEvaluationCard(courseId.value, course, start, end);
-      removeInputValue(courseId);
-      removeInputValue(courseName);
-      removeInputValue(evalDates);
-      btn.setAttribute("data-dismiss", "modal");
+      addEvaluation(object, courseName, btn);
     }
   }
 }
@@ -67,7 +71,7 @@ function addEvaluationCard(courseId, course, start, end, closed) {
 
   generateCardContent2("h5", "card-title", course);
   generateCardContent2("p", "card-text", "With supporting text below as a natural lead-in to additional content.");
-  generateBtn("seeEval", courseId, 1, "onclick", "location.href='#'", null, null, null, null, "See evaluation");
+  generateBtn("editEval", courseId, 1, "onclick", "location.href='/evaluation.html'", null, null, null, null, "See evaluation");
   generateBtn("result", courseId, 2, "data-toggle", "modal", "data-target", "#modalResult", null, null, "Result");
   generateBtn("remove", courseId, 2, "data-toggle", "modal", "data-target", "#modalRemove", "onclick", "var element = document.getElementById('removeEvaluation'); removeInputValue(element)", "Remove");
   generateCardContent("div", "card-footer text-muted", "Opened: ", start);
@@ -137,13 +141,13 @@ function removeEvaluation() {
 }
 
 //Prints out an error message to the user
-function showErrorMessage(placement, text) {
+function showErrorMessage(placement, errorMessage) {
   var errorPlacement = document.getElementById(placement);
-  var errorMessage = document.createElement("div");
+  var errorDiv = document.createElement("div");
 
-  errorMessage.className = "error";
-  errorMessage.innerHTML = text;
-  errorPlacement.append(errorMessage)
+  errorDiv.className = "error";
+  errorDiv.innerHTML = errorMessage;
+  errorPlacement.append(errorDiv)
 }
 
 //Removes value inside input fields
