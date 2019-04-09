@@ -119,7 +119,7 @@ public class MainRepository {
      */
     public List<String> findUserEmailsInDb() {
         List<String> userEmails = new ArrayList<>();
-        String query = "SELECT user_id, email, is_active FROM user";
+        String query = "SELECT email FROM user";
         SqlRowSet rs = jdbcTemplate.queryForRowSet(query);
         while (rs.next()) {
             String user = (rs.getString("email"));
@@ -130,13 +130,13 @@ public class MainRepository {
 
 
     /**
-     * Importing students to the actual course.
+     * Importing users to the actual course.
      *
      * @param users
      * @param evalId
-     * @return null if success, if not success "Could not add students."
+     * @return null if success, if not success "Could not add users."
      */
-    public String importStudentsToEvaluation(List<User> users, Integer evalId) {
+    public String importUsersToEvaluation(List<User> users, Integer evalId) {
         List<String> userEmailsInDb = findUserEmailsInDb();
         int numRows = 0;
         for (User user : users) {
@@ -145,7 +145,7 @@ public class MainRepository {
                 user.setStatus(0);
                 Role role = new Role();
                 role.setId(2);
-                addUser(user, role);
+                addUserToDb(user, role);
                 user.setId(getNewUserId(user.getEmail()));
             }
             String query = "INSERT INTO eval_user_junc(user_id,eval_id) VALUES(?,?)";
@@ -155,13 +155,13 @@ public class MainRepository {
                 numRows = jdbcTemplate.update(query, user.getId(), evalId);
 
             } catch (Exception ex) {
-                return "Could not add students: " + ex.getMessage();
+                return "Could not add users: " + ex.getMessage();
             }
         }
         if (numRows == 1) {
             return null;
         } else {
-            return "Could not add students.";
+            return "Could not add users.";
         }
     }
 
@@ -170,7 +170,7 @@ public class MainRepository {
      *
      * @param user
      */
-    public void addUser(User user, Role role) {
+    public void addUserToDb(User user, Role role) {
         String query = "INSERT INTO user (email,is_active) VALUES (?,?)";
         jdbcTemplate.update(query, user.getEmail(), user.getStatus());
         Integer newId = getNewUserId(user.getEmail());
@@ -244,6 +244,28 @@ public class MainRepository {
         }
         return courseIds;
     }
+
+    /**
+     * Fetches all the evals linked to a user.
+     * @param user_id
+     * @return evals
+     */
+    public List<Evaluation> getEvaluations(Integer user_id){
+        List<Evaluation> evalList = new ArrayList<>();
+        String query = "SELECT e.* FROM evaluation e INNER JOIN eval_user_junc ev ON e.eval_id = ev.eval_id WHERE user_id =?";
+        SqlRowSet rs = jdbcTemplate.queryForRowSet(query,new Object[]{user_id});
+        while(rs.next()){
+            Evaluation eval = new Evaluation(rs.getInt("eval_id"),
+                    rs.getDate("date_start"),
+                    rs.getDate("date_stop"),
+                    rs.getString("course_id"),
+                    rs.getInt("time_of_exam"));
+            evalList.add(eval);
+        }
+        return evalList;
+    }
+
+
 
 
 }

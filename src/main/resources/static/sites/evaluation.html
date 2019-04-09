@@ -17,7 +17,7 @@
 
 <body id="body">
   <section id="fullPage">
-    <div id="headerWrapper">
+    <div id="headerWrapper" onclick="location.href='../sites/teacherDashboard.html'">
       <div id="header" class="container">
         <p>EDUEVAL</p>
       </div>
@@ -32,8 +32,8 @@
 
         <!-- Class for collapseable navbar  -->
         <div class="collapse navbar-collapse" id="navbarTogglerDemo01">
-          <div class="navbar-nav mr-auto mt-2 mt-lg-0">
-            <div id="addEvalNav" class="nav-item">
+          <div class="navbar-nav mr-auto">
+            <div id="addQuestionNav" class="nav-item">
               <!-- Button for adding questions  -->
               <button id="addQuestionBtn" class="btn btn-primary" data-toggle="modal" data-target="#modalAddQuestion" onclick="">Add question</button>
             </div>
@@ -44,13 +44,8 @@
             </div>
           </div>
 
-          <div id="homeNav" class="nav-item">
-            <!-- Button for logging out  -->
-            <button id="homeBtn" class="btn btn-primary" data-toggle="modal" data-target="#modalSettings">Home</button>
-          </div>
-
           <div id="settingsNav" class="nav-item">
-            <!-- Button for logging out  -->
+            <!-- Button for settings  -->
             <button id="settingsBtn" class="btn btn-primary" data-toggle="modal" data-target="#modalSettings">Settings</button>
           </div>
 
@@ -219,7 +214,7 @@
             </div>
           </div>
 
-<!-- MODAL for adding students-->
+          <!-- Modal for adding students-->
           <div class="modal fade" id="modalAddStudent" tabindex="-1" role="dialog" aria-labelledby="modalAddStudent" aria-hidden="true">
             <div class="modal-dialog modal-dialog-scrollable" role="document">
               <div class="modal-content">

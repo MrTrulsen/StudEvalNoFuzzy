@@ -4,13 +4,23 @@ var questions = [];
 var questionNumber = 1;
 
 function questionValue(question) {
+  var txt = document.getElementById("questionInput").value;
   var complexity = document.getElementById('complexityInput').value;
   var time_use = document.getElementById('timeInput').value;
   var difficulty = document.getElementById('difficultyInput').value;
   var importance = document.getElementById('importanceInput').value;
 
-  var q1 = [question, difficulty, complexity, time_use, importance];
-  var newQuestion = questions.push(q1);
+  let object = {
+    question: txt,
+    difficulty: difficulty,
+    complexity: complexity,
+    time_use: time_use,
+    importance: importance
+  };
+
+  console.log(object);
+
+  var newQuestion = questions.push(object);
   console.log(time_use);
   console.log(questions);
 }
@@ -51,15 +61,32 @@ function newQuestionButton() {
 
   document.getElementById("footer").appendChild(newButton);
 }
-function importValue(input){
+
+//TODO: Complete the function to print out the graphs inside the site
+function generateInputFields() {
+  var difficulty = document.getElementById("difficultySlider").value;
+  var complexity = document.getElementById("complexityOutput").value;
+  var time = document.getElementById("timeOutput").value;
+  var importance = document.getElementById("importanceOutput").value;
+  console.log(difficulty);
+  console.log(complexity);
+  console.log(time);
+  console.log(importance);
+
+  function generateSlider() {
+    var div = document.createElement()
+  }
+}
+
+function importValue(input) {
   console.log(input);
-    var slider = document.getElementById(input.id.slice(0, - 5) + "Slider");
-    var output = document.getElementById(input.id.slice(0, - 5) + "Output");
-     slider.value = input.value;
-     output.value = input.value;
-console.log(slider);
-console.log(input);
-console.log(output);
+  var slider = document.getElementById(input.id.slice(0, - 5) + "Slider");
+  var output = document.getElementById(input.id.slice(0, - 5) + "Output");
+  slider.value = input.value;
+  output.value = input.value;
+  console.log(slider);
+  console.log(input);
+  console.log(output);
 }
 
 function displaySliderValue(slider) {
