@@ -53,7 +53,7 @@ function generateEvaluation() {
     }
 
     else {
-      addEvaluationCard(object, courseName);
+      addEvaluation(object, courseName, btn);
     }
   }
 }
