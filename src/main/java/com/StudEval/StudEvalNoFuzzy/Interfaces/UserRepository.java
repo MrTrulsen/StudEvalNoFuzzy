@@ -1,4 +1,4 @@
-package com.StudEval.StudEvalNoFuzzy.Repositories;
+package com.StudEval.StudEvalNoFuzzy.Interfaces;
 
 import com.StudEval.StudEvalNoFuzzy.User.User;
 import org.springframework.data.jpa.repository.JpaRepository;

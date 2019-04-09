@@ -1,4 +1,4 @@
-package com.StudEval.StudEvalNoFuzzy.Security;
+package com.StudEval.StudEvalNoFuzzy.Interfaces;
 
 import com.StudEval.StudEvalNoFuzzy.User.User;
 

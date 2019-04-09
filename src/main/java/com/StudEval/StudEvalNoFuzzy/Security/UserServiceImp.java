@@ -1,7 +1,8 @@
 package com.StudEval.StudEvalNoFuzzy.Security;
 
-import com.StudEval.StudEvalNoFuzzy.Repositories.RoleRepository;
-import com.StudEval.StudEvalNoFuzzy.Repositories.UserRepository;
+import com.StudEval.StudEvalNoFuzzy.Interfaces.RoleRepository;
+import com.StudEval.StudEvalNoFuzzy.Interfaces.UserRepository;
+import com.StudEval.StudEvalNoFuzzy.Interfaces.UserService;
 import com.StudEval.StudEvalNoFuzzy.User.Role;
 import com.StudEval.StudEvalNoFuzzy.User.User;
 import org.springframework.beans.factory.annotation.Autowired;

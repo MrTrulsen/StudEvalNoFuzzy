@@ -28,10 +28,10 @@ public class StudentSecurity extends WebSecurityConfigurerAdapter {
     @Autowired
     private DataSource dataSource;
 
-    @Value("${spring.queries.users-query}")
+    @Value("select email, password, '1' as enabled from user where email=? and is_active='1'")
     private String usersQuery;
 
-    @Value("${spring.queries.roles-query}")
+    @Value("select u.email, r.role_name from user u inner join user_role ur on(u.user_id=ur.user_id) inner join role r on(ur.role_id=r.role_id) where u.email=?")
     private String rolesQuery;
 
 

@@ -1,6 +1,6 @@
 package com.StudEval.StudEvalNoFuzzy.config;
 
-import com.StudEval.StudEvalNoFuzzy.Security.UserService;
+import com.StudEval.StudEvalNoFuzzy.Interfaces.UserService;
 import com.StudEval.StudEvalNoFuzzy.User.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
