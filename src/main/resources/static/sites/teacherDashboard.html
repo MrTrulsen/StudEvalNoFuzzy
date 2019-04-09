@@ -115,34 +115,38 @@
 
                   <div id="modalAddEvalBody" class="modal-body">
                     <div id="modalAddEvalContent" class="input-group mb-3">
+
+                      <p>This will be the ID of your course. I would often contain numbers and look something like "ID203920".</p>
                       <div id="courseId" class="input-group">
                         <div class="input-group-prepend">
                           <span class="input-group-text">Course ID</span>
                         </div>
-                        <input id="courseIdInput" type="text" class="form-control" aria-label="Sizing example input" aria-describedby="courseId">
+                        <input id="courseIdInput" type="text" class="form-control" placeholder="ID" aria-label="Sizing example input" aria-describedby="courseId">
                       </div>
 
+                      <p class="infoText">This will be the name of the course to the evaluation you want to add. It can contain spaces and usually contains only characters, like "Operating Systems".</p>
                       <div id="courseName" class="input-group">
                         <div class="input-group-prepend">
                           <span class="input-group-text">Course Name</span>
                         </div>
-                        <input id="courseNameInput" type="text" class="form-control" aria-label="Sizing example input" aria-describedby="courseName">
+                        <input id="courseNameInput" type="text" class="form-control" placeholder="Name" aria-label="Sizing example input" aria-describedby="courseName">
                       </div>
 
+                      <p class="infoText">This will be the date when the evaluation starts and stops. Here you need to choose a start and end date from the datepicker provided.</p>
                       <div id="evalDates" class="input-group">
                         <div class="input-group-prepend">
                           <span class="input-group-text">Date</span>
                         </div>
-                        <input id="evalDatesInput" type="text" name="datetimeEval" aria-label="Sizing example input" aria-describedby="evalDates" readonly>
+                        <input id="evalDatesInput" type="text" name="datetimeEval" placeholder="Date" aria-label="Sizing example input" aria-describedby="evalDates" readonly>
                       </div>
 
+                      <p class="infoText">This will be the total time of the exam, written in hours.</p>
                       <div id="examTime" class="input-group">
                         <div class="input-group-prepend">
                           <span class="input-group-text">Exam Time</span>
                         </div>
-                        <input id="examTimeInput" type="text" class="form-control" aria-label="Sizing example input" aria-describedby="examTime" >
+                        <input id="examTimeInput" type="text" class="form-control" placeholder="Time" aria-label="Sizing example input" aria-describedby="examTime">
                       </div>
-
                     </div>
                   </div>
 
@@ -171,7 +175,7 @@
                     <div class="input-group-prepend">
                       <span class="input-group-text" id="courseIdRemove">Course ID</span>
                     </div>
-                    <input id="removeEvaluation" type="text" class="form-control" aria-label="Sizing example input" aria-describedby="courseIdRemove">
+                    <input id="removeEvaluation" type="text" class="form-control" placeholder="ID" aria-label="Sizing example input" aria-describedby="courseIdRemove">
                   </div>
                 </div>
                 <div class="modal-footer">
@@ -196,7 +200,7 @@
                 <div id="modalSettingsBody" class="modal-body">
                   <div id="modalSettingsContent" class="input-group mb-3">
                     <div id="changePassword">
-                      <p>If you want to change the user password, you can press here.</p>
+                      <p>If you want to change the user password, you can press here. You will need to confirm your password and then verify it in your mail.</p>
                       <button id="changePasswordBtn" class="btn btn-primary" onclick="location.href='#'" type="submit">Change password</button>
                     </div>
 
