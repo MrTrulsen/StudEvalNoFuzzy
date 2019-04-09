@@ -2,7 +2,11 @@ package com.StudEval.StudEvalNoFuzzy.Security;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.mail.javamail.JavaMailSender;
+import org.springframework.mail.javamail.JavaMailSenderImpl;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+
+import java.util.Properties;
 
 @Configuration
 public class Beans {
@@ -13,23 +17,24 @@ public class Beans {
         return bCryptPasswordEncoder;
     }
 
-/*
     @Bean
-    public UserDetailsService userDetailsService() throws Exception {
-        InMemoryUserDetailsManager manager = new InMemoryUserDetailsManager();
-        manager.createUser(User
-                .withUsername("user")
-                .password(passwordEncoder().encode("userPass"))
-                .authorities("USER")
-                .build());
+    public JavaMailSender javaMailService() {
+        JavaMailSenderImpl javaMailSender = new JavaMailSenderImpl();
 
-        manager.createUser(User
-                .withUsername("admin")
-                .password(passwordEncoder().encode("adminPass"))
-                .authorities("ADMIN")
-                .build());
+        javaMailSender.setHost("myHost"); // TODO: 09.04.2019 Set up an emailserver  
+        javaMailSender.setPort(25);
 
-        return manager;
+        javaMailSender.setJavaMailProperties(getMailProperties());
+
+        return javaMailSender;
     }
-*/
+
+    private Properties getMailProperties() {
+        Properties properties = new Properties();
+        properties.setProperty("mail.transport.protocol", "smtp");
+        properties.setProperty("mail.smtp.auth", "false");
+        properties.setProperty("mail.smtp.starttls.enable", "false");
+        properties.setProperty("mail.debug", "false");
+        return properties;
+    }
 }
