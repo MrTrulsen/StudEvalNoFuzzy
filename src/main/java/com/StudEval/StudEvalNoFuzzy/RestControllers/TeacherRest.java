@@ -41,10 +41,18 @@ public class TeacherRest {
         return studentEmailList;
     }
 
+
+    @RequestMapping("/getEvaluations/{userId}")
+    public List<Evaluation> getEvaluations (@PathVariable Integer userId){
+        List<Evaluation> evals = mainRepository.getEvaluations(userId);
+        return evals;
+    }
+
+
     @RequestMapping(value = "/addStudents/{evalId}" , method = RequestMethod.POST)
     public ResponseEntity<String> addStudents(@RequestBody List<User> users, @PathVariable Integer evalId){
 
-        String error = mainRepository.importStudentsToEvaluation(users,evalId);
+        String error = mainRepository.importUsersToEvaluation(users,evalId);
         if(error == null){
             return new ResponseEntity<>(HttpStatus.OK);
         }
