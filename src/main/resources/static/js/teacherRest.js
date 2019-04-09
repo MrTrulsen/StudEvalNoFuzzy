@@ -1,6 +1,7 @@
 
 //Function to add evaluations in the database
 function addEvaluation(object, courseName, btn) {
+  console.log(btn);
   fetch("/addEvaluation/" + courseName.value, {
     method: "POST",
     headers: {
@@ -8,20 +9,19 @@ function addEvaluation(object, courseName, btn) {
     },
     body: JSON.stringify(object)
   }).then(function (response, courseName, btn) {
+        btn = document.getElementById("saveEvaluationBtn"); //Temporary fix
         console.log("Response: ", response);
-
-        var objectToArray = Object.values(object);
-        console.log(objectToArray);
 
         if (response.status === 200) {
             btn.setAttribute("data-dismiss", "modal");
-            addEvaluationCard(objectToArray[0], courseName.value, objectToArray[1], objectToArray[2]);
+            addEvaluationCard(object, courseName);
 
             removeInputValue(courseId);
             removeInputValue(courseName);
             removeInputValue(evalDates);
             removeInputValue(examTime);
         } else {
+            btn.removeAttribute("data-dismiss", "modal");
             return response.text();
         }
     }).then(function () {

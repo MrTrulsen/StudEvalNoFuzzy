@@ -1,7 +1,7 @@
 
-
 //Cleans the input field for dates at adding evaluations
 window.addEventListener('load', function() {
+  //TODO: GET evaluations from backend/database
   removeInputValue(document.getElementById('evalDatesInput'));
 })
 
@@ -9,7 +9,6 @@ window.addEventListener('load', function() {
 function generateEvaluation() {
   var courseId = document.getElementById("courseIdInput");
   var courseName = document.getElementById("courseNameInput");
-  var course = courseId.value + " - " + courseName.value;
 
   var evalDates = document.getElementById('evalDatesInput');
   var examTime = document.getElementById('examTimeInput');
@@ -26,9 +25,6 @@ function generateEvaluation() {
     timeOfExam: examTime.value
   };
   console.log(object);
-
-  start = moment(start).format('dddd / MMMM Do YYYY');
-  end = moment(end).format('dddd / MMMM Do YYYY');
 
   removeElementsByClass("error");
   checkForError(courseId, courseName, start, end, btn);
@@ -51,14 +47,31 @@ function generateEvaluation() {
       btn.removeAttribute("data-dismiss", "modal");
     }
 
+    else if (examTime.value.length == 0) {
+      showErrorMessage("examTime", "The field can not be empty");
+      btn.removeAttribute("data-dismiss", "modal");
+    }
+
     else {
-      addEvaluation(object, courseName, btn);
+      addEvaluationCard(object, courseName);
     }
   }
 }
 
 //Generates a evaluation card at the dashboard based on the user input
-function addEvaluationCard(courseId, course, start, end, closed) {
+function addEvaluationCard(object, courseName) {
+  var objectToArray = Object.values(object);
+  console.log(objectToArray);
+
+  var courseId = objectToArray[0];
+  var start = objectToArray[1];
+  var end = objectToArray[2];
+
+  var course = courseId.value + " - " + courseName.value;
+
+  start = moment(start).format('dddd / MMMM Do YYYY');
+  end = moment(end).format('dddd / MMMM Do YYYY');
+
   var card = document.createElement("div");
   card.id = "evaluationCard" + courseId;
   card.className = "card text-center";
