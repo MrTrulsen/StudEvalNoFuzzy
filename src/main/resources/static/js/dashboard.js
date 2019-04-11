@@ -2,6 +2,7 @@
 //Cleans the input field for dates at adding evaluations
 window.addEventListener('load', function() {
   //TODO: GET evaluations from backend/database
+  loadEvaluations();
   removeInputValue(document.getElementById('evalDatesInput'));
 })
 
@@ -18,13 +19,13 @@ function generateEvaluation() {
   var start = evalDatesArray[0];
   var end = evalDatesArray[1];
 
-  var object = {
+  var evaluation = {
     courseId: courseId.value,
     startDate: start,
     stopDate: end,
     timeOfExam: examTime.value
   };
-  console.log(object);
+  console.log(evaluation);
 
   removeElementsByClass("error");
   checkForError(courseId, courseName, start, end, btn);
@@ -53,25 +54,47 @@ function generateEvaluation() {
     }
 
     else {
-      addEvaluation(object, courseName, btn);
+      addEvaluation(evaluation, courseName, btn);
     }
   }
 }
 
-//Generates a evaluation card at the dashboard based on the user input
-function addEvaluationCard(object, courseName) {
-  var objectToArray = Object.values(object);
-  console.log(objectToArray);
+//Adds an evaluation card at the dashboard based on the user input
+function addEvaluationCard(evaluation, courseName) {
+  var evaluationToArray = Object.values(evaluation);
+  console.log(evaluationToArray);
 
-  var courseId = objectToArray[0];
-  var start = objectToArray[1];
-  var end = objectToArray[2];
+  var courseId = evaluationToArray[0];
+  var start = evaluationToArray[1];
+  var end = evaluationToArray[2];
 
-  var course = courseId.value + " - " + courseName.value;
+  var course = courseId + " - " + courseName;
 
   start = moment(start).format('dddd / MMMM Do YYYY');
   end = moment(end).format('dddd / MMMM Do YYYY');
 
+  generateEvaluationCard(courseId, start, end, course);
+}
+
+//Gets an evaluation card when loading the dashboard
+function loadEvaluationCard(evaluation) {
+  var evaluationToArray = Object.values(evaluation);
+  console.log(evaluationToArray);
+
+  var courseId = evaluationToArray[3];
+  var start = evaluationToArray[1];
+  var end = evaluationToArray[2];
+
+  var course = courseId + " - " + courseName;
+
+  start = moment(start).format('dddd / MMMM Do YYYY');
+  end = moment(end).format('dddd / MMMM Do YYYY');
+
+  generateEvaluationCard(courseId, start, end, course);
+}
+
+//Generates a evaluation card at the dashboard based on the user input
+function generateEvaluationCard(courseId, start, end, course) {
   var card = document.createElement("div");
   card.id = "evaluationCard" + courseId;
   card.className = "card text-center";
@@ -102,7 +125,7 @@ function addEvaluationCard(object, courseName) {
     btn.type = "submit";
     btn.innerText = text;
     cardBody.append(btn);
-  }
+}
 
   //Generates content inside the cards with date
   function generateCardContent(element, className, innerHtml, date) {

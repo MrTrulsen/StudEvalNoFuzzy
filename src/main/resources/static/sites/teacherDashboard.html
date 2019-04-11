@@ -73,7 +73,7 @@
                 <p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
                 <button id="editEvalBtn" class="btn btn-primary evalBtn" onclick="location.href='../sites/evaluation.html'" type="submit">Edit evaluation</button>
                 <button id="resultBtn" class="btn btn-primary evalBtn" data-toggle="modal" data-target="#modalResult" type="submit">Result</button>
-                <button id="removeBtn" class="btn btn-primary evalBtn" data-toggle="modal" data-target="#modalRemove" onclick="var element = document.getElementById('removeEvaluation'); removeInputValue(element)" type="submit">Remove</button>
+                <button id="removeBtn" class="btn btn-primary evalBtn" data-toggle="modal" data-target="#modalRemove" onclick="var element = document.getElementById('removeEvaluation'); removeInputValue(element);" type="submit">Remove</button>
               </div>
 
               <div class="card-footer text-muted">
@@ -116,7 +116,7 @@
                   <div id="modalAddEvalBody" class="modal-body">
                     <div id="modalAddEvalContent" class="input-group mb-3">
 
-                      <p>This will be the ID of your course. I would often contain numbers and look something like "ID203920".</p>
+                      <p>This will be the ID of your course. It would often contain numbers and look something like "ID203920".</p>
                       <div id="courseId" class="input-group">
                         <div class="input-group-prepend">
                           <span class="input-group-text">Course ID</span>
