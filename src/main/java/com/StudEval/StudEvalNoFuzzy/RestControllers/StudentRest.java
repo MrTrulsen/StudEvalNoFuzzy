@@ -1,10 +1,12 @@
 package com.StudEval.StudEvalNoFuzzy.RestControllers;
 
+import com.StudEval.StudEvalNoFuzzy.Evaluation.Answer;
 import com.StudEval.StudEvalNoFuzzy.Evaluation.Question;
 import com.StudEval.StudEvalNoFuzzy.Repositories.MainRepository;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -30,5 +32,16 @@ public class StudentRest {
         return questionsList;
     }
 
+    @RequestMapping(value = "/addAnswers/{evalId}" , method = RequestMethod.POST)
+    public ResponseEntity<String> addQuestions(@RequestBody List<Answer> answers, @PathVariable Integer evalId){
+        String error = mainRepository.addAnswers(answers,evalId);
+        if(error == null){
+            return new ResponseEntity<>(HttpStatus.OK);
+        }
+        else {
+            return new ResponseEntity<>(error, HttpStatus.BAD_REQUEST);
+        }
+
+    }
 
 }

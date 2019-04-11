@@ -13,6 +13,7 @@ import org.springframework.jdbc.support.rowset.SqlRowSet;
 import org.springframework.stereotype.Repository;
 //import sun.applet.Main;
 
+import javax.sql.RowSet;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -265,6 +266,27 @@ public class MainRepository {
         return evalList;
     }
 
+    // TO DO
+    public String addQuestions(List<Question> questions, Integer evalId){
+        Integer numRows;
+        String query = "INSERT INTO questions(question_text,complexity, time_use, difficulty, importance) VALUES (?,?,?,?,?)";
+        for(Question question : questions){
+            numRows = jdbcTemplate.update(query, question.getText(),
+                    question.getComplex(),
+                    question.getTime(),
+                    question.getDifficulity(),
+                    question.getImportance());
+        }
+       String query2 = "SELECT LAST_INSERT_ID";
+        SqlRowSet rs = jdbcTemplate.queryForRowSet(query2);
+        Integer id = rs.getInt("LAST_INSERT_ID");
+        return null;
+    }
+
+    // TO DO
+    public String addAnswers(List<Answer> answers, Integer evalId){
+        return null;
+    }
 
 
 
