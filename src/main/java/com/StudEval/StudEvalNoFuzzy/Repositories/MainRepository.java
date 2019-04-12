@@ -272,9 +272,9 @@ public class MainRepository {
         String query = "INSERT INTO questions(question_text,complexity, time_use, difficulty, importance) VALUES (?,?,?,?,?)";
         for(Question question : questions){
             numRows = jdbcTemplate.update(query, question.getText(),
-                    question.getComplex(),
+                    question.getcomplexity(),
                     question.getTime(),
-                    question.getDifficulity(),
+                    question.getDifficulty(),
                     question.getImportance());
         }
        String query2 = "SELECT LAST_INSERT_ID";

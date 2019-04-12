@@ -18,6 +18,7 @@
       <script th:src="@{/js/daterangepicker.js}"></script>
       <script th:src="@{/js/canvasjs.min.js}"></script>
       <script th:src="@{/js/dashboard.js}"></script>
+      <script th:src="@{/js/helperFunctions.js}"></script>
       <script th:src="@{/js/teacherRest.js}"></script>
       <script th:src="@{/js/graph.js}"></script>
   </head>
@@ -87,7 +88,7 @@
 
             <!-- Modal for adding evaluation with user input  -->
             <div class="modal fade" th:id="modalAddEval" tabindex="-1" role="dialog" aria-labelledby="modalAddEvalTitle" aria-hidden="true">
-                <div class="modal-dialog modal-dialog-scrollable" role="document">
+                <div class="modal-dialog" role="document">
                     <div class="modal-content">
                         <form action="index.html" method="post">
                             <div class="modal-header">
@@ -100,7 +101,7 @@
                             <div id="modalAddEvalBody" class="modal-body">
                                 <div id="modalAddEvalContent" class="input-group mb-3">
 
-                                    <p>This will be the ID of your course. I would often contain numbers and look something like "ID203920".</p>
+                                    <p>This will be the ID of your course. It would often contain numbers and look something like "ID203920".</p>
                                     <div id="courseId" class="input-group">
                                         <div class="input-group-prepend">
                                             <span class="input-group-text">Course ID</span>

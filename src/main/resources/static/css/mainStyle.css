@@ -59,12 +59,6 @@ h2 {
   margin-bottom: 100px;
 }
 
-.evalBtn {
-  width: 25%;
-  margin-left: 5px;
-  margin-right: 5px;
-}
-
 #takeEvalBtn {
   width: 50%;
 }
@@ -201,10 +195,15 @@ h2 {
   margin-bottom: 10px;
 }
 
-
 .btn-primary:hover {
   background-color: #4488DD;
   border-color: #4488DD;
+}
+
+.evalBtn {
+  width: 25%;
+  margin-left: 5px;
+  margin-right: 5px;
 }
 
 .card-header {

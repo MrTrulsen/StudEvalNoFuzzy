@@ -13,6 +13,8 @@
   <link rel="stylesheet" href="../css/mainStyle.css">
   <script src="../bootstrap/js/bootstrap.bundle.js"></script>
   <script src="../js/evaluation.js"></script>
+  <script src="../js/helperFunctions.js"></script>
+  <script src="../js/teacherRest.js"></script>
 </head>
 
 <body id="body">
@@ -151,9 +153,9 @@
           </div>
           <!-- IDEA: Dont put any content outside here -->
 
-          <!-- Modal for adding evaluation with user input  -->
+          <!-- Modal for adding questions with user input  -->
           <div class="modal fade" id="modalAddQuestion" tabindex="-1" role="dialog" aria-labelledby="modalAddQuestionTitle" aria-hidden="true">
-            <div class="modal-dialog modal-dialog-scrollable" role="document">
+            <div class="modal-dialog" role="document">
               <div class="modal-content">
                 <form action="index.html" method="post">
                   <div class="modal-header">
@@ -171,7 +173,7 @@
                         <div class="input-group-prepend">
                           <span class="input-group-text">Question</span>
                         </div>
-                        <input id="questionInput" type="text" class="form-control" aria-label="Sizing example input" placeholder="Question" aria-describedby="question" oninput="var input=this; importValue(input);">
+                        <input id="questionInput" type="text" class="form-control" aria-label="Sizing example input" placeholder="Question" aria-describedby="question">
                       </div>
 
                       <p class="infoText">This will be the difficulty of the question in percentage %, where it needs to be calculated from a total of 100%.</p>
@@ -211,7 +213,7 @@
 
                   <div class="modal-footer">
                     <button type="button" class="btn btn-primary" data-dismiss="modal">Close</button>
-                    <button id="saveQuestionBtn" type="button" class="btn btn-primary" type="submit" onclick="addQuestion();">Save question</button>
+                    <button id="saveQuestionBtn" type="button" class="btn btn-primary" type="submit" onclick="generateQuestion()">Save question</button>
                   </div>
                 </form>
               </div>

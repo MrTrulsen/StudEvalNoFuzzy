@@ -1,30 +1,31 @@
 
-//Cleans the input field for dates at adding evaluations
 window.addEventListener('load', function() {
-  //TODO: GET evaluations from backend/database
+  //Loads the available evaluations
   loadEvaluations();
+  //Cleans the input field for dates at adding evaluations
   removeInputValue(document.getElementById('evalDatesInput'));
 })
 
 //Adds a new evaluation by making a card with user input at the dashboard
 function generateEvaluation() {
-  var courseId = document.getElementById("courseIdInput");
-  var courseName = document.getElementById("courseNameInput");
+  var courseId = document.getElementById("courseIdInput").value;
+  var courseName = document.getElementById("courseNameInput").value;
 
-  var evalDates = document.getElementById('evalDatesInput');
-  var examTime = document.getElementById('examTimeInput');
+  var evalDates = document.getElementById('evalDatesInput').value;
+  var examTime = document.getElementById('examTimeInput').value;
   var btn = document.getElementById("saveEvaluationBtn");
 
-  var evalDatesArray = evalDates.value.split(" - ", 2); //TODO: Change the split string to " / " when the formatting works
+  var evalDatesArray = evalDates.split(" - ", 2); //TODO: Change the split string to " / " when the formatting works
   var start = evalDatesArray[0];
   var end = evalDatesArray[1];
 
   var evaluation = {
-    courseId: courseId.value,
+    courseId: courseId,
     startDate: start,
     stopDate: end,
-    timeOfExam: examTime.value
+    timeOfExam: examTime
   };
+
   console.log(evaluation);
 
   removeElementsByClass("error");
@@ -33,22 +34,22 @@ function generateEvaluation() {
   //Checks for error at user input
   function checkForError(courseId, courseName, start, end, btn) {
     //If length = 0 it will return an error message and not continue
-    if (courseId.value.length == 0) {
+    if (courseId.length == 0) {
       showErrorMessage("courseId", "The field can not be empty");
       btn.removeAttribute("data-dismiss", "modal");
     }
 
-    else if (courseName.value.length == 0) {
+    else if (courseName.length == 0) {
       showErrorMessage("courseName", "The field can not be empty");
       btn.removeAttribute("data-dismiss", "modal");
     }
 
-    else if (evalDates.value.length == 0) {
+    else if (evalDates.length == 0) {
       showErrorMessage("evalDates", "The field can not be empty");
       btn.removeAttribute("data-dismiss", "modal");
     }
 
-    else if (examTime.value.length == 0) {
+    else if (examTime.length == 0) {
       showErrorMessage("examTime", "The field can not be empty");
       btn.removeAttribute("data-dismiss", "modal");
     }
@@ -107,7 +108,7 @@ function generateEvaluationCard(courseId, start, end, course) {
 
   generateCardContent2("h5", "card-title", course);
   generateCardContent2("p", "card-text", "With supporting text below as a natural lead-in to additional content.");
-  generateBtn("editEval", courseId, 1, "onclick", "location.href='/evaluation.html'", null, null, null, null, "See evaluation");
+  generateBtn("editEval", courseId, 1, "onclick", "location.href='/teacherpage/evaluation'", null, null, null, null, "See evaluation");
   generateBtn("result", courseId, 2, "data-toggle", "modal", "data-target", "#modalResult", null, null, "Result");
   generateBtn("remove", courseId, 2, "data-toggle", "modal", "data-target", "#modalRemove", "onclick", "var element = document.getElementById('removeEvaluation'); removeInputValue(element)", "Remove");
   generateCardContent("div", "card-footer text-muted", "Opened: ", start);
@@ -146,7 +147,7 @@ function generateEvaluationCard(courseId, start, end, course) {
 
 //Removes a evaluation when user press on the remove button inside the card
 function removeEvaluation() {
-  var inputField = document.getElementById("removeEvaluation");
+  var inputField = document.getElementById("removeEvaluation").value;
   var btn = document.getElementById("removeEvaluationBtn");
 
   removeElementsByClass("error");
@@ -155,13 +156,13 @@ function removeEvaluation() {
   //Checks for error at user input
   function checkForError(inputField, btn) {
     //If length = 0 it will return an error message and not continue
-    if (inputField.value.length == 0) {
+    if (inputField.length == 0) {
       showErrorMessage("modalRemoveContent", "The field can not be empty");
       btn.removeAttribute("data-dismiss", "modal");
     }
 
     else {
-      var action = document.getElementById("evaluationCard" + inputField.value);
+      var action = document.getElementById("evaluationCard" + inputField);
 
       if (action == null) {
         showErrorMessage("modalRemoveContent", "Please enter the correct value");
@@ -174,50 +175,6 @@ function removeEvaluation() {
       }
     }
   }
-}
-
-//Prints out an error message to the user
-function showErrorMessage(placement, errorMessage) {
-  var errorPlacement = document.getElementById(placement);
-  var errorDiv = document.createElement("div");
-
-  errorDiv.className = "error";
-  errorDiv.innerHTML = errorMessage;
-  errorPlacement.append(errorDiv)
-}
-
-//Removes value inside input fields
-function removeInputValue(element) {
-  if(element.value.length > 0){
-      element.value = "";
-  }
-}
-
-//Removes the error messages
-function removeErrorMessage() {
-  var elements = document.getElementsByClassName("error");
-}
-
-//Removes elements by class name
-function removeElementsByClass(className) {
-  var elements = document.getElementsByClassName(className);
-  while (elements.length > 0) {
-    elements[0].parentNode.removeChild(elements[0]);
-  }
-}
-
-//TODO: Remove if not being used later in the project
-function getCount(parent, getChildrensChildren){
-    var relevantChildren = 0;
-    var children = parent.childNodes.length;
-    for(var i=0; i < children; i++){
-        if(parent.childNodes[i].nodeType != 3){
-            if(getChildrensChildren)
-                relevantChildren += getCount(parent.childNodes[i],true);
-            relevantChildren++;
-        }
-    }
-    return relevantChildren;
 }
 
 function formatToInputField(start, end) {

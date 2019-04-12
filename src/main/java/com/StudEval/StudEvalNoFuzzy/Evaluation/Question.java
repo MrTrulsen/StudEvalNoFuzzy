@@ -3,17 +3,17 @@ package com.StudEval.StudEvalNoFuzzy.Evaluation;
 public class Question {
     private int question_id;
     private String text;
-    private float complex;
+    private float complexity;
     private float time;
-    private float difficulity;
+    private float difficulty;
     private float importance;
 
-    public Question(int question_id, String text, float complex, float time, float difficulity, float importance) {
+    public Question(int question_id, String text, float complexity, float time, float difficulty, float importance) {
         this.question_id = question_id;
         this.text = text;
-        this.complex = complex;
+        this.complexity = complexity;
         this.time = time;
-        this.difficulity = difficulity;
+        this.difficulty = difficulty;
         this.importance = importance;
     }
 
@@ -33,12 +33,12 @@ public class Question {
         this.text = text;
     }
 
-    public float getComplex() {
-        return complex;
+    public float getcomplexity() {
+        return complexity;
     }
 
-    public void setComplex(float complex) {
-        this.complex = complex;
+    public void setcomplexity(float complexity) {
+        this.complexity = complexity;
     }
 
     public float getTime() {
@@ -49,12 +49,12 @@ public class Question {
         this.time = time;
     }
 
-    public float getDifficulity() {
-        return difficulity;
+    public float getDifficulty() {
+        return difficulty;
     }
 
-    public void setDifficulity(float difficulity) {
-        this.difficulity = difficulity;
+    public void setDifficulty(float difficulty) {
+        this.difficulty = difficulty;
     }
 
     public float getImportance() {
