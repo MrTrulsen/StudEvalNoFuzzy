@@ -61,7 +61,7 @@ function generateEvaluation() {
 }
 
 //Adds an evaluation card at the dashboard based on the user input
-function addEvaluationCard(evaluation, courseName) {
+function addEvaluationCard(evaluation) {
   var evaluationToArray = Object.values(evaluation);
   console.log(evaluationToArray);
 
@@ -69,7 +69,7 @@ function addEvaluationCard(evaluation, courseName) {
   var start = evaluationToArray[1];
   var end = evaluationToArray[2];
 
-  var course = courseId + " - " + courseName;
+  var course = courseId + " - " + "courseName"; //TODO: Get course name from the database
 
   start = moment(start).format('dddd / MMMM Do YYYY');
   end = moment(end).format('dddd / MMMM Do YYYY');
@@ -86,63 +86,12 @@ function loadEvaluationCard(evaluation) {
   var start = evaluationToArray[1];
   var end = evaluationToArray[2];
 
-  var course = courseId + " - " + courseName;
+  var course = courseId + " - " + "courseName"; //TODO: Get course name from the database
 
   start = moment(start).format('dddd / MMMM Do YYYY');
   end = moment(end).format('dddd / MMMM Do YYYY');
 
   generateEvaluationCard(courseId, start, end, course);
-}
-
-//Generates a evaluation card at the dashboard based on the user input
-function generateEvaluationCard(courseId, start, end, course) {
-  var card = document.createElement("div");
-  card.id = "evaluationCard" + courseId;
-  card.className = "card text-center";
-
-  generateCardContent("div", "card-header", "Open until: ", end);
-
-  var cardBody = document.createElement("div");
-  cardBody.className = "card-body";
-  card.append(cardBody);
-
-  generateCardContent2("h5", "card-title", course);
-  generateCardContent2("p", "card-text", "With supporting text below as a natural lead-in to additional content.");
-  generateBtn("editEval", courseId, 1, "onclick", "location.href='/teacherpage/evaluation'", null, null, null, null, "See evaluation");
-  generateBtn("result", courseId, 2, "data-toggle", "modal", "data-target", "#modalResult", null, null, "Result");
-  generateBtn("remove", courseId, 2, "data-toggle", "modal", "data-target", "#modalRemove", "onclick", "var element = document.getElementById('removeEvaluation'); removeInputValue(element)", "Remove");
-  generateCardContent("div", "card-footer text-muted", "Opened: ", start);
-
-  document.getElementById("cardArea").appendChild(card);
-
-  //Generates buttons
-  function generateBtn(type, courseId, numOfAttributes, attribute, data, attribute2, data2, attribute3, data3, text) {
-    var btn = document.createElement("button");
-    btn.id = type + "btn" + courseId;
-    btn.className = "btn btn-primary evalBtn";
-    btn.setAttribute(attribute, data);
-    btn.setAttribute(attribute2, data2);
-    btn.setAttribute(attribute3, data3);
-    btn.type = "submit";
-    btn.innerText = text;
-    cardBody.append(btn);
-}
-
-  //Generates content inside the cards with date
-  function generateCardContent(element, className, innerHtml, date) {
-    var content = document.createElement(element);
-    content.className = className;
-    content.innerHTML = innerHtml + date;
-    card.append(content);
-  }
-
-  //Generates content inside the cards
-  function generateCardContent2(element, className, innerHtml) {
-    var content = document.createElement(element);
-    content.className = className;
-    content.innerHTML = innerHtml;
-    cardBody.append(content);
-  }
 }
 
 //Removes a evaluation when user press on the remove button inside the card

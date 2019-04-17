@@ -81,36 +81,8 @@ function generateQuestion() {
   }
 }
 
-function newQuestionButton() {
-  var placement = document.getElementById("footer")
-  var btn = document.createElement("button");
-  var questionIndex = questionNumber - 1;
-
-  console.log("Question number: ", questionNumber);
-  btn.innerHTML = questionNumber;
-
-  btn.addEventListener('click', function() {
-    showQuestion(questionIndex);
-  }, false);
-
-  placement.appendChild(btn);
-}
-
-function loadQuestionButtons(question) {
-  var questionToArray = Object.values(question);
-  console.log(questionToArray);
-
-  var text = questionToArray[1];
-  var difficulty = questionToArray[4];
-  var complexity = questionToArray[2];
-  var time = questionToArray[3];
-  var importance = questionToArray[5];
-
-  document.getElementById("questionText").innerHTML = text;
-  document.getElementById("difficultyOutput").value = difficulty;
-  document.getElementById("complexityOutput").value = complexity;
-  document.getElementById("timeOutput").value = time;
-  document.getElementById("importanceOutput").value = importance;
+function showQuestion(index) {
+  document.getElementById("questionText").innerHTML = questions[index][0];
 }
 
 function importValue(input) {

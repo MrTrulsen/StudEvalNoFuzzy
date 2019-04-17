@@ -8,18 +8,18 @@ function addEvaluation(evaluation, courseName, btn) {
       "Content-Type": "application/json"
     },
     body: JSON.stringify(evaluation)
-  }).then(function (response, courseName, btn) {
+  }).then(function (response, btn) {
         btn = document.getElementById("saveEvaluationBtn"); //Temporary fix
         console.log("Response: ", response);
 
         if (response.status === 200) {
             btn.setAttribute("data-dismiss", "modal");
-            addEvaluationCard(evaluation, courseName);
+            addEvaluationCard(evaluation);
 
-            removeInputValue(courseId);
-            removeInputValue(courseName);
-            removeInputValue(evalDates);
-            removeInputValue(examTime);
+            removeInputValue(document.getElementById("courseId"));
+            removeInputValue(document.getElementById("courseName"));
+            removeInputValue(document.getElementById("evalDates"));
+            removeInputValue(document.getElementById("examTime"));
         } else {
             btn.removeAttribute("data-dismiss", "modal");
             return response.text();
@@ -46,26 +46,25 @@ function loadEvaluations() {
     });
 }
 
-function addQuestion(questionObject, btn) {
+function addQuestion(question, btn) {
   console.log("Adding question...");
   fetch("/addQuestion/1", {
     method: "POST",
     headers: {
       "Content-Type": "application/json"
     },
-    body: JSON.stringify(questionObject)
+    body: JSON.stringify(question)
   }).then(function (response, btn) {
         btn = document.getElementById('saveQuestionBtn'); //Temporary fix
         console.log("Response: ", response);
 
         if (response.status === 200) {
             btn.setAttribute("data-dismiss", "modal");
-            addQuestionLabel(questionObject);
-            questions.push(questionObject);
+            questions.push(question);
             newQuestionButton();
             questionNumber++;
 
-            removeInputValue(question);
+            removeInputValue(text);
             removeInputValue(difficulty);
             removeInputValue(complexity);
             removeInputValue(time_use);
@@ -84,14 +83,25 @@ function loadQuestions() {
     console.log("Loading questions...");
     fetch("/getQuestionsInEval/1").then(function(response) {
         return response.json();
-    }).then(function (questionObjects) {
-        console.log("Evaluation data: ", questionObjects);
-        if (Array.isArray(questionObjects)) {
-            for (var i = 0; i < questionObjects.length; i++) {
-                var questionObject = questionObjects[i];
-                console.log(questionObject);
-                loadQuestionButtons(questionObject);
+    }).then(function (questions) {
+        console.log("Evaluation data: ", questions);
+        if (Array.isArray(questions)) {
+            for (var i = 0; i < questions.length; i++) {
+                var question = questions[i];
+                var questionToArray = Object.values(question);
+                console.log(questionToArray);
+
+                var questionId = questionToArray[0];
+                var text = questionToArray[1];
+                var difficulty = questionToArray[4];
+                var complexity = questionToArray[2];
+                var time = questionToArray[3];
+                var importance = questionToArray[5];
+
+                console.log(question);
+                newQuestionButton(questionId);
             }
+            generateSliderContent(questionId, text, difficulty, complexity, time, importance);
         }
     });
 }

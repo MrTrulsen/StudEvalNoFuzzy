@@ -4,19 +4,20 @@
       xmlns:th="http://www.thymeleaf.org">
 
   <head>
-      <meta charset="utf-8">
-      <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
 
-      <title>EDUEVAL</title>
+    <title>EDUEVAL</title>
 
-      <link rel="icon" href="https://pbs.twimg.com/profile_images/671984499648020481/FixFBnRN_400x400.png">
-      <script th:src="@{/bootstrap/js/jquery.min.js}"></script>
-      <link rel="stylesheet" th:href="@{/bootstrap/css/bootstrap.css}">
-      <link rel="stylesheet" th:href="@{/css/mainStyle.css}">
-      <script th:src="@{/bootstrap/js/bootstrap.bundle.js}"></script>
-      <script th:src="@{/js/evaluation.js}"></script>
-      <script th:src="@{/js/helperFunctions.js}"></script>
-      <script th:src="@{/js/teacherRest.js}"></script>
+    <link rel="icon" href="https://pbs.twimg.com/profile_images/671984499648020481/FixFBnRN_400x400.png">
+    <script th:src="@{/bootstrap/js/jquery.min.js}"></script>
+    <link rel="stylesheet" th:href="@{/bootstrap/css/bootstrap.css}">
+    <link rel="stylesheet" th:href="@{/css/mainStyle.css}">
+    <script th:src="@{/bootstrap/js/bootstrap.bundle.js}"></script>
+    <script th:src="@{/js/evaluation.js}"></script>
+    <script th:src="@{/js/helperFunctions.js}"></script>
+    <script th:src="@{/js/teacherRest.js}"></script>
+    <script th:src="@{/js/contentGeneration.js}"></script>
   </head>
 
   <body id="body">
@@ -39,12 +40,12 @@
             <div class="navbar-nav mr-auto">
               <div id="addEvalNav" class="nav-item">
                 <!-- Button for adding questions  -->
-                <button id="addQuestionBtn" class="btn btn-primary" data-toggle="modal" data-target="#modalAddQuestion" onclick="">Add question</button>
+                <button id="addQuestionBtn" class="btn btn-primary" data-toggle="modal" data-target="#modalAddQuestion">Add question</button>
               </div>
 
               <div id="addStudentNav" class="nav-item">
                 <!-- Button for adding evaluation  -->
-                <button id="addStudentBtn" class="btn btn-primary"  data-toggle="modal" data-target="#modalAddStudent" onclick="">Add Students</button>
+                <button id="addStudentBtn" class="btn btn-primary"  data-toggle="modal" data-target="#modalAddStudent">Add Students</button>
               </div>
             </div>
 
@@ -63,67 +64,18 @@
             <div id="questionArea">
               <div id="questionHeaderWrapper">
                 <div id="questionHeader">
-                  <h1 id="questionNumberDisplay">Question:
+                  <h1 id="questionDisplay">How to add questions
                     <!-- Enter question number here-->
                   </h1>
                 </div>
 
                 <div id="questionTextWrapper" class="container">
-                  <h5 id="questionText"></h5>
+                  <h5 id="questionText" class="container">To add a question you need to push the button in the top left corner that says "Add question".
+                    After you have pushed this button, a menu with information will pop up and tell you what you should do next.</h5>
                 </div>
               </div>
+              <!-- Placement for all sliders -->
 
-              <!-- Div for all sliders -->
-              <div id="sliderWrapper" class="container">
-                <div id="difficultyContent" class="container sliders">
-                  <h2>Difficulty</h2>
-                  <p></p>
-                  <input id="difficultySlider" type="range" min="1" max="100" value="50" class="slider" onchange="var slider = this; displaySliderValue(slider);">
-                  <div id="difficultyTicks" class="sliderticks">
-                    <p>1</p>
-                    <p>50</p>
-                    <p>100</p>
-                  </div>
-                  <p>Value: <input id="difficultyOutput" class="form-control valueOutput" onchange="var output = this; updateSlider(output)" type="text" name="" value="50" aria-label="Sizing example input"
-                                   aria-describedby="inputGroup-sizing-default"></p>
-                </div>
-
-                <div id="complexityContent" class="container sliders">
-                  <h2>Complexity</h2>
-                  <input id="complexitySlider" type="range" min="1" max="100" value="50" class="slider" onchange="var slider = this; displaySliderValue(slider);">
-                  <div class="sliderticks">
-                    <p>1</p>
-                    <p>50</p>
-                    <p>100</p>
-                  </div>
-                  <p>Value: <input id="complexityOutput" class="form-control valueOutput" onchange="var output = this; updateSlider(output)" type="text" name="" value="50" aria-label="Sizing example input"
-                                   aria-describedby="inputGroup-sizing-default"></p>
-                </div>
-
-                <div id="timeContent" class="container sliders">
-                  <h2>Time</h2>
-                  <input id="timeSlider" type="range" min="1" max="240" value="50" class="slider" onchange="var slider = this; displaySliderValue(slider);">
-                  <div class="sliderticks">
-                    <p>1</p>
-                    <p>50</p>
-                    <p>100</p>
-                  </div>
-                  <p>Value: <input id="timeOutput" class="form-control valueOutput" onchange="var output = this; updateSlider(output)" type="text" name="" value="50" aria-label="Sizing example input"
-                                   aria-describedby="inputGroup-sizing-default"></p>
-                </div>
-
-                <div id="importanceContent" class="container sliders">
-                  <h2>Importance</h2>
-                  <input id="importanceSlider" type="range" min="1" max="100" value="50" class="slider" onchange="var slider = this; displaySliderValue(slider);">
-                  <div class="sliderticks">
-                    <p>1</p>
-                    <p>50</p>
-                    <p>100</p>
-                  </div>
-                  <p>Value: <input id="importanceOutput" class="form-control valueOutput" onchange="var output = this; updateSlider(output)" type="text" name="" value="50" aria-label="Sizing example input"
-                                   aria-describedby="inputGroup-sizing-default"></p>
-                </div>
-              </div>
             </div>
 
             <div id="footerWrapper">

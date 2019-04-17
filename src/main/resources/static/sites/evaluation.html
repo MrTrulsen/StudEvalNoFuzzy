@@ -15,6 +15,7 @@
   <script src="../js/evaluation.js"></script>
   <script src="../js/helperFunctions.js"></script>
   <script src="../js/teacherRest.js"></script>
+  <script src="../js/contentGeneration.js"></script>
 </head>
 
 <body id="body">
@@ -37,7 +38,7 @@
           <div class="navbar-nav mr-auto">
             <div id="addQuestionNav" class="nav-item">
               <!-- Button for adding questions  -->
-              <button id="addQuestionBtn" class="btn btn-primary" data-toggle="modal" data-target="#modalAddQuestion" onclick="">Add question</button>
+              <button id="addQuestionBtn" class="btn btn-primary" data-toggle="modal" data-target="#modalAddQuestion" onclick="generateSliderContent()">Add question</button>
             </div>
 
             <div id="addStudentNav" class="nav-item">
@@ -66,66 +67,17 @@
           <div id="questionArea">
             <div id="questionHeaderWrapper">
               <div id="questionHeader">
-                <h1 id="questionNumberDisplay">Question:
+                <h1 id="questionDisplay">How to add questions
                   <!-- Enter question number here-->
                 </h1>
               </div>
               <div id="questionTextWrapper" class="container">
-                <h5 id="questionText"></h5>
+                <h5 id="questionText" class="container">To add a question you need to push the button in the top left corner that says "Add question".
+                  After you have pushed this button, a menu with information will pop up and tell you what you should do next.</h5>
               </div>
             </div>
+            <!-- Placement for all sliders -->
 
-            <!-- Div for all sliders -->
-            <div id="sliderWrapper" class="container">
-              <div id="difficultyContent" class="container sliders">
-                <h2>Difficulty</h2>
-                <p></p>
-                <input id="difficultySlider" type="range" min="1" max="100" value="50" class="slider" onchange="var slider = this; displaySliderValue(slider);">
-                <div id="difficultyTicks" class="sliderticks">
-                  <p>1</p>
-                  <p>50</p>
-                  <p>100</p>
-                </div>
-                <p>Value: <input id="difficultyOutput" class="form-control valueOutput" onchange="var output = this; updateSlider(output)" type="text" name="" value="50" aria-label="Sizing example input"
-                    aria-describedby="inputGroup-sizing-default"></p>
-              </div>
-
-              <div id="complexityContent" class="container sliders">
-                <h2>Complexity</h2>
-                <input id="complexitySlider" type="range" min="1" max="100" value="50" class="slider" onchange="var slider = this; displaySliderValue(slider);">
-                <div class="sliderticks">
-                  <p>1</p>
-                  <p>50</p>
-                  <p>100</p>
-                </div>
-                <p>Value: <input id="complexityOutput" class="form-control valueOutput" onchange="var output = this; updateSlider(output)" type="text" name="" value="50" aria-label="Sizing example input"
-                    aria-describedby="inputGroup-sizing-default"></p>
-              </div>
-
-              <div id="timeContent" class="container sliders">
-                <h2>Time</h2>
-                <input id="timeSlider" type="range" min="1" max="100" value="50" class="slider" onchange="var slider = this; displaySliderValue(slider);">
-                <div class="sliderticks">
-                  <p>1</p>
-                  <p>50</p>
-                  <p>100</p>
-                </div>
-                <p>Value: <input id="timeOutput" class="form-control valueOutput" onchange="var output = this; updateSlider(output)" type="text" name="" value="50" aria-label="Sizing example input"
-                    aria-describedby="inputGroup-sizing-default"></p>
-              </div>
-
-              <div id="importanceContent" class="container sliders">
-                <h2>Importance</h2>
-                <input id="importanceSlider" type="range" min="1" max="100" value="50" class="slider" onchange="var slider = this; displaySliderValue(slider);">
-                <div class="sliderticks">
-                  <p>1</p>
-                  <p>50</p>
-                  <p>100</p>
-                </div>
-                <p>Value: <input id="importanceOutput" class="form-control valueOutput" onchange="var output = this; updateSlider(output)" type="text" name="" value="50" aria-label="Sizing example input"
-                    aria-describedby="inputGroup-sizing-default"></p>
-              </div>
-            </div>
           </div>
 
           <div id="footerWrapper">
