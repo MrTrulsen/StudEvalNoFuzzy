@@ -55,7 +55,7 @@ function generateEvaluation() {
     }
 
     else {
-      addEvaluation(evaluation, courseName, btn);
+      addEvaluation(evaluation, courseName);
     }
   }
 }

@@ -1,21 +1,21 @@
 //Function to generate sliders and the content inside the evaluation document
-function generateSliderContent(questionId, text, difficulty, complexity, time, importance) {
+function generateSliderContent(questions, questionIndex) {
+  console.log(questions[questionIndex]);
   var questionDisplay = document.getElementById("questionDisplay");
-  questionDisplay.innerHTML = "Question: " + questionId;
+  questionDisplay.innerHTML = "Question: " + questions[questionIndex]["question_id"];
 
   var questionText = document.getElementById("questionText");
-  questionText.innerHTML = text;
+  questionText.innerHTML = questions[questionIndex]["text"];
 
   var wrapper = document.createElement("div");
   wrapper.className = "container";
   wrapper.id = "sliderWrapper";
 
-  difficulty = difficulty * 100;
-  complexity = complexity * 100;
-  time = time * 100;
-  importance = importance * 100;
+  var difficulty = questions[questionIndex]["difficulty"] * 100;
+  var complexity = questions[questionIndex]["complexity"] * 100;
+  var time = questions[questionIndex]["time"] * 100;
+  var importance = questions[questionIndex]["importance"] * 100;
 
-  //TODO: Change these values from example values to real input from the user
   generateSliders("difficulty", "Difficulty", difficulty);
   generateSliders("complexity", "Complexity", complexity);
   generateSliders("time", "Time", time);
@@ -24,8 +24,8 @@ function generateSliderContent(questionId, text, difficulty, complexity, time, i
   document.getElementById("questionArea").appendChild(wrapper);
 
   //Function to generate sliders with input
-  function generateSliders(type, headerText, value) {
-    var valueToString = value.toString()
+  function generateSliders(type, headerText, input) {
+    var valueToString = input.toString()
 
     var content = document.createElement("div");
     content.className = "container sliders";
@@ -39,9 +39,9 @@ function generateSliderContent(questionId, text, difficulty, complexity, time, i
     slider.id = type + "Slider";
     slider.className = "slider";
     slider.setAttribute("type", "range");
-    slider.setAttribute("min", value - 10);
-    slider.setAttribute("max", value + 10);
-    slider.setAttribute("value", value);
+    slider.setAttribute("min", input - 10);
+    slider.setAttribute("max", input + 10);
+    slider.setAttribute("value", input);
     slider.setAttribute("onchange", "var slider = this; displaySliderValue(slider);");
     content.append(slider);
 
@@ -51,15 +51,15 @@ function generateSliderContent(questionId, text, difficulty, complexity, time, i
     content.append(ticks);
 
     var tickLow = document.createElement("p");
-    tickLow.innerHTML = value - 10;
+    tickLow.innerHTML = input - 10;
     ticks.append(tickLow);
 
     var tickMid = document.createElement("p");
-    tickMid.innerHTML = value;
+    tickMid.innerHTML = input;
     ticks.append(tickMid);
 
     var tickHigh = document.createElement("p");
-    tickHigh.innerHTML = value + 10;
+    tickHigh.innerHTML = input + 10;
     ticks.append(tickHigh);
 
     var value = document.createElement("p");
@@ -89,7 +89,7 @@ function newQuestionButton(questionId) {
   btn.innerHTML = questionId;
 
   btn.addEventListener('click', function() {
-    showQuestion(questionIndex);
+    showQuestion(evaluation, questionIndex);
   }, false);
 
   placement.appendChild(btn);

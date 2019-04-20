@@ -2,9 +2,9 @@
 window.addEventListener('load', function() {
   //Loads the available evaluations
   loadQuestions();
-})
+});
 
-var questions = [];
+var evaluation;
 var questionNumber = 1;
 
 function generateQuestion() {
@@ -30,12 +30,12 @@ function generateQuestion() {
 
   function checkForError(text, complexity, time, difficulty, importance, btn) {
     //If length = 0 it will return an error message and not continue
-    if (text.length == 0) {
+    if (text.length === 0) {
       showErrorMessage("question", "The field can not be empty");
       btn.removeAttribute("data-dismiss", "modal");
     }
 
-    else if (difficulty.length == 0) {
+    else if (difficulty.length === 0) {
       showErrorMessage("difficulty", "The field can not be empty");
       btn.removeAttribute("data-dismiss", "modal");
     }
@@ -45,7 +45,7 @@ function generateQuestion() {
       btn.removeAttribute("data-dismiss", "modal");
     }
 
-    else if (complexity.length == 0) {
+    else if (complexity.length === 0) {
       showErrorMessage("complexity", "The field can not be empty");
       btn.removeAttribute("data-dismiss", "modal");
     }
@@ -55,7 +55,7 @@ function generateQuestion() {
       btn.removeAttribute("data-dismiss", "modal");
     }
 
-    else if (time.length == 0) {
+    else if (time.length === 0) {
       showErrorMessage("time", "The field can not be empty");
       btn.removeAttribute("data-dismiss", "modal");
     }
@@ -65,7 +65,7 @@ function generateQuestion() {
       btn.removeAttribute("data-dismiss", "modal");
     }
 
-    else if (importance.length == 0) {
+    else if (importance.length === 0) {
       showErrorMessage("importance", "The field can not be empty");
       btn.removeAttribute("data-dismiss", "modal");
     }
@@ -76,13 +76,14 @@ function generateQuestion() {
     }
 
     else {
-      addQuestion(question, btn);
+      addQuestion(question);
     }
   }
 }
 
-function showQuestion(index) {
-  document.getElementById("questionText").innerHTML = questions[index][0];
+function showQuestion(evaluation, questionIndex) {
+  removeElement("sliderWrapper");
+  generateSliderContent(evaluation, questionIndex);
 }
 
 function importValue(input) {

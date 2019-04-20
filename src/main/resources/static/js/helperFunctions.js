@@ -20,6 +20,12 @@ function removeErrorMessage() {
   var elements = document.getElementsByClassName("error");
 }
 
+//Removes element by id
+function removeElement(id) {
+    var elem = document.getElementById(id);
+    return elem.parentNode.removeChild(elem);
+}
+
 //Removes elements by class name
 function removeElementsByClass(className) {
   var elements = document.getElementsByClassName(className);

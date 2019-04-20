@@ -1,6 +1,6 @@
 
 //Function to add evaluations in the database
-function addEvaluation(evaluation, courseName, btn) {
+function addEvaluation(evaluation, courseName) {
   console.log("Adding evaluation...");
   fetch("/addEvaluation/" + courseName, {
     method: "POST",
@@ -31,7 +31,7 @@ function addEvaluation(evaluation, courseName, btn) {
 
 //Function to load evaluations from the database
 function loadEvaluations() {
-    console.log("Loading evalations...");
+    console.log("Loading evaluations...");
     fetch("/getEvaluations/62").then(function(response) {
         return response.json();
     }).then(function (evaluations) {
@@ -46,7 +46,7 @@ function loadEvaluations() {
     });
 }
 
-function addQuestion(question, btn) {
+function addQuestion(question) {
   console.log("Adding question...");
   fetch("/addQuestion/1", {
     method: "POST",
@@ -61,14 +61,14 @@ function addQuestion(question, btn) {
         if (response.status === 200) {
             btn.setAttribute("data-dismiss", "modal");
             questions.push(question);
-            newQuestionButton();
+            newQuestionButton(question["question_id"]);
             questionNumber++;
 
-            removeInputValue(text);
-            removeInputValue(difficulty);
-            removeInputValue(complexity);
-            removeInputValue(time_use);
-            removeInputValue(importance);
+            removeInputValue(document.getElementById("questionInput"));
+            removeInputValue(document.getElementById("difficultyInput"));
+            removeInputValue(document.getElementById("complexityInput"));
+            removeInputValue(document.getElementById("timeInput"));
+            removeInputValue(document.getElementById("importanceInput"));
         } else {
             btn.removeAttribute("data-dismiss", "modal");
             return response.text();
@@ -88,20 +88,11 @@ function loadQuestions() {
         if (Array.isArray(questions)) {
             for (var i = 0; i < questions.length; i++) {
                 var question = questions[i];
-                var questionToArray = Object.values(question);
-                console.log(questionToArray);
-
-                var questionId = questionToArray[0];
-                var text = questionToArray[1];
-                var difficulty = questionToArray[4];
-                var complexity = questionToArray[2];
-                var time = questionToArray[3];
-                var importance = questionToArray[5];
-
                 console.log(question);
-                newQuestionButton(questionId);
+                newQuestionButton(question["question_id"]);
             }
-            generateSliderContent(questionId, text, difficulty, complexity, time, importance);
+            evaluation = questions;
+            generateSliderContent(questions, 0);
         }
     });
 }
