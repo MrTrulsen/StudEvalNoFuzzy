@@ -40,7 +40,12 @@ function loadEvaluations() {
             for (var i = 0; i < evaluations.length; i++) {
                 var evaluation = evaluations[i];
                 console.log(evaluation);
-                loadEvaluationCard(evaluation);
+                if (evaluation["stopDate"] < moment().calendar()) {
+                    console.log(evaluation["courseId"] + " expired at date " + evaluation["stopDate"]);
+                }
+                else {
+                    addEvaluationCard(evaluation);
+                }
             }
         }
     });
@@ -48,7 +53,7 @@ function loadEvaluations() {
 
 function addQuestion(question) {
   console.log("Adding question...");
-  fetch("/addQuestion/1", {
+  fetch("/addQuestions/1", {
     method: "POST",
     headers: {
       "Content-Type": "application/json"

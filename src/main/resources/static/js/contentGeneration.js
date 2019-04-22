@@ -84,7 +84,6 @@ function newQuestionButton(questionId) {
   var btn = document.createElement("button");
   var questionIndex = questionId - 1;
 
-
   console.log("Question number: ", questionId);
   btn.innerHTML = questionId;
 

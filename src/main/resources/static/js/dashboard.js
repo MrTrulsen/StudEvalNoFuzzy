@@ -34,22 +34,22 @@ function generateEvaluation() {
   //Checks for error at user input
   function checkForError(courseId, courseName, start, end, btn) {
     //If length = 0 it will return an error message and not continue
-    if (courseId.length == 0) {
+    if (courseId.length === 0) {
       showErrorMessage("courseId", "The field can not be empty");
       btn.removeAttribute("data-dismiss", "modal");
     }
 
-    else if (courseName.length == 0) {
+    else if (courseName.length === 0) {
       showErrorMessage("courseName", "The field can not be empty");
       btn.removeAttribute("data-dismiss", "modal");
     }
 
-    else if (evalDates.length == 0) {
+    else if (evalDates.length === 0) {
       showErrorMessage("evalDates", "The field can not be empty");
       btn.removeAttribute("data-dismiss", "modal");
     }
 
-    else if (examTime.length == 0) {
+    else if (examTime.length === 0) {
       showErrorMessage("examTime", "The field can not be empty");
       btn.removeAttribute("data-dismiss", "modal");
     }
@@ -60,38 +60,13 @@ function generateEvaluation() {
   }
 }
 
-//Adds an evaluation card at the dashboard based on the user input
+//Adds an evaluation card at the dashboard based on the user input or when loaded into the dashboard
 function addEvaluationCard(evaluation) {
-  var evaluationToArray = Object.values(evaluation);
-  console.log(evaluationToArray);
+  var course = evaluation["courseId"] + " - " + "courseName"; //TODO: Get course name from the database
+  start = moment(evaluation["startDate"]).format('dddd / MMMM Do YYYY');
+  end = moment(evaluation["stopDate"]).format('dddd / MMMM Do YYYY');
 
-  var courseId = evaluationToArray[0];
-  var start = evaluationToArray[1];
-  var end = evaluationToArray[2];
-
-  var course = courseId + " - " + "courseName"; //TODO: Get course name from the database
-
-  start = moment(start).format('dddd / MMMM Do YYYY');
-  end = moment(end).format('dddd / MMMM Do YYYY');
-
-  generateEvaluationCard(courseId, start, end, course);
-}
-
-//Gets an evaluation card when loading the dashboard
-function loadEvaluationCard(evaluation) {
-  var evaluationToArray = Object.values(evaluation);
-  console.log(evaluationToArray);
-
-  var courseId = evaluationToArray[3];
-  var start = evaluationToArray[1];
-  var end = evaluationToArray[2];
-
-  var course = courseId + " - " + "courseName"; //TODO: Get course name from the database
-
-  start = moment(start).format('dddd / MMMM Do YYYY');
-  end = moment(end).format('dddd / MMMM Do YYYY');
-
-  generateEvaluationCard(courseId, start, end, course);
+  generateEvaluationCard(evaluation["courseId"], start, end, course);
 }
 
 //Removes a evaluation when user press on the remove button inside the card
@@ -105,7 +80,7 @@ function removeEvaluation() {
   //Checks for error at user input
   function checkForError(inputField, btn) {
     //If length = 0 it will return an error message and not continue
-    if (inputField.length == 0) {
+    if (inputField.length === 0) {
       showErrorMessage("modalRemoveContent", "The field can not be empty");
       btn.removeAttribute("data-dismiss", "modal");
     }

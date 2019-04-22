@@ -15,6 +15,7 @@ function generateQuestion() {
   var importance = document.getElementById('importanceInput').value;
   var btn = document.getElementById('saveQuestionBtn');
 
+  //TODO: Fix object sending data as string. Backend returns 400 BAD REQUEST
   var question = {
     text: text,
     difficulty: difficulty,
