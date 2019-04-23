@@ -297,7 +297,11 @@ public class MainRepository {
         }
     }
 
-    // TO DO
+    /**
+     * Adding the answers to a evaluation from a student
+     * @param answers
+     * @return null if success, else a string
+     */
     public String addAnswers(List<Answer> answers){
         Integer numRows = 0;
         String query = "INSERT INTO responses(question_id,complexity, time_use, difficulty, importance) VALUES (?,?,?,?,?)";
@@ -305,7 +309,7 @@ public class MainRepository {
             numRows = jdbcTemplate.update(query, answer.getQuestion_id(),
                     answer.getComplex(),
                     answer.getTime(),
-                    answer.getDifficulity(),
+                    answer.getDifficulty(),
                     answer.getImportance());
         }
         if (numRows == 1) {
@@ -313,5 +317,13 @@ public class MainRepository {
         } else {
             return "Could not add answers";
         }
+    }
+
+
+    public String deleteEvaluation(Integer evalId) {
+        Integer numRows = 0;
+        String query = "DELETE FROM evaluation WHERE eval_id=?";
+        numRows = jdbcTemplate.update(query, evalId);
+        return null;
     }
 }

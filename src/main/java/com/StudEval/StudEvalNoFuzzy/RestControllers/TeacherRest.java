@@ -59,7 +59,6 @@ public class TeacherRest {
         else {
             return new ResponseEntity<>(error, HttpStatus.BAD_REQUEST);
         }
-
     }
 
     @RequestMapping(value = "/addEvaluation/{course_name}" , method = RequestMethod.POST)
@@ -72,7 +71,6 @@ public class TeacherRest {
         else {
             return new ResponseEntity<>(error, HttpStatus.BAD_REQUEST);
         }
-
     }
 
     @RequestMapping(value = "/addQuestions/{evalId}" , method = RequestMethod.POST)
@@ -84,7 +82,17 @@ public class TeacherRest {
         else {
             return new ResponseEntity<>(error, HttpStatus.BAD_REQUEST);
         }
+    }
 
+    @RequestMapping(value = "/deleteEvaluation/{evalId}" , method = RequestMethod.POST)
+    public ResponseEntity<String> deleteEvaluation(@PathVariable Integer evalId){
+        String error = mainRepository.deleteEvaluation(evalId);
+        if(error == null){
+            return new ResponseEntity<>(HttpStatus.OK);
+        }
+        else {
+            return new ResponseEntity<>(error, HttpStatus.BAD_REQUEST);
+        }
     }
 
 
