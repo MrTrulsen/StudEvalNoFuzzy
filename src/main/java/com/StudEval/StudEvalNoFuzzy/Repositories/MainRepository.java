@@ -266,7 +266,12 @@ public class MainRepository {
         return evalList;
     }
 
-    // TO DO
+    /**
+     * Adding the questions
+     * @param questions
+     * @param evalId
+     * @return null if success, text if not.
+     */
     public String addQuestions(List<Question> questions, Integer evalId){
         Integer numRows = 0;
         Integer lastInsertedId = 0;
@@ -293,10 +298,20 @@ public class MainRepository {
     }
 
     // TO DO
-    public String addAnswers(List<Answer> answers, Integer evalId){
-        return null;
+    public String addAnswers(List<Answer> answers){
+        Integer numRows = 0;
+        String query = "INSERT INTO responses(question_id,complexity, time_use, difficulty, importance) VALUES (?,?,?,?,?)";
+        for(Answer answer : answers){
+            numRows = jdbcTemplate.update(query, answer.getQuestion_id(),
+                    answer.getComplex(),
+                    answer.getTime(),
+                    answer.getDifficulity(),
+                    answer.getImportance());
+        }
+        if (numRows == 1) {
+            return null;
+        } else {
+            return "Could not add answers";
+        }
     }
-
-
-
 }

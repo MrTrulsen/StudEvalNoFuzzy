@@ -33,8 +33,8 @@ public class StudentRest {
     }
 
     @RequestMapping(value = "/addAnswers/{evalId}" , method = RequestMethod.POST)
-    public ResponseEntity<String> addQuestions(@RequestBody List<Answer> answers, @PathVariable Integer evalId){
-        String error = mainRepository.addAnswers(answers,evalId);
+    public ResponseEntity<String> addAnswers(@RequestBody List<Answer> answers){
+        String error = mainRepository.addAnswers(answers);
         if(error == null){
             return new ResponseEntity<>(HttpStatus.OK);
         }
