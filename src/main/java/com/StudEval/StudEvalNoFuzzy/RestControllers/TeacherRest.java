@@ -75,7 +75,7 @@ public class TeacherRest {
 
     @RequestMapping(value = "/addQuestions/{evalId}" , method = RequestMethod.POST)
     public ResponseEntity<String> addQuestions(@RequestBody List<Question> questions,@PathVariable Integer evalId){
-        String error = mainRepository.addQuestions(questions,evalId);
+        String error = mainRepository.addQuestionList(questions,evalId);
         if(error == null){
             return new ResponseEntity<>(HttpStatus.OK);
         }

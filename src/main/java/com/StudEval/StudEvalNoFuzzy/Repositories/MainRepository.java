@@ -255,13 +255,13 @@ public class MainRepository {
     /**
      * Fetches all the evals linked to a user.
      *
-     * @param user_id
+     * @param userId
      * @return evals
      */
-    public List<Evaluation> getEvaluations(Integer user_id) {
+    public List<Evaluation> getEvaluations(Integer userId) {
         List<Evaluation> evalList = new ArrayList<>();
         String query = "SELECT e.* FROM evaluation e INNER JOIN eval_user_junc ev ON e.eval_id = ev.eval_id WHERE user_id =?";
-        SqlRowSet rs = jdbcTemplate.queryForRowSet(query, new Object[]{user_id});
+        SqlRowSet rs = jdbcTemplate.queryForRowSet(query, new Object[]{userId});
         while (rs.next()) {
             Evaluation eval = new Evaluation(rs.getInt("eval_id"),
                     rs.getDate("date_start"),
@@ -283,7 +283,7 @@ public class MainRepository {
     public String addQuestion(Question question, Integer evalId) {
         List<Question> questions = new ArrayList<>();
         questions.add(question);
-        String error = addQuestions(questions, evalId);
+        String error = addQuestionList(questions, evalId);
         if (error == null) {
             return null;
         } else {
@@ -298,7 +298,7 @@ public class MainRepository {
      * @param evalId
      * @return null if success, text if not.
      */
-    public String addQuestions(List<Question> questions, Integer evalId) {
+    public String addQuestionList(List<Question> questions, Integer evalId) {
         Integer numRows = 0;
         Long lastInsertedId;
         GeneratedKeyHolder holder = new GeneratedKeyHolder();
@@ -352,7 +352,7 @@ public class MainRepository {
     }
 
     /**
-     * delete an evaluation
+     * Delete an evaluation
      *
      * @param evalId
      * @return null if success, else: "Could not delete evaluation"
@@ -369,7 +369,7 @@ public class MainRepository {
     }
 
     /**
-     * deleting of a user
+     * Deleting of a user
      *
      * @param email
      * @return null if success, else: "Could not delete user"
@@ -386,7 +386,7 @@ public class MainRepository {
     }
 
     /**
-     * deleting a question
+     * Deleting a question
      *
      * @param questionId
      * @return null if success, else: "Could not delete question"
