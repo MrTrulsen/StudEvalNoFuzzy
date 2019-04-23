@@ -24,7 +24,7 @@ public class TeacherRest {
 
     @RequestMapping("/getAnswersInEval/{evalId}")
     public List<Answer> listRelatedAnswers(@PathVariable Integer evalId){
-        List<Answer> answerList = mainRepository.findRelatedAnswersToCourseId(evalId);
+        List<Answer> answerList = mainRepository.findRelatedAnswersToEvalId(evalId);
         return answerList;
     }
 
@@ -105,6 +105,30 @@ public class TeacherRest {
             return new ResponseEntity<>(error, HttpStatus.BAD_REQUEST);
         }
     }
+
+    @RequestMapping(value = "/deleteUser/{email}" , method = RequestMethod.POST)
+    public ResponseEntity<String> deleteUser(@PathVariable String email){
+        String error = mainRepository.deleteUser(email);
+        if(error == null){
+            return new ResponseEntity<>(HttpStatus.OK);
+        }
+        else {
+            return new ResponseEntity<>(error, HttpStatus.BAD_REQUEST);
+        }
+    }
+
+    @RequestMapping(value = "/deleteQuestion/{questionId}" , method = RequestMethod.POST)
+    public ResponseEntity<String> deleteUser(@PathVariable Integer questionId){
+        String error = mainRepository.deleteQuestionFromEvaluation(questionId);
+        if(error == null){
+            return new ResponseEntity<>(HttpStatus.OK);
+        }
+        else {
+            return new ResponseEntity<>(error, HttpStatus.BAD_REQUEST);
+        }
+    }
+
+
 
 
 }
