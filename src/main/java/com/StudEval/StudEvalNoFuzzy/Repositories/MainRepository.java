@@ -267,6 +267,23 @@ public class MainRepository {
     }
 
     /**
+     * Adding a single question
+     * @param question
+     * @param evalId
+     */
+    public String addQuestion(Question question, Integer evalId){
+        List<Question> questions = new ArrayList<>();
+        questions.add(question);
+        String error = addQuestions(questions,evalId);
+        if(error == null){
+            return null;
+        }
+        else{
+            return "Could not add question";
+        }
+    }
+
+    /**
      * Adding the questions
      * @param questions
      * @param evalId
