@@ -9,11 +9,17 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.jdbc.core.PreparedStatementCreator;
+import org.springframework.jdbc.support.GeneratedKeyHolder;
 import org.springframework.jdbc.support.rowset.SqlRowSet;
 import org.springframework.stereotype.Repository;
 //import sun.applet.Main;
 
 import javax.sql.RowSet;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -65,7 +71,7 @@ public class MainRepository {
      * @param evalId
      * @return The question with this id.
      */
-    public List findRelatedAnswersToCourseId(Integer evalId) {
+    public List findRelatedAnswersToEvalId(Integer evalId) {
         List<Answer> answers = new ArrayList<>();
         String query = "SELECT r.* FROM responses r INNER JOIN eval_ques_junc j ON r.question_id = j.question_id WHERE eval_id=?";
         SqlRowSet rowSet = jdbcTemplate.queryForRowSet(query, new Object[]{evalId});
@@ -248,14 +254,15 @@ public class MainRepository {
 
     /**
      * Fetches all the evals linked to a user.
-     * @param user_id
+     *
+     * @param userId
      * @return evals
      */
-    public List<Evaluation> getEvaluations(Integer user_id){
+    public List<Evaluation> getEvaluations(Integer userId) {
         List<Evaluation> evalList = new ArrayList<>();
         String query = "SELECT e.* FROM evaluation e INNER JOIN eval_user_junc ev ON e.eval_id = ev.eval_id WHERE user_id =?";
-        SqlRowSet rs = jdbcTemplate.queryForRowSet(query,new Object[]{user_id});
-        while(rs.next()){
+        SqlRowSet rs = jdbcTemplate.queryForRowSet(query, new Object[]{userId});
+        while (rs.next()) {
             Evaluation eval = new Evaluation(rs.getInt("eval_id"),
                     rs.getDate("date_start"),
                     rs.getDate("date_stop"),
@@ -268,44 +275,51 @@ public class MainRepository {
 
     /**
      * Adding a single question
+     *
      * @param question
      * @param evalId
+     * @return null if success, "could not add" else
      */
-    public String addQuestion(Question question, Integer evalId){
+    public String addQuestion(Question question, Integer evalId) {
         List<Question> questions = new ArrayList<>();
         questions.add(question);
-        String error = addQuestions(questions,evalId);
-        if(error == null){
+        String error = addQuestionList(questions, evalId);
+        if (error == null) {
             return null;
-        }
-        else{
+        } else {
             return "Could not add question";
         }
     }
 
     /**
      * Adding the questions
+     *
      * @param questions
      * @param evalId
      * @return null if success, text if not.
      */
-    public String addQuestions(List<Question> questions, Integer evalId){
+    public String addQuestionList(List<Question> questions, Integer evalId) {
         Integer numRows = 0;
-        Integer lastInsertedId = 0;
+        Long lastInsertedId;
+        GeneratedKeyHolder holder = new GeneratedKeyHolder();
         String query = "INSERT INTO questions(question_text,complexity, time_use, difficulty, importance) VALUES (?,?,?,?,?)";
-        for(Question question : questions){
-            numRows = jdbcTemplate.update(query, question.getText(),
-                    question.getcomplexity(),
-                    question.getTime(),
-                    question.getDifficulty(),
-                    question.getImportance());
-            String getLastInsertedIdQuery = "SELECT LAST_INSERT_ID()";
-            SqlRowSet rs = jdbcTemplate.queryForRowSet(getLastInsertedIdQuery);
-            if(rs.next()){
-               lastInsertedId = rs.getInt("LAST_INSERT_ID()");
-            }
+        for (Question question : questions) {
+            PreparedStatementCreator creator = new PreparedStatementCreator() {
+                @Override
+                public PreparedStatement createPreparedStatement(Connection connection) throws SQLException {
+                    PreparedStatement statement = connection.prepareStatement(query, Statement.RETURN_GENERATED_KEYS);
+                    statement.setString(1, question.getText());
+                    statement.setFloat(2, question.getcomplexity());
+                    statement.setFloat(3, question.getTime());
+                    statement.setFloat(4, question.getDifficulty());
+                    statement.setFloat(5, question.getImportance());
+                    return statement;
+                }
+            };
+            numRows = jdbcTemplate.update(creator, holder);
+            lastInsertedId = holder.getKey().longValue();
             String juncQuery = "INSERT INTO eval_ques_junc(question_id,eval_id) VALUES (?,?)";
-            jdbcTemplate.update(juncQuery,lastInsertedId,evalId);
+            jdbcTemplate.update(juncQuery, lastInsertedId, evalId);
         }
         if (numRows == 1) {
             return null;
@@ -316,13 +330,14 @@ public class MainRepository {
 
     /**
      * Adding the answers to a evaluation from a student
+     *
      * @param answers
-     * @return null if success, else a string
+     * @return null if success, else: "Could not add answers"
      */
-    public String addAnswers(List<Answer> answers){
+    public String addAnswers(List<Answer> answers) {
         Integer numRows = 0;
         String query = "INSERT INTO responses(question_id,complexity, time_use, difficulty, importance) VALUES (?,?,?,?,?)";
-        for(Answer answer : answers){
+        for (Answer answer : answers) {
             numRows = jdbcTemplate.update(query, answer.getQuestion_id(),
                     answer.getComplex(),
                     answer.getTime(),
@@ -336,11 +351,55 @@ public class MainRepository {
         }
     }
 
-
+    /**
+     * Delete an evaluation
+     *
+     * @param evalId
+     * @return null if success, else: "Could not delete evaluation"
+     */
     public String deleteEvaluation(Integer evalId) {
-        Integer numRows = 0;
+        Integer numRows;
         String query = "DELETE FROM evaluation WHERE eval_id=?";
         numRows = jdbcTemplate.update(query, evalId);
-        return null;
+        if (numRows == 1) {
+            return null;
+        } else {
+            return "Could not delete evaluation";
+        }
     }
+
+    /**
+     * Deleting of a user
+     *
+     * @param email
+     * @return null if success, else: "Could not delete user"
+     */
+    public String deleteUser(String email) {
+        Integer numRows;
+        String query = "DELETE FROM user WHERE email=?";
+        numRows = jdbcTemplate.update(query, email);
+        if (numRows == 1) {
+            return null;
+        } else {
+            return "Could not delete user";
+        }
+    }
+
+    /**
+     * Deleting a question
+     *
+     * @param questionId
+     * @return null if success, else: "Could not delete question"
+     */
+    public String deleteQuestionFromEvaluation(Integer questionId) {
+        Integer numRows;
+        String query = "DELETE FROM questions WHERE question_id=?";
+        numRows = jdbcTemplate.update(query, questionId);
+        if (numRows == 1) {
+            return null;
+        } else {
+            return "could not delete question";
+        }
+    }
+
 }
