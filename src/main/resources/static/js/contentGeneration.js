@@ -80,6 +80,7 @@ function generateSliderContent(questions, questionIndex) {
 
 //Makes a button for each individual question
 function newQuestionButton(questionId) {
+  console.log(questionId);
   var placement = document.getElementById("footer")
   var btn = document.createElement("button");
   var questionIndex = questionId - 1;

@@ -1,5 +1,5 @@
 
-//Function to add evaluations in the database
+//Adds evaluations in the database
 function addEvaluation(evaluation, courseName) {
   console.log("Adding evaluation...");
   fetch("/addEvaluation/" + courseName, {
@@ -29,7 +29,7 @@ function addEvaluation(evaluation, courseName) {
     });
 }
 
-//Function to load evaluations from the database
+//Loads evaluations from the database
 function loadEvaluations() {
     console.log("Loading evaluations...");
     fetch("/getEvaluations/62").then(function(response) {
@@ -40,7 +40,8 @@ function loadEvaluations() {
             for (var i = 0; i < evaluations.length; i++) {
                 var evaluation = evaluations[i];
                 console.log(evaluation);
-                if (evaluation["stopDate"] < moment().calendar()) {
+                //TODO: Use this in studentDashboard
+                if (evaluation["stopDate"] < moment().format('YYYY-MM-DD')) {
                     console.log(evaluation["courseId"] + " expired at date " + evaluation["stopDate"]);
                 }
                 else {
@@ -51,9 +52,10 @@ function loadEvaluations() {
     });
 }
 
+//Adds questions to the database
 function addQuestion(question) {
   console.log("Adding question...");
-  fetch("/addQuestions/1", {
+  fetch("/addQuestion/1", {
     method: "POST",
     headers: {
       "Content-Type": "application/json"
@@ -66,6 +68,7 @@ function addQuestion(question) {
         if (response.status === 200) {
             btn.setAttribute("data-dismiss", "modal");
             questions.push(question);
+            console.log(question["question_id"]);
             newQuestionButton(question["question_id"]);
             questionNumber++;
 
@@ -83,7 +86,7 @@ function addQuestion(question) {
     });
 }
 
-//Function to load evaluations from the database
+//Loads questions from the database
 function loadQuestions() {
     console.log("Loading questions...");
     fetch("/getQuestionsInEval/1").then(function(response) {

@@ -15,15 +15,10 @@ function removeInputValue(element) {
   }
 }
 
-//Removes the error messages
-function removeErrorMessage() {
-  var elements = document.getElementsByClassName("error");
-}
-
 //Removes element by id
 function removeElement(id) {
-    var elem = document.getElementById(id);
-    return elem.parentNode.removeChild(elem);
+    var element = document.getElementById(id);
+    return element.parentNode.removeChild(element);
 }
 
 //Removes elements by class name
