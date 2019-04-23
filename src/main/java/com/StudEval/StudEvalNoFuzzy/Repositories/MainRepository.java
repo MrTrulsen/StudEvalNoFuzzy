@@ -268,7 +268,8 @@ public class MainRepository {
 
     // TO DO
     public String addQuestions(List<Question> questions, Integer evalId){
-        Integer numRows;
+        Integer numRows = 0;
+        Integer lastInsertedId = 0;
         String query = "INSERT INTO questions(question_text,complexity, time_use, difficulty, importance) VALUES (?,?,?,?,?)";
         for(Question question : questions){
             numRows = jdbcTemplate.update(query, question.getText(),
@@ -276,11 +277,19 @@ public class MainRepository {
                     question.getTime(),
                     question.getDifficulty(),
                     question.getImportance());
+            String getLastInsertedIdQuery = "SELECT LAST_INSERT_ID()";
+            SqlRowSet rs = jdbcTemplate.queryForRowSet(getLastInsertedIdQuery);
+            if(rs.next()){
+               lastInsertedId = rs.getInt("LAST_INSERT_ID()");
+            }
+            String juncQuery = "INSERT INTO eval_ques_junc(question_id,eval_id) VALUES (?,?)";
+            jdbcTemplate.update(juncQuery,lastInsertedId,evalId);
         }
-       String query2 = "SELECT LAST_INSERT_ID";
-        SqlRowSet rs = jdbcTemplate.queryForRowSet(query2);
-        Integer id = rs.getInt("LAST_INSERT_ID");
-        return null;
+        if (numRows == 1) {
+            return null;
+        } else {
+            return "Could not add questions";
+        }
     }
 
     // TO DO
