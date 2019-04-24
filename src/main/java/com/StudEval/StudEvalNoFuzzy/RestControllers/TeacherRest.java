@@ -128,6 +128,16 @@ public class TeacherRest {
         }
     }
 
+    @RequestMapping(value = "/editQuestion" , method = RequestMethod.POST)
+    public ResponseEntity<String> editQuestion(@RequestBody Question question){
+        String error = mainRepository.editQuestion(question);
+        if(error == null){
+            return new ResponseEntity<>(HttpStatus.OK);
+        }
+        else {
+            return new ResponseEntity<>(error, HttpStatus.BAD_REQUEST);
+        }
+    }
 
 
 

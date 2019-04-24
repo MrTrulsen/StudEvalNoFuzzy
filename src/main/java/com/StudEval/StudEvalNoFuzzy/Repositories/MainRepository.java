@@ -402,4 +402,22 @@ public class MainRepository {
         }
     }
 
+    /**
+     * For edit of a existing question !!!! NOT FINISHED
+     * @param question
+     * @return null if success, else : "could not edit question"
+     */
+    public String editQuestion(Question question){
+        Integer numRows;
+        String query = "UPDATE questions SET question_text = ?, complexity= ?, time_use = ? , difficulty = ?, importance = ? WHERE question_id=?";
+        int questionid = question.getQuestion_id();
+        numRows = jdbcTemplate.update(query,question.getText(),question.getcomplexity(),question.getTime(),question.getImportance(),questionid);
+        if (numRows == 1) {
+            return null;
+        } else {
+            return "could not edit question";
+        }
+    }
+
+
 }
