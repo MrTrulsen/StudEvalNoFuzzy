@@ -44,8 +44,21 @@ public class TeacherRest {
 
     @RequestMapping("/getEvaluations/{userId}")
     public List<Evaluation> getEvaluations(@PathVariable Integer userId){
-        List<Evaluation> evals = mainRepository.getEvaluations(userId);
+        List<Evaluation> evals = new ArrayList<>();
+        try{
+            evals = mainRepository.getEvaluations(userId);
+        }
+        catch(Exception ex){
+            evals.clear();
+            return evals;
+        }
         return evals;
+    }
+
+    @RequestMapping("/getNameOfCourse/{evalId}")
+    public String getNameOfCourse(@PathVariable String evalId){
+        String courseName = mainRepository.getCourseNameFromEval(evalId);
+        return courseName;
     }
 
 

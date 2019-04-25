@@ -274,6 +274,23 @@ public class MainRepository {
     }
 
     /**
+     * Fetch the course name for the given evaluation
+     * @param evalId
+     * @return
+     */
+    public String getCourseNameFromEval(String evalId){
+        String courseName;
+        String query = "SELECT name FROM course WHERE course_id=?";
+        try{
+            courseName = jdbcTemplate.queryForObject(query,new Object[]{evalId}, String.class);
+        }
+        catch(Exception ex) {
+            return "Error: " + ex;
+        }
+        return courseName;
+    }
+
+    /**
      * Adding a single question
      *
      * @param question
