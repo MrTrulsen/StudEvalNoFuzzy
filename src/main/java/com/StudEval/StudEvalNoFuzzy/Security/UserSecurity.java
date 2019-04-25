@@ -16,8 +16,7 @@ import javax.sql.DataSource;
 
 @EnableWebSecurity
 @Configuration
-@Order(1)
-public class StudentSecurity extends WebSecurityConfigurerAdapter {
+public class UserSecurity extends WebSecurityConfigurerAdapter {
 
     @Autowired
     Securityhandler successHandler ;
@@ -50,6 +49,7 @@ public class StudentSecurity extends WebSecurityConfigurerAdapter {
                 .antMatchers("/register").permitAll()
                 .antMatchers("/registeruser").permitAll()
                 .antMatchers("/studentpage").hasAuthority("STUDENT_USER")
+                .antMatchers("/teacherpage").hasAuthority("TEACHER_USER")
                 .antMatchers("/addStudents").permitAll()
                 .anyRequest().authenticated()
                 .and()
