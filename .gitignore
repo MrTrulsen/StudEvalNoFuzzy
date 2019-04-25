@@ -29,6 +29,8 @@ HELP.md
 /build/
 out/
 
+### Spring-Boot ###
 src/main/resources/application.properties
 
-\.vagrant/
+### Vagrant ###
+.vagrant

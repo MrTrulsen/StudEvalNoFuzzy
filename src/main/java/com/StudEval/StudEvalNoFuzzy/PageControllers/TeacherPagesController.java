@@ -1,4 +1,4 @@
-package com.StudEval.StudEvalNoFuzzy.config;
+package com.StudEval.StudEvalNoFuzzy.PageControllers;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;

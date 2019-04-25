@@ -1,4 +1,4 @@
-package com.StudEval.StudEvalNoFuzzy.config;
+package com.StudEval.StudEvalNoFuzzy.PageControllers;
 
 import com.StudEval.StudEvalNoFuzzy.Interfaces.UserService;
 import com.StudEval.StudEvalNoFuzzy.User.User;
