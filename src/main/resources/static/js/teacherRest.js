@@ -8,8 +8,8 @@ function addEvaluation(evaluation, courseName) {
       "Content-Type": "application/json"
     },
     body: JSON.stringify(evaluation)
-  }).then(function (response, btn) {
-        btn = document.getElementById("saveEvaluationBtn"); //Temporary fix
+  }).then(function (response) {
+        var btn = document.getElementById("saveEvaluationBtn"); //Temporary fix
         console.log("Response: ", response);
 
         if (response.status === 200) {
@@ -40,7 +40,7 @@ function loadEvaluations() {
             for (var i = 0; i < evaluations.length; i++) {
                 var evaluation = evaluations[i];
                 console.log(evaluation);
-                //TODO: Use this in studentDashboard
+                //TODO: Use this in studentDashboard instead of teacherDashboard
                 if (evaluation["stopDate"] < moment().format('YYYY-MM-DD')) {
                     console.log(evaluation["courseId"] + " expired at date " + evaluation["stopDate"]);
                 }
@@ -61,16 +61,14 @@ function addQuestion(question) {
       "Content-Type": "application/json"
     },
     body: JSON.stringify(question)
-  }).then(function (response, btn) {
-        btn = document.getElementById('saveQuestionBtn'); //Temporary fix
+  }).then(function (response) {
+        var btn = document.getElementById('saveQuestionBtn'); //Temporary fix
         console.log("Response: ", response);
 
         if (response.status === 200) {
+            console.log(questions);
             btn.setAttribute("data-dismiss", "modal");
-            questions.push(question);
-            console.log(question["question_id"]);
-            newQuestionButton(question["question_id"]);
-            questionNumber++;
+            newQuestionButton(questions.length);
 
             removeInputValue(document.getElementById("questionInput"));
             removeInputValue(document.getElementById("difficultyInput"));
@@ -97,9 +95,9 @@ function loadQuestions() {
             for (var i = 0; i < questions.length; i++) {
                 var question = questions[i];
                 console.log(question);
-                newQuestionButton(question["question_id"]);
+                this.questions = questions;
+                newQuestionButton(i);
             }
-            evaluation = questions;
             generateSliderContent(questions, 0);
         }
     });

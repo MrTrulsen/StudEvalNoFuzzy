@@ -1,11 +1,11 @@
 
+var questions;
+
 window.addEventListener('load', function() {
-  //Loads the available evaluations
+  //Loads the available questions
+    this.questions = questions;
   loadQuestions();
 });
-
-var evaluation;
-var questionNumber = 1;
 
 function generateQuestion() {
   var text = document.getElementById('questionInput').value;
@@ -81,11 +81,10 @@ function generateQuestion() {
   }
 }
 
-function showQuestion(evaluation, questionIndex) {
-  console.log(evaluation);
-  console.log(questionIndex);
+function showQuestion(questions, questionNumber) {
+  console.log(questionNumber);
   removeElement("sliderWrapper");
-  generateSliderContent(evaluation, questionIndex);
+  generateSliderContent(questions, questionNumber);
 }
 
 function importValue(input) {

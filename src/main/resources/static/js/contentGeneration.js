@@ -1,20 +1,20 @@
 //Function to generate sliders and the content inside the evaluation document
-function generateSliderContent(questions, questionIndex) {
-  console.log(questions[questionIndex]);
+function generateSliderContent(questions, questionNumber) {
+  console.log(questions[questionNumber]);
   var questionDisplay = document.getElementById("questionDisplay");
-  questionDisplay.innerHTML = "Question: " + questions[questionIndex]["question_id"];
+  questionDisplay.innerHTML = "Question: " + (questionNumber + 1);
 
   var questionText = document.getElementById("questionText");
-  questionText.innerHTML = questions[questionIndex]["text"];
+  questionText.innerHTML = questions[questionNumber]["text"];
 
   var wrapper = document.createElement("div");
   wrapper.className = "container";
   wrapper.id = "sliderWrapper";
 
-  var difficulty = questions[questionIndex]["difficulty"] * 100;
-  var complexity = questions[questionIndex]["complexity"] * 100;
-  var time = questions[questionIndex]["time"] * 100;
-  var importance = questions[questionIndex]["importance"] * 100;
+  var difficulty = questions[questionNumber]["difficulty"] * 100;
+  var complexity = questions[questionNumber]["complexity"] * 100;
+  var time = questions[questionNumber]["time"] * 100;
+  var importance = questions[questionNumber]["importance"] * 100;
 
   generateSliders("difficulty", "Difficulty", difficulty);
   generateSliders("complexity", "Complexity", complexity);
@@ -25,7 +25,7 @@ function generateSliderContent(questions, questionIndex) {
 
   //Function to generate sliders with input
   function generateSliders(type, headerText, input) {
-    var valueToString = input.toString()
+    var valueToString = input.toString();
 
     var content = document.createElement("div");
     content.className = "container sliders";
@@ -79,17 +79,15 @@ function generateSliderContent(questions, questionIndex) {
 }
 
 //Makes a button for each individual question
-function newQuestionButton(questionId) {
-  console.log(questionId);
-  var placement = document.getElementById("footer")
+function newQuestionButton(questionNumber) {
+  var placement = document.getElementById("footer");
   var btn = document.createElement("button");
-  var questionIndex = questionId - 1;
 
-  console.log("Question number: ", questionId);
-  btn.innerHTML = questionId;
+  console.log("Question number: ", questionNumber + 1);
+  btn.innerHTML = questionNumber + 1;
 
   btn.addEventListener('click', function() {
-    showQuestion(evaluation, questionIndex);
+    showQuestion(questions, questionNumber);
   }, false);
 
   placement.appendChild(btn);
