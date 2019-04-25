@@ -103,4 +103,5 @@ function displaySliderValue(slider) {
 function updateSlider(output) {
   var slider = document.getElementById(output.id.slice(0, - 6) + "Slider");
   slider.value = output.value;
+
 }

@@ -18,6 +18,7 @@
     <script th:src="@{/js/helperFunctions.js}"></script>
     <script th:src="@{/js/teacherRest.js}"></script>
     <script th:src="@{/js/contentGeneration.js}"></script>
+    <script th:src="@{/js/addstudent.js}"></script>
   </head>
 
   <body id="body">
@@ -208,7 +209,7 @@
 
                     <div class="modal-footer">
                       <button type="button" class="btn btn-primary" data-dismiss="modal">Close</button>
-                      <button id="addStudentsBtn" type="button" class="btn btn-primary" onclick="">Save Student</button>
+                      <button class="btn btn-primary" id="addStudentsBtn" onclick="generateStudent()" type="button">Save Student</button>
                     </div>
                   </form>
                 </div>
