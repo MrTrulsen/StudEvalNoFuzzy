@@ -26,7 +26,7 @@
 
   <body id="body">
     <section id="fullPage">
-      <div id="headerWrapper" onclick="location.href='/teacherpage'">
+      <div id="headerWrapper">
         <div id="header" class="container">
           <p>EDUEVAL</p>
         </div>
@@ -66,7 +66,9 @@
           <div id="workArea">
             <!-- IDEA: Put the content under here -->
             <div id="cardArea">
-                
+                <!-- Evaluations will be added under here -->
+
+            </div>
             <!-- IDEA: Dont put any content outside here -->
 
             <!-- Modal for printing results in bar graph  -->
@@ -103,35 +105,35 @@
                                 <div id="modalAddEvalContent" class="input-group mb-3">
 
                                     <p>This will be the ID of your course. It would often contain numbers and look something like "ID203920".</p>
-                                    <div id="courseId" class="input-group">
+                                    <div id="addEvalCourseId" class="input-group">
                                         <div class="input-group-prepend">
                                             <span class="input-group-text">Course ID</span>
                                         </div>
-                                        <input id="courseIdInput" type="text" class="form-control" placeholder="ID" aria-label="Sizing example input" aria-describedby="courseId">
+                                        <input id="courseIdInput" type="text" class="form-control" placeholder="ID">
                                     </div>
 
                                     <p class="infoText">This will be the name of the course to the evaluation you want to add. It can contain spaces and usually contains only characters, like "Operating Systems".</p>
-                                    <div id="courseName" class="input-group">
+                                    <div id="addEvalCourseName" class="input-group">
                                         <div class="input-group-prepend">
                                             <span class="input-group-text" >Course Name</span>
                                         </div>
-                                        <input id="courseNameInput" type="text" class="form-control" placeholder="Name" aria-label="Sizing example input" aria-describedby="courseName">
+                                        <input id="courseNameInput" type="text" class="form-control" placeholder="Name">
                                     </div>
 
                                     <p class="infoText">This will be the date when the evaluation starts and stops. Here you need to choose a start and end date from the datepicker provided.</p>
-                                    <div id="evalDates" class="input-group">
+                                    <div id="addEvalDates" class="input-group">
                                         <div class="input-group-prepend">
                                             <span class="input-group-text">Date</span>
                                         </div>
-                                        <input id="evalDatesInput" type="text" name="datetimeEval" placeholder="Date" aria-label="Sizing example input" aria-describedby="evalDates" readonly>
+                                        <input id="datesInput" type="text" name="addEval" placeholder="Date" readonly>
                                     </div>
 
                                     <p class="infoText">This will be the total time of the exam, written in hours.</p>
-                                    <div id="examTime" class="input-group">
+                                    <div id="addEvalExamTime" class="input-group">
                                         <div class="input-group-prepend">
                                             <span class="input-group-text">Exam Time</span>
                                         </div>
-                                        <input id="examTimeInput" type="text" class="form-control" placeholder="Time" aria-label="Sizing example input" aria-describedby="examTime" >
+                                        <input id="examTimeInput" type="text" class="form-control" placeholder="Time">
                                     </div>
                                 </div>
                             </div>
@@ -146,7 +148,7 @@
             </div>
 
             <!-- Modal for removing evaluations  -->
-            <div class="modal fade" th:id="modalRemove" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal fade" th:id="modalRemove" tabindex="-1" role="dialog">
                 <div class="modal-dialog" role="document">
                     <div class="modal-content">
                         <div class="modal-header">
@@ -155,18 +157,28 @@
                                 <span aria-hidden="true">&times;</span>
                             </button>
                         </div>
-                        <div id="modalRemoveBody" class="modal-body">
-                            <div id="modalRemoveContent" class="input-group mb-3">
+                        <div id="modalRemoveEvalBody" class="modal-body">
+                            <div id="modalRemoveEvalContent" class="input-group mb-3">
                                 <p>Are you sure you want to remove the evaluation? If you want so, please write in the Course ID of the evaluation.</p>
-                                <div class="input-group-prepend">
-                                    <span class="input-group-text" id="courseIdRemove">Course ID</span>
+                                <div id="removeCourseId" class="input-group">
+                                    <div class="input-group-prepend">
+                                        <span class="input-group-text">Course ID</span>
+                                    </div>
+                                    <input id="removeCourseIdInput" type="text" class="form-control" placeholder="ID">
                                 </div>
-                                <input id="removeEvaluation" type="text" class="form-control" placeholder="ID" aria-label="Sizing example input" aria-describedby="courseIdRemove">
+
+                                <p class="infoText">This will be the date when the evaluation opens. You need to choose date to ensure that you are deleting the right one since there can be several evaluations in the same course.</p>
+                                <div id="deleteDate" class="input-group">
+                                    <div class="input-group-prepend">
+                                        <span class="input-group-text">Date</span>
+                                    </div>
+                                    <input id="removeDateInput" type="text" name="removeEval" placeholder="Date" aria-label="Sizing example input" aria-describedby="evalDates" readonly>
+                                </div>
                             </div>
                         </div>
                         <div class="modal-footer">
                             <button type="button" class="btn btn-primary" data-dismiss="modal">Close</button>
-                            <button id="removeEvaluationBtn" type="button" class="btn btn-primary" onclick="removeEvaluation()">Remove evaluation</button>
+                            <button id="removeEvaluationBtn" type="button" class="btn btn-primary" onclick="removeEvaluationFromDashboard()">Remove evaluation</button>
                         </div>
                     </div>
                 </div>

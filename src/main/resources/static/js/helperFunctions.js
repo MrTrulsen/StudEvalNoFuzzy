@@ -9,10 +9,11 @@ function showErrorMessage(placement, errorMessage) {
 }
 
 //Removes value inside input fields
-function removeInputValue(element) {
-  if(element.length > 0){
-      element = "";
-  }
+function removeInputValue(input) {
+    var element = document.getElementById(input);
+    if (element.length > 0) {
+        element.setAttribute("value", "");
+    }
 }
 
 //Removes element by id

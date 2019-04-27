@@ -9,23 +9,18 @@ function addEvaluation(evaluation, courseName) {
     },
     body: JSON.stringify(evaluation)
   }).then(function (response) {
-        var btn = document.getElementById("saveEvaluationBtn"); //Temporary fix
+        var btn = document.getElementById("saveEvaluationBtn");
         console.log("Response: ", response);
 
         if (response.status === 200) {
             btn.setAttribute("data-dismiss", "modal");
-            addEvaluationCard(evaluation);
+            addEvaluationCard(evaluation, courseName);
 
-            removeInputValue(document.getElementById("courseId"));
-            removeInputValue(document.getElementById("courseName"));
-            removeInputValue(document.getElementById("evalDates"));
-            removeInputValue(document.getElementById("examTime"));
         } else {
-            btn.removeAttribute("data-dismiss", "modal");
+            btn.removeAttribute("data-dismiss");
+            showErrorMessage("modalAddEvalBody", "Error when trying to add evaluation. Please try again.");
             return response.text();
         }
-    }).then(function () {
-        showErrorMessage("modalAddEvalBody", "Error when trying to add evaluation. Please try again.");
     });
 }
 
@@ -45,10 +40,22 @@ function loadEvaluations() {
                     console.log(evaluation["courseId"] + " expired at date " + evaluation["stopDate"]);
                 }
                 else {
-                    addEvaluationCard(evaluation);
+                    var course = getCourseName(evaluation);
+                    console.log(course);
+                    addEvaluationCard(evaluation, course);
                 }
             }
         }
+    });
+}
+
+//Gets the name of the course that is being loaded in loadEvaluations()
+function getCourseName(evaluation) {
+    console.log("Loading course name...");
+    fetch("/getNameOfCourse/" + evaluation["courseId"]).then(function(response) {
+        console.log(response);
+    }).then(function (courseName) {
+        console.log("Evaluation data: ", courseName);
     });
 }
 
@@ -62,7 +69,7 @@ function addQuestion(question) {
     },
     body: JSON.stringify(question)
   }).then(function (response) {
-        var btn = document.getElementById('saveQuestionBtn'); //Temporary fix
+        var btn = document.getElementById('saveQuestionBtn');
         console.log("Response: ", response);
 
         if (response.status === 200) {
@@ -70,17 +77,11 @@ function addQuestion(question) {
             btn.setAttribute("data-dismiss", "modal");
             newQuestionButton(questions.length);
 
-            removeInputValue(document.getElementById("questionInput"));
-            removeInputValue(document.getElementById("difficultyInput"));
-            removeInputValue(document.getElementById("complexityInput"));
-            removeInputValue(document.getElementById("timeInput"));
-            removeInputValue(document.getElementById("importanceInput"));
         } else {
-            btn.removeAttribute("data-dismiss", "modal");
+            btn.removeAttribute("data-dismiss");
+            showErrorMessage("modalAddQuestionBody", "Error when trying to add question. Please try again.");
             return response.text();
         }
-    }).then(function () {
-        showErrorMessage("modalAddQuestionBody", "Error when trying to add question. Please try again.");
     });
 }
 
@@ -99,6 +100,27 @@ function loadQuestions() {
                 newQuestionButton(i);
             }
             generateSliderContent(questions, 0);
+        }
+    });
+}
+
+//Deletes an evaluation from the database
+function deleteEvaluation(courseId) {
+    console.log("Deleting evaluation: ", courseId);
+    fetch("/deleteEvaluation/" + courseId, {
+        method: "DELETE"
+    }).then(function (response) {
+        var btn = document.getElementById("removeEvaluationBtn");
+        console.log("Response: ", response);
+
+        if (response.status === 200) {
+            btn.setAttribute("data-dismiss", "modal");
+            window.location.reload();
+
+        } else {
+            btn.removeAttribute("data-dismiss");
+            showErrorMessage("modalRemoveEvalBody", "Error when trying to add question. Please try again.");
+            return response.text();
         }
     });
 }

@@ -23,7 +23,7 @@
 
   <body id="body">
     <section id="fullPage">
-      <div id="headerWrapper">
+      <div id="headerWrapper" onclick="location.href='/teacherpage'">
         <div id="header" class="container">
           <p>EDUEVAL</p>
         </div>
@@ -164,7 +164,7 @@
 
                     <div class="modal-footer">
                       <button type="button" class="btn btn-primary" data-dismiss="modal">Close</button>
-                      <button id="saveQuestionBtn" type="button" class="btn btn-primary" onclick="generateQuestion()">Save question</button>
+                      <button id="saveQuestionBtn" type="button" class="btn btn-primary" data-dismiss="modal" onclick="generateQuestion()">Save question</button>
                     </div>
                   </form>
                 </div>

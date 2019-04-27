@@ -17,10 +17,10 @@ function generateQuestion() {
 
   var question = {
     text: text,
-    difficulty: difficulty,
-    complexity: complexity,
-    time: time,
-    importance: importance
+    difficulty: difficulty / 100,
+    complexity: complexity / 100,
+    time: time / 60,
+    importance: importance / 100
   };
 
   console.log(question);
@@ -82,7 +82,7 @@ function generateQuestion() {
 }
 
 function showQuestion(questions, questionNumber) {
-  console.log(questionNumber);
+  console.log(questionNumber + 1);
   removeElement("sliderWrapper");
   generateSliderContent(questions, questionNumber);
 }

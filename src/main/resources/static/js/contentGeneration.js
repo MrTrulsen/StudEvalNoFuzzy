@@ -13,12 +13,12 @@ function generateSliderContent(questions, questionNumber) {
 
   var difficulty = questions[questionNumber]["difficulty"] * 100;
   var complexity = questions[questionNumber]["complexity"] * 100;
-  var time = questions[questionNumber]["time"] * 100;
+  var time = questions[questionNumber]["time"] * 60;
   var importance = questions[questionNumber]["importance"] * 100;
 
   generateSliders("difficulty", "Difficulty", difficulty);
   generateSliders("complexity", "Complexity", complexity);
-  generateSliders("time", "Time", time);
+  generateSliders("time", "Time", Math.round(time));
   generateSliders("importance", "Importance", importance);
 
   document.getElementById("questionArea").appendChild(wrapper);
@@ -109,7 +109,7 @@ function generateEvaluationCard(courseId, start, end, course) {
   generateCardContent2("p", "card-text", "With supporting text below as a natural lead-in to additional content.");
   generateBtn("editEval", courseId, 1, "onclick", "location.href='/teacherpage/evaluation'", null, null, null, null, "See evaluation");
   generateBtn("result", courseId, 2, "data-toggle", "modal", "data-target", "#modalResult", null, null, "Result");
-  generateBtn("remove", courseId, 2, "data-toggle", "modal", "data-target", "#modalRemove", "onclick", "var element = document.getElementById('removeEvaluation'); removeInputValue(element)", "Remove");
+  generateBtn("remove", courseId, 2, "data-toggle", "modal", "data-target", "#modalRemove", "onclick", "var element = document.getElementById('removeEvaluation');", "Remove");
   generateCardContent("div", "card-footer text-muted", "Opened: ", start);
 
   document.getElementById("cardArea").appendChild(card);
