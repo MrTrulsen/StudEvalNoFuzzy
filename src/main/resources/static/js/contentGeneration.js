@@ -1,20 +1,21 @@
 //Function to generate sliders and the content inside the evaluation document
-function generateSliderContent(questions, questionNumber) {
-  console.log(questions[questionNumber]);
+function generateSliderContent(questions, questionIndex) {
+
+  console.log(questions[questionIndex]);
   var questionDisplay = document.getElementById("questionDisplay");
-  questionDisplay.innerHTML = "Question: " + (questionNumber + 1);
+  questionDisplay.innerHTML = "Question: " + (questionIndex + 1);
 
   var questionText = document.getElementById("questionText");
-  questionText.innerHTML = questions[questionNumber]["text"];
+  questionText.innerHTML = questions[questionIndex]["text"];
 
   var wrapper = document.createElement("div");
   wrapper.className = "container";
   wrapper.id = "sliderWrapper";
 
-  var difficulty = questions[questionNumber]["difficulty"] * 100;
-  var complexity = questions[questionNumber]["complexity"] * 100;
-  var time = questions[questionNumber]["time"] * 60;
-  var importance = questions[questionNumber]["importance"] * 100;
+  var difficulty = questions[questionIndex]["difficulty"] * 100;
+  var complexity = questions[questionIndex]["complexity"] * 100;
+  var time = questions[questionIndex]["time"] * 60;
+  var importance = questions[questionIndex]["importance"] * 100;
 
   generateSliders("difficulty", "Difficulty", difficulty);
   generateSliders("complexity", "Complexity", complexity);
@@ -79,15 +80,15 @@ function generateSliderContent(questions, questionNumber) {
 }
 
 //Makes a button for each individual question
-function newQuestionButton(questionNumber) {
+function newQuestionButton(questionIndex) {
   var placement = document.getElementById("footer");
   var btn = document.createElement("button");
 
-  console.log("Question number: ", questionNumber + 1);
-  btn.innerHTML = questionNumber + 1;
+  console.log("Question number: ", questionIndex + 1);
+  btn.innerHTML = questionIndex + 1;
 
   btn.addEventListener('click', function() {
-    showQuestion(questions, questionNumber);
+    showQuestion(questions, questionIndex);
   }, false);
 
   placement.appendChild(btn);

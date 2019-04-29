@@ -24,6 +24,32 @@ function addEvaluation(evaluation, courseName) {
     });
 }
 
+//Adds questions to the database
+function addQuestion(question) {
+    console.log("Adding question...");
+    fetch("/addQuestion/1", {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json"
+        },
+        body: JSON.stringify(question)
+    }).then(function (response) {
+        var btn = document.getElementById('saveQuestionBtn');
+        console.log("Response: ", response);
+
+        if (response.status === 200) {
+            console.log(questions);
+            btn.setAttribute("data-dismiss", "modal");
+            newQuestionButton(questions.length);
+
+        } else {
+            btn.removeAttribute("data-dismiss");
+            showErrorMessage("modalAddQuestionBody", "Error when trying to add question. Please try again.");
+            return response.text();
+        }
+    });
+}
+
 //Loads evaluations from the database
 function loadEvaluations() {
     console.log("Loading evaluations...");
@@ -45,42 +71,6 @@ function loadEvaluations() {
                     addEvaluationCard(evaluation, course);
                 }
             }
-        }
-    });
-}
-
-//Gets the name of the course that is being loaded in loadEvaluations()
-function getCourseName(evaluation) {
-    console.log("Loading course name...");
-    fetch("/getNameOfCourse/" + evaluation["courseId"]).then(function(response) {
-        console.log(response);
-    }).then(function (courseName) {
-        console.log("Evaluation data: ", courseName);
-    });
-}
-
-//Adds questions to the database
-function addQuestion(question) {
-  console.log("Adding question...");
-  fetch("/addQuestion/1", {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/json"
-    },
-    body: JSON.stringify(question)
-  }).then(function (response) {
-        var btn = document.getElementById('saveQuestionBtn');
-        console.log("Response: ", response);
-
-        if (response.status === 200) {
-            console.log(questions);
-            btn.setAttribute("data-dismiss", "modal");
-            newQuestionButton(questions.length);
-
-        } else {
-            btn.removeAttribute("data-dismiss");
-            showErrorMessage("modalAddQuestionBody", "Error when trying to add question. Please try again.");
-            return response.text();
         }
     });
 }
@@ -122,5 +112,37 @@ function deleteEvaluation(courseId) {
             showErrorMessage("modalRemoveEvalBody", "Error when trying to add question. Please try again.");
             return response.text();
         }
+    });
+}
+
+//Deletes a question from the database
+//TODO: Implement the function inside a modal for deleting question
+function deleteQuestion(questionId) {
+    console.log("Deleting evaluation: ", questionId);
+    fetch("/deleteQuestion/" + questionId, {
+        method: "DELETE"
+    }).then(function (response) {
+        var btn = document.getElementById("removeQuestionBtn");
+        console.log("Response: ", response);
+
+        if (response.status === 200) {
+            btn.setAttribute("data-dismiss", "modal");
+            window.location.reload();
+
+        } else {
+            btn.removeAttribute("data-dismiss");
+            showErrorMessage("modalRemoveQuestionBody", "Error when trying to add question. Please try again.");
+            return response.text();
+        }
+    });
+}
+
+//Gets the name of the course that is being loaded in loadEvaluations()
+function getCourseName(evaluation) {
+    console.log("Loading course name...");
+    fetch("/getNameOfCourse/" + evaluation["courseId"]).then(function(response) {
+        console.log(response);
+    }).then(function (courseName) {
+        console.log("Evaluation data: ", courseName);
     });
 }

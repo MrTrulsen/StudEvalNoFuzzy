@@ -1,11 +1,26 @@
 
 var questions;
+var questionIndex;
 
 window.addEventListener('load', function() {
   //Loads the available questions
-    this.questions = questions;
+  this.questions = questions;
+  document.getElementById("pageInput").value = 7;
   loadQuestions();
 });
+
+function updateQuestionPage(input) {
+
+  if (input.value === null) {
+    console.log("Do nothing");
+  }
+  else {
+    questionIndex = parseInt(document.getElementById(input.id).value - 1);
+    console.log(input.id);
+    console.log("QuestionIndex is: " + questionIndex);
+    showQuestion(questions, questionIndex);
+  }
+}
 
 function generateQuestion() {
   var text = document.getElementById('questionInput').value;
@@ -81,10 +96,15 @@ function generateQuestion() {
   }
 }
 
-function showQuestion(questions, questionNumber) {
-  console.log(questionNumber + 1);
+function showQuestion(questions, questionIndex) {
   removeElement("sliderWrapper");
-  generateSliderContent(questions, questionNumber);
+  generateSliderContent(questions, questionIndex);
+}
+
+function updateNavigationButtons() {
+  document.getElementById('totalPages').innerHTML = questions.length;
+  console.log(questions.length);
+  console.log(document.getElementById('totalPages'));
 }
 
 function importValue(input) {
