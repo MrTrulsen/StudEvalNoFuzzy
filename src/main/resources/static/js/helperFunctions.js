@@ -30,6 +30,13 @@ function removeElementsByClass(className) {
   }
 }
 
+//TODO: Implement this function when making the new type of buttons
+function findFirstNumberInString(inputField) {
+    var regExp = /\d+/;
+    var string = document.getElementById(inputField).value;
+    alert (string.match(regExp));
+}
+
 //TODO: Remove if not being used later in the project
 function getCount(parent, getChildrensChildren){
     var relevantChildren = 0;
