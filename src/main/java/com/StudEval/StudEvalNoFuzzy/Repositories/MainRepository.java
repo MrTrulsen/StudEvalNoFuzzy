@@ -278,7 +278,7 @@ public class MainRepository {
      * @param courseId
      * @return
      */
-    public String getCourseNameFromEval(Integer courseId){
+    public String getCourseNameFromEval(String courseId){
         String courseName;
         String query = "SELECT name FROM course WHERE course_id=?";
         try{
