@@ -55,9 +55,9 @@ public class TeacherRest {
         return evals;
     }
 
-    @RequestMapping("/getNameOfCourse/{evalId}")
-    public String getNameOfCourse(@PathVariable Integer evalId){
-        String courseName = mainRepository.getCourseNameFromEval(evalId);
+    @RequestMapping("/getNameOfCourse/{courseId}")
+    public String getNameOfCourse(@PathVariable Integer courseId){
+        String courseName = mainRepository.getCourseNameFromEval(courseId);
         return courseName;
     }
 
