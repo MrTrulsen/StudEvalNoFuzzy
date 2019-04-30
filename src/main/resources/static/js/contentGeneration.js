@@ -94,6 +94,10 @@ function newQuestionButton(questionIndex) {
   placement.appendChild(btn);
 }
 
+function generateBottomBar() {
+
+}
+
 //Generates a evaluation card at the dashboard based on the user input
 function generateEvaluationCard(courseId, start, end, course) {
   var card = document.createElement("div");

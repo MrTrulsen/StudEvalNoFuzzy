@@ -135,10 +135,6 @@ h2 {
   padding-bottom: 15px;
 }
 
-#buttonArea {
-  text-align: center;
-}
-
 #headerWrapper, #navWrapper {
   border-width: 1px;
   border-color: #696969;
@@ -161,6 +157,10 @@ h2 {
 }
 
 #buttonArea {
+  text-align: center;
+}
+
+#buttonBar {
   border-top: solid;
   border-bottom: solid;
   border-width: 1px;
@@ -170,6 +170,7 @@ h2 {
 #pageInput, #totalPages {
   text-align: center;
   width: 85px;
+  height: 56px;
 }
 
 .error {

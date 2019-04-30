@@ -66,9 +66,10 @@ function loadEvaluations() {
                     console.log(evaluation["courseId"] + " expired at date " + evaluation["stopDate"]);
                 }
                 else {
-                    var course = getCourseName(evaluation);
-                    console.log(course);
-                    addEvaluationCard(evaluation, course);
+                    //TODO: Make it possible to return the courseName from the function
+                    var courseName = getCourseName(evaluation);
+                    console.log("Evaluation data: ", courseName);
+                    addEvaluationCard(evaluation, courseName);
                 }
             }
         }
@@ -122,16 +123,16 @@ function deleteQuestion(questionId) {
     fetch("/deleteQuestion/" + questionId, {
         method: "DELETE"
     }).then(function (response) {
-        var btn = document.getElementById("removeQuestionBtn");
+        var btn = document.getElementById("confirmDeleteQuestionBtn");
         console.log("Response: ", response);
-
+        
         if (response.status === 200) {
             btn.setAttribute("data-dismiss", "modal");
             window.location.reload();
 
         } else {
             btn.removeAttribute("data-dismiss");
-            showErrorMessage("modalRemoveQuestionBody", "Error when trying to add question. Please try again.");
+            showErrorMessage("modalDeleteQuestionBody", "Error when trying to delete question. Please try again.");
             return response.text();
         }
     });
@@ -142,7 +143,7 @@ function getCourseName(evaluation) {
     console.log("Loading course name...");
     fetch("/getNameOfCourse/" + evaluation["courseId"]).then(function(response) {
         console.log(response);
-    }).then(function (courseName) {
-        console.log("Evaluation data: ", courseName);
+        console.log(response.text());
+        return response;
     });
 }

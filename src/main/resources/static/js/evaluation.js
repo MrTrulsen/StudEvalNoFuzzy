@@ -1,13 +1,24 @@
 
-var questions;
+var questions = [];
 var questionIndex;
 
 window.addEventListener('load', function() {
   //Loads the available questions
-  this.questions = questions;
-  document.getElementById("pageInput").value = 7;
   loadQuestions();
+  console.log(questions);
+  if (questions === []) {
+    console.log("There are no questions");
+  }
+  else {
+    document.getElementById("pageInput").value = 1;
+    questionIndex = 0;
+
+  }
 });
+
+function updateQuestionPageArrows() {
+  
+}
 
 function updateQuestionPage(input) {
 
@@ -94,6 +105,11 @@ function generateQuestion() {
       addQuestion(question);
     }
   }
+}
+
+function findActiveQuestionForDeletion() {
+  var questionId = questions[questionIndex]["question_id"];
+  deleteQuestion(questionId);
 }
 
 function showQuestion(questions, questionIndex) {
