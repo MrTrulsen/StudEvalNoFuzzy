@@ -278,9 +278,9 @@ public class MainRepository {
      * @param evalId
      * @return
      */
-    public String getCourseNameFromEval(String evalId){
+    public String getCourseNameFromEval(Integer evalId){
         String courseName;
-        String query = "SELECT name FROM course WHERE course_id=?";
+        String query = "SELECT course_id FROM evaluation WHERE eval_id=?";
         try{
             courseName = jdbcTemplate.queryForObject(query,new Object[]{evalId}, String.class);
         }
