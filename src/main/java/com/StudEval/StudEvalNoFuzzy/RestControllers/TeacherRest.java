@@ -108,7 +108,7 @@ public class TeacherRest {
         }
     }
 
-    @RequestMapping(value = "/deleteEvaluation/{evalId}" , method = RequestMethod.POST)
+    @RequestMapping(value = "/deleteEvaluation/{evalId}" , method = RequestMethod.DELETE)
     public ResponseEntity<String> deleteEvaluation(@PathVariable Integer evalId){
         String error = mainRepository.deleteEvaluation(evalId);
         if(error == null){
@@ -119,7 +119,7 @@ public class TeacherRest {
         }
     }
 
-    @RequestMapping(value = "/deleteUser/{email}" , method = RequestMethod.POST)
+    @RequestMapping(value = "/deleteUser/{email}" , method = RequestMethod.DELETE)
     public ResponseEntity<String> deleteUser(@PathVariable String email){
         String error = mainRepository.deleteUser(email);
         if(error == null){
@@ -130,7 +130,7 @@ public class TeacherRest {
         }
     }
 
-    @RequestMapping(value = "/deleteQuestion/{questionId}" , method = RequestMethod.POST)
+    @RequestMapping(value = "/deleteQuestion/{questionId}" , method = RequestMethod.DELETE)
     public ResponseEntity<String> deleteUser(@PathVariable Integer questionId){
         String error = mainRepository.deleteQuestionFromEvaluation(questionId);
         if(error == null){
