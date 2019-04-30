@@ -402,13 +402,13 @@ public class MainRepository {
     /**
      * Deleting of a user
      *
-     * @param email
+     * @param id
      * @return null if success, else: "Could not delete user"
      */
-    public String deleteUser(String email) {
+    public String deleteUser(String id) {
         Integer numRows;
-        String query = "DELETE FROM user WHERE email=?";
-        numRows = jdbcTemplate.update(query, email);
+        String query = "DELETE FROM user WHERE user_id=?";
+        numRows = jdbcTemplate.update(query, id);
         if (numRows == 1) {
             return null;
         } else {

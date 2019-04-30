@@ -3,11 +3,14 @@ package com.StudEval.StudEvalNoFuzzy.RestControllers;
 import com.StudEval.StudEvalNoFuzzy.Evaluation.Answer;
 import com.StudEval.StudEvalNoFuzzy.Evaluation.Evaluation;
 import com.StudEval.StudEvalNoFuzzy.Evaluation.Question;
+import com.StudEval.StudEvalNoFuzzy.Interfaces.UserRepository;
 import com.StudEval.StudEvalNoFuzzy.Repositories.MainRepository;
 import com.StudEval.StudEvalNoFuzzy.User.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
@@ -16,6 +19,9 @@ import java.util.List;
 @RestController
 public class TeacherRest {
     private final MainRepository mainRepository;
+
+    @Autowired
+    UserRepository userRepository;
 
     @Autowired
     public TeacherRest(MainRepository mainRepository) {
@@ -123,8 +129,17 @@ public class TeacherRest {
     }
 
     @RequestMapping(value = "/deleteUser/{email}" , method = RequestMethod.DELETE)
-    public ResponseEntity<String> deleteUser(@PathVariable String email){
-        String error = mainRepository.deleteUser(email);
+    public ResponseEntity<String> deleteUser(@PathVariable String id){
+        String error;
+        User current = userRepository.findByEmail(getCurrentUsername());
+
+        if (id.equals(Long.toString(current.getId())) || id == null){
+            error = mainRepository.deleteUser(id);
+        }else{
+            error = "ERROR: You are not authorized to delete this user!";
+            return new ResponseEntity<>(error, HttpStatus.FORBIDDEN);
+        }
+
         if(error == null){
             return new ResponseEntity<>(HttpStatus.OK);
         }
@@ -156,6 +171,23 @@ public class TeacherRest {
     }
 
 
+    /**
+     *
+     * @return Username from the currently logged in user.
+     */
+    private String getCurrentUsername(){
+        Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+
+        String loggedInUsername;
+
+        if (principal instanceof UserDetails){
+            loggedInUsername = ((UserDetails)principal).getUsername();
+        }else{
+            loggedInUsername = principal.toString();
+        }
+
+        return loggedInUsername;
+    }
 
 }
 
