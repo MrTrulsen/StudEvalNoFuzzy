@@ -55,6 +55,9 @@ public class TeacherRest {
         return evals;
     }
 
+
+
+
     @RequestMapping("/getNameOfCourse/{courseId}")
     public String getNameOfCourse(@PathVariable String courseId){
         String courseName = mainRepository.getCourseNameFromEval(courseId);
@@ -74,10 +77,10 @@ public class TeacherRest {
         }
     }
 
-    @RequestMapping(value = "/addEvaluation/{course_name}" , method = RequestMethod.POST)
-    public ResponseEntity<String> addEvaluation(@RequestBody Evaluation evaluation, @PathVariable String course_name){
+    @RequestMapping(value = "/addEvaluation/{course_name}/{email}" , method = RequestMethod.POST)
+    public ResponseEntity<String> addEvaluation(@RequestBody Evaluation evaluation, @PathVariable String course_name, @PathVariable String email){
 
-        String error = mainRepository.addNewEvaluation(evaluation,course_name);
+        String error = mainRepository.addNewEvaluation(evaluation,course_name,email);
         if(error == null){
             return new ResponseEntity<>(HttpStatus.OK);
         }

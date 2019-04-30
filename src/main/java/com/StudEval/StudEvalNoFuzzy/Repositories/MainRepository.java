@@ -205,15 +205,23 @@ public class MainRepository {
      * @param evaluation
      * @return null if success, "Could not add evaluation" else
      */
-    public String addNewEvaluation(Evaluation evaluation, String courseName) {
+    public String addNewEvaluation(Evaluation evaluation, String courseName, String email) {
         String query = "INSERT INTO evaluation (date_start,date_stop, course_id, time_of_exam) VALUES (?,?,?,?)";
         List<String> courseIds = getAllCourseIds();
         Integer numRows;
-
         if (!courseIds.contains(evaluation.getCourseId())) {
             addCourse(evaluation.getCourseId(), courseName);
         }
         numRows = jdbcTemplate.update(query, evaluation.getStartDate(), evaluation.getStopDate(), evaluation.getCourseId(), evaluation.getTimeOfExam());
+
+        //This is used because preparedstatement did not work
+        Integer id = getLastInsertedEvalId();
+        evaluation.setEvalId(id);
+        List<User> users = new ArrayList<>();
+        User user = new User();
+        user.setEmail(email);
+        users.add(user);
+        importUsersToEvaluation(users,evaluation.getEvalId());
         if (numRows == 1) {
             return null;
         } else {
@@ -234,6 +242,12 @@ public class MainRepository {
             throw ex;
         }
 
+    }
+
+    private Integer getLastInsertedEvalId(){
+      String query = "SELECT LAST_INSERT_ID()";
+      Integer id = jdbcTemplate.queryForObject(query,new Object[]{}, Integer.class);
+      return id;
     }
 
     /**
