@@ -1,4 +1,5 @@
 
+
 window.addEventListener('load', function() {
   //Loads the available evaluations
   loadEvaluations();
@@ -26,37 +27,12 @@ function generateEvaluation() {
   };
 
   console.log(evaluation);
+  getLoginEmail();
+
+  console.log(email);
 
   removeElementsByClass("error");
-  checkForError(courseId, courseName, start, end, btn);
-
-  //Checks for error at user input
-  function checkForError(courseId, courseName, start, end, btn) {
-    //If length = 0 it will return an error message and not continue
-    if (courseId.length === 0) {
-      showErrorMessage("addEvalCourseId", "The field can not be empty");
-      btn.removeAttribute("data-dismiss", "modal");
-    }
-
-    else if (courseName.length === 0) {
-      showErrorMessage("addEvalCourseName", "The field can not be empty");
-      btn.removeAttribute("data-dismiss", "modal");
-    }
-
-    else if (evalDates.length === 0) {
-      showErrorMessage("addEvalDates", "The field can not be empty");
-      btn.removeAttribute("data-dismiss", "modal");
-    }
-
-    else if (examTime.length === 0) {
-      showErrorMessage("addEvalExamTime", "The field can not be empty");
-      btn.removeAttribute("data-dismiss", "modal");
-    }
-
-    else {
-      addEvaluation(evaluation, courseName);
-    }
-  }
+  checkForErrorInAddEvaluation(evaluation, courseId, courseName, evalDates, examTime, btn, email);
 }
 
 //Adds an evaluation card at the dashboard based on the user input or when loaded into the dashboard
@@ -74,7 +50,7 @@ function removeEvaluationFromDashboard() {
   var date = document.getElementById("removeDateInput").value;
   var btn = document.getElementById("removeEvaluationBtn");
 
-  removeElementsByClass("error");
+  removeElementsByClass("error", "success");
   checkForError(courseId, date, btn);
 
   //Checks for error at user input

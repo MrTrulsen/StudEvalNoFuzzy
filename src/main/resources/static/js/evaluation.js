@@ -5,36 +5,11 @@ var questionIndex;
 window.addEventListener('load', function() {
   //Loads the available questions
   loadQuestions();
-  console.log(questions);
-  if (questions === []) {
-    console.log("There are no questions");
-  }
-  else {
-    document.getElementById("pageInput").value = 1;
-    questionIndex = 0;
-
-  }
 });
 
-function updateQuestionPageArrows() {
-  
-}
-
-function updateQuestionPage(input) {
-
-  if (input.value === null) {
-    console.log("Do nothing");
-  }
-  else {
-    questionIndex = parseInt(document.getElementById(input.id).value - 1);
-    console.log(input.id);
-    console.log("QuestionIndex is: " + questionIndex);
-    showQuestion(questions, questionIndex);
-  }
-}
-
+//Generates a question based on user input
 function generateQuestion() {
-  var text = document.getElementById('questionInput').value;
+  var text = document.getElementById('textInput').value;
   var difficulty = document.getElementById('difficultyInput').value;
   var complexity = document.getElementById('complexityInput').value;
   var time = document.getElementById('timeInput').value;
@@ -51,78 +26,80 @@ function generateQuestion() {
 
   console.log(question);
 
-  removeElementsByClass("error");
-  checkForError(text, complexity, time, difficulty, importance, btn);
-
-  function checkForError(text, complexity, time, difficulty, importance, btn) {
-    //If length = 0 it will return an error message and not continue
-    if (text.length === 0) {
-      showErrorMessage("question", "The field can not be empty");
-      btn.removeAttribute("data-dismiss", "modal");
-    }
-
-    else if (difficulty.length === 0) {
-      showErrorMessage("difficulty", "The field can not be empty");
-      btn.removeAttribute("data-dismiss", "modal");
-    }
-    //Checks if the input fields exceeds the maximum value
-    else if (difficulty > 100) {
-      showErrorMessage("difficulty", "This value can not exceed a total of 100");
-      btn.removeAttribute("data-dismiss", "modal");
-    }
-
-    else if (complexity.length === 0) {
-      showErrorMessage("complexity", "The field can not be empty");
-      btn.removeAttribute("data-dismiss", "modal");
-    }
-
-    else if (complexity > 100) {
-      showErrorMessage("complexity", "This value can not exceed a total of 100");
-      btn.removeAttribute("data-dismiss", "modal");
-    }
-
-    else if (time.length === 0) {
-      showErrorMessage("time", "The field can not be empty");
-      btn.removeAttribute("data-dismiss", "modal");
-    }
-
-    else if (time > 100) {
-      showErrorMessage("time", "This value can not exceed a total of 100");
-      btn.removeAttribute("data-dismiss", "modal");
-    }
-
-    else if (importance.length === 0) {
-      showErrorMessage("importance", "The field can not be empty");
-      btn.removeAttribute("data-dismiss", "modal");
-    }
-
-    else if (importance > 100) {
-      showErrorMessage("importance", "This value can not exceed a total of 100");
-      btn.removeAttribute("data-dismiss", "modal");
-    }
-
-    else {
-      addQuestion(question);
-    }
-  }
+  removeElementsByClass("error", "success");
+  checkForErrorInAddQuestion(question, text, complexity, time, difficulty, importance, btn);
 }
 
+function updateQuestion() {
+  var text = document.getElementById('questionText').innerHTML;
+  var difficulty = document.getElementById('difficultyOutput').value;
+  var complexity = document.getElementById('complexityOutput').value;
+  var time = document.getElementById('timeOutput').value;
+  var importance = document.getElementById('importanceOutput').value;
+
+  var question = {
+    text: text,
+    difficulty: difficulty / 100,
+    complexity: complexity / 100,
+    time: time / 60,
+    importance: importance / 100
+  };
+
+  removeElementsByClass("error", "success");
+  saveQuestion(question);
+}
+
+//Finds the active question for deletion inside the evaluation
 function findActiveQuestionForDeletion() {
   var questionId = questions[questionIndex]["question_id"];
   deleteQuestion(questionId);
 }
 
+//Shows the selected question based on questionIndex
 function showQuestion(questions, questionIndex) {
   removeElement("sliderWrapper");
   generateSliderContent(questions, questionIndex);
 }
 
-function updateNavigationButtons() {
+//Updates the display of total pages inside the pageSelector
+function updateTotalPagesDisplay() {
   document.getElementById('totalPages').innerHTML = questions.length;
-  console.log(questions.length);
   console.log(document.getElementById('totalPages'));
 }
 
+//Chooses the previous questionIndex
+function previousQuestion() {
+  var pageInput = document.getElementById("pageInput");
+
+  if (questionIndex < 1) {
+    console.log("The lowest questionIndex has been reached");
+  }
+
+  else {
+    questionIndex = questionIndex - 1;
+    pageInput.innerHTML = parseInt(pageInput.innerHTML) - 1;
+    console.log("QuestionIndex is: " + questionIndex);
+    showQuestion(questions, questionIndex);
+  }
+}
+
+//Chooses the next questionIndex
+function nextQuestion() {
+  var pageInput = document.getElementById("pageInput");
+
+  if (questionIndex > (questions.length - 2)) {
+    console.log("The highest questionIndex has been reached");
+  }
+
+  else {
+    questionIndex = questionIndex + 1;
+    pageInput.innerHTML = parseInt(pageInput.innerHTML) + 1;
+    console.log("QuestionIndex is: " + questionIndex);
+    showQuestion(questions, questionIndex);
+  }
+}
+
+//Imports the value used in the slider
 function importValue(input) {
   var slider = document.getElementById(input.id.slice(0, - 5) + "Slider");
   var output = document.getElementById(input.id.slice(0, - 5) + "Output");
@@ -130,13 +107,29 @@ function importValue(input) {
   output.value = input.value;
 }
 
+//Updates the value in the output field
 function displaySliderValue(slider) {
   var output = document.getElementById(slider.id.slice(0, - 6) + "Output");
   output.value = slider.value;
 }
 
+//Updates the value in the slider
 function updateSlider(output) {
   var slider = document.getElementById(output.id.slice(0, - 6) + "Slider");
   slider.value = output.value;
 
 }
+
+var datetime = null,
+    date = null;
+
+var update = function () {
+  date = moment(new Date());
+  datetime.html(date.format('dddd / MMMM Do YYYY'));
+};
+
+$(document).ready(function(){
+  datetime = $('#timeView')
+  update();
+  setInterval(update, 1000);
+});

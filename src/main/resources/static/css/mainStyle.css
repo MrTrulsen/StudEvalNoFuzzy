@@ -104,14 +104,14 @@ h2 {
 }
 
 #saveBtn, #deleteQuestionBtn {
-  width: 300px;
+  width: 260px;
+  margin-left: 5px;
+  margin-right: 5px;
 }
 
-#footer {
-  text-align: center;
-  padding-top: 30px;
-  padding-bottom: 30px;
-  background-color: #F7F7F7;
+#pageSelector {
+  margin-top: 5px;
+  margin-bottom: 5px;
 }
 
 #modalBody {
@@ -149,7 +149,7 @@ h2 {
   transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
 }
 
-#addEvalCourseId, #addEvalCourseName, #addEvalDates, #removeCourseId, #question, #difficulty, #complexity, #time, #studentEmail {
+#addEvalCourseId, #addEvalCourseName, #addEvalDates, #removeCourseId, #text, #difficulty, #complexity, #time, #studentEmail {
   padding-bottom: 20px;
   border-bottom: solid;
   border-width: 1px;
@@ -158,13 +158,6 @@ h2 {
 
 #buttonArea {
   text-align: center;
-}
-
-#buttonBar {
-  border-top: solid;
-  border-bottom: solid;
-  border-width: 1px;
-  border-color: #696969;
 }
 
 #pageInput, #totalPages {
@@ -178,6 +171,13 @@ h2 {
   margin-top: 0.5rem;
   font-size: 80%;
   color: #dc3545;
+}
+
+.success {
+  width: 100%;
+  margin-top: 0.5rem;
+  font-size: 80%;
+  color: #28a745;
 }
 
 .page {
@@ -224,6 +224,14 @@ h2 {
 .card-header {
   background-color: #4488DD;
   color: #FFFFFF;
+}
+
+.pagination {
+  margin-bottom: 0px;
+}
+
+.page-link {
+  text-decoration-color: #007BFF;
 }
 
 .sliders {
@@ -290,7 +298,7 @@ h2 {
 
   #addEvaluation, #registerStudents, #addQuestionBtn, #homeNav, #settingsNav, #logoutNav, #addEvalBtn,
   #homeBtn, #settingsBtn, #logoutBtn, #takeEvalBtn, .evalBtn, #prevQuestionBtn, #nextQuestionBtn, #addStudentBtn,
-  #buttonPlacement, #saveBtn, #deleteQuestionBtn, #deleteQuestion {
+  #savePlacement, #saveBtn, #deleteQuestionBtn, #deleteQuestion {
     width: 100%;
   }
 
@@ -304,9 +312,14 @@ h2 {
   }
 }
 
-@media (min-width: 991px) {
-  #saveBtn, #deleteQuestionBtn {
-    margin-left: 50px;
-    margin-right: 50px;
+@media (min-width: 992px) {
+  #saveBtn {
+    margin-left: 20px;
+    width: 300px;
+  }
+
+  #deleteQuestionBtn {
+    margin-right: 20px;
+    width: 300px;
   }
 }

@@ -3,7 +3,7 @@ function generateSliderContent(questions, questionIndex) {
 
   console.log(questions[questionIndex]);
   var questionDisplay = document.getElementById("questionDisplay");
-  questionDisplay.innerHTML = "Question: " + (questionIndex + 1);
+  questionDisplay.innerHTML = "Question " + (questionIndex + 1);
 
   var questionText = document.getElementById("questionText");
   questionText.innerHTML = questions[questionIndex]["text"];
@@ -22,15 +22,15 @@ function generateSliderContent(questions, questionIndex) {
   generateSliders("time", "Time", Math.round(time));
   generateSliders("importance", "Importance", importance);
 
-  document.getElementById("questionArea").appendChild(wrapper);
+  document.getElementById("questionArea").append(wrapper);
 
   //Function to generate sliders with input
   function generateSliders(type, headerText, input) {
     var valueToString = input.toString();
 
     var content = document.createElement("div");
-    content.className = "container sliders";
     content.id = type + "Content";
+    content.className = "container sliders";
 
     var header = document.createElement("h2");
     header.innerHTML = headerText;
@@ -47,8 +47,8 @@ function generateSliderContent(questions, questionIndex) {
     content.append(slider);
 
     var ticks = document.createElement("div");
-    ticks.className = "sliderticks";
     ticks.id = type + "Ticks";
+    ticks.className = "sliderticks";
     content.append(ticks);
 
     var tickLow = document.createElement("p");
@@ -68,34 +68,15 @@ function generateSliderContent(questions, questionIndex) {
     content.append(value);
 
     var valueInput = document.createElement("input");
-    valueInput.className = "form-control valueOutput";
     valueInput.id = type + "Output";
+    valueInput.className = "form-control valueOutput";
     valueInput.setAttribute("type", "text");
     valueInput.setAttribute("value", valueToString);
     valueInput.setAttribute("onchange", "var output = this; updateSlider(output)");
     value.append(valueInput);
 
-    wrapper.appendChild(content);
+    wrapper.append(content);
   }
-}
-
-//Makes a button for each individual question
-function newQuestionButton(questionIndex) {
-  var placement = document.getElementById("footer");
-  var btn = document.createElement("button");
-
-  console.log("Question number: ", questionIndex + 1);
-  btn.innerHTML = questionIndex + 1;
-
-  btn.addEventListener('click', function() {
-    showQuestion(questions, questionIndex);
-  }, false);
-
-  placement.appendChild(btn);
-}
-
-function generateBottomBar() {
-
 }
 
 //Generates a evaluation card at the dashboard based on the user input
@@ -117,9 +98,9 @@ function generateEvaluationCard(courseId, start, end, course) {
   generateBtn("remove", courseId, 2, "data-toggle", "modal", "data-target", "#modalRemove", "onclick", "var element = document.getElementById('removeEvaluation');", "Remove");
   generateCardContent("div", "card-footer text-muted", "Opened: ", start);
 
-  document.getElementById("cardArea").appendChild(card);
+  document.getElementById("cardArea").append(card);
 
-  //Generates buttons
+  //Generates buttons inside the evaluation card
   function generateBtn(type, courseId, numOfAttributes, attribute, data, attribute2, data2, attribute3, data3, text) {
     var btn = document.createElement("button");
     btn.id = type + "btn" + courseId;
@@ -132,7 +113,7 @@ function generateEvaluationCard(courseId, start, end, course) {
     cardBody.append(btn);
 }
 
-  //Generates content inside the cards with date
+  //Generates content inside the evaluation card with date
   function generateCardContent(element, className, innerHtml, date) {
     var content = document.createElement(element);
     content.className = className;
@@ -140,7 +121,7 @@ function generateEvaluationCard(courseId, start, end, course) {
     card.append(content);
   }
 
-  //Generates content inside the cards
+  //Generates content inside the evaluation card
   function generateCardContent2(element, className, innerHtml) {
     var content = document.createElement(element);
     content.className = className;

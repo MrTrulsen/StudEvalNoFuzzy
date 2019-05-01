@@ -14,10 +14,12 @@
     <link rel="stylesheet" th:href="@{/bootstrap/css/bootstrap.css}">
     <link rel="stylesheet" th:href="@{/css/mainStyle.css}">
     <script th:src="@{/bootstrap/js/bootstrap.bundle.js}"></script>
+    <script th:src="@{/js/moment.js}"></script>
     <script th:src="@{/js/evaluation.js}"></script>
     <script th:src="@{/js/helperFunctions.js}"></script>
     <script th:src="@{/js/teacherRest.js}"></script>
     <script th:src="@{/js/contentGeneration.js}"></script>
+    <script th:src="@{/js/errorChecking.js}"></script>
     <script th:src="@{/js/addstudent.js}"></script>
   </head>
 
@@ -70,56 +72,56 @@
             <div id="questionArea">
               <div id="questionHeaderWrapper">
                 <div id="questionHeader">
-                  <h1 id="questionDisplay">How to add questions
-                    <!-- Enter question number here-->
+                  <h1 id="questionDisplay">No questions found / could be loaded
+                    <!-- Placement for question number -->
                   </h1>
                 </div>
 
                 <div id="questionTextWrapper" class="container">
-                  <h5 id="questionText" class="container">To add a question you need to push the button in the top left corner that says "Add question".
-                    After you have pushed this button, a menu with information will pop up and tell you what you should do next.</h5>
+                  <h5 id="questionText" class="container">You will only see this if there are no questions in the evaluation
+                    or there are no connection to the database</h5>
                 </div>
               </div>
               <!-- Placement for all sliders -->
-
             </div>
 
-              <div id="buttonArea" class="container">
-                <!-- Navbar for save and delete button -->
-                <nav id="buttonBar" class="navbar navbar-light container">
-                    <div id="buttonPlacement" class="navbar-nav mr-auto">
+            <div id="buttonCard" class="card text-center">
+              <div id="timeView" class="card-header">
+                <!-- Placement for the clock -->
+              </div>
+              <div class="card-body">
+                <h5 class="card-title">Control Panel</h5>
+                <p class="card-text">Here you can save or delete your selected question.</p>
+                <p class="card-text">At the bottom of this card, you can also change the page to view a another question.</p>
+                <div id="buttonArea" class="container">
+                  <nav id="buttonBar" class="navbar navbar-light container">
+                    <div id="savePlacement" class="navbar-nav ml-auto">
                       <div id="saveQuestion" class="nav-item">
-                        <!-- Button for adding questions -->
-                        <button id="saveBtn" class="btn btn-primary">Save</button>
+                        <button id="saveBtn" class="btn btn-primary" onclick="updateQuestion()">Save</button>
                       </div>
                     </div>
 
-                    <div id="deleteQuestion" class="nav-item">
-                      <!-- Button for deleting questions -->
+                    <div id="deleteQuestion" class="nav-item navbar-nav mr-auto">
                       <button id="deleteQuestionBtn" class="btn btn-primary" type="submit" data-toggle="modal" data-target="#modalDeleteQuestion">Delete</button>
                     </div>
-                </nav>
+                  </nav>
+                </div>
               </div>
 
-            <div id="footerWrapper">
-              <div id="footer">
+              <div class="card-footer text-muted">
                 <div id="pageSelector">
-                  <ul class="pagination pagination-lg justify-content-center">
+                  <ul class="pagination pagination-lg justify-content-center" style="margin-bottom: 0px">
                     <li id="previous" class="page-item">
-                      <a class="page-link" href="#" aria-label="Previous" onclick="updateQuestionPage(questionIndex - 1);">
+                      <a class="page-link" href="#pageSelector" aria-label="Previous" onclick="previousQuestion()">
                         <span aria-hidden="true">&laquo;</span>
                         <span class="sr-only">Previous</span>
                       </a>
                     </li>
-                    <li id="pageInputDisplay" class="page-item"><input id="pageInput" class="page-link" onclick="var input = this; updateQuestionPage(input);"></li>
-                    <li id="totalPagesDisplay" class="page-item"><a id="totalPages" class="page-link" onclick="updateNavigationButtons()"></a></li>
-                    <!--
-                    <li class="page-item"><a id="pageItem1" class="page-link">1</a></li>
-                    <li class="page-item"><a id="pageItem2" class="page-link">2</a></li>
-                    <li class="page-item"><a id="pageItem3" class="page-link">3</a></li>
-                    -->
+
+                    <li id="pageInputDisplay" class="page-item"><a id="pageInput" class="page-link" readonly></a>
+                    <li id="totalPagesDisplay" class="page-item"><a id="totalPages" class="page-link"></a></li>
                     <li id="next" class="page-item">
-                      <a class="page-link" href="#" aria-label="Next">
+                      <a class="page-link" href="#pageSelector" aria-label="Next" onclick="nextQuestion()">
                         <span aria-hidden="true">&raquo;</span>
                         <span class="sr-only">Next</span>
                       </a>
@@ -146,11 +148,11 @@
                       <div id="modalAddQuestionContent" class="input-group mb-3">
 
                         <p>This will be the question from the exam you want to add. Numeric values will be added automatic in ascending order.</p>
-                        <div id="question" class="input-group">
+                        <div id="text" class="input-group">
                           <div class="input-group-prepend">
                             <span class="input-group-text">Question</span>
                           </div>
-                          <input id="questionInput" type="text" class="form-control" aria-label="Sizing example input" placeholder="Question" aria-describedby="question">
+                          <input id="textInput" type="text" class="form-control" aria-label="Sizing example input" placeholder="Question" aria-describedby="question">
                         </div>
 
                         <p class="infoText">This will be the difficulty of the question in percentage %, where it needs to be calculated from a total of 100%.</p>
@@ -291,7 +293,7 @@
                   <div id="modalDeleteQuestionBody" class="modal-body">
                     <div id="modalSDeleteQuestionContent" class="input-group">
                       <div id="deleteQuestionInfo">
-                        <p>Are you sure you want to delete the question? It is not possible to reverse the operation.</p>
+                        <p style="margin-bottom: 0">Are you sure you want to delete the question? It is not possible to reverse the operation.</p>
                       </div>
                     </div>
                   </div>

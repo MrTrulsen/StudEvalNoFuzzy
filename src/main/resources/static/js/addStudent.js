@@ -1,7 +1,6 @@
 
 
 
-console.log(student);
 //Adds students to the database
 function addStudent(users) {
     console.log("Adding student...");

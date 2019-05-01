@@ -1,14 +1,15 @@
 
 //Adds evaluations in the database
-function addEvaluation(evaluation, courseName) {
+function addEvaluation(evaluation, courseName, email) {
   console.log("Adding evaluation...");
-  fetch("/addEvaluation/" + courseName, {
+  fetch("/addEvaluation/" + courseName + "/" + email, {
     method: "POST",
     headers: {
       "Content-Type": "application/json"
     },
     body: JSON.stringify(evaluation)
-  }).then(function (response) {
+  })
+      .then(function (response) {
         var btn = document.getElementById("saveEvaluationBtn");
         console.log("Response: ", response);
 
@@ -33,14 +34,15 @@ function addQuestion(question) {
             "Content-Type": "application/json"
         },
         body: JSON.stringify(question)
-    }).then(function (response) {
+    })
+        .then(function (response) {
         var btn = document.getElementById('saveQuestionBtn');
         console.log("Response: ", response);
 
         if (response.status === 200) {
             console.log(questions);
             btn.setAttribute("data-dismiss", "modal");
-            newQuestionButton(questions.length);
+            window.location.reload();
 
         } else {
             btn.removeAttribute("data-dismiss");
@@ -55,16 +57,20 @@ function loadEvaluations() {
     console.log("Loading evaluations...");
     fetch("/getEvaluations/62").then(function(response) {
         return response.json();
-    }).then(function (evaluations) {
+    })
+        .then(function (evaluations) {
         console.log("Evaluation data: ", evaluations);
+
         if (Array.isArray(evaluations)) {
             for (var i = 0; i < evaluations.length; i++) {
                 var evaluation = evaluations[i];
                 console.log(evaluation);
+
                 //TODO: Use this in studentDashboard instead of teacherDashboard
                 if (evaluation["stopDate"] < moment().format('YYYY-MM-DD')) {
                     console.log(evaluation["courseId"] + " expired at date " + evaluation["stopDate"]);
                 }
+
                 else {
                     //TODO: Make it possible to return the courseName from the function
                     var courseName = getCourseName(evaluation);
@@ -81,16 +87,28 @@ function loadQuestions() {
     console.log("Loading questions...");
     fetch("/getQuestionsInEval/1").then(function(response) {
         return response.json();
-    }).then(function (questions) {
+    })
+        .then(function (questions) {
         console.log("Evaluation data: ", questions);
+
         if (Array.isArray(questions)) {
             for (var i = 0; i < questions.length; i++) {
                 var question = questions[i];
                 console.log(question);
                 this.questions = questions;
-                newQuestionButton(i);
             }
-            generateSliderContent(questions, 0);
+
+            if (questions.length === 0 || questions.length === null) {
+                console.log("There are no questions");
+            }
+
+            else {
+                console.log("There are " + questions.length + " questions in this evaluation");
+                questionIndex = 0;
+                document.getElementById("pageInput").innerHTML = questionIndex + 1;
+                updateTotalPagesDisplay();
+                generateSliderContent(questions, 0);
+            }
         }
     });
 }
@@ -100,15 +118,17 @@ function deleteEvaluation(courseId) {
     console.log("Deleting evaluation: ", courseId);
     fetch("/deleteEvaluation/" + courseId, {
         method: "DELETE"
-    }).then(function (response) {
+    })
+        .then(function (response) {
         var btn = document.getElementById("removeEvaluationBtn");
         console.log("Response: ", response);
 
         if (response.status === 200) {
             btn.setAttribute("data-dismiss", "modal");
             window.location.reload();
+        }
 
-        } else {
+        else {
             btn.removeAttribute("data-dismiss");
             showErrorMessage("modalRemoveEvalBody", "Error when trying to add question. Please try again.");
             return response.text();
@@ -117,22 +137,48 @@ function deleteEvaluation(courseId) {
 }
 
 //Deletes a question from the database
-//TODO: Implement the function inside a modal for deleting question
 function deleteQuestion(questionId) {
     console.log("Deleting evaluation: ", questionId);
     fetch("/deleteQuestion/" + questionId, {
         method: "DELETE"
-    }).then(function (response) {
+    })
+        .then(function (response) {
         var btn = document.getElementById("confirmDeleteQuestionBtn");
         console.log("Response: ", response);
         
         if (response.status === 200) {
             btn.setAttribute("data-dismiss", "modal");
             window.location.reload();
+        }
 
-        } else {
+        else {
             btn.removeAttribute("data-dismiss");
             showErrorMessage("modalDeleteQuestionBody", "Error when trying to delete question. Please try again.");
+            return response.text();
+        }
+    });
+}
+
+//Saves the current question to the database
+function saveQuestion(question) {
+    console.log("Adding question...");
+    fetch("/editQuestion", {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json"
+        },
+        body: JSON.stringify(question)
+    })
+        .then(function (response) {
+        console.log("Response: ", response);
+
+        if (response.status === 200) {
+            console.log(questions);
+            showSuccessMessage()("buttonArea", "Question successfully saved");
+        }
+
+        else {
+            showErrorMessage("buttonArea", "Error when trying to save question. Please try again.");
             return response.text();
         }
     });
