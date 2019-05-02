@@ -15,8 +15,8 @@ import javax.validation.Valid;
 @Controller
 public class Frontpage {
 
-    @Autowired
-    UserService userService;
+//    @Autowired
+//    UserService userService;
 
     @RequestMapping(value = "/login")
     public String studentLogin(){
@@ -41,17 +41,17 @@ public class Frontpage {
             modelAndView.addObject("successMessage", "Please correct the errors in form!");
             modelMap.addAttribute("bindingResult", bindingResult);
         }
-        else if(userService.isUserAlreadyPresent(user)){
-            modelAndView.addObject("successMessage", "user already exists!");
-        }
-        // we will save the user if, no binding errors
-        else if (!userService.isPasswordConfirmationValid(user)){
-            modelAndView.addObject("successMessage", "password failed to be repeated!");
-        }
-        else{
-            userService.saveUser(user);
-            modelAndView.addObject("successMessage", "User is registered successfully!");
-        }
+//        else if(userService.isUserAlreadyPresent(user)){
+//            modelAndView.addObject("successMessage", "user already exists!");
+//        }
+//        // we will save the user if, no binding errors
+//        else if (!userService.isPasswordConfirmationValid(user)){
+//            modelAndView.addObject("successMessage", "password failed to be repeated!");
+//        }
+//        else{
+//            userService.saveUser(user);
+//            modelAndView.addObject("successMessage", "User is registered successfully!");
+//        }
         modelAndView.addObject("user", new User());
         modelAndView.setViewName("login");
         return modelAndView;
