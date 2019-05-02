@@ -16,8 +16,7 @@ import javax.sql.DataSource;
 
 @EnableWebSecurity
 @Configuration
-@Order(1)
-public class StudentSecurity extends WebSecurityConfigurerAdapter {
+public class UserSecurity extends WebSecurityConfigurerAdapter {
 
     @Autowired
     Securityhandler successHandler ;
@@ -28,10 +27,10 @@ public class StudentSecurity extends WebSecurityConfigurerAdapter {
     @Autowired
     private DataSource dataSource;
 
-    @Value("${spring.queries.users-query}")
+    @Value("select email, password, '1' as enabled from user where email=? and is_active='1'")
     private String usersQuery;
 
-    @Value("${spring.queries.roles-query}")
+    @Value("select u.email, r.role_name from user u inner join user_role ur on(u.user_id=ur.user_id) inner join role r on(ur.role_id=r.role_id) where u.email=?")
     private String rolesQuery;
 
 
@@ -50,6 +49,8 @@ public class StudentSecurity extends WebSecurityConfigurerAdapter {
                 .antMatchers("/register").permitAll()
                 .antMatchers("/registeruser").permitAll()
                 .antMatchers("/studentpage").hasAuthority("STUDENT_USER")
+                .antMatchers("/teacherpage").hasAuthority("TEACHER_USER")
+                .antMatchers("/addStudents").permitAll()
                 .anyRequest().authenticated()
                 .and()
 

@@ -11,16 +11,21 @@
   <script src="../bootstrap/js/jquery.min.js"></script>
   <link rel="stylesheet" href="../bootstrap/css/bootstrap.css">
   <link rel="stylesheet" href="../css/mainStyle.css">
+  <link rel="stylesheet" href="../css/daterangepicker.css">
   <script src="../bootstrap/js/bootstrap.bundle.js"></script>
-  <script src="../js/canvasjs.min.js"></script>
   <script src="../js/moment.js"></script>
+  <script src="../js/daterangepicker.js"></script>
+  <script src="../js/canvasjs.min.js"></script>
   <script src="../js/dashboard.js"></script>
+  <script src="../js/helperFunctions.js"></script>
+  <script src="../js/teacherRest.js"></script>
+  <script src="../js/contentGeneration.js"></script>
   <script src="../js/graph.js"></script>
 </head>
 
 <body id="body">
   <section id="fullPage">
-    <div id="headerWrapper">
+    <div id="headerWrapper" onclick="location.href='../sites/teacherDashboard.html'">
       <div id="header" class="container">
         <p>EDUEVAL</p>
       </div>
@@ -35,15 +40,11 @@
 
         <!-- Class for collapseable navbar  -->
         <div class="collapse navbar-collapse" id="navbarTogglerDemo01">
-          <div class="navbar-nav mr-auto mt-2 mt-lg-0">
+          <div class="navbar-nav mr-auto">
             <div id="addEvalNav" class="nav-item">
               <!-- Button for adding evaluation  -->
               <button id="addEvalBtn" class="btn btn-primary" data-toggle="modal" data-target="#modalAddEval">Add evaluation</button>
             </div>
-
-            <!-- <div id="registerStudents" class="nav-item">
-                <button id="navButton" class="btn btn-primary" onclick="location.href='#'">Register students</button>
-              </div> -->
           </div>
 
           <div id="settingsNav" class="nav-item">
@@ -72,9 +73,9 @@
               <div class="card-body">
                 <h5 class="card-title">Special title treatment</h5>
                 <p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
-                <button id="editEvalBtn" class="btn btn-primary evalBtn" onclick="location.href='#'" type="submit">Edit evaluation</button>
+                <button id="editEvalBtn" class="btn btn-primary evalBtn" onclick="location.href='../sites/evaluation.html'" type="submit">Edit evaluation</button>
                 <button id="resultBtn" class="btn btn-primary evalBtn" data-toggle="modal" data-target="#modalResult" type="submit">Result</button>
-                <button id="removeBtn" class="btn btn-primary evalBtn" onclick="removeErrorMessage()" data-toggle="modal" data-target="#modalRemove" type="submit">Remove</button>
+                <button id="removeBtn" class="btn btn-primary evalBtn" data-toggle="modal" data-target="#modalRemove" onclick="var element = document.getElementById('removeEvaluation'); removeInputValue(element);" type="submit">Remove</button>
               </div>
 
               <div class="card-footer text-muted">
@@ -104,7 +105,7 @@
 
           <!-- Modal for adding evaluation with user input  -->
           <div class="modal fade" id="modalAddEval" tabindex="-1" role="dialog" aria-labelledby="modalAddEvalTitle" aria-hidden="true">
-            <div class="modal-dialog modal-dialog-scrollable" role="document">
+            <div class="modal-dialog" role="document">
               <div class="modal-content">
                 <form action="index.html" method="post">
                   <div class="modal-header">
@@ -113,39 +114,47 @@
                       <span aria-hidden="true">&times;</span>
                     </button>
                   </div>
+
                   <div id="modalAddEvalBody" class="modal-body">
-                    <form>
-                      <div id="modalAddEvalContent" class="input-group mb-3">
-                        <div class="input-group-prepend">
-                          <span class="input-group-text" id="inputGroup-sizing-default">Course ID</span>
-                        </div>
+                    <div id="modalAddEvalContent" class="input-group mb-3">
 
-                        <input id="courseIdInput" type="text" class="form-control addEvalInput" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default">
+                      <p>This will be the ID of your course. It would often contain numbers and look something like "ID203920".</p>
+                      <div id="courseId" class="input-group">
+                        <div class="input-group-prepend">
+                          <span class="input-group-text">Course ID</span>
+                        </div>
+                        <input id="courseIdInput" type="text" class="form-control" placeholder="ID" aria-label="Sizing example input" aria-describedby="courseId">
                       </div>
 
-                      <div class="input-group mb-3">
+                      <p class="infoText">This will be the name of the course to the evaluation you want to add. It can contain spaces and usually contains only characters, like "Operating Systems".</p>
+                      <div id="courseName" class="input-group">
                         <div class="input-group-prepend">
-                          <span class="input-group-text" id="inputGroup-sizing-default">Course Name</span>
+                          <span class="input-group-text">Course Name</span>
                         </div>
-
-                        <input id="courseNameInput" type="text" class="form-control addEvalInput" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default">
+                        <input id="courseNameInput" type="text" class="form-control" placeholder="Name" aria-label="Sizing example input" aria-describedby="courseName">
                       </div>
 
-                      <div class="input-group">
+                      <p class="infoText">This will be the date when the evaluation starts and stops. Here you need to choose a start and end date from the datepicker provided.</p>
+                      <div id="evalDates" class="input-group">
                         <div class="input-group-prepend">
-                          <span class="input-group-text">Date of exam</span>
+                          <span class="input-group-text">Date</span>
                         </div>
-
-                        <input id="dateInput" type="text" placeholder="Date" aria-label="Date" class="form-control addEvalInput">
-                        <input id="monthInput" type="text" placeholder="Month" aria-label="Month" class="form-control addEvalInput">
-                        <input id="yearInput" type="text" placeholder="Year" aria-label="Year" class="form-control addEvalInput">
+                        <input id="evalDatesInput" type="text" name="datetimeEval" placeholder="Date" aria-label="Sizing example input" aria-describedby="evalDates" readonly>
                       </div>
-                    </form>
+
+                      <p class="infoText">This will be the total time of the exam, written in hours.</p>
+                      <div id="examTime" class="input-group">
+                        <div class="input-group-prepend">
+                          <span class="input-group-text">Exam Time</span>
+                        </div>
+                        <input id="examTimeInput" type="text" class="form-control" placeholder="Time" aria-label="Sizing example input" aria-describedby="examTime">
+                      </div>
+                    </div>
                   </div>
 
                   <div class="modal-footer">
                     <button type="button" class="btn btn-primary" data-dismiss="modal">Close</button>
-                    <button type="button" class="btn btn-primary" type="submit" onclick="addEvaluation()">Save evaluation</button>
+                    <button id="saveEvaluationBtn" type="button" class="btn btn-primary" onclick="generateEvaluation()">Save evaluation</button>
                   </div>
                 </form>
               </div>
@@ -157,25 +166,20 @@
             <div class="modal-dialog" role="document">
               <div class="modal-content">
                 <div class="modal-header">
-                  <h5 class="modal-title" id="exampleModalLabel">Removing evaluation</h5>
+                  <h5 class="modal-title" id="removeEvaluationTitle">Removing evaluation</h5>
                   <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                   </button>
                 </div>
-
                 <div id="modalRemoveBody" class="modal-body">
-                  <p>Are you sure you want to remove the evaluation? If you want so, please write in the Course ID of the evaluation.</p>
-                  <div class="input-group mb-3">
-                    <form>
-                      <div class="input-group-prepend">
-                        <span class="input-group-text" id="inputGroup-sizing-default">Course ID</span>
-                      </div>
-                    </form>
-
-                    <input id="removeEvaluation" type="text" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default">
+                  <div id="modalRemoveContent" class="input-group mb-3">
+                    <p>Are you sure you want to remove the evaluation? If you want so, please write in the Course ID of the evaluation.</p>
+                    <div class="input-group-prepend">
+                      <span class="input-group-text" id="courseIdRemove">Course ID</span>
+                    </div>
+                    <input id="removeEvaluation" type="text" class="form-control" placeholder="ID" aria-label="Sizing example input" aria-describedby="courseIdRemove">
                   </div>
                 </div>
-
                 <div class="modal-footer">
                   <button type="button" class="btn btn-primary" data-dismiss="modal">Close</button>
                   <button id="removeEvaluationBtn" type="button" class="btn btn-primary" onclick="removeEvaluation()">Remove evaluation</button>
@@ -189,7 +193,7 @@
             <div class="modal-dialog" role="document">
               <div class="modal-content">
                 <div class="modal-header">
-                  <h5 class="modal-title" id="exampleModalLabel">User settings</h5>
+                  <h5 class="modal-title" id="userSettingsTitle">User settings</h5>
                   <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                   </button>
@@ -198,7 +202,7 @@
                 <div id="modalSettingsBody" class="modal-body">
                   <div id="modalSettingsContent" class="input-group mb-3">
                     <div id="changePassword">
-                      <p>If you want to change the user password, you can press here.</p>
+                      <p>If you want to change the user password, you can press here. You will need to confirm your password and then verify it in your mail.</p>
                       <button id="changePasswordBtn" class="btn btn-primary" onclick="location.href='#'" type="submit">Change password</button>
                     </div>
 
@@ -221,13 +225,6 @@
         </div>
       </div>
     </div>
-    <!-- Working footer, but not corresponding to bottom placement in the CSS
-      <div id="footer">
-        <div id="footerLinks">
-          <div><span id="copyright">© 2019 EDUEVAL</span>
-          </div>
-        </div>
-      </div> -->
   </section>
 </body>
 

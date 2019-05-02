@@ -1,6 +1,6 @@
-package com.StudEval.StudEvalNoFuzzy.config;
+package com.StudEval.StudEvalNoFuzzy.PageControllers;
 
-import com.StudEval.StudEvalNoFuzzy.Security.UserService;
+import com.StudEval.StudEvalNoFuzzy.Interfaces.UserService;
 import com.StudEval.StudEvalNoFuzzy.User.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -45,12 +45,15 @@ public class Frontpage {
             modelAndView.addObject("successMessage", "user already exists!");
         }
         // we will save the user if, no binding errors
-        else {
+        else if (!userService.isPasswordConfirmationValid(user)){
+            modelAndView.addObject("successMessage", "password failed to be repeated!");
+        }
+        else{
             userService.saveUser(user);
             modelAndView.addObject("successMessage", "User is registered successfully!");
         }
         modelAndView.addObject("user", new User());
-        modelAndView.setViewName("register");
+        modelAndView.setViewName("login");
         return modelAndView;
     }
 }

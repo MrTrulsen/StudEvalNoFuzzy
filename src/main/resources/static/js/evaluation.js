@@ -1,73 +1,135 @@
 
 var questions = [];
+var questionIndex;
 
-var questionNumber = 1;
+window.addEventListener('load', function() {
+  //Loads the available questions
+  loadQuestions();
+});
 
-function questionValue(question) {
-  var complexity = document.getElementById('complexityInput').value;
-  var time_use = document.getElementById('timeInput').value;
+//Generates a question based on user input
+function generateQuestion() {
+  var text = document.getElementById('textInput').value;
   var difficulty = document.getElementById('difficultyInput').value;
+  var complexity = document.getElementById('complexityInput').value;
+  var time = document.getElementById('timeInput').value;
   var importance = document.getElementById('importanceInput').value;
+  var btn = document.getElementById('saveQuestionBtn');
 
-  var q1 = [question, difficulty, complexity, time_use, importance];
-  var newQuestion = questions.push(q1);
-  console.log(time_use);
-  console.log(questions);
+  var question = {
+    text: text,
+    difficulty: difficulty / 100,
+    complexity: complexity / 100,
+    time: time / 60,
+    importance: importance / 100
+  };
+
+  console.log(question);
+
+  removeElementsByClass("error", "success");
+  checkForErrorInAddQuestion(question, text, complexity, time, difficulty, importance, btn);
 }
 
-function showQuestion(index) {
-  document.getElementById("questionText").innerHTML = questions[index][0];
+function updateQuestion() {
+  var text = document.getElementById('questionText').innerHTML;
+  var difficulty = document.getElementById('difficultyOutput').value;
+  var complexity = document.getElementById('complexityOutput').value;
+  var time = document.getElementById('timeOutput').value;
+  var importance = document.getElementById('importanceOutput').value;
+
+  var question = {
+    text: text,
+    difficulty: difficulty / 100,
+    complexity: complexity / 100,
+    time: time / 60,
+    importance: importance / 100
+  };
+
+  removeElementsByClass("error", "success");
+  saveQuestion(question);
 }
 
-function addQuestion() {
-  var txt;
+//Finds the active question for deletion inside the evaluation
+function findActiveQuestionForDeletion() {
+  var questionId = questions[questionIndex]["question_id"];
+  deleteQuestion(questionId);
+}
 
-  var question = document.getElementById("questionInput").value; //= prompt("Please enter Question " + questionNumber + " : ", "");
-  if (question == null || question == "") {
-    txt = " User didnt put in a Question.";
+//Shows the selected question based on questionIndex
+function showQuestion(questions, questionIndex) {
+  removeElement("sliderWrapper");
+  generateSliderContent(questions, questionIndex);
+}
 
+//Updates the display of total pages inside the pageSelector
+function updateTotalPagesDisplay() {
+  document.getElementById('totalPages').innerHTML = questions.length;
+  console.log(document.getElementById('totalPages'));
+}
+
+//Chooses the previous questionIndex
+function previousQuestion() {
+  var pageInput = document.getElementById("pageInput");
+
+  if (questionIndex < 1) {
+    console.log("The lowest questionIndex has been reached");
   }
+
   else {
-    var btn = document.getElementById("saveQuestionBtn");
-    btn.setAttribute("data-dismiss", "modal")
-    txt = question;
-    newQuestionButton();
-    questionValue(question);
-    questionNumber++;
+    questionIndex = questionIndex - 1;
+    pageInput.innerHTML = parseInt(pageInput.innerHTML) - 1;
+    console.log("QuestionIndex is: " + questionIndex);
+    showQuestion(questions, questionIndex);
+  }
+}
+
+//Chooses the next questionIndex
+function nextQuestion() {
+  var pageInput = document.getElementById("pageInput");
+
+  if (questionIndex > (questions.length - 2)) {
+    console.log("The highest questionIndex has been reached");
   }
 
-  document.getElementById("questionText").innerHTML = txt;
+  else {
+    questionIndex = questionIndex + 1;
+    pageInput.innerHTML = parseInt(pageInput.innerHTML) + 1;
+    console.log("QuestionIndex is: " + questionIndex);
+    showQuestion(questions, questionIndex);
+  }
 }
 
-function newQuestionButton() {
-
-  console.log(questionNumber);
-  var newButton = document.createElement("button");
-  newButton.innerHTML = questionNumber;
-  var questionIndex = questionNumber - 1;
-  newButton.addEventListener('click', function() {
-    showQuestion(questionIndex);
-  }, false);
-
-  document.getElementById("footer").appendChild(newButton);
-}
-function importValue(input){
-  console.log(input);
-    var slider = document.getElementById(input.id.slice(0, - 5) + "Slider");
-    var output = document.getElementById(input.id.slice(0, - 5) + "Output");
-     slider.value = input.value;
-     output.value = input.value;
-console.log(slider);
-console.log(input);
-console.log(output);
+//Imports the value used in the slider
+function importValue(input) {
+  var slider = document.getElementById(input.id.slice(0, - 5) + "Slider");
+  var output = document.getElementById(input.id.slice(0, - 5) + "Output");
+  slider.value = input.value;
+  output.value = input.value;
 }
 
+//Updates the value in the output field
 function displaySliderValue(slider) {
   var output = document.getElementById(slider.id.slice(0, - 6) + "Output");
   output.value = slider.value;
 }
 
+//Updates the value in the slider
 function updateSlider(output) {
   var slider = document.getElementById(output.id.slice(0, - 6) + "Slider");
   slider.value = output.value;
+
 }
+
+var datetime = null,
+    date = null;
+
+var update = function () {
+  date = moment(new Date());
+  datetime.html(date.format('dddd / MMMM Do YYYY'));
+};
+
+$(document).ready(function(){
+  datetime = $('#timeView')
+  update();
+  setInterval(update, 1000);
+});

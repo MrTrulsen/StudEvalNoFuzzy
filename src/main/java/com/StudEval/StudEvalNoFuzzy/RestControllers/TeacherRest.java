@@ -1,79 +1,192 @@
 package com.StudEval.StudEvalNoFuzzy.RestControllers;
 
 import com.StudEval.StudEvalNoFuzzy.Evaluation.Answer;
+import com.StudEval.StudEvalNoFuzzy.Evaluation.Evaluation;
 import com.StudEval.StudEvalNoFuzzy.Evaluation.Question;
+import com.StudEval.StudEvalNoFuzzy.Interfaces.UserRepository;
 import com.StudEval.StudEvalNoFuzzy.Repositories.MainRepository;
-import com.StudEval.StudEvalNoFuzzy.Repositories.TeacherRepository;
-import com.StudEval.StudEvalNoFuzzy.User.Student;
+import com.StudEval.StudEvalNoFuzzy.User.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
 import java.util.List;
 
 @RestController
 public class TeacherRest {
-    private final TeacherRepository teacherRepository;
     private final MainRepository mainRepository;
 
     @Autowired
-    public TeacherRest(TeacherRepository teacherRepository, MainRepository mainRepository) {
-        this.teacherRepository = teacherRepository;
+    UserRepository userRepository;
+
+    @Autowired
+    public TeacherRest(MainRepository mainRepository) {
         this.mainRepository = mainRepository;
     }
 
-    @RequestMapping("/answers")
-    public List<Answer> listRelatedAnswers(){
-        //TO DO; implement ID to come in
-        String course_id = "ID202712";
-        List<Answer> answerList = teacherRepository.findRelatedAnswersToCourseId(course_id);
+    @RequestMapping("/getAnswersInEval/{evalId}")
+    public List<Answer> listRelatedAnswers(@PathVariable Integer evalId){
+        List<Answer> answerList = mainRepository.findRelatedAnswersToEvalId(evalId);
         return answerList;
     }
 
-    @RequestMapping("/questionsToCourse")
-    public List<Question> listRelatedQuestions(){
-        //TO DO; implement course_ID to come in
-        String course_id = "ID202712";
+    @RequestMapping("/getQuestionsInEval/{evalId}")
+    public List<Question> listRelatedQuestions(@PathVariable Integer evalId){
         List<Question> questionsList = new ArrayList<>();
-        questionsList = mainRepository.findRelatedQuestionsToCourse(course_id);
+        questionsList = mainRepository.findRelatedQuestionsToEval(evalId);
         return questionsList;
     }
 
-    @RequestMapping("/studentsInThisCourse")
-    public List<Student> listStudents(){
-        //TO DO; implement course_ID to come in
-        String course_id = "ID202712";
-        List<Student> studentList = teacherRepository.findStudentsInCourse(course_id);
-        return studentList;
+    @RequestMapping("/studentsEmailsInEval/{evalId}")
+    public List<String> listStudentEmailsInEval(@PathVariable Integer evalId){
+        List<String> studentEmailList = mainRepository.findStudentsInEvaluation(evalId);
+        return studentEmailList;
     }
 
-    //test
-    @RequestMapping(value = "/addStudents", method = RequestMethod.PUT)
-    public ResponseEntity<String> addStudents(@RequestBody List<Student> students, String course_id){
 
-        //this is just a temp test
-        List<Student> studentTemp = new ArrayList<>();
-        Student stud2 = new Student(3,"ors@gmail.com", "", false);
-        Student stud1  = new Student(2,"os@gmail.com", "", false);
-        Student stud  = new Student(1,"ors@gmail.com", "", false);
-        studentTemp.add(stud);
-        studentTemp.add(stud1);
-        studentTemp.add(stud2);
-        course_id = "ID202712";
+    @RequestMapping("/getEvaluations/{userId}")
+    public List<Evaluation> getEvaluations(@PathVariable Integer userId){
+        List<Evaluation> evals = new ArrayList<>();
+        try{
+            evals = mainRepository.getEvaluations(userId);
+        }
+        catch(Exception ex){
+            evals.clear();
+            return evals;
+        }
+        return evals;
+    }
 
-        String error = teacherRepository.importStudentsToCourse(studentTemp,course_id);
+
+
+
+    @RequestMapping("/getNameOfCourse/{courseId}")
+    public String getNameOfCourse(@PathVariable String courseId){
+        String courseName = mainRepository.getCourseNameFromEval(courseId);
+        return courseName;
+    }
+
+
+    @RequestMapping(value = "/addStudents/{evalId}" , method = RequestMethod.POST)
+    public ResponseEntity<String> addStudents(@RequestBody List<User> users, @PathVariable Integer evalId){
+
+        String error = mainRepository.importUsersToEvaluation(users,evalId);
         if(error == null){
             return new ResponseEntity<>(HttpStatus.OK);
         }
         else {
             return new ResponseEntity<>(error, HttpStatus.BAD_REQUEST);
         }
+    }
 
+    @RequestMapping(value = "/addEvaluation/{course_name}/{email}" , method = RequestMethod.POST)
+    public ResponseEntity<String> addEvaluation(@RequestBody Evaluation evaluation, @PathVariable String course_name, @PathVariable String email){
+
+        String error = mainRepository.addNewEvaluation(evaluation,course_name,email);
+        if(error == null){
+            return new ResponseEntity<>(HttpStatus.OK);
+        }
+        else {
+            return new ResponseEntity<>(error, HttpStatus.BAD_REQUEST);
+        }
+    }
+
+    @RequestMapping(value = "/addQuestions/{evalId}" , method = RequestMethod.POST)
+    public ResponseEntity<String> addQuestions(@RequestBody List<Question> questions,@PathVariable Integer evalId){
+        String error = mainRepository.addQuestionList(questions,evalId);
+        if(error == null){
+            return new ResponseEntity<>(HttpStatus.OK);
+        }
+        else {
+            return new ResponseEntity<>(error, HttpStatus.BAD_REQUEST);
+        }
+    }
+
+    @RequestMapping(value = "/addQuestion/{evalId}" , method = RequestMethod.POST)
+    public ResponseEntity<String> addQuestion(@RequestBody Question question,@PathVariable Integer evalId){
+        String error = mainRepository.addQuestion(question,evalId);
+        if(error == null){
+            return new ResponseEntity<>(HttpStatus.OK);
+        }
+        else {
+            return new ResponseEntity<>(error, HttpStatus.BAD_REQUEST);
+        }
+    }
+
+    @RequestMapping(value = "/deleteEvaluation/{evalId}" , method = RequestMethod.DELETE)
+    public ResponseEntity<String> deleteEvaluation(@PathVariable Integer evalId){
+        String error = mainRepository.deleteEvaluation(evalId);
+        if(error == null){
+            return new ResponseEntity<>(HttpStatus.OK);
+        }
+        else {
+            return new ResponseEntity<>(error, HttpStatus.BAD_REQUEST);
+        }
+    }
+
+    @RequestMapping(value = "/deleteUser/{email}" , method = RequestMethod.DELETE)
+    public ResponseEntity<String> deleteUser(@PathVariable String id){
+        String error;
+        User current = userRepository.findByEmail(getCurrentUsername());
+
+        if (id.equals(Long.toString(current.getId())) || id == null){
+            error = mainRepository.deleteUser(id);
+        }else{
+            error = "ERROR: You are not authorized to delete this user!";
+            return new ResponseEntity<>(error, HttpStatus.FORBIDDEN);
+        }
+
+        if(error == null){
+            return new ResponseEntity<>(HttpStatus.OK);
+        }
+        else {
+            return new ResponseEntity<>(error, HttpStatus.BAD_REQUEST);
+        }
+    }
+
+    @RequestMapping(value = "/deleteQuestion/{questionId}" , method = RequestMethod.DELETE)
+    public ResponseEntity<String> deleteUser(@PathVariable Integer questionId){
+        String error = mainRepository.deleteQuestionFromEvaluation(questionId);
+        if(error == null){
+            return new ResponseEntity<>(HttpStatus.OK);
+        }
+        else {
+            return new ResponseEntity<>(error, HttpStatus.BAD_REQUEST);
+        }
+    }
+
+    @RequestMapping(value = "/editQuestion" , method = RequestMethod.POST)
+    public ResponseEntity<String> editQuestion(@RequestBody Question question){
+        String error = mainRepository.editQuestion(question);
+        if(error == null){
+            return new ResponseEntity<>(HttpStatus.OK);
+        }
+        else {
+            return new ResponseEntity<>(error, HttpStatus.BAD_REQUEST);
+        }
+    }
+
+
+    /**
+     *
+     * @return Username from the currently logged in user.
+     */
+    private String getCurrentUsername(){
+        Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+
+        String loggedInUsername;
+
+        if (principal instanceof UserDetails){
+            loggedInUsername = ((UserDetails)principal).getUsername();
+        }else{
+            loggedInUsername = principal.toString();
+        }
+
+        return loggedInUsername;
     }
 
 }

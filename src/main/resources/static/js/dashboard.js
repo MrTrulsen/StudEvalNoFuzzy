@@ -1,146 +1,125 @@
+
+
+window.addEventListener('load', function() {
+  //Loads the available evaluations
+  loadEvaluations();
+  //Cleans the input field for dates at adding evaluations
+})
+
 //Adds a new evaluation by making a card with user input at the dashboard
-function addEvaluation() {
+function generateEvaluation() {
   var courseId = document.getElementById("courseIdInput").value;
   var courseName = document.getElementById("courseNameInput").value;
-  var course = courseId + " - " + courseName;
 
-  var date = document.getElementById("dateInput").value;
-  var month = document.getElementById("monthInput").value;
-  var year = document.getElementById("yearInput").value;
+  var evalDates = document.getElementById('datesInput').value;
+  var examTime = document.getElementById('examTimeInput').value;
+  var btn = document.getElementById("saveEvaluationBtn");
 
-  var closed;
-  var opened;
-  dateFormat(date, month, year);
-  addEvaluationCard(courseId, course, opened, closed);
+  var evalDatesArray = evalDates.split(" - ", 2); //TODO: Change the split string to " / " when the formatting works
+  var start = evalDatesArray[0];
+  var end = evalDatesArray[1];
 
-  function dateFormat(date, month, year) {
-    var headerDate = month.concat(" ").concat(Number(parseInt(date) + 1)).concat(" ").concat(year);
-    var footerDate = month.concat(" ").concat(date.concat(" ")).concat(year);
-    var format = "MMM Do YYYY";
+  var evaluation = {
+    courseId: courseId,
+    startDate: start,
+    stopDate: end,
+    timeOfExam: examTime
+  };
 
-    closed = moment(headerDate, format).format(format);
-    opened = moment(footerDate, format).format(format);
-  }
+  console.log(evaluation);
+  getLoginEmail();
+
+  console.log(email);
+
+  removeElementsByClass("error");
+  checkForErrorInAddEvaluation(evaluation, courseId, courseName, evalDates, examTime, btn, email);
 }
 
-//Generates a evaluation card at the dashboard based on the user input
-function addEvaluationCard(courseId, course, opened, closed) {
-  var card = document.createElement("div");
-  card.id = "evaluationCard" + courseId;
-  card.className = "card text-center";
+//Adds an evaluation card at the dashboard based on the user input or when loaded into the dashboard
+function addEvaluationCard(evaluation, courseName) {
+  var course = evaluation["courseId"] + " - " + courseName; //TODO: Get course name from the database
+  start = moment(evaluation["startDate"]).format('dddd / MMMM Do YYYY');
+  end = moment(evaluation["stopDate"]).format('dddd / MMMM Do YYYY');
 
-  generateCardContent("div", "card-header", "Open until: ", closed);
-
-  var cardBody = document.createElement("div");
-  cardBody.className = "card-body";
-  card.append(cardBody);
-
-  generateCardContent2("h5", "card-title", course);
-  generateCardContent2("p", "card-text", "With supporting text below as a natural lead-in to additional content.");
-  generateBtn("seeEval", courseId, 1, "onclick", "location.href='#'", null, null, null, null, "See evaluation");
-  generateBtn("result", courseId, 2, "data-toggle", "modal", "data-target", "#modalResult", null, null, "Result");
-  generateBtn("remove", courseId, 2, "data-toggle", "modal", "data-target", "#modalRemove", "onclick", "removeErrorMessage()", "Remove");
-  generateCardContent("div", "card-footer text-muted", "Opened: ", opened);
-
-  document.getElementById("cardArea").appendChild(card);
-
-  //Generates buttons
-  function generateBtn(type, courseId, numOfAttributes, attribute, data, attribute2, data2, attribute3, data3, text) {
-    var btn = document.createElement("button");
-    btn.id = type + "btn" + courseId;
-    btn.className = "btn btn-primary evalBtn";
-    btn.setAttribute(attribute, data);
-    btn.setAttribute(attribute2, data2);
-    btn.setAttribute(attribute3, data3);
-    btn.type = "submit";
-    btn.innerText = text;
-    cardBody.append(btn);
-  }
-
-  //Generates content inside the cards with date
-  function generateCardContent(element, className, innerHtml, date) {
-    var content = document.createElement(element);
-    content.className = className;
-    content.innerHTML = innerHtml + date;
-    card.append(content);
-  }
-
-  //Generates content inside the cards
-  function generateCardContent2(element, className, innerHtml) {
-    var content = document.createElement(element);
-    content.className = className;
-    content.innerHTML = innerHtml;
-    cardBody.append(content);
-  }
+  generateEvaluationCard(evaluation["courseId"], start, end, course);
 }
 
 //Removes a evaluation when user press on the remove button inside the card
-function removeEvaluation() {
-  var inputValue = document.getElementById("removeEvaluation").value;
-  var inputField = document.getElementById("removeEvaluation");
+function removeEvaluationFromDashboard() {
+  var courseId = document.getElementById("removeCourseIdInput").value;
+  var date = document.getElementById("removeDateInput").value;
   var btn = document.getElementById("removeEvaluationBtn");
 
-  btn.removeAttribute("data-dismiss", "modal");
-
-  checkForError(inputValue, inputField, btn);
+  removeElementsByClass("error", "success");
+  checkForError(courseId, date, btn);
 
   //Checks for error at user input
-  function checkForError(inputValue, inputField, btn) {
+  function checkForError(courseIdInput, dateInput, btn) {
     //If length = 0 it will return an error message and not continue
-    if (inputValue.length == 0) {
-      showErrorMessage(inputField, "modalRemoveBody", "modalRemoveContent", "The field can not be empty");
+    if (courseId.length === 0) {
+      showErrorMessage("removeCourseId", "The field can not be empty");
+      btn.removeAttribute("data-dismiss", "modal");
     }
+
+    else if (date.length === 0) {
+      showErrorMessage("deleteDate", "The field can not be empty");
+      btn.removeAttribute("data-dismiss", "modal");
+    }
+
     else {
-      var action = document.getElementById("evaluationCard" + inputValue);
-      if (action == null) {
-        showErrorMessage(inputField, "modalRemoveBody", "modalRemoveContent", "Please enter the correct value");
-      }
-      else {
-        action.parentNode.removeChild(action);
-        btn.setAttribute("data-dismiss", "modal");
-      }
+      deleteEvaluation(courseId);
+
+      //var action = document.getElementById("evaluationCard" + courseIdInput);
+
+      //if (action === null) {
+      //  showErrorMessage("modalRemoveContent", "Please enter the correct value");
+      //  btn.removeAttribute("data-dismiss", "modal");
+      //}
+
+      //else {
+      //  action.parentNode.removeChild(action);
+      //  btn.setAttribute("data-dismiss", "modal");
+      //}
     }
   }
 }
 
-//Shows error message
-function removeErrorMessage() {
-  document.getElementById("removeEvaluation").classList.remove("is-invalid");
+function formatToInputField(start, end) {
+  //TODO: Change the formatting to " / " and get it to work
+  var dates = document.getElementById("datesInput");
+  var format = start.format('YYYY-MM-DD') + ' - ' + end.format('YYYY-MM-DD');
+  dates.value = format;
 }
 
-//Prints out an error message to the user
-function showErrorMessage(inputField, element, error, text) {
-  var feedback = document.getElementById(error);
-  var errorMessage = document.createElement("div");
-  var body = document.getElementById(element);
+//This is used to initialize the datepicker provided in the modal for adding evaluations
+$(function() {
 
-  removeElementsByClass("invalid-feedback");
-  inputField.classList.add("is-invalid");
-  body.classList.add("is-invalid");
+    var start = moment();
+    var end = moment();
 
-  errorMessage.className = "invalid-feedback";
-  errorMessage.innerHTML = text;
-  feedback.append(errorMessage);
-}
-
-//Removes elements by class name
-function removeElementsByClass(className) {
-  var elements = document.getElementsByClassName("invalid-feedback");
-  while (elements.length > 0) {
-    elements[0].parentNode.removeChild(elements[0]);
-  }
-}
-
-//TODO: Remove if not being used later in the project
-function getCount(parent, getChildrensChildren){
-    var relevantChildren = 0;
-    var children = parent.childNodes.length;
-    for(var i=0; i < children; i++){
-        if(parent.childNodes[i].nodeType != 3){
-            if(getChildrensChildren)
-                relevantChildren += getCount(parent.childNodes[i],true);
-            relevantChildren++;
+    $('input[name="addEval"]').daterangepicker({
+        startDate: start,
+        endDate: start, //TODO: Plus some days (Max 1 week)
+        minDate: moment(),
+        maxDate: moment().add(6, 'month'),
+        locale: {
+          format: 'YYYY-MM-DD'
         }
+    }, formatToInputField);
+
+    formatToInputField(start, end);
+});
+
+//This is used to initialize the datepicker provided in the modal for deleting evaluations
+$(function() {
+
+  var start = moment();
+
+  $('input[name="removeEval"]').daterangepicker({
+    startDate: start,
+    singleDatePicker: true,
+    locale: {
+      format: 'YYYY-MM-DD'
     }
-    return relevantChildren;
-}
+  });
+});

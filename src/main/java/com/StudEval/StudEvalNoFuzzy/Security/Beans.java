@@ -13,23 +13,4 @@ public class Beans {
         return bCryptPasswordEncoder;
     }
 
-/*
-    @Bean
-    public UserDetailsService userDetailsService() throws Exception {
-        InMemoryUserDetailsManager manager = new InMemoryUserDetailsManager();
-        manager.createUser(User
-                .withUsername("user")
-                .password(passwordEncoder().encode("userPass"))
-                .authorities("USER")
-                .build());
-
-        manager.createUser(User
-                .withUsername("admin")
-                .password(passwordEncoder().encode("adminPass"))
-                .authorities("ADMIN")
-                .build());
-
-        return manager;
-    }
-*/
 }

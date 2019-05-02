@@ -2,6 +2,7 @@
 <html lang="en" dir="ltr"
       xmlns="http://www.w3.org/1999/xhtml"
       xmlns:th="http://www.thymeleaf.org">
+
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
@@ -9,35 +10,56 @@
     <title>EDUEVAL</title>
 
     <link rel="icon" href="https://pbs.twimg.com/profile_images/671984499648020481/FixFBnRN_400x400.png">
+    <script th:src="@{/bootstrap/js/jquery.min.js}"></script>
     <link rel="stylesheet" th:href="@{/bootstrap/css/bootstrap.css}">
     <link rel="stylesheet" th:href="@{/css/mainStyle.css}">
-    <script th:src="@{/bootstrap/js/jquery.min.js}"></script>
     <script th:src="@{/bootstrap/js/bootstrap.bundle.js}"></script>
+    <script th:src="@{/js/moment.js}"></script>
+    <script th:src="@{/js/evaluation.js}"></script>
+    <script th:src="@{/js/helperFunctions.js}"></script>
+    <script th:src="@{/js/teacherRest.js}"></script>
+    <script th:src="@{/js/contentGeneration.js}"></script>
+    <script th:src="@{/js/errorChecking.js}"></script>
+    <script th:src="@{/js/addstudent.js}"></script>
   </head>
 
   <body id="body">
     <section id="fullPage">
-      <div id="headerWrapper">
+      <div id="headerWrapper" onclick="location.href='/teacherpage'">
         <div id="header" class="container">
           <p>EDUEVAL</p>
         </div>
       </div>
 
+      <!-- Navigation bar  -->
       <div id="navWrapper">
         <nav id="navbar" class="navbar navbar-expand-md navbar-light container">
           <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarTogglerDemo01" aria-controls="navbarTogglerDemo01" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
           </button>
 
+          <!-- Collapseable navbar  -->
           <div class="collapse navbar-collapse" id="navbarTogglerDemo01">
-            <div class="navbar-nav mr-auto mt-2 mt-lg-0">
-              </p>
+            <div class="navbar-nav mr-auto">
+              <div id="addEvalNav" class="nav-item">
+                <!-- Button for adding questions  -->
+                <button id="addQuestionBtn" class="btn btn-primary" data-toggle="modal" data-target="#modalAddQuestion">Add question</button>
+              </div>
+
+              <div id="addStudentNav" class="nav-item">
+                <!-- Button for adding evaluation  -->
+                <button id="addStudentBtn" class="btn btn-primary"  data-toggle="modal" data-target="#modalAddStudent">Add Students</button>
+              </div>
             </div>
 
-            <div id="logout" class="nav-item">
-              <a href="#">
-                <button id="navButton" class="btn btn-primary" type="submit">Log out</button>
-              </a>
+            <div id="settingsNav" class="nav-item">
+              <!-- Button for logging out  -->
+              <button id="settingsBtn" class="btn btn-primary" data-toggle="modal" data-target="#modalSettings">Settings</button>
+            </div>
+
+            <div id="logoutNav" class="nav-item">
+              <!-- Button for logging out  -->
+              <button id="logoutBtn" class="btn btn-primary" onclick="location.href='/logout'" type="submit">Log out</button>
             </div>
           </div>
         </nav>
@@ -46,19 +68,246 @@
       <div id="contentWrapper">
         <div id="content" class="container">
           <div id="workArea">
-            <!-- IDEA: Enter content here -->
+            <!-- IDEA: Put the content under here -->
+            <div id="questionArea">
+              <div id="questionHeaderWrapper">
+                <div id="questionHeader">
+                  <h1 id="questionDisplay">No questions found / could be loaded
+                    <!-- Placement for question number -->
+                  </h1>
+                </div>
 
-            <!-- IDEA: Do not change outside this  -->
+                <div id="questionTextWrapper" class="container">
+                  <h5 id="questionText" class="container">You will only see this if there are no questions in the evaluation
+                    or there are no connection to the database</h5>
+                </div>
+              </div>
+              <!-- Placement for all sliders -->
+            </div>
+
+            <div id="buttonCard" class="card text-center">
+              <div id="timeView" class="card-header">
+                <!-- Placement for the clock -->
+              </div>
+              <div class="card-body">
+                <h5 class="card-title">Control Panel</h5>
+                <p class="card-text">Here you can save or delete your selected question.</p>
+                <p class="card-text">At the bottom of this card, you can also change the page to view a another question.</p>
+                <div id="buttonArea" class="container">
+                  <nav id="buttonBar" class="navbar navbar-light container">
+                    <div id="savePlacement" class="navbar-nav ml-auto">
+                      <div id="saveQuestion" class="nav-item">
+                        <button id="saveBtn" class="btn btn-primary" onclick="updateQuestion()">Save</button>
+                      </div>
+                    </div>
+
+                    <div id="deleteQuestion" class="nav-item navbar-nav mr-auto">
+                      <button id="deleteQuestionBtn" class="btn btn-primary" type="submit" data-toggle="modal" data-target="#modalDeleteQuestion">Delete</button>
+                    </div>
+                  </nav>
+                </div>
+              </div>
+
+              <div class="card-footer text-muted">
+                <div id="pageSelector">
+                  <ul class="pagination pagination-lg justify-content-center" style="margin-bottom: 0px">
+                    <li id="previous" class="page-item">
+                      <a class="page-link" href="#pageSelector" aria-label="Previous" onclick="previousQuestion()">
+                        <span aria-hidden="true">&laquo;</span>
+                        <span class="sr-only">Previous</span>
+                      </a>
+                    </li>
+
+                    <li id="pageInputDisplay" class="page-item"><a id="pageInput" class="page-link" readonly></a>
+                    <li id="totalPagesDisplay" class="page-item"><a id="totalPages" class="page-link"></a></li>
+                    <li id="next" class="page-item">
+                      <a class="page-link" href="#pageSelector" aria-label="Next" onclick="nextQuestion()">
+                        <span aria-hidden="true">&raquo;</span>
+                        <span class="sr-only">Next</span>
+                      </a>
+                    </li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+            <!-- IDEA: Dont put any content outside here -->
+
+            <!-- Modal for adding question with user input  -->
+            <div class="modal fade" id="modalAddQuestion" tabindex="-1" role="dialog" aria-labelledby="modalAddQuestionTitle" aria-hidden="true">
+              <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                  <form action="index.html" method="post">
+                    <div class="modal-header">
+                      <h5 class="modal-title" id="modalAddQuestionTitle">Add question</h5>
+                      <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                      </button>
+                    </div>
+
+                    <div id="modalAddQuestionBody" class="modal-body">
+                      <div id="modalAddQuestionContent" class="input-group mb-3">
+
+                        <p>This will be the question from the exam you want to add. Numeric values will be added automatic in ascending order.</p>
+                        <div id="text" class="input-group">
+                          <div class="input-group-prepend">
+                            <span class="input-group-text">Question</span>
+                          </div>
+                          <input id="textInput" type="text" class="form-control" aria-label="Sizing example input" placeholder="Question" aria-describedby="question">
+                        </div>
+
+                        <p class="infoText">This will be the difficulty of the question in percentage %, where it needs to be calculated from a total of 100%.</p>
+                        <div id="difficulty" class="input-group">
+                          <div class="input-group-prepend">
+                            <span class="input-group-text">Difficulty</span>
+                          </div>
+                          <input id="difficultyInput" type="text" class="form-control" aria-label="Sizing example input" placeholder="Difficulty" aria-describedby="difficulty">
+                        </div>
+
+                        <p class="infoText">This will be the complexity of the question in percentage %, where it needs to be calculated from a total of 100% just like difficulty.</p>
+                        <div id="complexity" class="input-group">
+                          <div class="input-group-prepend">
+                            <span class="input-group-text">Complexity</span>
+                          </div>
+                          <input id="complexityInput" type="text" class="form-control" aria-label="Sizing example input" placeholder="Complexity" aria-describedby="complexity">
+                        </div>
+
+                        <p class="infoText">This will be the calculated time used on each question. This value must be written in minutes, where it will calculate it from a total of the entered exam time.</p>
+                        <div id="time" class="input-group">
+                          <div class="input-group-prepend">
+                            <span class="input-group-text">Time</span>
+                          </div>
+                          <input id="timeInput" type="text" class="form-control" aria-label="Sizing example input" placeholder="Time" aria-describedby="time">
+                        </div>
+
+                        <p class="infoText">This will be the importance of the question. This value will represent how important the question is in percentage %, where it needs to be calculated from a total of 100% just like difficulty and complexity.
+                        </p>
+                        <div id="importance" class="input-group">
+                          <div class="input-group-prepend">
+                            <span class="input-group-text">Importance</span>
+                          </div>
+                          <input id="importanceInput" type="text" class="form-control" aria-label="Sizing example input" placeholder="Importance" aria-describedby="importance">
+                        </div>
+                      </div>
+                    </div>
+
+                    <div class="modal-footer">
+                      <button type="button" class="btn btn-primary" data-dismiss="modal">Close</button>
+                      <button id="saveQuestionBtn" type="button" class="btn btn-primary" data-dismiss="modal" onclick="generateQuestion()">Save question</button>
+                    </div>
+                  </form>
+                </div>
+              </div>
+            </div>
+
+            <!-- Modal for adding students-->
+            <div class="modal fade" id="modalAddStudent" tabindex="-1" role="dialog" aria-labelledby="modalAddStudent" aria-hidden="true">
+              <div class="modal-dialog modal-dialog-scrollable" role="document">
+                <div class="modal-content">
+                  <form action="index.html" method="post">
+                    <div class="modal-header">
+                      <h5 class="modal-title" id="modalAddStudentTitle">Add Student</h5>
+                      <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                      </button>
+                    </div>
+
+                    <div id="modalAddStudentBody" class="modal-body">
+                      <div id="modalAddStudentContent" class="input-group mb-3">
+
+                        <p>Here you can enter a student's email manually. This will automatically register the user to the evaluation.</p>
+                        <div id="studentEmail" class="input-group">
+                          <div class="input-group-prepend">
+                            <span class="input-group-text">Student Email</span>
+                          </div>
+                          <input id="studentEmailInput" type="text" class="form-control" placeholder="Email" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default" oninput="">
+                        </div>
+
+                        <p class="infoText">Here you can upload your list with all students. The file you provide must be in .csv-format and not in .xlsx-format, etc.</p>
+                        <div class="container">
+                        </div>
+
+                        <div id="studentListUpload" class="custom-file">
+                          <div class="input-group-prepend">
+                            <input type="file" class="custom-file-input" id="validatedCustomFile" required>
+                            <span class="custom-file-label" for="validatedCustomFile">Choose file...</span>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+
+                    <div class="modal-footer">
+                      <button type="button" class="btn btn-primary" data-dismiss="modal">Close</button>
+                      <button class="btn btn-primary" id="addStudentsBtn" onclick="generateStudent()" type="button">Save Student</button>
+                    </div>
+                  </form>
+                </div>
+              </div>
+            </div>
+
+            <!-- Modal for changing user settings  -->
+            <div class="modal fade" id="modalSettings" tabindex="-1" role="dialog">
+              <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                  <div class="modal-header">
+                    <h5 class="modal-title" id="userSettingsTitle">User settings</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                      <span aria-hidden="true">&times;</span>
+                    </button>
+                  </div>
+
+                  <div id="modalSettingsBody" class="modal-body">
+                    <div id="modalSettingsContent" class="input-group mb-3">
+                      <div id="changePassword">
+                        <p>If you want to change the user password, you can press here. You will need to confirm your password and then verify it in your mail.</p>
+                        <button id="changePasswordBtn" class="btn btn-primary" onclick="location.href='#'" type="submit">Change password</button>
+                      </div>
+
+                      <div id="deleteAccount">
+                        <p>If you want to delete your account, push this button.</p>
+                        <p id="modalSettingsInfo">WARNING:</p>
+                        <p>If your account is deleted, there is no way to restore it. All evaluations made with this user would get deleted.</p>
+                        <button id="deleteAccountBtn" class="btn btn-danger" onclick="location.href='#'" type="submit">Delete account</button>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="modal-footer">
+                    <button type="button" class="btn btn-primary" data-dismiss="modal">Close</button>
+                    <button id="saveSettingsBtn" type="button" class="btn btn-primary" data-dismiss="modal">Save settings</button>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Modal for deleting questions -->
+            <div class="modal fade" id="modalDeleteQuestion" tabindex="-1" role="dialog">
+              <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                  <div class="modal-header">
+                    <h5 class="modal-title" id="deleteQuestionTitle">Deleting question</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                      <span aria-hidden="true">&times;</span>
+                    </button>
+                  </div>
+
+                  <div id="modalDeleteQuestionBody" class="modal-body">
+                    <div id="modalSDeleteQuestionContent" class="input-group">
+                      <div id="deleteQuestionInfo">
+                        <p style="margin-bottom: 0">Are you sure you want to delete the question? It is not possible to reverse the operation.</p>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="modal-footer">
+                    <button type="button" class="btn btn-primary" data-dismiss="modal">Close</button>
+                    <button id="confirmDeleteQuestionBtn" type="button" class="btn btn-primary" data-dismiss="modal" onclick="findActiveQuestionForDeletion()">Yes, delete it</button>
+                  </div>
+                </div>
+              </div>
+            </div>
           </div>
         </div>
       </div>
-      <!-- Working footer, but not corresponding to bottom placement in the CSS
-      <div id="footer">
-        <div id="footerLinks">
-          <div><span id="copyright">© 2019 EDUEVAL</span>
-          </div>
-        </div>
-      </div>-->
     </section>
   </body>
 </html>

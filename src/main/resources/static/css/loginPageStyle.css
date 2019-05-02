@@ -18,6 +18,10 @@ body {
     font-size: 90%;
 }
 
+ul {
+	list-style-type: none;
+}
+
 #noScript {
 	position: static;
 	margin: 16px;
@@ -90,7 +94,7 @@ body {
   width: 350px;
 }
 
-#loginArea {
+#loginArea, #registerArea {
 	max-width: 100%;
 }
 
@@ -98,7 +102,7 @@ body {
 	width: 100%;
 }
 
-#registerText {
+#registerText, #loginText {
 	color: #666666;
 }
 
@@ -106,14 +110,10 @@ body {
 	margin-top: 20px;
 }
 
-#submitBtn {
-	margin-right: 20px;
-}
-
-#submitBtn, #backBtn {
-	float: left;
-	width: 47%;
+#submitBtn, #registerBtn {
+	width: 100%;
 	margin-bottom: 20px;
+	margin-right: 20px;
 }
 
 #footerPlaceholder, #footer {
@@ -121,7 +121,7 @@ body {
 }
 
 #footer {
-	position:relative ;
+	position: relative;
 	padding: 10px 50px 0px 50px;
   color: #666666;
   font-size: 71%;
@@ -236,7 +236,7 @@ h2, .bigText {
 
     #content, #footer {
         width:auto;
-        margin-right: 33px;
+        margin-right: 25px;
         margin-left: 25px;
     }
 

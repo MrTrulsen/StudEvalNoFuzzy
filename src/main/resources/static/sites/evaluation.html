@@ -11,14 +11,16 @@
   <script src="../bootstrap/js/jquery.min.js"></script>
   <link rel="stylesheet" href="../bootstrap/css/bootstrap.css">
   <link rel="stylesheet" href="../css/mainStyle.css">
-  <link rel="stylesheet" href="../css/sliders.css">
   <script src="../bootstrap/js/bootstrap.bundle.js"></script>
   <script src="../js/evaluation.js"></script>
+  <script src="../js/helperFunctions.js"></script>
+  <script src="../js/teacherRest.js"></script>
+  <script src="../js/contentGeneration.js"></script>
 </head>
 
 <body id="body">
   <section id="fullPage">
-    <div id="headerWrapper">
+    <div id="headerWrapper" onclick="location.href='../sites/teacherDashboard.html'">
       <div id="header" class="container">
         <p>EDUEVAL</p>
       </div>
@@ -33,13 +35,21 @@
 
         <!-- Class for collapseable navbar  -->
         <div class="collapse navbar-collapse" id="navbarTogglerDemo01">
-          <div class="navbar-nav mr-auto mt-2 mt-lg-0">
-            <div id="addEvalNav" class="nav-item">
+          <div class="navbar-nav mr-auto">
+            <div id="addQuestionNav" class="nav-item">
               <!-- Button for adding questions  -->
-              <button id="addQuestionBtn" class="btn btn-primary" data-toggle="modal" data-target="#modalAddQuestion" onclick="">Add question</button>
-              <button id="addStudentBtn" class="btn btn-primary"  data-toggle="modal" data-target="#modalAddStudent" onclick="">Add Student</button>
+              <button id="addQuestionBtn" class="btn btn-primary" data-toggle="modal" data-target="#modalAddQuestion" onclick="generateSliderContent()">Add question</button>
             </div>
+
+            <div id="addStudentNav" class="nav-item">
+              <!-- Button for adding evaluation  -->
+              <button id="addStudentBtn" class="btn btn-primary" data-toggle="modal" data-target="#modalAddStudent" onclick="">Add Students</button>
             </div>
+          </div>
+
+          <div id="settingsNav" class="nav-item">
+            <!-- Button for settings  -->
+            <button id="settingsBtn" class="btn btn-primary" data-toggle="modal" data-target="#modalSettings">Settings</button>
           </div>
 
           <div id="logoutNav" class="nav-item">
@@ -57,60 +67,17 @@
           <div id="questionArea">
             <div id="questionHeaderWrapper">
               <div id="questionHeader">
-                <h1> </h1>
+                <h1 id="questionDisplay">How to add questions
+                  <!-- Enter question number here-->
+                </h1>
               </div>
               <div id="questionTextWrapper" class="container">
-                <h5 id="questionText"></h5>
+                <h5 id="questionText" class="container">To add a question you need to push the button in the top left corner that says "Add question".
+                  After you have pushed this button, a menu with information will pop up and tell you what you should do next.</h5>
               </div>
             </div>
+            <!-- Placement for all sliders -->
 
-            <!-- Div for all sliders -->
-            <div id="sliderWrapper" class="container">
-              <div id="difficultyContent" class="container sliders">
-                <h2>Difficulty</h2>
-                <p></p>
-                <input id="difficultySlider" type="range" min="1" max="100" value="50" class="slider" onchange="var slider = this; displaySliderValue(slider);">
-                <div id="difficultyTicks" class="sliderticks">
-                  <p>1</p>
-                  <p>50</p>
-                  <p>100</p>
-                </div>
-                <p>Value: <input id="difficultyOutput" class="form-control valueOutput" onchange="var output = this; updateSlider(output)" type="text" name="" value="50" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default"></input></p>
-              </div>
-
-              <div id="complexityContent" class="container sliders">
-                <h2>Complexity</h2>
-                <input id="complexitySlider" type="range" min="1" max="100" value="50" class="slider" onchange="var slider = this; displaySliderValue(slider);">
-                <div class="sliderticks">
-                  <p>1</p>
-                  <p>50</p>
-                  <p>100</p>
-                </div>
-                <p>Value: <input id="complexityOutput" class="form-control valueOutput" onchange="var output = this; updateSlider(output)" type="text" name="" value="50" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default"></input></p>
-              </div>
-
-              <div id="timeContent" class="container sliders">
-                <h2>Time</h2>
-                <input id="timeSlider" type="range" min="1" max="240" value="50" class="slider" onchange="var slider = this; displaySliderValue(slider);">
-                <div class="sliderticks">
-                  <p>1</p>
-                  <p>50</p>
-                  <p>100</p>
-                </div>
-                <p>Value: <input id="timeOutput" class="form-control valueOutput" onchange="var output = this; updateSlider(output)" type="text" name="" value="50" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default"></input></p>
-              </div>
-
-              <div id="importanceContent" class="container sliders">
-                <h2>Importance</h2>
-                <input id="importanceSlider" type="range" min="1" max="100" value="50" class="slider" onchange="var slider = this; displaySliderValue(slider);">
-                <div class="sliderticks">
-                  <p>1</p>
-                  <p>50</p>
-                  <p>100</p>
-                </div>
-                <p>Value: <input id="importanceOutput" class="form-control valueOutput" onchange="var output = this; updateSlider(output)" type="text" name="" value="50" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default"></input></p>
-              </div>
-            </div>
           </div>
 
           <div id="footerWrapper">
@@ -136,15 +103,11 @@
               </div>
             </div>
           </div>
-
-          <!--  used for button placement in footer id  -->
-          <footer id="footer"></footer>
-
           <!-- IDEA: Dont put any content outside here -->
 
-          <!-- Modal for adding evaluation with user input  -->
+          <!-- Modal for adding questions with user input  -->
           <div class="modal fade" id="modalAddQuestion" tabindex="-1" role="dialog" aria-labelledby="modalAddQuestionTitle" aria-hidden="true">
-            <div class="modal-dialog modal-dialog-scrollable" role="document">
+            <div class="modal-dialog" role="document">
               <div class="modal-content">
                 <form action="index.html" method="post">
                   <div class="modal-header">
@@ -155,59 +118,61 @@
                   </div>
 
                   <div id="modalAddQuestionBody" class="modal-body">
-                    <form>
-                      <div id="modalAddQuestionContent" class="input-group mb-3">
-                        <div class="input-group-prepend">
-                          <span class="input-group-text" id="inputGroup-sizing-default">Question</span>
-                        </div>
+                    <div id="modalAddQuestionContent" class="input-group mb-3">
 
-                        <input id="questionInput" type="text" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default"></input>
+                      <p>This will be the question from the exam you want to add. Numeric values will be added automatic in ascending order.</p>
+                      <div id="question" class="input-group">
+                        <div class="input-group-prepend">
+                          <span class="input-group-text">Question</span>
+                        </div>
+                        <input id="questionInput" type="text" class="form-control" aria-label="Sizing example input" placeholder="Question" aria-describedby="question">
                       </div>
 
-                      <div class="input-group mb-3">
+                      <p class="infoText">This will be the difficulty of the question in percentage %, where it needs to be calculated from a total of 100%.</p>
+                      <div id="difficulty" class="input-group">
                         <div class="input-group-prepend">
-                          <span class="input-group-text" id="inputGroup-sizing-default">Difficulty</span>
+                          <span class="input-group-text">Difficulty</span>
                         </div>
-
-                        <input id="difficultyInput" type="text" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default" oninput="var input=this; importValue(input);"></input>
+                        <input id="difficultyInput" type="text" class="form-control" aria-label="Sizing example input" placeholder="Difficulty" aria-describedby="difficulty" oninput="var input=this; importValue(input);">
                       </div>
 
-                      <div class="input-group mb-3">
+                      <p class="infoText">This will be the complexity of the question in percentage %, where it needs to be calculated from a total of 100% just like difficulty.</p>
+                      <div id="complexity" class="input-group">
                         <div class="input-group-prepend">
-                          <span class="input-group-text" id="inputGroup-sizing-default">Complexity</span>
+                          <span class="input-group-text">Complexity</span>
                         </div>
-
-                        <input id="complexityInput" type="text" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default" oninput="var input=this; importValue(input);"></input>
+                        <input id="complexityInput" type="text" class="form-control" aria-label="Sizing example input" placeholder="Complexity" aria-describedby="complexity" oninput="var input=this; importValue(input);">
                       </div>
 
-                      <div class="input-group mb-3">
+                      <p class="infoText">This will be the calculated time used on each question. This value must be written in minutes, where it will calculate it from a total of the entered exam time.</p>
+                      <div id="time" class="input-group">
                         <div class="input-group-prepend">
-                          <span class="input-group-text" id="inputGroup-sizing-default">Time</span>
+                          <span class="input-group-text">Time</span>
                         </div>
-
-                        <input id="timeInput" type="text" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default" oninput="var input=this; importValue(input);"></input>
+                        <input id="timeInput" type="text" class="form-control" aria-label="Sizing example input" placeholder="Time" aria-describedby="time" oninput="var input=this; importValue(input);">
                       </div>
 
-                      <div class="input-group mb-3">
+                      <p class="infoText">This will be the importance of the question. This value will represent how important the question is in percentage %, where it needs to be calculated from a total of 100% just like difficulty and complexity.
+                      </p>
+                      <div id="importance" class="input-group">
                         <div class="input-group-prepend">
-                          <span class="input-group-text" id="inputGroup-sizing-default">Importance</span>
+                          <span class="input-group-text">Importance</span>
                         </div>
-
-                        <input id="importanceInput" type="text" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default" oninput="var input=this; importValue(input);"></input>
+                        <input id="importanceInput" type="text" class="form-control" aria-label="Sizing example input" placeholder="Importance" aria-describedby="importance" oninput="var input=this; importValue(input);">
                       </div>
-                    </form>
+                    </div>
                   </div>
 
                   <div class="modal-footer">
                     <button type="button" class="btn btn-primary" data-dismiss="modal">Close</button>
-                    <button id="saveQuestionBtn" type="button" class="btn btn-primary" type="submit" onclick="addQuestion();">Save question</button>
+                    <button id="saveQuestionBtn" type="button" class="btn btn-primary" type="submit" onclick="generateQuestion()">Save question</button>
                   </div>
                 </form>
               </div>
             </div>
           </div>
 
-<!-- MODAL for adding students-->
+          <!-- Modal for adding students-->
           <div class="modal fade" id="modalAddStudent" tabindex="-1" role="dialog" aria-labelledby="modalAddStudent" aria-hidden="true">
             <div class="modal-dialog modal-dialog-scrollable" role="document">
               <div class="modal-content">
@@ -220,42 +185,72 @@
                   </div>
 
                   <div id="modalAddStudentBody" class="modal-body">
-                    <form>
-                      <div id="modalAddStudentBody" class="input-group mb-3">
-                        <div class="input-group-prepend">
-                          <span class="input-group-text" id="inputGroup-sizing-default">Student ID</span>
-                        </div>
+                    <div id="modalAddStudentContent" class="input-group mb-3">
 
-                        <input id="questionInput" type="text" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default"></input>
+                      <p>Here you can enter a student's email manually. This will automatically register the user to the evaluation.</p>
+                      <div id="studentEmail" class="input-group">
+                        <div class="input-group-prepend">
+                          <span class="input-group-text">Student Email</span>
+                        </div>
+                        <input id="studentEmailInput" type="text" class="form-control" placeholder="Email" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default" oninput="">
                       </div>
 
-                      <div class="input-group mb-3">
-                        <div class="input-group-prepend">
-                          <span class="input-group-text" id="inputGroup-sizing-default">Student E-Mail</span>
-                        </div>
-
-                        <input id="StudentEMail" type="text" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default" oninput=""></input>
+                      <p class="infoText">Here you can upload your list with all students. The file you provide must be in .csv-format and not in .xlsx-format, etc.</p>
+                      <div class="container">
                       </div>
 
-
-
-
-
-
-                    </form>
+                      <div id="studentListUpload" class="custom-file">
+                        <div class="input-group-prepend">
+                          <input type="file" class="custom-file-input" id="validatedCustomFile" required>
+                          <span class="custom-file-label" for="validatedCustomFile">Choose file...</span>
+                        </div>
+                      </div>
+                    </div>
                   </div>
 
                   <div class="modal-footer">
                     <button type="button" class="btn btn-primary" data-dismiss="modal">Close</button>
-                    <button id="saveQuestionBtn" type="button" class="btn btn-primary" type="submit" onclick="">Save Student</button>
+                    <button id="saveQuestionBtn" type="button" class="btn btn-primary" type="submit" onclick="">Add Students</button>
                   </div>
                 </form>
               </div>
             </div>
           </div>
 
+          <!-- Modal for changing user settings  -->
+          <div class="modal fade" id="modalSettings" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+              <div class="modal-content">
+                <div class="modal-header">
+                  <h5 class="modal-title" id="userSettingsTitle">User settings</h5>
+                  <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                  </button>
+                </div>
 
+                <div id="modalSettingsBody" class="modal-body">
+                  <div id="modalSettingsContent" class="input-group mb-3">
+                    <div id="changePassword">
+                      <p>If you want to change the user password, you can press here. You will need to confirm your password and then verify it in your mail.</p>
+                      <button id="changePasswordBtn" class="btn btn-primary" onclick="location.href='#'" type="submit">Change password</button>
+                    </div>
 
+                    <div id="deleteAccount">
+                      <p>If you want to delete your account, push this button.</p>
+                      <p id="modalSettingsInfo">WARNING:</p>
+                      <p>If your account is deleted, there is no way to restore it. All evaluations made with this user would get deleted.</p>
+                      <button id="deleteAccountBtn" class="btn btn-danger" onclick="location.href='#'" type="submit">Delete account</button>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="modal-footer">
+                  <button type="button" class="btn btn-primary" data-dismiss="modal">Close</button>
+                  <button id="saveSettingsBtn" type="button" class="btn btn-primary" data-dismiss="modal">Save settings</button>
+                </div>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
     </div>
