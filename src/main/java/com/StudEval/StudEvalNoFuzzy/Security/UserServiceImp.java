@@ -46,4 +46,6 @@ public class UserServiceImp implements UserService {
         return user.getPassword().equals(user.getPasswordConfirm());
     }
 
+    var username = "";
+
 }
