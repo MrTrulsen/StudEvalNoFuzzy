@@ -44,15 +44,16 @@ function removeElementsByClass(className, className2) {
       while (elements.length > 0) {
           elements[0].parentNode.removeChild(elements[0]);
       }
-  }
+    }
 
-  else {
+    else {
       while (elements2.length > 0) {
           elements2[0].parentNode.removeChild(elements2[0]);
       }
-  }
+    }
 }
 
+//TODO: Remove if not used
 //Checks for empty field
 function checkForEmptyField(inputField, placement, btn) {
     if (inputField.length === 0) {
@@ -61,6 +62,7 @@ function checkForEmptyField(inputField, placement, btn) {
     }
 }
 
+//TODO: Remove if not used
 //Checks if field exceeds a specified number
 function checkIfLimitIsExceeded(inputField, placement, value, btn) {
     if (inputField > value) {
