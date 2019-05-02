@@ -100,9 +100,9 @@ public class MainRestController {
         }
     }
 
-    @RequestMapping(value = "/addEvaluation/{course_name}/{email}" , method = RequestMethod.POST)
-    public ResponseEntity<String> addEvaluation(@RequestBody Evaluation evaluation, @PathVariable String course_name, @PathVariable String email){
-
+    @RequestMapping(value = "/addEvaluation/{course_name}" , method = RequestMethod.POST)
+    public ResponseEntity<String> addEvaluation(@RequestBody Evaluation evaluation, @PathVariable String course_name){
+        String email = getCurrentUser().getEmail();
         String error = mainRepository.addNewEvaluation(evaluation,course_name,email);
         if(error == null){
             return new ResponseEntity<>(HttpStatus.OK);

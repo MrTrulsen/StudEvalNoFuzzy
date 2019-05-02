@@ -6,22 +6,20 @@ import com.StudEval.StudEvalNoFuzzy.Evaluation.Question;
 import com.StudEval.StudEvalNoFuzzy.User.Role;
 import com.StudEval.StudEvalNoFuzzy.User.User;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.Configuration;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.PreparedStatementCreator;
 import org.springframework.jdbc.support.GeneratedKeyHolder;
 import org.springframework.jdbc.support.rowset.SqlRowSet;
 import org.springframework.stereotype.Repository;
-//import sun.applet.Main;
 
-import javax.sql.RowSet;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
+
+//import sun.applet.Main;
 
 @Repository
 public class MainRepository {
