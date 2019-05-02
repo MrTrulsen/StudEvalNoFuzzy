@@ -55,7 +55,7 @@ function addQuestion(question) {
 //Loads evaluations from the database
 function loadEvaluations() {
     console.log("Loading evaluations...");
-    fetch("/getEvaluations/62").then(function(response) {
+    fetch("/getEvaluations").then(function(response) {
         return response.json();
     })
         .then(function (evaluations) {
