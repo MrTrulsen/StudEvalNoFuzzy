@@ -128,10 +128,10 @@ public class TeacherRest {
         }
     }
 
-    @RequestMapping(value = "/deleteUser/{email}" , method = RequestMethod.DELETE)
+    @RequestMapping(value = "/deleteUser/{id}" , method = RequestMethod.DELETE)
     public ResponseEntity<String> deleteUser(@PathVariable String id){
         String error;
-        User current = userRepository.findByEmail(getCurrentUsername());
+        User current = getCurrentUser();
 
         if (id.equals(Long.toString(current.getId())) || id == null){
             error = mainRepository.deleteUser(id);
@@ -173,9 +173,9 @@ public class TeacherRest {
 
     /**
      *
-     * @return Username from the currently logged in user.
+     * @return Current logged in user.
      */
-    private String getCurrentUsername(){
+    private User getCurrentUser(){
         Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 
         String loggedInUsername;
@@ -186,7 +186,7 @@ public class TeacherRest {
             loggedInUsername = principal.toString();
         }
 
-        return loggedInUsername;
+        return userRepository.findByEmail(loggedInUsername);
     }
 
 }
