@@ -51,7 +51,7 @@ public class UserSecurity extends WebSecurityConfigurerAdapter {
                 .antMatchers("/studentpage").hasAuthority("STUDENT_USER")
                 .antMatchers("/teacherpage").hasAuthority("TEACHER_USER")
                 .antMatchers("/addStudents").permitAll()
-                .anyRequest().authenticated()
+                //.anyRequest().authenticated()
                 .and()
 
                 //form login
