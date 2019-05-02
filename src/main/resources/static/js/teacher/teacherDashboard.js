@@ -1,10 +1,8 @@
 
-
 window.addEventListener('load', function() {
   //Loads the available evaluations
   loadEvaluations();
-  //Cleans the input field for dates at adding evaluations
-})
+});
 
 //Adds a new evaluation by making a card with user input at the dashboard
 function generateEvaluation() {
@@ -27,9 +25,6 @@ function generateEvaluation() {
   };
 
   console.log(evaluation);
-  getLoginEmail();
-
-  console.log(email);
 
   removeElementsByClass("error");
   checkForErrorInAddEvaluation(evaluation, courseId, courseName, evalDates, examTime, btn, email);

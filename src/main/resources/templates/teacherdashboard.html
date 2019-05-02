@@ -10,19 +10,23 @@
     <title>EDUEVAL</title>
     <link rel="icon" href="https://pbs.twimg.com/profile_images/671984499648020481/FixFBnRN_400x400.png">
     <script th:src="@{/bootstrap/js/jquery.min.js}"></script>
+    <script th:src="@{/bootstrap/js/bootstrap.bundle.js}"></script>
+
     <link rel="stylesheet" th:href="@{/bootstrap/css/bootstrap.css}">
     <link rel="stylesheet" th:href="@{/css/mainStyle.css}">
     <link rel="stylesheet" th:href="@{/css/daterangepicker.css}">
-    <script th:src="@{/bootstrap/js/bootstrap.bundle.js}"></script>
-    <script th:src="@{/js/moment.js}"></script>
-    <script th:src="@{/js/daterangepicker.js}"></script>
-    <script th:src="@{/js/canvasjs.min.js}"></script>
-    <script th:src="@{/js/dashboard.js}"></script>
+
+    <script th:src="@{/js/external/moment.js}"></script>
+    <script th:src="@{/js/external/daterangepicker.js}"></script>
+    <script th:src="@{/js/external/canvasjs.min.js}"></script>
+
+    <script th:src="@{/js/teacher/teacherDashboard.js}"></script>
+    <script th:src="@{/js/teacher/teacherRest.js}"></script>
+    <script th:src="@{/js/teacher/graph.js}"></script>
+
     <script th:src="@{/js/helperFunctions.js}"></script>
-    <script th:src="@{/js/teacherRest.js}"></script>
     <script th:src="@{/js/contentGeneration.js}"></script>
     <script th:src="@{/js/errorChecking.js}"></script>
-    <script th:src="@{/js/graph.js}"></script>
   </head>
 
   <body id="body">
@@ -33,29 +37,29 @@
         </div>
       </div>
 
-      <!-- Navigation bar  -->
+      <!-- Navigation bar -->
       <div id="navWrapper">
         <nav id="navbar" class="navbar navbar-expand-md navbar-light container">
           <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarTogglerDemo01" aria-controls="navbarTogglerDemo01" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
           </button>
 
-          <!-- Class for collapseable navbar  -->
+          <!-- Class for collapseable navbar -->
           <div class="collapse navbar-collapse" id="navbarTogglerDemo01">
               <div class="navbar-nav mr-auto">
               <div id="addEvalNav" class="nav-item">
-                <!-- Button for adding evaluation  -->
+                <!-- Button for adding evaluation -->
                 <button id="addEvalBtn" class="btn btn-primary" data-toggle="modal" th:attr="data-target='#modalAddEval'">Add evaluation</button>
               </div>
             </div>
 
             <div id="settingsNav" class="nav-item">
-              <!-- Button for logging out  -->
+              <!-- Button for settings -->
               <button id="settingsBtn" class="btn btn-primary" data-toggle="modal" data-target="#modalSettings">Settings</button>
             </div>
 
             <div id="logoutNav" class="nav-item">
-              <!-- Button for logging out  -->
+              <!-- Button for logging out -->
               <button id="logoutBtn" class="btn btn-primary" onclick="location.href='/logout'" type="submit">Log out</button>
             </div>
           </div>

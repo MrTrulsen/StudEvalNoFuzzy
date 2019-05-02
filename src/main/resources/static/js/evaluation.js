@@ -81,12 +81,7 @@ function previousQuestion() {
     console.log("QuestionIndex is: " + questionIndex);
 
     showQuestion(questions, questionIndex);
-
-    var questionDisplay = document.getElementById("questionDisplayCard");
-    questionDisplay.innerHTML = "Question " + (questionIndex + 1);
-
-    var questionText = document.getElementById("questionText");
-    questionText.innerHTML = questions[questionIndex]["text"];
+    updateQuestionCardInfo();
   }
 }
 
@@ -104,13 +99,17 @@ function nextQuestion() {
     console.log("QuestionIndex is: " + questionIndex);
 
     showQuestion(questions, questionIndex);
-
-    var questionDisplay = document.getElementById("questionDisplayCard");
-    questionDisplay.innerHTML = "Question " + (questionIndex + 1);
-
-    var questionText = document.getElementById("questionText");
-    questionText.innerHTML = questions[questionIndex]["text"];
+    updateQuestionCardInfo();
   }
+}
+
+//Displays the question and the text inside the card at the bottom of the evaluation
+function updateQuestionCardInfo() {
+  var questionDisplay = document.getElementById("questionDisplayCard");
+  questionDisplay.innerHTML = "Question " + (questionIndex + 1);
+
+  var questionText = document.getElementById("questionTextCard");
+  questionText.innerHTML = questions[questionIndex]["text"];
 }
 
 //Imports the value used in the slider

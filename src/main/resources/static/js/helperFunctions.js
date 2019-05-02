@@ -1,6 +1,4 @@
 
-var email;
-
 //Prints out an error message to the user
 function showErrorMessage(placement, errorMessage) {
   var errorPlacement = document.getElementById(placement);
@@ -8,17 +6,17 @@ function showErrorMessage(placement, errorMessage) {
 
   errorDiv.className = "error";
   errorDiv.innerHTML = errorMessage;
-  errorPlacement.append(errorDiv)
+  errorPlacement.append(errorDiv);
 }
 
 //Prints out a success message to the user
-function showSuccessMessage(placement, errorMessage) {
-    var errorPlacement = document.getElementById(placement);
-    var errorDiv = document.createElement("div");
+function showSuccessMessage(placement, successMessage) {
+    var successPlacement = document.getElementById(placement);
+    var successDiv = document.createElement("div");
 
-    errorDiv.className = "success";
-    errorDiv.innerHTML = errorMessage;
-    errorPlacement.append(errorDiv)
+    successDiv.className = "success";
+    successDiv.innerHTML = successMessage;
+    successPlacement.append(successDiv);
 }
 
 //Removes value inside input fields
@@ -45,7 +43,6 @@ function removeElementsByClass(className, className2) {
           elements[0].parentNode.removeChild(elements[0]);
       }
     }
-
     else {
       while (elements2.length > 0) {
           elements2[0].parentNode.removeChild(elements2[0]);
@@ -53,7 +50,7 @@ function removeElementsByClass(className, className2) {
     }
 }
 
-//TODO: Remove if not used
+//TODO: Remove if not being used later in the project
 //Checks for empty field
 function checkForEmptyField(inputField, placement, btn) {
     if (inputField.length === 0) {
@@ -62,7 +59,7 @@ function checkForEmptyField(inputField, placement, btn) {
     }
 }
 
-//TODO: Remove if not used
+//TODO: Remove if not being used later in the project
 //Checks if field exceeds a specified number
 function checkIfLimitIsExceeded(inputField, placement, value, btn) {
     if (inputField > value) {
@@ -83,14 +80,4 @@ function getCount(parent, getChildrensChildren){
         }
     }
     return relevantChildren;
-}
-
-function getLoginEmail() {
-    console.log(email);
-    return email;
-}
-
-function setLoginEmail() {
-    email = document.getElementById("username").value;
-    console.log(email);
 }

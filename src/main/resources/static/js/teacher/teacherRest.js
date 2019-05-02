@@ -72,10 +72,8 @@ function loadEvaluations() {
                 }
 
                 else {
-                    //TODO: Make it possible to return the courseName from the function
-                    var courseName = getCourseName(evaluation);
-                    console.log("Evaluation data: ", courseName);
-                    addEvaluationCard(evaluation, courseName);
+                    console.log("Evaluation data: ", "courseName");
+                    addEvaluationCard(evaluation, "courseName");
                 }
             }
         }
@@ -106,7 +104,9 @@ function loadQuestions() {
                 console.log("There are " + questions.length + " questions in this evaluation");
                 questionIndex = 0;
                 document.getElementById("pageInput").innerHTML = questionIndex + 1;
+
                 updateTotalPagesDisplay();
+                updateQuestionCardInfo();
                 generateSliderContent(questions, 0);
             }
         }
@@ -181,15 +181,5 @@ function saveQuestion(question) {
             showErrorMessage("buttonArea", "Error when trying to save question. Please try again.");
             return response.text();
         }
-    });
-}
-
-//Gets the name of the course that is being loaded in loadEvaluations()
-function getCourseName(evaluation) {
-    console.log("Loading course name...");
-    fetch("/getNameOfCourse/" + evaluation["courseId"]).then(function(response) {
-        console.log(response);
-        console.log(response.text());
-        return response;
     });
 }
