@@ -79,7 +79,14 @@ function previousQuestion() {
     questionIndex = questionIndex - 1;
     pageInput.innerHTML = parseInt(pageInput.innerHTML) - 1;
     console.log("QuestionIndex is: " + questionIndex);
+
     showQuestion(questions, questionIndex);
+
+    var questionDisplay = document.getElementById("questionDisplayCard");
+    questionDisplay.innerHTML = "Question " + (questionIndex + 1);
+
+    var questionText = document.getElementById("questionText");
+    questionText.innerHTML = questions[questionIndex]["text"];
   }
 }
 
@@ -95,7 +102,14 @@ function nextQuestion() {
     questionIndex = questionIndex + 1;
     pageInput.innerHTML = parseInt(pageInput.innerHTML) + 1;
     console.log("QuestionIndex is: " + questionIndex);
+
     showQuestion(questions, questionIndex);
+
+    var questionDisplay = document.getElementById("questionDisplayCard");
+    questionDisplay.innerHTML = "Question " + (questionIndex + 1);
+
+    var questionText = document.getElementById("questionText");
+    questionText.innerHTML = questions[questionIndex]["text"];
   }
 }
 
