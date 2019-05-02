@@ -1,8 +1,8 @@
 
 //Adds evaluations in the database
-function addEvaluation(evaluation, courseName, email) {
+function addEvaluation(evaluation, courseName) {
   console.log("Adding evaluation...");
-  fetch("/addEvaluation/" + courseName + "/" + email, {
+  fetch("/addEvaluation/" + courseName, {
     method: "POST",
     headers: {
       "Content-Type": "application/json"
