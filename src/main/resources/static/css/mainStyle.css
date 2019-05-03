@@ -103,7 +103,7 @@ h2 {
   width: 200px;
 }
 
-#saveBtn, #deleteQuestionBtn {
+#saveBtn, #deleteQuestionBtn, #submitQuestionBtn {
   width: 260px;
   margin-left: 5px;
   margin-right: 5px;
@@ -221,6 +221,12 @@ h2 {
   margin-right: 5px;
 }
 
+.studentEvalBtn {
+  width: 50%;
+  margin-left: 5px;
+  margin-right: 5px;
+}
+
 .card-header {
   background-color: #4488DD;
   color: #FFFFFF;
@@ -298,11 +304,11 @@ h2 {
 
   #addEvaluation, #registerStudents, #addQuestionBtn, #homeNav, #settingsNav, #logoutNav, #addEvalBtn,
   #homeBtn, #settingsBtn, #logoutBtn, #takeEvalBtn, .evalBtn, #prevQuestionBtn, #nextQuestionBtn, #addStudentBtn,
-  #savePlacement, #saveBtn, #deleteQuestionBtn, #deleteQuestion {
+  #savePlacement, #saveBtn, #deleteQuestionBtn, #deleteQuestion, #submitQuestionBtn, #submitQuestion {
     width: 100%;
   }
 
-  #saveBtn, #deleteQuestionBtn {
+  #saveBtn, #deleteQuestionBtn, #submitQuestionBtn {
     margin-left: 0;
     margin-right: 0;
   }
@@ -318,7 +324,7 @@ h2 {
     width: 300px;
   }
 
-  #deleteQuestionBtn {
+  #deleteQuestionBtn, #submitQuestionBtn {
     margin-right: 20px;
     width: 300px;
   }

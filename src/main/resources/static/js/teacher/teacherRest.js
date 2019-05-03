@@ -66,18 +66,24 @@ function loadEvaluations() {
                 var evaluation = evaluations[i];
                 console.log(evaluation);
 
-                //TODO: Use this in studentDashboard instead of teacherDashboard
-                if (evaluation["stopDate"] < moment().format('YYYY-MM-DD')) {
-                    console.log(evaluation["courseId"] + " expired at date " + evaluation["stopDate"]);
-                }
-
-                else {
-                    console.log("Evaluation data: ", "courseName");
-                    addEvaluationCard(evaluation, "courseName");
-                }
+                getCourseName(evaluation["courseId"]);
+                addEvaluationCard(evaluation, "courseName");
             }
         }
     });
+}
+
+//Loads evaluations from the database
+function getCourseName(courseId) {
+    console.log("Getting courseName...");
+    fetch("/getNameOfCourse/" + courseId).then(function(response) {
+        return response.text();
+    })
+        .then(function (courseName) {
+            console.log("Evaluation data: ", courseName);
+            return courseName;
+            //TODO: Get courseName out of this function
+        });
 }
 
 //Loads questions from the database
@@ -107,6 +113,7 @@ function loadQuestions() {
 
                 updateTotalPagesDisplay();
                 updateQuestionCardInfo();
+                generateQuestionCardButtons();
                 generateSliderContent(questions, 0);
             }
         }

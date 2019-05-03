@@ -11,16 +11,20 @@
 
     <link rel="icon" href="https://pbs.twimg.com/profile_images/671984499648020481/FixFBnRN_400x400.png">
     <script th:src="@{/bootstrap/js/jquery.min.js}"></script>
+    <script th:src="@{/bootstrap/js/bootstrap.bundle.js}"></script>
+
     <link rel="stylesheet" th:href="@{/bootstrap/css/bootstrap.css}">
     <link rel="stylesheet" th:href="@{/css/mainStyle.css}">
-    <script th:src="@{/bootstrap/js/bootstrap.bundle.js}"></script>
-    <script th:src="@{/js/moment.js}"></script>
-    <script th:src="@{/js/evaluation.js}"></script>
+
+    <script th:src="@{/js/external/moment.js}"></script>
+
+    <script th:src="@{/js/teacher/teacherRest.js}"></script>
+    <script th:src="@{/js/teacher/teacherEvaluation.js}"></script>
+    <script th:src="@{/js/teacher/teacherContentGeneration.js}"></script>
+
     <script th:src="@{/js/helperFunctions.js}"></script>
-    <script th:src="@{/js/teacherRest.js}"></script>
     <script th:src="@{/js/contentGeneration.js}"></script>
     <script th:src="@{/js/errorChecking.js}"></script>
-    <script th:src="@{/js/addstudent.js}"></script>
   </head>
 
   <body id="body">
@@ -93,17 +97,7 @@
                 <h5 id="questionDisplayCard" class="card-title"><!-- Question number here --></h5>
                 <p id="questionTextCard" class="card-text"><!-- Question text here --></p>
                 <div id="buttonArea" class="container">
-                  <nav id="buttonBar" class="navbar navbar-light container">
-                    <div id="savePlacement" class="navbar-nav ml-auto">
-                      <div id="saveQuestion" class="nav-item">
-                        <button id="saveBtn" class="btn btn-primary" onclick="updateQuestion()">Save</button>
-                      </div>
-                    </div>
-
-                    <div id="deleteQuestion" class="nav-item navbar-nav mr-auto">
-                      <button id="deleteQuestionBtn" class="btn btn-primary" type="submit" data-toggle="modal" data-target="#modalDeleteQuestion">Delete</button>
-                    </div>
-                  </nav>
+                  <!-- Placement for the button bar inside the card -->
                 </div>
               </div>
 

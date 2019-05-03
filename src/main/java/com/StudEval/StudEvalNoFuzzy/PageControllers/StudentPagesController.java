@@ -10,7 +10,12 @@ public class StudentPagesController {
 
     @RequestMapping(value = {"/studentpage"}, method = {RequestMethod.GET})
     public String studentDashboard(){
-        return "studentdashboard";
+        return "studentDashboard.html";
+    }
+
+    @RequestMapping("/studentpage/evaluation")
+    public String studentEvaluation(){
+        return "studentEvaluation.html";
     }
 
 }
