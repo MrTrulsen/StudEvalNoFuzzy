@@ -27,7 +27,7 @@ function generateEvaluation() {
   console.log(evaluation);
 
   removeElementsByClass("error");
-  checkForErrorInAddEvaluation(evaluation, courseId, courseName, evalDates, examTime, btn, email);
+  checkForErrorInAddEvaluation(evaluation, courseId, courseName, evalDates, examTime, btn);
 }
 
 //Adds an evaluation card at the dashboard based on the user input or when loaded into the dashboard
