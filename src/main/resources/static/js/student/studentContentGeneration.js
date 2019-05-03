@@ -13,13 +13,13 @@ function generateEvaluationCard(courseId, start, end, course) {
 
     generateCardContent2("h5", "card-title", course);
     generateCardContent2("p", "card-text", "With supporting text below as a natural lead-in to additional content.");
-    generateBtn("takeEval", courseId, 1, "onclick", "location.href='/studentpage/evaluation'", null, null, null, null, "Take evaluation");
+    generateBtn("takeEval", courseId, "onclick", "location.href='/studentpage/evaluation'", "Take evaluation");
     generateCardContent("div", "card-footer text-muted", "Opened: ", start);
 
     document.getElementById("cardArea").append(card);
 
     //Generates buttons inside the evaluation card
-    function generateBtn(type, courseId, numOfAttributes, attribute, data, attribute2, data2, attribute3, data3, text) {
+    function generateBtn(type, courseId, attribute, data, text) {
         var btn = document.createElement("button");
         btn.id = type + "btn" + courseId;
         btn.className = "btn btn-primary studentEvalBtn";

@@ -30,6 +30,8 @@ function generateQuestion() {
   checkForErrorInAddQuestion(question, text, complexity, time, difficulty, importance, btn);
 }
 
+//TODO: Implement this function
+//Updates and saves the current question
 function updateQuestion() {
   var text = document.getElementById('questionText').innerHTML;
   var difficulty = document.getElementById('difficultyOutput').value;
@@ -64,7 +66,6 @@ function showQuestion(questions, questionIndex) {
 //Updates the display of total pages inside the pageSelector
 function updateTotalPagesDisplay() {
   document.getElementById('totalPages').innerHTML = questions.length;
-  console.log(document.getElementById('totalPages'));
 }
 
 //Chooses the previous questionIndex
