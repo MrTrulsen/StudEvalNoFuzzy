@@ -95,7 +95,7 @@
             <div id="pageSelector">
               <ul class="pagination pagination-lg justify-content-center" style="margin-bottom: 0px">
                 <li id="previous" class="page-item">
-                  <a class="page-link" href="#pageSelector" aria-label="Previous" onclick="previousQuestion()">
+                  <a class="page-link" href="#navWrapper" aria-label="Previous" onclick="previousQuestion()">
                     <span aria-hidden="true">&laquo;</span>
                     <span class="sr-only">Previous</span>
                   </a>
@@ -104,7 +104,7 @@
                 <li id="pageInputDisplay" class="page-item"><a id="pageInput" class="page-link" readonly></a>
                 <li id="totalPagesDisplay" class="page-item"><a id="totalPages" class="page-link"></a></li>
                 <li id="next" class="page-item">
-                  <a class="page-link" href="#pageSelector" aria-label="Next" onclick="nextQuestion()">
+                  <a class="page-link" href="#navWrapper" aria-label="Next" onclick="nextQuestion()">
                     <span aria-hidden="true">&raquo;</span>
                     <span class="sr-only">Next</span>
                   </a>
@@ -130,7 +130,7 @@
                 <div id="modalSettingsContent" class="input-group mb-3">
                   <div id="changePassword">
                     <p>If you want to change the user password, you can press here. You will need to confirm your password and then verify it in your mail.</p>
-                    <button id="changePasswordBtn" class="btn btn-primary" onclick="location.href='#'" type="submit">Change password</button>
+                    <button id="changePasswordBtn" class="btn btn-primary" onclick="generateChangePasswordFields()" type="submit">Change password</button>
                   </div>
 
                   <div id="deleteAccount">

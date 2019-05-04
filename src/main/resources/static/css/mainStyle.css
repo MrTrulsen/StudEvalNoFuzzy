@@ -67,14 +67,38 @@ h2 {
   margin-bottom: 15px;
 }
 
-#deleteAccount {
+#oldPassword {
+  padding-bottom: 5px;
+}
+
+#oldPassword, #newPassword {
+  margin-bottom: 10px;
+}
+
+#closePasswordChange{
+  margin-right: .25rem;
+}
+
+#savePasswordChange {
+  margin-left: .25rem;
+}
+
+#changePasswordButtons {
+  float: right;
+}
+
+#passwordInputPlacement {
+  margin-top: 15px;
+}
+
+#deleteAccount, #passwordInputPlacement {
   padding-top: 15px;
   border-top: solid;
   border-width: 1px;
   border-color: #696969;
 }
 
-#modalSettingsInfo {
+#modalSettingsInfo, #modalRemoveInfo {
   margin: 0;
 }
 
@@ -233,7 +257,7 @@ h2 {
 }
 
 .pagination {
-  margin-bottom: 0px;
+  margin-bottom: 0;
 }
 
 .page-link {

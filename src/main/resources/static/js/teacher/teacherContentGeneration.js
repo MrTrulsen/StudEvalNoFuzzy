@@ -1,8 +1,8 @@
 
 //Generates a evaluation card at the dashboard based on the user input
-function generateEvaluationCard(courseId, start, end, course) {
+function generateEvaluationCard(evalId, start, end, course) {
     var card = document.createElement("div");
-    card.id = "evaluationCard" + courseId;
+    card.id = evalId;
     card.className = "card text-center";
 
     generateCardContent("div", "card-header", "Open until: ", end);
@@ -12,18 +12,16 @@ function generateEvaluationCard(courseId, start, end, course) {
     card.append(cardBody);
 
     generateCardContent2("h5", "card-title", course);
-    generateCardContent2("p", "card-text", "With supporting text below as a natural lead-in to additional content.");
-    generateBtn("editEval", courseId, "onclick", "location.href='/teacherpage/evaluation'", null, null, null, null, "See evaluation");
-    generateBtn("result", courseId, "data-toggle", "modal", "data-target", "#modalResult", null, null, "Result");
-    generateBtn("remove", courseId, "data-toggle", "modal", "data-target", "#modalRemove", "onclick", "var element = document.getElementById('removeEvaluation');", "Remove");
+    generateBtn("editEval", "onclick", "location.href='/teacherpage/evaluation'", null, null, null, null, "See evaluation");
+    generateBtn("result", "data-toggle", "modal", "data-target", "#modalResult", null, null, "Result");
+    generateBtn("remove", "data-toggle", "modal", "data-target", "#modalRemove", "onclick", "var btn = this; setEvalId(btn)", "Remove");
     generateCardContent("div", "card-footer text-muted", "Opened: ", start);
 
     document.getElementById("cardArea").append(card);
 
     //Generates buttons inside the evaluation card
-    function generateBtn(type, courseId, attribute, data, attribute2, data2, attribute3, data3, text) {
+    function generateBtn(type, attribute, data, attribute2, data2, attribute3, data3, text) {
         var btn = document.createElement("button");
-        btn.id = type + "btn" + courseId;
         btn.className = "btn btn-primary evalBtn";
         btn.setAttribute(attribute, data);
         btn.setAttribute(attribute2, data2);
@@ -70,7 +68,7 @@ function generateQuestionCardButtons() {
     saveBtn.id = "saveBtn";
     saveBtn.className = "btn btn-primary";
     saveBtn.innerHTML = "Save";
-    saveBtn.setAttribute("onclick", "updateQuestion()");
+    saveBtn.setAttribute("onclick", "saveQuestion()");
     saveQuestion.append(saveBtn);
 
     var deleteQuestion = document.createElement("div");

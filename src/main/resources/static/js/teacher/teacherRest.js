@@ -15,9 +15,10 @@ function addEvaluation(evaluation, courseName) {
 
         if (response.status === 200) {
             btn.setAttribute("data-dismiss", "modal");
-            addEvaluationCard(evaluation, courseName);
+            window.location.reload();
+        }
 
-        } else {
+        else {
             btn.removeAttribute("data-dismiss");
             showErrorMessage("modalAddEvalBody", "Error when trying to add evaluation. Please try again.");
             return response.text();
@@ -65,6 +66,7 @@ function loadEvaluations() {
             for (var i = 0; i < evaluations.length; i++) {
                 var evaluation = evaluations[i];
                 console.log(evaluation);
+                this.evaluations = evaluations;
 
                 getCourseName(evaluation["courseId"]);
                 addEvaluationCard(evaluation, "courseName");
@@ -121,9 +123,9 @@ function loadQuestions() {
 }
 
 //Deletes an evaluation from the database
-function deleteEvaluation(courseId) {
-    console.log("Deleting evaluation: ", courseId);
-    fetch("/deleteEvaluation/" + courseId, {
+function deleteEvaluation(evalId) {
+    console.log("Deleting evaluation: ", evalId);
+    fetch("/deleteEvaluation/" + evalId, {
         method: "DELETE"
     })
         .then(function (response) {
@@ -141,6 +143,29 @@ function deleteEvaluation(courseId) {
             return response.text();
         }
     });
+}
+
+//Deletes an user from the database
+function deleteUser(userId) {
+    console.log("Deleting user: ", userId);
+    fetch("/deleteUser/" + userId, {
+        method: "DELETE"
+    })
+        .then(function (response) {
+            var btn = document.getElementById("saveSettingsBtn");
+            console.log("Response: ", response);
+
+            if (response.status === 200) {
+                btn.setAttribute("data-dismiss", "modal");
+                window.location.reload();
+            }
+
+            else {
+                btn.removeAttribute("data-dismiss");
+                showErrorMessage("deleteAccount", "Error when trying to delete user. Please try again.");
+                return response.text();
+            }
+        });
 }
 
 //Deletes a question from the database
@@ -167,26 +192,21 @@ function deleteQuestion(questionId) {
 }
 
 //Saves the current question to the database
-function saveQuestion(question) {
-    console.log("Adding question...");
+function saveQuestion() {
+    console.log("Saving question...");
     fetch("/editQuestion", {
-        method: "POST",
-        headers: {
-            "Content-Type": "application/json"
-        },
-        body: JSON.stringify(question)
+        method: "POST"
     })
         .then(function (response) {
         console.log("Response: ", response);
 
         if (response.status === 200) {
-            console.log(questions);
             showSuccessMessage()("buttonArea", "Question successfully saved");
         }
 
         else {
             showErrorMessage("buttonArea", "Error when trying to save question. Please try again.");
-            return response.text();
+            return response;
         }
     });
 }

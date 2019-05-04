@@ -59,3 +59,27 @@ function loadQuestions() {
             }
         });
 }
+
+//Adds answers to the evaluation in the database
+function submitQuestion(evalId) {
+    console.log("Adding evaluation...");
+    fetch("/addAnswers/" + evalId, {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json"
+        },
+        body: JSON.stringify(evalId)
+    })
+        .then(function (response) {
+            console.log("Response: ", response);
+
+            if (response.status === 200) {
+
+            }
+
+            else {
+
+                return response.text();
+            }
+        });
+}

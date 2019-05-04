@@ -165,27 +165,13 @@
                             </button>
                         </div>
                         <div id="modalRemoveEvalBody" class="modal-body">
-                            <div id="modalRemoveEvalContent" class="input-group mb-3">
-                                <p>Are you sure you want to remove the evaluation? If you want so, please write in the Course ID of the evaluation.</p>
-                                <div id="removeCourseId" class="input-group">
-                                    <div class="input-group-prepend">
-                                        <span class="input-group-text">Course ID</span>
-                                    </div>
-                                    <input id="removeCourseIdInput" type="text" class="form-control" placeholder="ID">
-                                </div>
-
-                                <p class="infoText">This will be the date when the evaluation opens. You need to choose date to ensure that you are deleting the right one since there can be several evaluations in the same course.</p>
-                                <div id="deleteDate" class="input-group">
-                                    <div class="input-group-prepend">
-                                        <span class="input-group-text">Date</span>
-                                    </div>
-                                    <input id="removeDateInput" type="text" name="removeEval" placeholder="Date" aria-label="Sizing example input" aria-describedby="evalDates" readonly>
-                                </div>
+                            <div id="modalRemoveEvalContent" class="input-group">
+                                <p id="modalRemoveInfo">Are you sure you want to remove the evaluation?</p>
                             </div>
                         </div>
                         <div class="modal-footer">
                             <button type="button" class="btn btn-primary" data-dismiss="modal">Close</button>
-                            <button id="removeEvaluationBtn" type="button" class="btn btn-primary" onclick="removeEvaluationFromDashboard()">Remove evaluation</button>
+                            <button id="removeEvaluationBtn" type="button" class="btn btn-primary" onclick="deleteEvaluation(evalId)">Remove evaluation</button>
                         </div>
                     </div>
                 </div>
@@ -206,7 +192,7 @@
                     <div id="modalSettingsContent" class="input-group mb-3">
                       <div id="changePassword">
                           <p>If you want to change the user password, you can press here. You will need to confirm your password and then verify it in your mail.</p>
-                        <button id="changePasswordBtn" class="btn btn-primary" onclick="location.href='#'" type="submit">Change password</button>
+                        <button id="changePasswordBtn" class="btn btn-primary" onclick="generateChangePasswordFields()" type="submit">Change password</button>
                       </div>
 
                       <div id="deleteAccount">

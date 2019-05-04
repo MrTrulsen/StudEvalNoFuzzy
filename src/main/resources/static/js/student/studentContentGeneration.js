@@ -12,7 +12,6 @@ function generateEvaluationCard(courseId, start, end, course) {
     card.append(cardBody);
 
     generateCardContent2("h5", "card-title", course);
-    generateCardContent2("p", "card-text", "With supporting text below as a natural lead-in to additional content.");
     generateBtn("takeEval", courseId, "onclick", "location.href='/studentpage/evaluation'", "Take evaluation");
     generateCardContent("div", "card-footer text-muted", "Opened: ", start);
 

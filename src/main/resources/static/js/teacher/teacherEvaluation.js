@@ -30,27 +30,6 @@ function generateQuestion() {
   checkForErrorInAddQuestion(question, text, complexity, time, difficulty, importance, btn);
 }
 
-//TODO: Implement this function
-//Updates and saves the current question
-function updateQuestion() {
-  var text = document.getElementById('questionText').innerHTML;
-  var difficulty = document.getElementById('difficultyOutput').value;
-  var complexity = document.getElementById('complexityOutput').value;
-  var time = document.getElementById('timeOutput').value;
-  var importance = document.getElementById('importanceOutput').value;
-
-  var question = {
-    text: text,
-    difficulty: difficulty / 100,
-    complexity: complexity / 100,
-    time: time / 60,
-    importance: importance / 100
-  };
-
-  removeElementsByClass("error", "success");
-  saveQuestion(question);
-}
-
 //Finds the active question for deletion inside the evaluation
 function findActiveQuestionForDeletion() {
   var questionId = questions[questionIndex]["question_id"];

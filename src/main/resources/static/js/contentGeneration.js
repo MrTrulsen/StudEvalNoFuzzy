@@ -1,3 +1,4 @@
+
 //Function to generate sliders and the content inside the evaluation document
 function generateSliderContent(questions, questionIndex) {
 
@@ -76,5 +77,65 @@ function generateSliderContent(questions, questionIndex) {
     value.append(valueInput);
 
     wrapper.append(content);
+  }
+}
+
+//Generates a seperate div with input fields for changing password
+function generateChangePasswordFields() {
+  if (document.getElementById("passwordInputPlacement") !== null) {
+    removeElement("passwordInputPlacement");
+  }
+
+  var inputPlacement = document.createElement("div");
+  inputPlacement.id = "passwordInputPlacement";
+  document.getElementById("changePassword").append(inputPlacement);
+
+  var infoText = document.createElement("p");
+  infoText.innerHTML = "Please write in your old and your new suggested password. We recommend a strong password for your own security.";
+  inputPlacement.append(infoText);
+
+  generateInputField("oldPassword", "Old Password");
+  generateInputField("newPassword", "New Password");
+
+  //Generates input fields for password input
+  function generateInputField(inputId, inputText) {
+    var placeholder = document.createElement("div");
+    placeholder.id = inputId;
+    placeholder.className = "input-group";
+    inputPlacement.append(placeholder);
+
+    var prepend = document.createElement("div");
+    prepend.className = "input-group-prepend";
+    placeholder.append(prepend);
+
+    var text = document.createElement("span");
+    text.className = "input-group-text";
+    text.innerHTML = inputText;
+    prepend.append(text);
+
+    var input = document.createElement("input");
+    input.id = inputId + "input";
+    input.className = "form-control";
+    input.type = "password";
+    input.placeholder = "...";
+    placeholder.append(input);
+  }
+
+  var buttonPlacement = document.createElement("div");
+  buttonPlacement.id = "changePasswordButtons";
+  inputPlacement.append(buttonPlacement);
+
+  generateButton("closePasswordChange", "Close", "removeElement('passwordInputPlacement')");
+  generateButton("savePasswordChange", "Save Settings", "changePassword()")
+
+  //Generates buttons with onclick functions
+  function generateButton(id, text, onclickFunction) {
+    var btn = document.createElement("button");
+    btn.id = id;
+    btn.className = "btn btn-primary";
+    btn.type = "button";
+    btn.innerHTML = text;
+    btn.setAttribute("onclick", onclickFunction);
+    buttonPlacement.append(btn);
   }
 }

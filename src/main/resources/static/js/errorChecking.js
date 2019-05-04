@@ -52,7 +52,7 @@ function checkForErrorInAddQuestion(question, text, complexity, time, difficulty
 }
 
 //Checks for error at user input
-function checkForErrorInAddEvaluation(evaluation, courseId, courseName, evalDates, examTime, btn, email) {
+function checkForErrorInAddEvaluation(evaluation, courseId, courseName, evalDates, examTime, btn) {
     //If length = 0 it will return an error message and not continue
     if (courseId.length === 0) {
         showErrorMessage("addEvalCourseId", "The field can not be empty");
@@ -75,6 +75,6 @@ function checkForErrorInAddEvaluation(evaluation, courseId, courseName, evalDate
     }
 
     else {
-        addEvaluation(evaluation, courseName, email);
+        addEvaluation(evaluation, courseName);
     }
 }

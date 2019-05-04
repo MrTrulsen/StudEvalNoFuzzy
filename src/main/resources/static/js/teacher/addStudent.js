@@ -18,7 +18,7 @@ function addStudent(users) {
             //generateStudent(user);
             console.log(users);
         } else {
-            btn.removeAttribute("data-dismiss", "modal");
+            btn.removeAttribute("data-dismiss");
             return response.text();
         }
             }).then(function () {

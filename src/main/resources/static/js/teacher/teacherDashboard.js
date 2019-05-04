@@ -1,4 +1,7 @@
 
+var evaluations = [];
+var evalId;
+
 window.addEventListener('load', function() {
   //Loads the available evaluations
   loadEvaluations();
@@ -26,7 +29,7 @@ function generateEvaluation() {
 
   console.log(evaluation);
 
-  removeElementsByClass("error");
+  removeElementsByClass("error", "success");
   checkForErrorInAddEvaluation(evaluation, courseId, courseName, evalDates, examTime, btn);
 }
 
@@ -36,54 +39,20 @@ function addEvaluationCard(evaluation, courseName) {
   start = moment(evaluation["startDate"]).format('dddd / MMMM Do YYYY');
   end = moment(evaluation["stopDate"]).format('dddd / MMMM Do YYYY');
 
-  generateEvaluationCard(evaluation["courseId"], start, end, course);
+  generateEvaluationCard(evaluation["evalId"], start, end, course);
 }
 
 //Removes a evaluation when user press on the remove button inside the card
-function removeEvaluationFromDashboard() {
-  var courseId = document.getElementById("removeCourseIdInput").value;
-  var date = document.getElementById("removeDateInput").value;
-  var btn = document.getElementById("removeEvaluationBtn");
-
-  removeElementsByClass("error", "success");
-  checkForError(courseId, date, btn);
-
-  //Checks for error at user input
-  function checkForError(courseIdInput, dateInput, btn) {
-    //If length = 0 it will return an error message and not continue
-    if (courseId.length === 0) {
-      showErrorMessage("removeCourseId", "The field can not be empty");
-      btn.removeAttribute("data-dismiss", "modal");
-    }
-
-    else if (date.length === 0) {
-      showErrorMessage("deleteDate", "The field can not be empty");
-      btn.removeAttribute("data-dismiss", "modal");
-    }
-
-    else {
-      deleteEvaluation(courseId);
-
-      //var action = document.getElementById("evaluationCard" + courseIdInput);
-
-      //if (action === null) {
-      //  showErrorMessage("modalRemoveContent", "Please enter the correct value");
-      //  btn.removeAttribute("data-dismiss", "modal");
-      //}
-
-      //else {
-      //  action.parentNode.removeChild(action);
-      //  btn.setAttribute("data-dismiss", "modal");
-      //}
-    }
-  }
+function setEvalId(btn) {
+  var parentId = btn.parentElement.parentElement.id;
+  console.log("Evalutaion ID: ", parentId);
+  evalId = parentId;
 }
 
 function formatToInputField(start, end) {
   //TODO: Change the formatting to " / " and get it to work
   var dates = document.getElementById("datesInput");
-  var format = start.format('YYYY-MM-DD') + ' - ' + end.format('YYYY-MM-DD');
-  dates.value = format;
+  dates.value = start.format('YYYY-MM-DD') + ' - ' + end.format('YYYY-MM-DD');
 }
 
 //This is used to initialize the datepicker provided in the modal for adding evaluations
@@ -96,7 +65,7 @@ $(function() {
         startDate: start,
         endDate: start, //TODO: Plus some days (Max 1 week)
         minDate: moment(),
-        maxDate: moment().add(6, 'month'),
+        maxDate: moment().add(1, 'month'),
         locale: {
           format: 'YYYY-MM-DD'
         }
