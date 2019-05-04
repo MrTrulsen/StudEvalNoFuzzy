@@ -10,6 +10,7 @@ import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.PreparedStatementCreator;
 import org.springframework.jdbc.support.GeneratedKeyHolder;
 import org.springframework.jdbc.support.rowset.SqlRowSet;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Repository;
 
 import java.sql.Connection;
@@ -25,6 +26,8 @@ import java.util.List;
 public class MainRepository {
     private JdbcTemplate jdbcTemplate;
 
+    @Autowired
+    BCryptPasswordEncoder encoder;
 
     @Autowired
     public MainRepository(JdbcTemplate jdbcTemplate) {
@@ -446,6 +449,26 @@ public class MainRepository {
         } else {
             return "could not edit question";
         }
+    }
+
+    /**
+     * Editing of password of current user
+     * @param oldPassword
+     * @param newPassword
+     * @param email
+     * @return null if success, else "could not edit password"
+     */
+    public String changePassword(String oldPassword, String newPassword, String email){
+        String query = "UPDATE user SET password=? WHERE email=?";
+        Integer numRows = 0;
+
+        numRows = jdbcTemplate.update(query,newPassword,email);
+        if (numRows == 1) {
+            return null;
+        } else {
+            return "could not edit password";
+        }
+
     }
 
 

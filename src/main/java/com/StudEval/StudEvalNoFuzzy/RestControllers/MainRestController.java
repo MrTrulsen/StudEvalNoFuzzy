@@ -11,6 +11,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
@@ -18,6 +19,9 @@ import java.util.List;
 
 @RestController
 public class MainRestController {
+
+    @Autowired
+    BCryptPasswordEncoder encoder;
 
     private final MainRepository mainRepository;
 
@@ -166,7 +170,7 @@ public class MainRestController {
     }
 
     @RequestMapping(value = "/deleteQuestion/{questionId}" , method = RequestMethod.DELETE)
-    public ResponseEntity<String> deleteUser(@PathVariable Integer questionId){
+    public ResponseEntity<String> deleteQuestion(@PathVariable Integer questionId){
         String error = mainRepository.deleteQuestionFromEvaluation(questionId);
         if(error == null){
             return new ResponseEntity<>(HttpStatus.OK);
@@ -185,6 +189,23 @@ public class MainRestController {
         else {
             return new ResponseEntity<>(error, HttpStatus.BAD_REQUEST);
         }
+    }
+
+    @RequestMapping(value = "/changePassword/{oldPassword}/{newPassword}", method = RequestMethod.POST)
+    private ResponseEntity<String> changePassword(@PathVariable String newPassword,@PathVariable String oldPassword){
+     String currentUserEmail = getCurrentUser().getEmail();
+     String currentPassword = getCurrentUser().getPassword();
+     String error = "";
+     if(encoder.matches(oldPassword,currentPassword)){
+             error = mainRepository.changePassword(oldPassword,newPassword,currentUserEmail);
+     }
+     if(error == null){
+            return new ResponseEntity<>(HttpStatus.OK);
+     }
+     else {
+         return new ResponseEntity<>(error, HttpStatus.BAD_REQUEST);
+     }
+
     }
 
 
