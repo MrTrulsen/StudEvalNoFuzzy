@@ -197,7 +197,7 @@ public class MainRestController {
      String currentPassword = getCurrentUser().getPassword();
      String error = "";
      if(encoder.matches(oldPassword,currentPassword)){
-             error = mainRepository.changePassword(newPassword,currentUserEmail);
+             error = mainRepository.changePassword(encoder.encode(newPassword),currentUserEmail);
      }
      if(error == null){
             return new ResponseEntity<>(HttpStatus.OK);
