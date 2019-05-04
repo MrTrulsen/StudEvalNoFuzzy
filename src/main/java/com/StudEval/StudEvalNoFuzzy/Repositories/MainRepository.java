@@ -453,15 +453,13 @@ public class MainRepository {
 
     /**
      * Editing of password of current user
-     * @param oldPassword
      * @param newPassword
      * @param email
      * @return null if success, else "could not edit password"
      */
-    public String changePassword(String oldPassword, String newPassword, String email){
+    public String changePassword(String newPassword, String email){
         String query = "UPDATE user SET password=? WHERE email=?";
-        Integer numRows = 0;
-
+        Integer numRows;
         numRows = jdbcTemplate.update(query,newPassword,email);
         if (numRows == 1) {
             return null;
