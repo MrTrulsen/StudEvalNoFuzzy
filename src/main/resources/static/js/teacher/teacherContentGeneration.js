@@ -12,8 +12,8 @@ function generateEvaluationCard(evalId, start, end, course) {
     card.append(cardBody);
 
     generateCardContent2("h5", "card-title", course);
-    generateBtn("editEval", "onclick", "location.href='/teacherpage/evaluation'", null, null, null, null, "See evaluation");
-    generateBtn("result", "data-toggle", "modal", "data-target", "#modalResult", null, null, "Result");
+    generateBtn("editEval", "onclick", "var btn = this; setEvalId(btn); location.href='/teacherpage/evaluation'", null, null, null, null, "See evaluation");
+    generateBtn("result", "data-toggle", "modal", "data-target", "#modalResult", "onclick", "var btn = this; setEvalId(btn)", "Result");
     generateBtn("remove", "data-toggle", "modal", "data-target", "#modalRemove", "onclick", "var btn = this; setEvalId(btn)", "Remove");
     generateCardContent("div", "card-footer text-muted", "Opened: ", start);
 

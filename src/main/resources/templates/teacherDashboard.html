@@ -26,9 +26,11 @@
     <script th:src="@{/js/teacher/teacherRest.js}"></script>
     <script th:src="@{/js/teacher/graph.js}"></script>
 
-    <script th:src="@{/js/helperFunctions.js}"></script>
-    <script th:src="@{/js/contentGeneration.js}"></script>
-    <script th:src="@{/js/errorChecking.js}"></script>
+    <script th:src="@{/js/common/helperFunctions.js}"></script>
+    <script th:src="@{/js/common/contentGeneration.js}"></script>
+    <script th:src="@{/js/common/errorChecking.js}"></script>
+    <script th:src="@{/js/common/userRest.js}"></script>
+    <script th:src="@{/js/common/userSettings.js}"></script>
   </head>
 
   <body id="body">
@@ -171,7 +173,7 @@
                         </div>
                         <div class="modal-footer">
                             <button type="button" class="btn btn-primary" data-dismiss="modal">Close</button>
-                            <button id="removeEvaluationBtn" type="button" class="btn btn-primary" onclick="deleteEvaluation(evalId)">Remove evaluation</button>
+                            <button id="removeEvaluationBtn" type="button" class="btn btn-primary" onclick="deleteEvaluation()">Remove evaluation</button>
                         </div>
                     </div>
                 </div>
@@ -206,7 +208,6 @@
 
                   <div class="modal-footer">
                     <button type="button" class="btn btn-primary" data-dismiss="modal">Close</button>
-                    <button id="saveSettingsBtn" type="button" class="btn btn-primary" data-dismiss="modal">Save settings</button>
                   </div>
                 </div>
               </div>

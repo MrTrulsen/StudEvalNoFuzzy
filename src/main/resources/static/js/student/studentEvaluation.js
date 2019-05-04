@@ -3,30 +3,12 @@ var questions = [];
 var questionIndex;
 
 window.addEventListener('load', function() {
+    //Gets the stored evalId and sets it as a global variable
+    evalId = localStorage.getItem("evalId");
+
     //Loads the available questions
     loadQuestions();
 });
-
-//TODO: Implement this function
-//Updates and saves the current question
-function updateQuestion() {
-    var text = document.getElementById('questionText').innerHTML;
-    var difficulty = document.getElementById('difficultyOutput').value;
-    var complexity = document.getElementById('complexityOutput').value;
-    var time = document.getElementById('timeOutput').value;
-    var importance = document.getElementById('importanceOutput').value;
-
-    var question = {
-        text: text,
-        difficulty: difficulty / 100,
-        complexity: complexity / 100,
-        time: time / 60,
-        importance: importance / 100
-    };
-
-    removeElementsByClass("error", "success");
-    saveQuestion(question);
-}
 
 //Shows the selected question based on questionIndex
 function showQuestion(questions, questionIndex) {

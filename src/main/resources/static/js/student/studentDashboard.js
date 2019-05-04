@@ -1,4 +1,6 @@
 
+var evalId;
+
 window.addEventListener('load', function() {
     //Loads the available evaluations
     loadEvaluations();
@@ -10,5 +12,13 @@ function addEvaluationCard(evaluation, courseName) {
     start = moment(evaluation["startDate"]).format('dddd / MMMM Do YYYY');
     end = moment(evaluation["stopDate"]).format('dddd / MMMM Do YYYY');
 
-    generateEvaluationCard(evaluation["courseId"], start, end, course);
+    generateEvaluationCard(evaluation["evalId"], start, end, course);
+}
+
+//Removes sets a evalId as a global variable to be used between documents
+function setEvalId(btn) {
+    var parentId = btn.parentElement.parentElement.id;
+    console.log("Evalutaion ID: ", parentId);
+    evalId = parentId;
+    localStorage.setItem("evalId", evalId);
 }

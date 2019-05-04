@@ -29,7 +29,7 @@ function loadEvaluations() {
 //Loads questions from the database
 function loadQuestions() {
     console.log("Loading questions...");
-    fetch("/getQuestionsInEval/1").then(function(response) {
+    fetch("/getQuestionsInEval/" + evalId).then(function(response) {
         return response.json();
     })
         .then(function (questions) {
@@ -47,7 +47,7 @@ function loadQuestions() {
                 }
 
                 else {
-                    console.log("There are " + questions.length + " questions in this evaluation");
+                    console.log("There are " + questions.length + " question(s) in this evaluation");
                     questionIndex = 0;
                     document.getElementById("pageInput").innerHTML = questionIndex + 1;
 
@@ -61,8 +61,8 @@ function loadQuestions() {
 }
 
 //Adds answers to the evaluation in the database
-function submitQuestion(evalId) {
-    console.log("Adding evaluation...");
+function submitAnswers() {
+    console.log("Adding answers to the backend...");
     fetch("/addAnswers/" + evalId, {
         method: "POST",
         headers: {

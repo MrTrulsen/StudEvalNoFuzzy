@@ -1,8 +1,8 @@
 
 //Generates a evaluation card at the dashboard based on the user input
-function generateEvaluationCard(courseId, start, end, course) {
+function generateEvaluationCard(evalId, start, end, course) {
     var card = document.createElement("div");
-    card.id = "evaluationCard" + courseId;
+    card.id = evalId;
     card.className = "card text-center";
 
     generateCardContent("div", "card-header", "Open until: ", end);
@@ -12,15 +12,14 @@ function generateEvaluationCard(courseId, start, end, course) {
     card.append(cardBody);
 
     generateCardContent2("h5", "card-title", course);
-    generateBtn("takeEval", courseId, "onclick", "location.href='/studentpage/evaluation'", "Take evaluation");
+    generateBtn("takeEval", "onclick", "var btn = this; setEvalId(btn); location.href='/studentpage/evaluation'", "Take evaluation");
     generateCardContent("div", "card-footer text-muted", "Opened: ", start);
 
     document.getElementById("cardArea").append(card);
 
     //Generates buttons inside the evaluation card
-    function generateBtn(type, courseId, attribute, data, text) {
+    function generateBtn(type, attribute, data, text) {
         var btn = document.createElement("button");
-        btn.id = type + "btn" + courseId;
         btn.className = "btn btn-primary studentEvalBtn";
         btn.setAttribute(attribute, data);
         btn.type = "submit";
@@ -65,7 +64,7 @@ function generateQuestionCardButtons() {
     saveBtn.id = "saveBtn";
     saveBtn.className = "btn btn-primary";
     saveBtn.innerHTML = "Save";
-    saveBtn.setAttribute("onclick", "updateQuestion()");
+    saveBtn.setAttribute("onclick", "saveQuestion()");
     saveQuestion.append(saveBtn);
 
     var submitQuestion = document.createElement("div");
@@ -78,7 +77,7 @@ function generateQuestionCardButtons() {
     submitQuestionBtn.className = "btn btn-primary";
     submitQuestionBtn.innerHTML = "Submit";
     submitQuestionBtn.setAttribute("type", "submit");
-    submitQuestionBtn.setAttribute("onclick", "updateQuestion()");
+    submitQuestionBtn.setAttribute("onclick", "submitAnswers()");
     saveQuestion.append(submitQuestionBtn);
 
     document.getElementById("buttonArea").append(buttonBar);

@@ -1,5 +1,4 @@
 
-var evaluations = [];
 var evalId;
 
 window.addEventListener('load', function() {
@@ -42,11 +41,12 @@ function addEvaluationCard(evaluation, courseName) {
   generateEvaluationCard(evaluation["evalId"], start, end, course);
 }
 
-//Removes a evaluation when user press on the remove button inside the card
+//Removes sets a evalId as a global variable to be used between documents
 function setEvalId(btn) {
   var parentId = btn.parentElement.parentElement.id;
   console.log("Evalutaion ID: ", parentId);
   evalId = parentId;
+  localStorage.setItem("evalId", evalId);
 }
 
 function formatToInputField(start, end) {

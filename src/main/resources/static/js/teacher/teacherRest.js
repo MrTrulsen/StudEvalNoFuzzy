@@ -29,7 +29,7 @@ function addEvaluation(evaluation, courseName) {
 //Adds questions to the database
 function addQuestion(question) {
     console.log("Adding question...");
-    fetch("/addQuestion/1", {
+    fetch("/addQuestion/" + evalId, {
         method: "POST",
         headers: {
             "Content-Type": "application/json"
@@ -66,7 +66,6 @@ function loadEvaluations() {
             for (var i = 0; i < evaluations.length; i++) {
                 var evaluation = evaluations[i];
                 console.log(evaluation);
-                this.evaluations = evaluations;
 
                 getCourseName(evaluation["courseId"]);
                 addEvaluationCard(evaluation, "courseName");
@@ -90,8 +89,8 @@ function getCourseName(courseId) {
 
 //Loads questions from the database
 function loadQuestions() {
-    console.log("Loading questions...");
-    fetch("/getQuestionsInEval/1").then(function(response) {
+    console.log("Loading questions in evalID: " + evalId + "...");
+    fetch("/getQuestionsInEval/" + evalId).then(function(response) {
         return response.json();
     })
         .then(function (questions) {
@@ -109,7 +108,7 @@ function loadQuestions() {
             }
 
             else {
-                console.log("There are " + questions.length + " questions in this evaluation");
+                console.log("There are " + questions.length + " question(s) in this evaluation");
                 questionIndex = 0;
                 document.getElementById("pageInput").innerHTML = questionIndex + 1;
 
@@ -123,7 +122,7 @@ function loadQuestions() {
 }
 
 //Deletes an evaluation from the database
-function deleteEvaluation(evalId) {
+function deleteEvaluation() {
     console.log("Deleting evaluation: ", evalId);
     fetch("/deleteEvaluation/" + evalId, {
         method: "DELETE"
@@ -187,26 +186,6 @@ function deleteQuestion(questionId) {
             btn.removeAttribute("data-dismiss");
             showErrorMessage("modalDeleteQuestionBody", "Error when trying to delete question. Please try again.");
             return response.text();
-        }
-    });
-}
-
-//Saves the current question to the database
-function saveQuestion() {
-    console.log("Saving question...");
-    fetch("/editQuestion", {
-        method: "POST"
-    })
-        .then(function (response) {
-        console.log("Response: ", response);
-
-        if (response.status === 200) {
-            showSuccessMessage()("buttonArea", "Question successfully saved");
-        }
-
-        else {
-            showErrorMessage("buttonArea", "Error when trying to save question. Please try again.");
-            return response;
         }
     });
 }

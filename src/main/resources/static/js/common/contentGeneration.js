@@ -114,7 +114,7 @@ function generateChangePasswordFields() {
     prepend.append(text);
 
     var input = document.createElement("input");
-    input.id = inputId + "input";
+    input.id = inputId + "Input";
     input.className = "form-control";
     input.type = "password";
     input.placeholder = "...";
@@ -126,7 +126,7 @@ function generateChangePasswordFields() {
   inputPlacement.append(buttonPlacement);
 
   generateButton("closePasswordChange", "Close", "removeElement('passwordInputPlacement')");
-  generateButton("savePasswordChange", "Save Settings", "changePassword()")
+  generateButton("savePasswordChange", "Save Settings", "getPasswords()")
 
   //Generates buttons with onclick functions
   function generateButton(id, text, onclickFunction) {
