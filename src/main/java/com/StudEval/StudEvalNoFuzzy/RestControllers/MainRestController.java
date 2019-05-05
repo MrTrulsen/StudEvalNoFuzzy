@@ -154,12 +154,27 @@ public class MainRestController {
         String error;
         User current = getCurrentUser();
 
-        if (id.equals(Long.toString(current.getId())) || id == null){
+        if (id.equals(Long.toString(current.getId()))){
             error = mainRepository.deleteUser(id);
         }else{
             error = "ERROR: You are not authorized to delete this user!";
             return new ResponseEntity<>(error, HttpStatus.FORBIDDEN);
         }
+
+        if(error == null){
+            return new ResponseEntity<>(HttpStatus.OK);
+        }
+        else {
+            return new ResponseEntity<>(error, HttpStatus.BAD_REQUEST);
+        }
+    }
+
+    @RequestMapping(value = "/deleteUser" , method = RequestMethod.DELETE)
+    public ResponseEntity<String> deleteCurrentUser(){
+        String error;
+        User current = getCurrentUser();
+
+        error = mainRepository.deleteUser(Long.toString(current.getId()));
 
         if(error == null){
             return new ResponseEntity<>(HttpStatus.OK);
