@@ -33,12 +33,12 @@ public class Answer {
         this.question_id = question_id;
     }
 
-    public float getComplex() {
+    public float getComplexity() {
         return complexity;
     }
 
-    public void setComplex(float complex) {
-        this.complexity = complex;
+    public void setComplexity(float complexity) {
+        this.complexity = complexity;
     }
 
     public float getTime() {

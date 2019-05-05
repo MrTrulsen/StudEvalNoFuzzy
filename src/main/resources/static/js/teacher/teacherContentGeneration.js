@@ -12,16 +12,17 @@ function generateEvaluationCard(evalId, start, end, course) {
     card.append(cardBody);
 
     generateCardContent2("h5", "card-title", course);
-    generateBtn("editEval", "onclick", "var btn = this; setEvalId(btn); location.href='/teacherpage/evaluation'", null, null, null, null, "See evaluation");
-    generateBtn("result", "data-toggle", "modal", "data-target", "#modalResult", "onclick", "var btn = this; setEvalId(btn)", "Result");
-    generateBtn("remove", "data-toggle", "modal", "data-target", "#modalRemove", "onclick", "var btn = this; setEvalId(btn)", "Remove");
+    generateBtn("editEval", null, "onclick", "var btn = this; setEvalId(btn); location.href='/teacherpage/evaluation'", null, null, null, null, "See evaluation");
+    generateBtn("result", "resultBtn","data-toggle", "modal", "data-target", "#modalResult", "onclick", "var btn = this; setEvalId(btn); gatherQuestions()", "Result");
+    generateBtn("remove", null, "data-toggle", "modal", "data-target", "#modalRemove", "onclick", "var btn = this; setEvalId(btn)", "Remove");
     generateCardContent("div", "card-footer text-muted", "Opened: ", start);
 
     document.getElementById("cardArea").append(card);
 
     //Generates buttons inside the evaluation card
-    function generateBtn(type, attribute, data, attribute2, data2, attribute3, data3, text) {
+    function generateBtn(type, id, attribute, data, attribute2, data2, attribute3, data3, text) {
         var btn = document.createElement("button");
+        btn.id = id;
         btn.className = "btn btn-primary evalBtn";
         btn.setAttribute(attribute, data);
         btn.setAttribute(attribute2, data2);

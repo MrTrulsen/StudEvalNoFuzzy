@@ -74,6 +74,44 @@ function loadEvaluations() {
     });
 }
 
+//Loads answers from an evaluation
+function loadAnswersGraph() {
+    console.log("Loading answers...");
+    fetch("/getAnswersInEval/" + evalId).then(function(response) {
+        return response.json();
+    })
+        .then(function (answers) {
+            console.log("Answer data: ", answers);
+
+            if (Array.isArray(answers)) {
+                for (var i = 0; i < answers.length; i++) {
+                    var answer = answers[i];
+                    console.log(answer);
+                    this.answers = answers;
+                }
+            }
+        });
+}
+
+//Loads questions from the database
+function loadQuestionsGraph() {
+    console.log("Loading questions...");
+    fetch("/getQuestionsInEval/" + evalId).then(function(response) {
+        return response.json();
+    })
+        .then(function (questions) {
+            console.log("Question data: ", questions);
+
+            if (Array.isArray(questions)) {
+                for (var i = 0; i < questions.length; i++) {
+                    var question = questions[i];
+                    console.log(question);
+                    this.questions = questions;
+                }
+            }
+        });
+}
+
 //Loads evaluations from the database
 function getCourseName(courseId) {
     console.log("Getting courseName...");
@@ -142,29 +180,6 @@ function deleteEvaluation() {
             return response.text();
         }
     });
-}
-
-//Deletes an user from the database
-function deleteUser(userId) {
-    console.log("Deleting user: ", userId);
-    fetch("/deleteUser/" + userId, {
-        method: "DELETE"
-    })
-        .then(function (response) {
-            var btn = document.getElementById("saveSettingsBtn");
-            console.log("Response: ", response);
-
-            if (response.status === 200) {
-                btn.setAttribute("data-dismiss", "modal");
-                window.location.reload();
-            }
-
-            else {
-                btn.removeAttribute("data-dismiss");
-                showErrorMessage("deleteAccount", "Error when trying to delete user. Please try again.");
-                return response.text();
-            }
-        });
 }
 
 //Deletes a question from the database

@@ -61,7 +61,7 @@ function loadQuestions() {
 }
 
 //Adds answers to the evaluation in the database
-function submitAnswers() {
+function submitAnswers(evalId) {
     console.log("Adding answers to the backend...");
     fetch("/addAnswers/" + evalId, {
         method: "POST",

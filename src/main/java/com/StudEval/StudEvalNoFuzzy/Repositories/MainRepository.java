@@ -371,7 +371,7 @@ public class MainRepository {
         String query = "INSERT INTO responses(question_id,complexity, time_use, difficulty, importance) VALUES (?,?,?,?,?)";
         for (Answer answer : answers) {
             numRows = jdbcTemplate.update(query, answer.getQuestion_id(),
-                    answer.getComplex(),
+                    answer.getComplexity(),
                     answer.getTime(),
                     answer.getDifficulty(),
                     answer.getImportance());

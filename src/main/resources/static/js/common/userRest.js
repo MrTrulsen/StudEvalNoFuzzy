@@ -38,3 +38,27 @@ function saveQuestion() {
             }
         });
 }
+
+//Deletes a question from the database
+function deleteUser(userId) {
+    //TODO: Get userId
+    console.log("Deleting user: ", userId);
+    fetch("/deleteUser/" + userId, {
+        method: "DELETE"
+    })
+        .then(function (response) {
+            var btn = document.getElementById("confirmDeleteQuestionBtn");
+            console.log("Response: ", response);
+
+            if (response.status === 200) {
+                btn.setAttribute("data-dismiss", "modal");
+                window.location.reload();
+            }
+
+            else {
+                btn.removeAttribute("data-dismiss");
+                showErrorMessage("modalDeleteQuestionBody", "Error when trying to delete question. Please try again.");
+                return response.text();
+            }
+        });
+}

@@ -3,7 +3,7 @@
       xmlns="http://www.w3.org/1999/xhtml"
       xmlns:th="http://www.thymeleaf.org">
 
-  <head>
+<head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
 
@@ -14,60 +14,60 @@
     <link rel="stylesheet" th:href="@{/css/loginPageStyle.css}">
     <script th:src="@{/bootstrap/js/jquery.min.js}"></script>
     <script th:src="@{/bootstrap/js/bootstrap.bundle.js}"></script>
-  </head>
+</head>
 
-  <body id="body">
+<body id="body">
     <section id="fullPage">
-      <div id="brandingWrapper" class="float">
-        <div id="branding" class="illustrationClass">
+        <div id="brandingWrapper" class="float">
+            <div id="branding" class="illustrationClass">
+            </div>
         </div>
-      </div>
 
-      <div id="contentWrapper" class="float">
-        <div id="content">
-          <div id="header">
-            <p>EDUEVAL</p>
-          </div>
-
-          <div id="workArea">
-            <div id="authArea" class="groupMargin">
-              <div id="loginArea">
-                <div class="groupMargin bigText">
-                  <p>Log in - Teacher</p>
+        <div id="contentWrapper" class="float">
+            <div id="content">
+                <div id="header">
+                    <p>EDUEVAL</p>
                 </div>
 
-                <div id="loginField" class="groupMargin">
-                  <p>Write in your login information.</p>
-                  <form  method="POST" class="form-signin">
-                    <div class="form-group">
-                      <input type="email" class="form-control" id="username" name="username" aria-describedby="emailHelp" placeholder="Email">
+                <div id="workArea">
+                    <div id="authArea" class="groupMargin">
+                        <div id="loginArea">
+                            <div class="groupMargin bigText">
+                                <p>Log in - Teacher</p>
+                            </div>
+
+                            <div id="loginField" class="groupMargin">
+                                <p>Write in your login information.</p>
+                                <form  method="POST" class="form-signin">
+                                    <div class="form-group">
+                                        <input type="email" class="form-control" id="username" name="username" aria-describedby="emailHelp" placeholder="Email">
+                                    </div>
+
+                                    <div class="form-group">
+                                        <input type="password" class="form-control" id="password" name="password" placeholder="Password">
+                                    </div>
+
+                                    <button id="submitBtn" type="submit" class="btn btn-primary">Submit</button>
+                                </form>
+
+                                <button id="backBtn" class="btn btn-primary" onclick="location.href='/'" type="submit">Go back</button>
+                                <p id="registerText">Not registered? Click <a href="#">here.</a></p>
+                            </div>
+                        </div>
                     </div>
-
-                    <div class="form-group">
-                      <input type="password" class="form-control" id="password" name="password" placeholder="Password">
-                    </div>
-
-                    <button id="submitBtn" type="submit" class="btn btn-primary">Submit</button>
-                  </form>
-
-                  <button id="backBtn" class="btn btn-primary" onclick="location.href='/'" type="submit">Go back</button>
-                  <p id="registerText">Not registered? Click <a href="#">here.</a></p>
                 </div>
-              </div>
-            </div>
-          </div>
 
-          <div id="footerPlaceholder">
-          </div>
-        </div>
-
-        <div id="footer">
-          <div id="footerLinks" class="floatReverse">
-            <div><span id="copyright">© 2019 EDUEVAL</span>
+                <div id="footerPlaceholder">
+                </div>
             </div>
-          </div>
+
+            <div id="footer">
+                <div id="footerLinks" class="floatReverse">
+                    <div><span id="copyright">© 2019 EDUEVAL</span>
+                    </div>
+                </div>
+            </div>
         </div>
-      </div>
     </section>
-  </body>
+</body>
 </html>

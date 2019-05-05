@@ -3,7 +3,7 @@
       xmlns="http://www.w3.org/1999/xhtml"
       xmlns:th="http://www.thymeleaf.org">
 
-  <head>
+<head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
 
@@ -29,86 +29,86 @@
     <script th:src="@{/js/common/contentGeneration.js}"></script>
     <script th:src="@{/js/common/userRest.js}"></script>
     <script th:src="@{/js/common/userSettings.js}"></script>
-  </head>
+</head>
 
-  <body id="body">
+<body id="body">
     <section id="fullPage">
-      <div id="headerWrapper">
-        <div id="header" class="container">
-          <p>EDUEVAL</p>
+        <div id="headerWrapper">
+            <div id="header" class="container">
+                <p>EDUEVAL</p>
+            </div>
         </div>
-      </div>
 
-      <!-- Navigation bar  -->
-      <div id="navWrapper">
-        <nav id="navbar" class="navbar navbar-expand-md navbar-light container">
-          <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarTogglerDemo01" aria-controls="navbarTogglerDemo01" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
-          </button>
+        <!-- Navigation bar  -->
+        <div id="navWrapper">
+            <nav id="navbar" class="navbar navbar-expand-md navbar-light container">
+                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarTogglerDemo01" aria-controls="navbarTogglerDemo01" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
 
-          <!-- Class for collapseable navbar -->
-          <div class="collapse navbar-collapse" id="navbarTogglerDemo01">
-            <div class="navbar-nav mr-auto">
-            </div>
-
-            <div id="settingsNav" class="nav-item">
-              <!-- Button for settings -->
-              <button id="settingsBtn" class="btn btn-primary" data-toggle="modal" data-target="#modalSettings">Settings</button>
-            </div>
-
-            <div id="logoutNav" class="nav-item">
-              <!-- Button for logging out -->
-              <button id="logoutBtn" class="btn btn-primary" onclick="location.href='/logout'" type="submit">Log out</button>
-            </div>
-          </div>
-        </nav>
-      </div>
-
-      <div id="contentWrapper">
-        <div id="content" class="container">
-          <div id="workArea">
-            <!-- IDEA: Put the content under here -->
-            <div id="cardArea">
-              <!-- Evaluations will be added under here -->
-            </div>
-            <!-- IDEA: Dont put any content outside here -->
-
-            <!-- Modal for changing user settings  -->
-            <div class="modal fade" id="modalSettings" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-              <div class="modal-dialog" role="document">
-                <div class="modal-content">
-                  <div class="modal-header">
-                    <h5 class="modal-title" id="userSettingsTitle">User settings</h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                      <span aria-hidden="true">&times;</span>
-                    </button>
-                  </div>
-
-                  <div id="modalSettingsBody" class="modal-body">
-                    <div id="modalSettingsContent" class="input-group mb-3">
-                      <div id="changePassword">
-                        <p>If you want to change the user password, you can press here.</p>
-                        <button id="changePasswordBtn" class="btn btn-primary" onclick="generateChangePasswordFields()" type="submit">Change password</button>
-                      </div>
-
-                      <div id="deleteAccount">
-                        <p>If you want to delete your account, push this button.</p>
-                        <p id="modalSettingsInfo">WARNING:</p>
-                        <p>If your account is deleted, there is no way to restore it.</p>
-                        <button id="deleteAccountBtn" class="btn btn-danger" onclick="location.href='#'" type="submit">Delete account</button>
-                      </div>
+                <!-- Class for collapseable navbar -->
+                <div class="collapse navbar-collapse" id="navbarTogglerDemo01">
+                    <div class="navbar-nav mr-auto">
                     </div>
-                  </div>
 
-                  <div class="modal-footer">
-                    <button type="button" class="btn btn-primary" data-dismiss="modal">Close</button>
-                  </div>
+                    <div id="settingsNav" class="nav-item">
+                        <!-- Button for settings -->
+                        <button id="settingsBtn" class="btn btn-primary" data-toggle="modal" data-target="#modalSettings">Settings</button>
+                    </div>
+
+                    <div id="logoutNav" class="nav-item">
+                        <!-- Button for logging out -->
+                        <button id="logoutBtn" class="btn btn-primary" onclick="location.href='/logout'" type="submit">Log out</button>
+                    </div>
                 </div>
-              </div>
-            </div>
-          </div>
+            </nav>
         </div>
-      </div>
+
+        <div id="contentWrapper">
+            <div id="content" class="container">
+                <div id="workArea">
+                    <!-- IDEA: Put the content under here -->
+                    <div id="cardArea">
+                        <!-- Evaluations will be added under here -->
+                    </div>
+                    <!-- IDEA: Dont put any content outside here -->
+
+                    <!-- Modal for changing user settings  -->
+                    <div class="modal fade" id="modalSettings" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                        <div class="modal-dialog" role="document">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h5 class="modal-title" id="userSettingsTitle">User settings</h5>
+                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                        <span aria-hidden="true">&times;</span>
+                                    </button>
+                                </div>
+
+                                <div id="modalSettingsBody" class="modal-body">
+                                    <div id="modalSettingsContent" class="input-group">
+                                        <div id="changePassword">
+                                            <p>If you want to change the user password, you can press here.</p>
+                                            <button id="changePasswordBtn" class="btn btn-primary" onclick="generateChangePasswordFields()" type="submit">Change password</button>
+                                        </div>
+
+                                        <div id="deleteAccount">
+                                            <p>If you want to delete your account, push this button.</p>
+                                            <p id="modalSettingsInfo">WARNING:</p>
+                                            <p>If your account is deleted, there is no way to restore it.</p>
+                                            <button id="deleteAccountBtn" class="btn btn-danger" onclick="generateRemoveUserField()" type="submit">Delete account</button>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-primary" data-dismiss="modal">Close</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
     </section>
-  </body>
+</body>
 </html>
