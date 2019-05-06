@@ -17,7 +17,11 @@ function addStudent(users) {
             btn.setAttribute("data-dismiss", "modal");
             //generateStudent(user);
             console.log(users);
-        } else {
+        }
+        else if(response.status === 400){
+            showErrorMessage("modalAddStudentBody", "Could not add student, probably wrong email. Email must end with ntnu.no");
+        }
+        else {
             btn.removeAttribute("data-dismiss");
             return response.text();
         }

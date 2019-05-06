@@ -191,8 +191,9 @@ public class MainRestController {
         }
     }
 
+
     @RequestMapping(value = "/changePassword/{oldPassword}/{newPassword}", method = RequestMethod.POST)
-    private ResponseEntity<String> changePassword(@PathVariable String newPassword,@PathVariable String oldPassword){
+    public ResponseEntity<String> changePassword(@PathVariable String newPassword,@PathVariable String oldPassword){
      String currentUserEmail = getCurrentUser().getEmail();
      String currentPassword = getCurrentUser().getPassword();
      String error = "";
@@ -224,5 +225,15 @@ public class MainRestController {
         }
 
         return userRepository.findByEmail(loggedInUsername);
+    }
+
+    public ResponseEntity<String> registerNewPassword(User user){
+        String error = mainRepository.changePassword(encoder.encode(user.getPassword()),user.getEmail());
+        if(error == null){
+            return new ResponseEntity<>(HttpStatus.OK);
+        }
+        else {
+            return new ResponseEntity<>(error, HttpStatus.BAD_REQUEST);
+        }
     }
 }

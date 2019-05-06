@@ -1,6 +1,9 @@
 package com.StudEval.StudEvalNoFuzzy.PageControllers;
 
+import com.StudEval.StudEvalNoFuzzy.Interfaces.RoleRepository;
 import com.StudEval.StudEvalNoFuzzy.Interfaces.UserService;
+import com.StudEval.StudEvalNoFuzzy.RestControllers.MainRestController;
+import com.StudEval.StudEvalNoFuzzy.User.Role;
 import com.StudEval.StudEvalNoFuzzy.User.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -11,9 +14,17 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.validation.Valid;
+import java.util.Arrays;
+import java.util.HashSet;
 
 @Controller
 public class Frontpage {
+
+    @Autowired
+    RoleRepository roleRepository;
+
+    @Autowired
+    MainRestController mainRestController;
 
     @Autowired
     UserService userService;
@@ -42,18 +53,35 @@ public class Frontpage {
             modelMap.addAttribute("bindingResult", bindingResult);
         }
         else if(userService.isUserAlreadyPresent(user)){
-            modelAndView.addObject("successMessage", "user already exists!");
+            if(userService.isUserActive(user) == false) {
+                mainRestController.registerNewPassword(user);
+                modelAndView.addObject("successMessage", "User is registered successfully!");
+            }
+                else{
+                    modelAndView.addObject("successMessage", "user already exists!");
+                }
         }
         // we will save the user if, no binding errors
         else if (!userService.isPasswordConfirmationValid(user)){
             modelAndView.addObject("successMessage", "password failed to be repeated!");
         }
-        else{
+        else if(!user.getEmail().endsWith("ntnu.no")){
+            modelAndView.addObject("successMessage", "user email not ending with ntnu.no!");
+        }
+        else if(user.getEmail().endsWith("@stud.ntnu.no")){
+            Role userRole = roleRepository.findByRole("STUDENT_USER");
+            user.setRoles(new HashSet<Role>(Arrays.asList(userRole)));
+            userService.saveUser(user);
+            modelAndView.addObject("successMessage", "User is registered successfully!");
+        }
+        else if(user.getEmail().endsWith("@ntnu.no")){
+            Role userRole = roleRepository.findByRole("TEACHER_USER");
+            user.setRoles(new HashSet<Role>(Arrays.asList(userRole)));
             userService.saveUser(user);
             modelAndView.addObject("successMessage", "User is registered successfully!");
         }
         modelAndView.addObject("user", new User());
-        modelAndView.setViewName("login");
+        modelAndView.setViewName("register");
         return modelAndView;
     }
 }

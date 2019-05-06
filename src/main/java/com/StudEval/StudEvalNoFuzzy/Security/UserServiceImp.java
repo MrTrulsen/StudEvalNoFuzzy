@@ -27,8 +27,9 @@ public class UserServiceImp implements UserService {
         try {
             user.setPassword(encoder.encode(user.getPassword()));
             user.setStatus(1);
-            Role userRole = roleRepository.findByRole("TEACHER_USER");
-            user.setRoles(new HashSet<Role>(Arrays.asList(userRole)));
+            user.setRoles(user.getRoles());
+//            Role userRole = roleRepository.findByRole("TEACHER_USER");
+//            user.setRoles(new HashSet<Role>(Arrays.asList(userRole)));
             userRepository.save(user);
         }catch (Exception e){
             System.out.println(e);
@@ -44,6 +45,16 @@ public class UserServiceImp implements UserService {
     @Override
     public boolean isPasswordConfirmationValid(User user){
         return user.getPassword().equals(user.getPasswordConfirm());
+    }
+
+    @Override
+    public boolean isUserActive(User user){
+        if(user.getStatus() == 0){
+            return false;
+        }
+        else {
+            return true;
+        }
     }
 
 }

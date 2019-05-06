@@ -9,4 +9,6 @@ public interface UserService {
     public boolean isUserAlreadyPresent(User user);
 
     boolean isPasswordConfirmationValid(User user);
+
+    boolean isUserActive(User user);
 }

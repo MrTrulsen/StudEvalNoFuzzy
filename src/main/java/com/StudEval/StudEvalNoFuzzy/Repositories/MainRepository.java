@@ -148,6 +148,9 @@ public class MainRepository {
         List<String> userEmailsInDb = findUserEmailsInDb();
         int numRows = 0;
         for (User user : users) {
+            if(!user.getEmail().endsWith("ntnu.no")){
+                return "Wrong email in students-mails.";
+            }
             if (!userEmailsInDb.contains(user.getEmail())) {
                 //Then add student
                 user.setStatus(0);
@@ -458,9 +461,10 @@ public class MainRepository {
      * @return null if success, else "could not edit password"
      */
     public String changePassword(String newPassword, String email){
-        String query = "UPDATE user SET password=? WHERE email=?";
+        String query = "UPDATE user SET password=?, is_active=? WHERE email=?";
+        Integer isActive = 1;
         Integer numRows;
-        numRows = jdbcTemplate.update(query,newPassword,email);
+        numRows = jdbcTemplate.update(query,newPassword,isActive,email);
         if (numRows == 1) {
             return null;
         } else {
