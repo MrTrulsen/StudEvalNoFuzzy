@@ -60,13 +60,6 @@ function generateQuestionCardButtons() {
     saveQuestion.className = "nav-item";
     savePlacement.append(saveQuestion);
 
-    var saveBtn = document.createElement("button");
-    saveBtn.id = "saveBtn";
-    saveBtn.className = "btn btn-primary";
-    saveBtn.innerHTML = "Save";
-    saveBtn.setAttribute("onclick", "saveQuestion()");
-    saveQuestion.append(saveBtn);
-
     var submitQuestion = document.createElement("div");
     submitQuestion.id = "submitQuestion";
     submitQuestion.className = "nav-item navbar-nav mr-auto";
@@ -77,7 +70,7 @@ function generateQuestionCardButtons() {
     submitQuestionBtn.className = "btn btn-primary";
     submitQuestionBtn.innerHTML = "Submit";
     submitQuestionBtn.setAttribute("type", "submit");
-    submitQuestionBtn.setAttribute("onclick", "submitAnswers()");
+    submitQuestionBtn.setAttribute("onclick", "submitAnswers(questions)");
     saveQuestion.append(submitQuestionBtn);
 
     document.getElementById("buttonArea").append(buttonBar);
