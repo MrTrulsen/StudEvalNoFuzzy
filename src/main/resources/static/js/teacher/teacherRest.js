@@ -59,16 +59,16 @@ function addQuestion(question) {
     fetch("/getEvaluations").then(function(response) {
         return response.json();
     })
-        .then(  async function (evaluations) {
+        .then( function (evaluations) {
         console.log("Evaluation data: ", evaluations);
 
             if (Array.isArray(evaluations)) {
                 for (var i = 0; i < evaluations.length; i++) {
                     var evaluation = evaluations[i];
                     console.log(evaluation);
-
-                    getCourseName(evaluation["courseId"]);
-                    addEvaluationCard(evaluation, "courseName");
+                    var test = getCourseName(evaluation["courseId"])
+                    console.log(test);
+                    addEvaluationCard(evaluation,test);
                 }
             }
         });
@@ -113,15 +113,15 @@ function loadQuestionsGraph() {
 }
 
 //Loads evaluations from the database
-async function getCourseName(courseId) {
+function getCourseName(courseId) {
+    var courseName;
     console.log("Getting courseName...");
-    fetch("/getNameOfCourse/" + courseId).then(function(response) {
-        return response.text();
+    fetch("/getNameOfCourse/" + courseId).then(function (response) {
+       return response.json();
     })
-        .then(function (courseName) {
-            console.log("Evaluation data: ", courseName);
+        .then(function(courseName){
+            console.log(courseName);
             return courseName;
-            //TODO: Get courseName out of this function
         });
 }
 
