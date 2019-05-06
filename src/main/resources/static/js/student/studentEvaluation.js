@@ -1,8 +1,10 @@
 
 var questions = [];
-var questionIndex;
+var answers = [];
+var questionIndex = 0;
 
 window.addEventListener('load', function() {
+    generateCurrentUserDisplay("userId");
     //Gets the stored evalId and sets it as a global variable
     evalId = localStorage.getItem("evalId");
 
@@ -11,9 +13,43 @@ window.addEventListener('load', function() {
 });
 
 //Shows the selected question based on questionIndex
-function showQuestion(questions, questionIndex) {
+function showQuestion(questionIndex) {
     removeElement("sliderWrapper");
-    generateSliderContent(questions, questionIndex);
+
+    if (answers.indexOf(answers[questionIndex]) !== -1) {
+        console.log(answers);
+        generateSliderContent(answers, questionIndex);
+    }
+
+    else {
+        console.log(questions);
+        generateSliderContent(questions, questionIndex);
+    }
+}
+
+function saveAnswer() {
+    var questionId =  questions[questionIndex]['question_id'];
+    var difficulty = document.getElementById('difficultyOutput').value;
+    var complexity = document.getElementById('complexityOutput').value;
+    var time = document.getElementById('timeOutput').value;
+    var importance = document.getElementById('importanceOutput').value;
+
+    var answer = {
+        question_id: questionId,
+        difficulty: difficulty / 100,
+        complexity: complexity / 100,
+        time: time / 60,
+        importance: importance / 100
+    };
+
+    if (answers.indexOf(answers[questionIndex]) === -1) {
+        answers.push(answer);
+    }
+
+    else {
+        console.log("Object already exists");
+        answers[questionIndex] = answer;
+    }
 }
 
 //Updates the display of total pages inside the pageSelector
@@ -30,11 +66,13 @@ function previousQuestion() {
     }
 
     else {
+        saveAnswer();
+
         questionIndex = questionIndex - 1;
         pageInput.innerHTML = parseInt(pageInput.innerHTML) - 1;
         console.log("QuestionIndex is: " + questionIndex);
 
-        showQuestion(questions, questionIndex);
+        showQuestion(questionIndex);
         updateQuestionCardInfo();
     }
 }
@@ -48,11 +86,13 @@ function nextQuestion() {
     }
 
     else {
+        saveAnswer();
+
         questionIndex = questionIndex + 1;
         pageInput.innerHTML = parseInt(pageInput.innerHTML) + 1;
         console.log("QuestionIndex is: " + questionIndex);
 
-        showQuestion(questions, questionIndex);
+        showQuestion(questionIndex);
         updateQuestionCardInfo();
     }
 }
@@ -80,11 +120,23 @@ function displaySliderValue(slider) {
     output.value = slider.value;
 }
 
-//Updates the value in the slider
+//Compares the value in the output field to not exceed max/min values
 function updateSlider(output) {
     var slider = document.getElementById(output.id.slice(0, - 6) + "Slider");
-    slider.value = output.value;
 
+    if (output.value > output.max) {
+        output.value = output.max;
+        slider.value = output.max;
+    }
+
+    else if (output.value < output.min) {
+        output.value = output.min;
+        slider.value = output.min;
+    }
+
+    else {
+        slider.value = output.value;
+    }
 }
 
 var datetime = null,

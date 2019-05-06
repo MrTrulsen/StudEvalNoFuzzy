@@ -69,7 +69,7 @@ function generateQuestionCardButtons() {
     saveBtn.id = "saveBtn";
     saveBtn.className = "btn btn-primary";
     saveBtn.innerHTML = "Save";
-    saveBtn.setAttribute("onclick", "saveQuestion(questions[questionIndex])");
+    saveBtn.setAttribute("onclick", "generateUpdatedQuestion()");
     saveQuestion.append(saveBtn);
 
     var deleteQuestion = document.createElement("div");

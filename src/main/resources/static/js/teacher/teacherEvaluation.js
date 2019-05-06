@@ -3,6 +3,7 @@ var questions = [];
 var questionIndex;
 
 window.addEventListener('load', function() {
+    generateCurrentUserDisplay("userId");
     //Gets the stored evalId and sets it as a global variable
     evalId = localStorage.getItem("evalId");
 
@@ -31,6 +32,24 @@ function generateQuestion() {
 
     removeElementsByClass("error", "success");
     checkForErrorInAddQuestion(question, text, complexity, time, difficulty, importance, btn);
+}
+
+function generateUpdatedQuestion() {
+    var text = document.getElementById('questionText').innerHTML;
+    var difficulty = document.getElementById('difficultyOutput').value;
+    var complexity = document.getElementById('complexityOutput').value;
+    var time = document.getElementById('timeOutput').value;
+    var importance = document.getElementById('importanceOutput').value;
+
+    var question = {
+        text: text,
+        difficulty: difficulty / 100,
+        complexity: complexity / 100,
+        time: time / 60,
+        importance: importance / 100
+    };
+
+    saveQuestion(question);
 }
 
 //Finds the active question for deletion inside the evaluation
@@ -109,11 +128,23 @@ function displaySliderValue(slider) {
     output.value = slider.value;
 }
 
-//Updates the value in the slider
+//Compares the value in the output field to not exceed max/min values
 function updateSlider(output) {
     var slider = document.getElementById(output.id.slice(0, - 6) + "Slider");
-    slider.value = output.value;
 
+    if (output.value > output.max) {
+        output.value = output.max;
+        slider.value = output.max;
+    }
+
+    else if (output.value < output.min) {
+        output.value = output.min;
+        slider.value = output.min;
+    }
+
+    else {
+        slider.value = output.value;
+    }
 }
 
 var datetime = null,

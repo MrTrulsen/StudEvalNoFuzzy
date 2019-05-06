@@ -33,6 +33,7 @@ function saveQuestion(question) {
             console.log("Response: ", response);
 
             if (response.status === 200) {
+
                 //showSuccessMessage()("controlPanelBody", "Question successfully saved");
                 console.log(question);
             }
@@ -65,5 +66,29 @@ function deleteUser(userId) {
                 showErrorMessage("modalDeleteQuestionBody", "Error when trying to delete question. Please try again.");
                 return response.text();
             }
+        });
+}
+
+//Loads questions from the database
+function getCurrentUser() {
+    console.log("Getting current user...");
+    fetch("/getCurrentUser/").then(function(response) {
+            return response.text();
+        })
+            .then(function (user) {
+                console.log("Current user: ", user);
+                return user;
+            })
+}
+
+//Loads evaluations from the database
+function getCourseName(courseId) {
+    console.log("Getting courseName...");
+    fetch("/getNameOfCourse/" + courseId).then(function (response) {
+        return response.text();
+    })
+        .then(function(courseName){
+            console.log(courseName);
+            return courseName;
         });
 }

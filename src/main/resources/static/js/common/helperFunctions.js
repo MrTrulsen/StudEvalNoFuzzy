@@ -50,6 +50,22 @@ function removeElementsByClass(className, className2) {
     }
 }
 
+//Updates the value in the slider
+function updateInputField(field) {
+    if (field.value > field.max) {
+        field.value = field.max;
+    }
+
+    else if (field.value < field.min) {
+        field.value = field.min;
+    }
+
+    else {
+        //Do nothing
+    }
+
+}
+
 //TODO: Remove if not being used later in the project
 //Checks for empty field
 function checkForEmptyField(inputField, placement, btn) {

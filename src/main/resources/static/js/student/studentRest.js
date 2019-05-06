@@ -71,14 +71,15 @@ function submitAnswers(questions) {
         body: JSON.stringify(questions)
     })
         .then(function (response) {
+            var btn = document.getElementById("submitQuestionBtn");
             console.log("Response: ", response);
 
             if (response.status === 200) {
-
+                btn.setAttribute("onclick", "submitAnswers(questions); location.href='/studentpage'");
             }
 
             else {
-
+                btn.removeAttribute("onclick");
                 return response.text();
             }
         });

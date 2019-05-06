@@ -89,10 +89,10 @@ function calculateQuestions(type, array) {
 }
 
 function checkIfEmpty(array) {
-    array = [];
-    if(array.length < 1) {
+    if(array.length > 0) {
         array = [];
         console.log(array.length);
+        this.array = array;
     }
     else {
         console.log("hei");

@@ -28,6 +28,8 @@ function generateSliderContent(questions, questionIndex) {
     //Function to generate sliders with input
     function generateSliders(type, headerText, input) {
         var valueToString = input.toString();
+        var minToString = (1).toString();
+        var maxToString = (100).toString();
 
         var content = document.createElement("div");
         content.id = type + "Content";
@@ -41,8 +43,8 @@ function generateSliderContent(questions, questionIndex) {
         slider.id = type + "Slider";
         slider.className = "slider";
         slider.setAttribute("type", "range");
-        slider.setAttribute("min", input - 10);
-        slider.setAttribute("max", input + 10);
+        slider.setAttribute("min", 1);
+        slider.setAttribute("max", 100);
         slider.setAttribute("value", input);
         slider.setAttribute("onchange", "var slider = this; displaySliderValue(slider);");
         content.append(slider);
@@ -53,15 +55,15 @@ function generateSliderContent(questions, questionIndex) {
         content.append(ticks);
 
         var tickLow = document.createElement("p");
-        tickLow.innerHTML = input - 10;
+        tickLow.innerHTML = 1;
         ticks.append(tickLow);
 
         var tickMid = document.createElement("p");
-        tickMid.innerHTML = input;
+        tickMid.innerHTML = 50;
         ticks.append(tickMid);
 
         var tickHigh = document.createElement("p");
-        tickHigh.innerHTML = input + 10;
+        tickHigh.innerHTML = 100;
         ticks.append(tickHigh);
 
         var value = document.createElement("p");
@@ -71,7 +73,9 @@ function generateSliderContent(questions, questionIndex) {
         var valueInput = document.createElement("input");
         valueInput.id = type + "Output";
         valueInput.className = "form-control valueOutput";
-        valueInput.setAttribute("type", "text");
+        valueInput.setAttribute("type", "number");
+        valueInput.setAttribute("min", minToString);
+        valueInput.setAttribute("max", maxToString);
         valueInput.setAttribute("value", valueToString);
         valueInput.setAttribute("onchange", "var output = this; updateSlider(output)");
         value.append(valueInput);
@@ -171,4 +175,12 @@ function generateRemoveUserField() {
         btn.setAttribute("onclick", onclickFunction);
         buttonPlacement.append(btn);
     }
+}
+
+function generateCurrentUserDisplay(userId) {
+    var header = document.getElementById("header");
+
+    var text = document.createElement("p");
+    text.innerHTML = "Welcome, " + userId;
+    header.append(text);
 }

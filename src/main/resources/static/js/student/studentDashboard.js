@@ -1,7 +1,14 @@
 
 var evalId;
+var submitted = [];
 
 window.addEventListener('load', function() {
+    generateCurrentUserDisplay("userId");
+
+    for (var i = 0; i < submitted.length; i++) {
+
+    }
+
     //Loads the available evaluations
     loadEvaluations();
 });

@@ -142,7 +142,7 @@
                                                 <div class="input-group-prepend">
                                                     <span class="input-group-text">Exam Time</span>
                                                 </div>
-                                                <input id="examTimeInput" type="text" class="form-control" placeholder="Time">
+                                                <input id="examTimeInput" type="number" min="1" max="5" class="form-control" placeholder="Time" onchange="var input = this; updateInputField(input);">
                                             </div>
                                         </div>
                                     </div>

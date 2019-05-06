@@ -156,7 +156,7 @@
                                                 <div class="input-group-prepend">
                                                     <span class="input-group-text">Difficulty</span>
                                                 </div>
-                                                <input id="difficultyInput" type="text" class="form-control" aria-label="Sizing example input" placeholder="Difficulty" aria-describedby="difficulty">
+                                                <input id="difficultyInput" type="number" min="1" max="100" class="form-control" aria-label="Sizing example input" placeholder="Difficulty" aria-describedby="difficulty" onchange="var input = this; updateInputField(input);">
                                             </div>
 
                                             <p class="infoText">This will be the complexity of the question in percentage %, where it needs to be calculated from a total of 100% just like difficulty.</p>
@@ -164,7 +164,7 @@
                                                 <div class="input-group-prepend">
                                                     <span class="input-group-text">Complexity</span>
                                                 </div>
-                                                <input id="complexityInput" type="text" class="form-control" aria-label="Sizing example input" placeholder="Complexity" aria-describedby="complexity">
+                                                <input id="complexityInput" type="number" min="1" max="100" class="form-control" aria-label="Sizing example input" placeholder="Complexity" aria-describedby="complexity" onchange="var input = this; updateInputField(input);">
                                             </div>
 
                                             <p class="infoText">This will be the calculated time used on each question. This value must be written in minutes, where it will calculate it from a total of the entered exam time.</p>
@@ -172,7 +172,7 @@
                                                 <div class="input-group-prepend">
                                                     <span class="input-group-text">Time</span>
                                                 </div>
-                                                <input id="timeInput" type="text" class="form-control" aria-label="Sizing example input" placeholder="Time" aria-describedby="time">
+                                                <input id="timeInput" type="number" min="1" max="300" class="form-control" aria-label="Sizing example input" placeholder="Time" aria-describedby="time" onchange="var input = this; updateInputField(input);">
                                             </div>
 
                                             <p class="infoText">This will be the importance of the question. This value will represent how important the question is in percentage %, where it needs to be calculated from a total of 100% just like difficulty and complexity.
@@ -181,7 +181,7 @@
                                                 <div class="input-group-prepend">
                                                     <span class="input-group-text">Importance</span>
                                                 </div>
-                                                <input id="importanceInput" type="text" class="form-control" aria-label="Sizing example input" placeholder="Importance" aria-describedby="importance">
+                                                <input id="importanceInput" type="number" min="1" max="100" class="form-control" aria-label="Sizing example input" placeholder="Importance" aria-describedby="importance" onchange="var input = this; updateInputField(input);">
                                             </div>
                                         </div>
                                     </div>
@@ -218,7 +218,7 @@
                                                 <input id="studentEmailInput" type="text" class="form-control" placeholder="Email" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default" oninput="">
                                             </div>
 
-                                            <p class="infoText">Here you can upload your list with all students. The file you provide must be in .csv-format and not in .xlsx-format, etc.</p>
+                                            <!-- <p class="infoText">Here you can upload your list with all students. The file you provide must be in .csv-format and not in .xlsx-format, etc.</p>
                                             <div class="container">
                                             </div>
 
@@ -227,7 +227,7 @@
                                                     <input type="file" class="custom-file-input" id="validatedCustomFile" required>
                                                     <span class="custom-file-label" for="validatedCustomFile">Choose file...</span>
                                                 </div>
-                                            </div>
+                                            </div> -->
                                         </div>
                                     </div>
 

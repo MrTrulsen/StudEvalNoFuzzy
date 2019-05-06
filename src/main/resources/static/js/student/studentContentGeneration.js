@@ -66,11 +66,11 @@ function generateQuestionCardButtons() {
     buttonBar.append(submitQuestion);
 
     var submitQuestionBtn = document.createElement("button");
-    submitQuestionBtn.id = "deleteQuestionBtn";
+    submitQuestionBtn.id = "submitQuestionBtn";
     submitQuestionBtn.className = "btn btn-primary";
     submitQuestionBtn.innerHTML = "Submit";
     submitQuestionBtn.setAttribute("type", "submit");
-    submitQuestionBtn.setAttribute("onclick", "submitAnswers(questions)");
+    submitQuestionBtn.setAttribute("onclick", "submitAnswers(answers); location.href='/studentpage'");
     saveQuestion.append(submitQuestionBtn);
 
     document.getElementById("buttonArea").append(buttonBar);

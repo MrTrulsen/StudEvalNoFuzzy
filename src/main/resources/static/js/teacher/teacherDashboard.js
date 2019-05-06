@@ -4,6 +4,7 @@ var answers = [];
 var questions = [];
 
 window.addEventListener('load', function() {
+    generateCurrentUserDisplay("user"); //TODO: Get input from getCurrentUser() here
     //Loads the available evaluations
     loadEvaluations();
 });
