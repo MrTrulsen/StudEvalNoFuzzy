@@ -44,13 +44,24 @@
                             <div id="registerField" class="groupMargin">
                                 <p>Write in your information to register.</p>
                                 <form autocomplete="off" action="#" th:action="@{/register}" th:object="${user}" method="post" class="form-signin" role="form">
-                                    <span th:utext="${successMessage}"></span>
+                                    <div th:if="${errorMessage}">
+                                        <div class="alert alert-danger">
+                                            <span th:utext="${errorMessage}"></span>
+                                        </div>
+                                    </div>
+                                    <div th:if="${successMessage}">
+                                        <div class="alert alert-success">
+                                            <span th:utext="${successMessage}"></span>
+                                        </div>
+                                    </div>
                                     <div class="alert alert-success alert-dismissible" th:if="${(bindingResult != null && bindingResult.getAllErrors() != null)}">
+                                        <button type="button" class="close" data-dismiss="alert" aria-button="true">x</button>
                                         <ul th:each="data : ${bindingResult.getAllErrors()}">
                                             <li th:text="${data.getObjectName() + ' :: ' + data.getDefaultMessage()}"></li>
                                         </ul>
                                     </div>
 
+                                    <h3 class="form-signin-heading"></h3>
                                     <div class="form-group">
                                         <div class="">
                                             <input type="text" th:field="*{email}" placeholder="Email" class="form-control" />

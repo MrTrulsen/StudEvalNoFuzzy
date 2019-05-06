@@ -50,7 +50,7 @@ public class Frontpage {
         mainRestController.isUserActive(user.getEmail());
         // Check for the validations
         if(bindingResult.hasErrors()) {
-            modelAndView.addObject("successMessage", "Please correct the errors in form!");
+            modelAndView.addObject("errorMessage", "Please correct the errors in form!");
             modelMap.addAttribute("bindingResult", bindingResult);
         }
         else if(userService.isUserAlreadyPresent(user)){
@@ -59,15 +59,15 @@ public class Frontpage {
                 modelAndView.addObject("successMessage", "User is registered successfully!");
             }
                 else{
-                    modelAndView.addObject("successMessage", "user already exists!");
+                    modelAndView.addObject("errorMessage", "user already exists!");
                 }
         }
         // we will save the user if, no binding errors
         else if (!userService.isPasswordConfirmationValid(user)){
-            modelAndView.addObject("successMessage", "password failed to be repeated!");
+            modelAndView.addObject("errorMessage", "password failed to be repeated!");
         }
         else if(!user.getEmail().endsWith("ntnu.no")){
-            modelAndView.addObject("successMessage", "user email not ending with ntnu.no!");
+            modelAndView.addObject("errorMessage", "user email not ending with ntnu.no!");
         }
         else if(user.getEmail().endsWith("@stud.ntnu.no")){
             Role userRole = roleRepository.findByRole("STUDENT_USER");
