@@ -208,7 +208,7 @@ public class MainRestController {
      }
     }
 
-    @RequestMapping(value = "/getCurrentUser", method = RequestMethod.GET)
+    @RequestMapping(value = "/getCurrentUser")
     public String getCurrentUserName(){
         String email = getCurrentUser().getEmail();
         String userName;
