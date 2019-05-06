@@ -236,4 +236,9 @@ public class MainRestController {
             return new ResponseEntity<>(error, HttpStatus.BAD_REQUEST);
         }
     }
+
+    public boolean isUserActive(String email){
+        Boolean isActive = mainRepository.isUserActive(email);
+        return isActive;
+    }
 }

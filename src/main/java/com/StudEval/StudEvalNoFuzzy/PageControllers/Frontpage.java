@@ -47,13 +47,14 @@ public class Frontpage {
     @RequestMapping(value="/register", method = RequestMethod.POST)
     public ModelAndView registerUser(@Valid User user, BindingResult bindingResult, ModelMap modelMap) {
         ModelAndView modelAndView = new ModelAndView();
+        mainRestController.isUserActive(user.getEmail());
         // Check for the validations
         if(bindingResult.hasErrors()) {
             modelAndView.addObject("successMessage", "Please correct the errors in form!");
             modelMap.addAttribute("bindingResult", bindingResult);
         }
         else if(userService.isUserAlreadyPresent(user)){
-            if(userService.isUserActive(user) == false) {
+            if(mainRestController.isUserActive(user.getEmail()) == false) {
                 mainRestController.registerNewPassword(user);
                 modelAndView.addObject("successMessage", "User is registered successfully!");
             }

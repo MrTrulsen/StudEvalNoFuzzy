@@ -270,6 +270,17 @@ public class MainRepository {
         return courseIds;
     }
 
+    public boolean isUserActive(String email){
+        String query = "SELECT is_active FROM user WHERE email=?";
+        Integer isActive = jdbcTemplate.queryForObject(query,new Object[]{email}, Integer.class);
+        if(isActive == 0){
+            return false;
+        }
+        else {
+            return true;
+        }
+    }
+
     /**
      * Fetches all the evals linked to a user.
      *
