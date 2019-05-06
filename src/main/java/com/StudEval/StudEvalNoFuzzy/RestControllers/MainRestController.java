@@ -206,8 +206,37 @@ public class MainRestController {
      else {
          return new ResponseEntity<>(error, HttpStatus.BAD_REQUEST);
      }
-
     }
+
+    @RequestMapping(value = "/getCurrentUser", method = RequestMethod.GET)
+    public String getCurrentUserName(){
+        String email = getCurrentUser().getEmail();
+        String userName;
+        try{
+            Integer index = email.indexOf("@");
+            userName = email.substring(0,index);
+        }
+        catch(Exception ex){
+            return "ERROR : " + ex;
+        }
+        return userName;
+    }
+
+    public ResponseEntity<String> registerNewPassword(User user){
+        String error = mainRepository.changePassword(encoder.encode(user.getPassword()),user.getEmail());
+        if(error == null){
+            return new ResponseEntity<>(HttpStatus.OK);
+        }
+        else {
+            return new ResponseEntity<>(error, HttpStatus.BAD_REQUEST);
+        }
+    }
+
+    public boolean isUserActive(String email){
+        Boolean isActive = mainRepository.isUserActive(email);
+        return isActive;
+    }
+
 
 
     /**
@@ -227,18 +256,5 @@ public class MainRestController {
         return userRepository.findByEmail(loggedInUsername);
     }
 
-    public ResponseEntity<String> registerNewPassword(User user){
-        String error = mainRepository.changePassword(encoder.encode(user.getPassword()),user.getEmail());
-        if(error == null){
-            return new ResponseEntity<>(HttpStatus.OK);
-        }
-        else {
-            return new ResponseEntity<>(error, HttpStatus.BAD_REQUEST);
-        }
-    }
 
-    public boolean isUserActive(String email){
-        Boolean isActive = mainRepository.isUserActive(email);
-        return isActive;
-    }
 }
