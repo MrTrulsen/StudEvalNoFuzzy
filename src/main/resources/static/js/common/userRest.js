@@ -69,26 +69,26 @@ function deleteUser(userId) {
         });
 }
 
+var currentUser = "";
 //Loads questions from the database
-function getCurrentUser() {
+async function getCurrentUser() {
     console.log("Getting current user...");
-    fetch("/getCurrentUser/").then(function(response) {
-            return response.text();
-        })
-            .then(function (user) {
-                console.log("Current user: ", user);
-                return user;
-            })
+    await fetch("/getCurrentUser/").then(async function(response) {
+           const name = await response.text();
+           console.log("Current user: ", name);
+           currentUser = name;
+           return name;
+            });
 }
 
+var returnString = "";
 //Loads evaluations from the database
-function getCourseName(courseId) {
+async function getCourseName(courseId) {
     console.log("Getting courseName...");
-    fetch("/getNameOfCourse/" + courseId).then(function (response) {
-        return response.text();
-    })
-        .then(function(courseName){
-            console.log(courseName);
-            return courseName;
-        });
+     await fetch("/getNameOfCourse/" + courseId).then(async function (response) {
+        const json = await response.text();
+        console.log(json);
+        returnString = json;
+        return json;
+    });
 }

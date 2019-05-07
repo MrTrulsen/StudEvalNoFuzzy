@@ -3,8 +3,10 @@ var evalId;
 var answers = [];
 var questions = [];
 
-window.addEventListener('load', function() {
-    generateCurrentUserDisplay("user"); //TODO: Get input from getCurrentUser() here
+window.addEventListener('load', async function() {
+    const test = await getCurrentUser();
+    console.log(currentUser);
+    generateCurrentUserDisplay(currentUser);
     //Loads the available evaluations
     loadEvaluations();
 });
