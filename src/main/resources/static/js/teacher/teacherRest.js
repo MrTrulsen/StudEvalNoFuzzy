@@ -10,17 +10,21 @@ function addEvaluation(evaluation, courseName) {
     body: JSON.stringify(evaluation)
   })
       .then(function (response) {
-        var btn = document.getElementById("saveEvaluationBtn");
         console.log("Response: ", response);
 
         if (response.status === 200) {
-            btn.setAttribute("data-dismiss", "modal");
-            window.location.reload();
+            console.log(evaluation);
+            showSuccessMessage("modalAddEvalBody", "Evaluation successfully added");
+            setTimeout(function(){
+                window.location.reload();
+                }, 500);
+
         }
 
         else {
-            btn.removeAttribute("data-dismiss");
-            showErrorMessage("modalAddEvalBody", "Error when trying to add evaluation. Please try again.");
+            showErrorMessage("modalAddEvalBody", "Error when trying to add evaluation. Please try again.");setTimeout(function(){
+                removeElementsByClass("error", "success")
+            }, 1000);
             return response.text();
         }
     });
@@ -37,20 +41,54 @@ function addQuestion(question) {
         body: JSON.stringify(question)
     })
         .then(function (response) {
-        var btn = document.getElementById('saveQuestionBtn');
         console.log("Response: ", response);
 
         if (response.status === 200) {
             console.log(questions);
-            btn.setAttribute("data-dismiss", "modal");
-            window.location.reload();
+            showSuccessMessage("modalAddQuestionBody", "Question successfully added");
+            setTimeout(function(){
+                window.location.reload();
+            }, 500);
 
         } else {
-            btn.removeAttribute("data-dismiss");
             showErrorMessage("modalAddQuestionBody", "Error when trying to add question. Please try again.");
+            setTimeout(function(){
+                removeElementsByClass("error", "success")
+            }, 1000);
             return response.text();
         }
     });
+}
+
+//Saves the current question to the database
+function saveQuestion(question) {
+    console.log("Saving question...");
+    fetch("/editQuestion", {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json"
+        },
+        body: JSON.stringify(question)
+    })
+        .then(function (response) {
+            console.log("Response: ", response);
+
+            if (response.status === 200) {
+                console.log(question);
+                showSuccessMessage("controlPanelBody", "Question successfully saved");
+                setTimeout(function(){
+                    removeElementsByClass("error", "success")
+                }, 500);
+            }
+
+            else {
+                showErrorMessage("controlPanelBody", "Error when trying to save question. Please try again.");
+                setTimeout(function(){
+                    removeElementsByClass("error", "success")
+                }, 1000);
+                return response;
+            }
+        });
 }
 
 //Loads evaluations from the database
@@ -152,17 +190,20 @@ function deleteEvaluation() {
         method: "DELETE"
     })
         .then(function (response) {
-        var btn = document.getElementById("removeEvaluationBtn");
         console.log("Response: ", response);
 
         if (response.status === 200) {
-            btn.setAttribute("data-dismiss", "modal");
-            window.location.reload();
+            showSuccessMessage("modalRemoveEvalBody", "Evaluation successfully deleted");
+            setTimeout(function(){
+                window.location.reload();
+            }, 500);
         }
 
         else {
-            btn.removeAttribute("data-dismiss");
             showErrorMessage("modalRemoveEvalBody", "Error when trying to add question. Please try again.");
+            setTimeout(function(){
+                removeElementsByClass("error", "success")
+            }, 1000);
             return response.text();
         }
     });
@@ -175,17 +216,20 @@ function deleteQuestion(questionId) {
         method: "DELETE"
     })
         .then(function (response) {
-        var btn = document.getElementById("confirmDeleteQuestionBtn");
         console.log("Response: ", response);
         
         if (response.status === 200) {
-            btn.setAttribute("data-dismiss", "modal");
-            window.location.reload();
+            showSuccessMessage("modalDeleteQuestionBody", "Question successfully deleted");
+            setTimeout(function(){
+                window.location.reload();
+            }, 500);
         }
 
         else {
-            btn.removeAttribute("data-dismiss");
             showErrorMessage("modalDeleteQuestionBody", "Error when trying to delete question. Please try again.");
+            setTimeout(function(){
+                removeElementsByClass("error", "success")
+            }, 1000);
             return response.text();
         }
     });

@@ -19,32 +19,6 @@ function changePassword(oldPassword, newPassword) {
         });
 }
 
-//Saves the current question to the database
-function saveQuestion(question) {
-    console.log("Saving question...");
-    fetch("/editQuestion", {
-        method: "POST",
-        headers: {
-            "Content-Type": "application/json"
-        },
-        body: JSON.stringify(question)
-    })
-        .then(function (response) {
-            console.log("Response: ", response);
-
-            if (response.status === 200) {
-
-                //showSuccessMessage()("controlPanelBody", "Question successfully saved");
-                console.log(question);
-            }
-
-            else {
-                showErrorMessage("controlPanelBody", "Error when trying to save question. Please try again.");
-                return response;
-            }
-        });
-}
-
 //Deletes a question from the database
 function deleteUser(userId) {
     //TODO: Get userId

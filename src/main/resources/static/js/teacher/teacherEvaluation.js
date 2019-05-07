@@ -3,7 +3,7 @@ var questions = [];
 var questionIndex;
 
 window.addEventListener('load', function() {
-    generateCurrentUserDisplay("userId");
+    generateCurrentUserDisplay("user"); //TODO: Get input from getCurrentUser() here
     //Gets the stored evalId and sets it as a global variable
     evalId = localStorage.getItem("evalId");
 
@@ -49,6 +49,7 @@ function generateUpdatedQuestion() {
         importance: importance / 100
     };
 
+    removeElementsByClass("error", "success");
     saveQuestion(question);
 }
 

@@ -67,10 +67,12 @@ window.addEventListener('load', function() {
 });
 
 function gatherQuestions() {
-    checkIfEmpty(questionDataPoints);
-    checkIfEmpty(answerDataPoints);
     loadAnswersGraph();
     loadQuestionsGraph();
+
+    questionDataPoints = [];
+    answerDataPoints = [];
+
     setInterval(function(){ chart.render(); }, 100);
     setTimeout(function(){
         calculateQuestions(questions, questionDataPoints);

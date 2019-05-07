@@ -3,7 +3,7 @@ var evalId;
 var submitted = [];
 
 window.addEventListener('load', function() {
-    generateCurrentUserDisplay("userId");
+    generateCurrentUserDisplay("user"); //TODO: Get input from getCurrentUser() here
 
     for (var i = 0; i < submitted.length; i++) {
 
