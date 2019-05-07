@@ -1,0 +1,254 @@
+* {
+	margin: 0;
+	padding: 0;
+}
+
+html, body {
+  height: 100%;
+  width: 100%;
+	min-width: 500px;
+  background-color: #ffffff;
+  color: #000000;
+  font-weight: normal;
+  font-family: "Segoe UI" , "Segoe" , "SegoeUI-Regular-final", Tahoma, Helvetica, Arial, sans-serif;
+  	-ms-overflow-style: -ms-autohiding-scrollbar;
+}
+
+body {
+    font-size: 90%;
+}
+
+ul {
+	list-style-type: none;
+}
+
+#noScript {
+	position: static;
+	margin: 16px;
+	width: 100%;
+	height: 100%;
+	color: black;
+	z-index: 100;
+	display: none;
+}
+
+/* Theme layout styles */
+
+#fullPage, #brandingWrapper {
+  width: 100%;
+  height: 100%;
+  background-color: inherit;
+}
+
+#brandingWrapper {
+  background-color: #4488DD;
+}
+
+#branding {
+  height: 100%;
+  margin-right: 500px;
+	margin-left: 0px;
+  background-image: url("https://wallpaperplay.com/walls/full/4/2/0/137464.jpg");
+  background-repeat: no-repeat;
+  background-size: cover;
+  	-webkit-background-size: cover;
+  	-moz-background-size: cover;
+  	-o-background-size: cover;
+}
+
+#contentWrapper {
+  position: relative;
+  width: 500px;
+  height: 100%;
+  margin-left: -500px;
+	margin-right: 0px;
+  overflow: auto;
+	border-left: solid;
+  border-width: 1px;
+  border-color: #696969;
+  background-color: #FFFFFF;
+}
+
+#content {
+  min-height: 100%;
+  height: auto !important;
+  margin: 0 auto -55px auto;
+  padding: 0px 150px 0px 50px;
+}
+
+#header {
+  font-size: 200%;
+  font-weight: lighter;
+  padding-top: 90px;
+  margin-bottom: 60px;
+  min-height: 100px;
+  overflow: hidden;
+}
+
+#workArea {
+  margin-bottom: 90px;
+}
+
+#workArea, #header {
+  word-wrap: break-word;
+  width: 350px;
+}
+
+#loginArea, #registerArea {
+	max-width: 100%;
+}
+
+#studentBtn, #teacherBtn {
+	width: 100%;
+}
+
+#registerText, #loginText {
+	color: #666666;
+}
+
+#btnWrapper {
+	margin-top: 20px;
+}
+
+#submitBtn, #registerBtn {
+	width: 100%;
+	margin-bottom: 20px;
+	margin-right: 20px;
+}
+
+#footerPlaceholder, #footer {
+  height: 40px;
+}
+
+#footer {
+	position: relative;
+	padding: 10px 50px 0px 50px;
+  color: #666666;
+  font-size: 71%;
+}
+
+#footerLinks {
+  float: none;
+  padding-top: 10px;
+}
+
+#copyright {
+	color: #696969;
+}
+
+/* Common content styles */
+
+.float {
+	float: left;
+}
+
+.groupMargin {
+	margin-bottom: 30px;
+}
+
+.btn-primary {
+  color: #696969;
+  border-color: #696969;
+	background-color: #FFFFFF;
+	margin-bottom: 10px;
+}
+
+.btn-primary:hover {
+  background-color: #4488DD;
+  border-color: #4488DD;
+}
+
+a:hover {
+	text-decoration: none;
+}
+
+input {
+    margin-bottom: 8px;
+}
+
+h2, .bigText {
+   font-size: 133%;
+   font-weight: lighter;
+}
+
+/* Form factor: intermediate height layout. Reduce space of the header. */
+
+@media only screen and (max-height: 820px) {
+    #header {
+        padding-top: 40px;
+        min-height: 0px;
+        overflow: hidden;
+    }
+
+    #workArea {
+        margin-bottom: 60px;
+    }
+}
+
+/* Form factor: intermediate height layout. Reduce space of the header. */
+
+@media only screen and (max-height: 500px) {
+    #header {
+        padding-top: 30px;
+        margin-bottom: 30px;
+    }
+
+    #workArea{
+        margin-bottom: 40px;
+    }
+}
+
+/* Form factor: intermediate layout (wallpaper background in non-snapped view falls in here) */
+
+@media only screen and (max-width: 600px) {
+    html, body {
+        min-width: 260px;
+    }
+
+    #brandingWrapper {
+        display: none;
+    }
+
+    #contentWrapper {
+				border-left: none;
+        float: none;
+        width: 100%;
+        margin: 0px auto;
+    }
+
+    #content, #footer, #header {
+        width: 400px;
+        padding-left: 0px;
+        padding-right: 0px;
+        margin-left: auto;
+        margin-right: auto;
+    }
+
+    #workArea {
+        width: 100%;
+    }
+}
+
+@media only screen and (max-width: 450px) {
+    body {
+        font-size: 80%;
+    }
+
+    #content, #footer {
+        width:auto;
+        margin-right: 25px;
+        margin-left: 25px;
+    }
+
+    #header {
+        width: auto;
+    }
+}
+
+/* Form factor: snapped wallpaper background (for wallpaper background to work in snapped view, the content wrapper width has to be set to 260px) */
+
+@media only screen and (max-width:280px) {
+    #contentWrapper {
+        width: 260px;
+    }
+}

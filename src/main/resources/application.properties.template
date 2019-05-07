@@ -1,0 +1,8 @@
+# Database details
+spring.datasource.url=jdbc:mysql:
+spring.datasource.username=
+spring.datasource.password=
+
+# Database settings
+spring.jpa.open-in-view=false
+spring.jpa.properties.hibernate.temp.use_jdbc_metadata_defaults=false
