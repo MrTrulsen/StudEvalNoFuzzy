@@ -4,9 +4,10 @@ var answers = [];
 var questions = [];
 
 window.addEventListener('load', async function() {
-    const test = await getCurrentUser();
+    const user = await getCurrentUser();
     console.log(currentUser);
     generateCurrentUserDisplay(currentUser);
+
     //Loads the available evaluations
     loadEvaluations();
 });

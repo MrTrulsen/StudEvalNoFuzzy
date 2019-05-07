@@ -181,6 +181,6 @@ function generateCurrentUserDisplay(userId) {
     var header = document.getElementById("header");
 
     var text = document.createElement("p");
-    text.innerHTML = "Logged in as: " + userId;
+    text.innerHTML = "Logged in as " + userId;
     header.append(text);
 }
