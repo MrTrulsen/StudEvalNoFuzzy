@@ -2,8 +2,11 @@
 var questions = [];
 var questionIndex;
 
-window.addEventListener('load', function() {
-    generateCurrentUserDisplay("user"); //TODO: Get input from getCurrentUser() here
+window.addEventListener('load', async function() {
+    const user = await getCurrentUser();
+    console.log(currentUser);
+    generateCurrentUserDisplay(currentUser);
+
     //Gets the stored evalId and sets it as a global variable
     evalId = localStorage.getItem("evalId");
 

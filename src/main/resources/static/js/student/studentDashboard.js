@@ -3,12 +3,9 @@ var evalId;
 var submitted = [];
 
 window.addEventListener('load', async function() {
-    const resp = await getCurrentUser();
+    const user = await getCurrentUser();
+    console.log(currentUser);
     generateCurrentUserDisplay(currentUser);
-
-    for (var i = 0; i < submitted.length; i++) {
-
-    }
 
     //Loads the available evaluations
     loadEvaluations();

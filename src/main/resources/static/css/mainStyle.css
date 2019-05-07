@@ -41,13 +41,23 @@ h2 {
     background-color: inherit;
 }
 
+#header {
+    text-align: center;
+    color: #FFFFFF;
+    padding-top: 70px;
+    font-size: 250%;
+    font-weight: lighter;
+    overflow: hidden;
+}
+
 #headerWrapper {
     display: block;
     width: 100%;
     height: 300px;
     border-bottom: solid;
     background-color: #4488DD;
-    background-image: url("https://wallpaperplay.com/walls/full/4/2/0/137464.jpg");
+    /* LICENSE-FREE IMAGE: https://pixabay.com/photos/color-acrylic-paint-art-painting-4158152/ */
+    background-image: url(../images/background_image.jpg);
     background-repeat: no-repeat;
     background-size: cover;
     -webkit-background-size: cover;
@@ -100,14 +110,6 @@ h2 {
 
 #modalSettingsInfo, #modalRemoveInfo {
     margin: 0;
-}
-
-#header {
-    text-align: center;
-    padding-top: 70px;
-    font-size: 250%;
-    font-weight: lighter;
-    overflow: hidden;
 }
 
 #logoutNav, #settingsNav {
