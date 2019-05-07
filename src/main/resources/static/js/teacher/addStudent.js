@@ -1,6 +1,4 @@
 
-
-
 //Adds students to the database
 function addStudent(users) {
     console.log("Adding student...");
@@ -10,26 +8,36 @@ function addStudent(users) {
             "Content-Type": "application/json"
         },
         body: JSON.stringify(users)
-    }).then(function (response) {
-       var btn = document.getElementById("addStudentsBtn"); //Temporary fix
+    })
+        .then(function (response) {
         console.log("Response: ", response);
+
         if (response.status === 200) {
-            btn.setAttribute("data-dismiss", "modal");
-            //generateStudent(user);
             console.log(users);
+            showSuccessMessage("modalAddStudentBody", "User successfully added");
+            setTimeout(function(){
+                removeElementsByClass("error", "success");
+                $('#modalAddStudent').modal('toggle');
+            }, 500);
         }
+
         else if(response.status === 400){
-            showErrorMessage("modalAddStudentBody", "Could not add student, probably wrong email. Email must end with ntnu.no");
+            showErrorMessage("modalAddStudentBody", "Student already exists or wrong type of mail. Must end with @stud.ntnu.no");
+            setTimeout(function(){
+                removeElementsByClass("error", "success")
+            }, 2000);
         }
+
         else {
-            btn.removeAttribute("data-dismiss");
+            showErrorMessage("modalAddStudentBody", "Error when trying to add student. Please try again.");
+            setTimeout(function(){
+                removeElementsByClass("error", "success")
+            }, 1000);
             return response.text();
         }
-            }).then(function () {
-        //showErrorMessage("modalAddEvalBody", "Error when trying to add student. Please try again.");
-
     });
 }
+
 function generateStudent(){
 
     var email = document.getElementById("studentEmailInput").value;
@@ -44,22 +52,6 @@ function generateStudent(){
 
     console.log(array);
     console.log(student);
+
     addStudent(array);
-
-//checkForExistingStudent(text,email,password,btn);
-
-
-    function checkForExistingStudent(text, email, password, btn) {
-
-        if (user != null) {
-
-            console.log(student + "already exists!");
-
-            btn.removeAttribute("data-dismiss", "modal");
-        }
-        else {
-            btn.setAttribute("data-dismiss", "modal");
-            addStudent(users);
-        }
-    }
 }
