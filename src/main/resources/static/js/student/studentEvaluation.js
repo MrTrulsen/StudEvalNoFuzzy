@@ -3,7 +3,7 @@ var questions = [];
 var answers = [];
 var questionIndex = 0;
 
-window.addEventListener('load', function() {
+window.addEventListener('load', async function() {
     const user = await getCurrentUser();
     console.log(currentUser);
     generateCurrentUserDisplay(currentUser);
