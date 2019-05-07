@@ -24,7 +24,7 @@ function addEvaluation(evaluation, courseName) {
         else {
             showErrorMessage("modalAddEvalBody", "Error when trying to add evaluation. Please try again.");setTimeout(function(){
                 removeElementsByClass("error", "success")
-            }, 1000);
+            }, 2000);
             return response.text();
         }
     });
@@ -54,7 +54,7 @@ function addQuestion(question) {
             showErrorMessage("modalAddQuestionBody", "Error when trying to add question. Please try again.");
             setTimeout(function(){
                 removeElementsByClass("error", "success")
-            }, 1000);
+            }, 2000);
             return response.text();
         }
     });
@@ -85,7 +85,7 @@ function saveQuestion(question) {
                 showErrorMessage("controlPanelBody", "Error when trying to save question. Please try again.");
                 setTimeout(function(){
                     removeElementsByClass("error", "success")
-                }, 1000);
+                }, 2000);
                 return response;
             }
         });
@@ -203,7 +203,7 @@ function deleteEvaluation() {
             showErrorMessage("modalRemoveEvalBody", "Error when trying to add question. Please try again.");
             setTimeout(function(){
                 removeElementsByClass("error", "success")
-            }, 1000);
+            }, 2000);
             return response.text();
         }
     });
@@ -229,7 +229,7 @@ function deleteQuestion(questionId) {
             showErrorMessage("modalDeleteQuestionBody", "Error when trying to delete question. Please try again.");
             setTimeout(function(){
                 removeElementsByClass("error", "success")
-            }, 1000);
+            }, 2000);
             return response.text();
         }
     });

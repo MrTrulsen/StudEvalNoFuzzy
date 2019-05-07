@@ -163,7 +163,7 @@ function generateRemoveUserField() {
     inputPlacement.append(buttonPlacement);
 
     generateButton("closeDeleteUserField", "Close", "removeElement('deleteAccountPlacement')");
-    generateButton("deleteUserBtn", "Delete account", "deleteUser(userId)");
+    generateButton("deleteUserBtn", "Delete account", "deleteUser(); location.href='/logout'");
 
     //Generates buttons with onclick functions
     function generateButton(id, text, onclickFunction) {

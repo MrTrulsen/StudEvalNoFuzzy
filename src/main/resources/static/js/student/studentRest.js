@@ -5,21 +5,21 @@ function loadEvaluations() {
     fetch("/getEvaluations/").then(function(response) {
         return response.json();
     })
-        .then(function (evaluations) {
+        .then(async function (evaluations) {
             console.log("Evaluation data: ", evaluations);
 
             if (Array.isArray(evaluations)) {
                 for (var i = 0; i < evaluations.length; i++) {
                     var evaluation = evaluations[i];
+                    const coursename = await getCourseName(evaluation["courseId"]);
                     console.log(evaluation);
-
                     if (evaluation["stopDate"] < moment().format('YYYY-MM-DD')) {
                         console.log(evaluation["courseId"] + " expired at date " + evaluation["stopDate"]);
                     }
-
                     else {
+
                         console.log("Evaluation data: ", "courseName");
-                        addEvaluationCard(evaluation, "courseName");
+                        addEvaluationCard(evaluation, returnString);
                     }
                 }
             }

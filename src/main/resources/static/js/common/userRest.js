@@ -14,30 +14,31 @@ function changePassword(oldPassword, newPassword) {
 
             else {
                 showErrorMessage("changePassword", "Error when trying to change password. Please try again.");
+                setTimeout(function(){
+                    removeElementsByClass("error", "success")
+                }, 2000);
                 return response.text();
             }
         });
 }
 
 //Deletes a question from the database
-function deleteUser(userId) {
+function deleteUser() {
     //TODO: Get userId
-    console.log("Deleting user: ", userId);
-    fetch("/deleteUser/" + userId, {
-        method: "DELETE"
-    })
+    console.log("Deleting user: ");
+    fetch("/deleteUser/" , {method: "DELETE"})
         .then(function (response) {
-            var btn = document.getElementById("confirmDeleteQuestionBtn");
             console.log("Response: ", response);
 
             if (response.status === 200) {
-                btn.setAttribute("data-dismiss", "modal");
                 window.location.reload();
             }
 
             else {
-                btn.removeAttribute("data-dismiss");
                 showErrorMessage("modalDeleteQuestionBody", "Error when trying to delete question. Please try again.");
+                setTimeout(function(){
+                    removeElementsByClass("error", "success")
+                }, 2000);
                 return response.text();
             }
         });

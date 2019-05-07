@@ -2,8 +2,9 @@
 var evalId;
 var submitted = [];
 
-window.addEventListener('load', function() {
-    generateCurrentUserDisplay("user"); //TODO: Get input from getCurrentUser() here
+window.addEventListener('load', async function() {
+    const resp = await getCurrentUser();
+    generateCurrentUserDisplay(currentUser);
 
     for (var i = 0; i < submitted.length; i++) {
 

@@ -420,7 +420,7 @@ public class MainRepository {
      * @param id
      * @return null if success, else: "Could not delete user"
      */
-    public String deleteUser(String id) {
+    public String deleteUser(Long id) {
         Integer numRows;
         String query = "DELETE FROM user WHERE user_id=?";
         numRows = jdbcTemplate.update(query, id);
