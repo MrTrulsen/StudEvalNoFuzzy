@@ -1,5 +1,62 @@
 
-//Function to generate sliders and the content inside the evaluation document
+// Generates a evaluation card at the dashboard based on the user input
+function generateEvaluationCard(evalId, start, end, course, btnText, disabled) {
+    var card = document.createElement("div");
+    card.id = evalId;
+    card.className = "card text-center";
+
+    generateCardContent("div", "card-header", "Open until: ", end);
+
+    var cardBody = document.createElement("div");
+    cardBody.className = "card-body";
+    card.append(cardBody);
+
+    generateCardContent2("h5", "card-title", course);
+    if (isStudent === true) {
+        generateBtn(btnText, disabled,"onclick", "var btn = this; setEvalId(btn); location.href='/studentpage/evaluation'");
+    }
+
+    else {
+        generateBtn("See evaluation", false, "onclick", "var btn = this; setEvalId(btn); location.href='/teacherpage/evaluation'");
+        generateBtn( "Result", false, "onclick", "var btn = this; setEvalId(btn); gatherQuestions()", "data-toggle", "modal", "data-target", "#modalResult");
+        generateBtn("Remove", false, "onclick", "var btn = this; setEvalId(btn)", "data-toggle", "modal", "data-target", "#modalRemove");
+    }
+
+    generateCardContent("div", "card-footer text-muted", "Open: ", start);
+
+    document.getElementById("cardArea").append(card);
+
+    // Generates buttons inside the evaluation card
+    function generateBtn(btnText, disabled, attribute, data, attribute2, data2, attribute3, data3) {
+        var btn = document.createElement("button");
+        btn.className = "btn btn-primary evalBtn";
+        btn.disabled = disabled;
+        btn.setAttribute(attribute, data);
+        btn.setAttribute(attribute2, data2);
+        btn.setAttribute(attribute3, data3);
+        btn.type = "submit";
+        btn.innerText = btnText;
+        cardBody.append(btn);
+    }
+
+    // Generates content inside the evaluation card with date
+    function generateCardContent(element, className, innerHtml, date) {
+        var content = document.createElement(element);
+        content.className = className;
+        content.innerHTML = innerHtml + date;
+        card.append(content);
+    }
+
+    // Generates content inside the evaluation card
+    function generateCardContent2(element, className, innerHtml) {
+        var content = document.createElement(element);
+        content.className = className;
+        content.innerHTML = innerHtml;
+        cardBody.append(content);
+    }
+}
+
+// Function to generate sliders and the content inside the evaluation document
 function generateSliderContent(questions, questionIndex) {
 
     console.log(questions[questionIndex]);
@@ -18,14 +75,14 @@ function generateSliderContent(questions, questionIndex) {
     var time = questions[questionIndex]["time"] * 60;
     var importance = questions[questionIndex]["importance"] * 100;
 
-    generateSliders("difficulty", "Difficulty", difficulty);
-    generateSliders("complexity", "Complexity", complexity);
+    generateSliders("difficulty", "Difficulty", Math.round(difficulty));
+    generateSliders("complexity", "Complexity", Math.round(complexity));
     generateSliders("time", "Time", Math.round(time));
-    generateSliders("importance", "Importance", importance);
+    generateSliders("importance", "Importance", Math.round(importance));
 
     document.getElementById("questionArea").append(wrapper);
 
-    //Function to generate sliders with input
+    // Function to generate sliders with input
     function generateSliders(type, headerText, input) {
         var valueToString = input.toString();
         var minToString = (1).toString();
@@ -84,7 +141,7 @@ function generateSliderContent(questions, questionIndex) {
     }
 }
 
-//Generates a seperate div with input fields for changing password
+// Generates a seperate div with input fields for changing password
 function generateChangePasswordFields() {
     if (document.getElementById("passwordInputPlacement") !== null) {
         removeElement("passwordInputPlacement");
@@ -132,7 +189,7 @@ function generateChangePasswordFields() {
     generateButton("closePasswordChange", "Close", "removeElement('passwordInputPlacement')");
     generateButton("savePasswordChange", "Save Settings", "getPasswords()");
 
-    //Generates buttons with onclick functions
+    // Generates buttons with onclick functions
     function generateButton(id, text, onclickFunction) {
         var btn = document.createElement("button");
         btn.id = id;
@@ -144,7 +201,7 @@ function generateChangePasswordFields() {
     }
 }
 
-//Generates a seperate div with confirmation to delete current account
+// Generates a seperate div with confirmation to delete current account
 function generateRemoveUserField() {
     if (document.getElementById("deleteAccountPlacement") !== null) {
         removeElement("deleteAccountPlacement");
@@ -165,7 +222,7 @@ function generateRemoveUserField() {
     generateButton("closeDeleteUserField", "Close", "removeElement('deleteAccountPlacement')");
     generateButton("deleteUserBtn", "Delete account", "deleteUser(); location.href='/logout'");
 
-    //Generates buttons with onclick functions
+    // Generates buttons with onclick functions
     function generateButton(id, text, onclickFunction) {
         var btn = document.createElement("button");
         btn.id = id;
@@ -177,6 +234,7 @@ function generateRemoveUserField() {
     }
 }
 
+// Generates currentUser display to display the current user logged in
 function generateCurrentUserDisplay(userId) {
     var header = document.getElementById("header");
 

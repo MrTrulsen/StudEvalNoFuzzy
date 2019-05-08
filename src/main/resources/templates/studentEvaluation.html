@@ -21,11 +21,12 @@
     <script th:src="@{/js/external/moment.js}"></script>
 
     <script th:src="@{/js/student/studentRest.js}"></script>
-    <script th:src="@{/js/student/studentEvaluation.js}"></script>
     <script th:src="@{/js/student/studentContentGeneration.js}"></script>
+    <script th:src="@{/js/student/studentEvaluation.js}"></script>
 
     <script th:src="@{/js/common/helperFunctions.js}"></script>
-    <script th:src="@{/js/common/contentGeneration.js}"></script>
+    <script th:src="@{/js/common/userContentGeneration.js}"></script>
+    <script th:src="@{/js/common/userEvaluation.js}"></script>
     <script th:src="@{/js/common/userRest.js}"></script>
     <script th:src="@{/js/common/userSettings.js}"></script>
 </head>
@@ -97,7 +98,7 @@
 
                         <div class="card-footer text-muted">
                             <div id="pageSelector">
-                                <ul class="pagination pagination-lg justify-content-center" style="margin-bottom: 0px">
+                                <ul class="pagination pagination-lg justify-content-center" style="margin-bottom: 0">
                                     <li id="previous" class="page-item">
                                         <a class="page-link" href="#navWrapper" aria-label="Previous" onclick="previousQuestion()">
                                             <span aria-hidden="true">&laquo;</span>
