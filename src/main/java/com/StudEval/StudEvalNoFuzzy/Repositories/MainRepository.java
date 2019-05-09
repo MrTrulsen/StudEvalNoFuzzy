@@ -20,7 +20,6 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
-//import sun.applet.Main;
 
 @Repository
 public class MainRepository {
@@ -36,10 +35,10 @@ public class MainRepository {
 
 
     /**
-     * Fetches the related questions to the right course
+     * Fetches the related questions to the right evaluation
      *
      * @param evalId
-     * @return The question with this id.
+     * @return A list of questions.
      */
     public List findRelatedQuestionsToEval(Integer evalId) {
         List<Question> questions = new ArrayList<>();
@@ -67,10 +66,10 @@ public class MainRepository {
     }
 
     /**
-     * Fetches the related questions
+     * Fetches the related answers
      *
      * @param evalId
-     * @return The question with this id.
+     * @return List of answers to an evaluation.
      */
     public List findRelatedAnswersToEvalId(Integer evalId) {
         List<Answer> answers = new ArrayList<>();
@@ -103,15 +102,12 @@ public class MainRepository {
      * @param evalId
      * @return
      */
-    public List<String> findStudentsInEvaluation(Integer evalId) {
+    public List<String> findUsersInEvaluation(Integer evalId) {
         List<String> studentsEmailsInCurrentEval = new ArrayList<>();
-
-        //Kan gjøre denne om denne query senere for å få ut eventuelle lærere til emne
         String query = "SELECT u.* FROM user u " +
                 "INNER JOIN user_role r ON u.user_id = r.user_id " +
                 "INNER JOIN eval_user_junc e ON u.user_id = e.user_id " +
                 "WHERE role_id=2 AND eval_id=?";
-
         SqlRowSet rs = jdbcTemplate.queryForRowSet(query, new Object[]{evalId});
         while (rs.next()) {
             String userEmail = new String(rs.getString("email"));
@@ -123,7 +119,7 @@ public class MainRepository {
     /**
      * Finding all the current users in db
      *
-     * @return List of users in db
+     * @return List of user emails in db
      */
     public List<String> findUserEmailsInDb() {
         List<String> userEmails = new ArrayList<>();
@@ -138,7 +134,7 @@ public class MainRepository {
 
 
     /**
-     * Importing users to the actual course.
+     * Importing users to the actual evaluation.
      *
      * @param users
      * @param evalId
@@ -182,16 +178,16 @@ public class MainRepository {
      * @param user
      */
     public void addUserToDb(User user, Role role) {
-        String query = "INSERT INTO user (email,is_active) VALUES (?,?)";
-        jdbcTemplate.update(query, user.getEmail(), user.getStatus());
+        String userQuery = "INSERT INTO user (email,is_active) VALUES (?,?)";
+        jdbcTemplate.update(userQuery, user.getEmail(), user.getStatus());
         Integer newId = getNewUserId(user.getEmail());
-        String query2 = "INSERT INTO user_role (user_id,role_id) VALUES (?,?)";
-        jdbcTemplate.update(query2, newId, role.getId());
+        String userJunctionQuery = "INSERT INTO user_role (user_id,role_id) VALUES (?,?)";
+        jdbcTemplate.update(userJunctionQuery, newId, role.getId());
     }
 
     /**
      * Gets the new user_id of requested user recently added.
-     *
+     * This is because the user_id field in user table, is auto increment
      * @param email
      * @return user id of requested email
      */
@@ -248,6 +244,10 @@ public class MainRepository {
 
     }
 
+    /**
+     * Had to implement this for fetching the last insterted id, because preparedStatment did not work.
+     * @return id of evaluation inserted
+     */
     private Integer getLastInsertedEvalId(){
       String query = "SELECT LAST_INSERT_ID()";
       Integer id = jdbcTemplate.queryForObject(query,new Object[]{}, Integer.class);
@@ -255,9 +255,9 @@ public class MainRepository {
     }
 
     /**
-     * Fetches all the course IDs
+     * Fetches all the course IDs.
      *
-     * @return
+     * @return List of courses.
      */
     private List<String> getAllCourseIds() {
         String query = "SELECT course_id FROM course";
@@ -270,6 +270,11 @@ public class MainRepository {
         return courseIds;
     }
 
+    /**
+     * Checks if user account is active or not.
+     * @param email
+     * @return false if it is not active, true if active.
+     */
     public boolean isUserActive(String email){
         String query = "SELECT is_active FROM user WHERE email=?";
         Integer isActive = jdbcTemplate.queryForObject(query,new Object[]{email}, Integer.class);
@@ -282,10 +287,10 @@ public class MainRepository {
     }
 
     /**
-     * Fetches all the evals linked to a user.
+     * Fetches all the evaluations linked to a user.
      *
      * @param userId
-     * @return evals
+     * @return evaluations linked to a user
      */
     public List<Evaluation> getEvaluations(Integer userId) {
         List<Evaluation> evalList = new ArrayList<>();
@@ -303,9 +308,9 @@ public class MainRepository {
     }
 
     /**
-     * Fetch the course name for the given evaluation
+     * Fetches the course name for the given courseId
      * @param courseId
-     * @return
+     * @return course name of given course
      */
     public String getCourseNameFromEval(String courseId){
         String courseName;
@@ -338,11 +343,11 @@ public class MainRepository {
     }
 
     /**
-     * Adding the questions
+     * Adding several questions
      *
      * @param questions
      * @param evalId
-     * @return null if success, text if not.
+     * @return null if success, else: "Could not add questions".
      */
     public String addQuestionList(List<Question> questions, Integer evalId) {
         Integer numRows = 0;
@@ -398,7 +403,7 @@ public class MainRepository {
     }
 
     /**
-     * Delete an evaluation
+     * Deletes an evaluation
      *
      * @param evalId
      * @return null if success, else: "Could not delete evaluation"

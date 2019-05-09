@@ -28,6 +28,10 @@ public class MainRestController {
     @Autowired
     UserRepository userRepository;
 
+    /**
+     * This is the REST controller class for our mainrepository.
+     * @param mainRepository
+     */
     @Autowired
     public MainRestController(MainRepository mainRepository) {
         this.mainRepository = mainRepository;
@@ -65,7 +69,7 @@ public class MainRestController {
 
     @RequestMapping("/studentsEmailsInEval/{evalId}")
     public List<String> listStudentEmailsInEval(@PathVariable Integer evalId){
-        List<String> studentEmailList = mainRepository.findStudentsInEvaluation(evalId);
+        List<String> studentEmailList = mainRepository.findUsersInEvaluation(evalId);
         return studentEmailList;
     }
 
@@ -153,14 +157,7 @@ public class MainRestController {
     public ResponseEntity<String> deleteUser(){
         String error;
         User current = getCurrentUser();
-
-        //if (id.equals(Long.toString(current.getId())) || id == null){
-            error = mainRepository.deleteUser(current.getId());
-        //}else{
-          //  error = "ERROR: You are not authorized to delete this user!";
-           // return new ResponseEntity<>(error, HttpStatus.FORBIDDEN);
-        //}
-
+        error = mainRepository.deleteUser(current.getId());
         if(error == null){
             return new ResponseEntity<>(HttpStatus.OK);
         }
