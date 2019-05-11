@@ -104,3 +104,4 @@ create table verification_token
     new_column int null
 );
 
+INSERT INTO role (role_id, role_name) VALUES (1, 'TEACHER_USER'), (2, 'STUDENT_USER');
