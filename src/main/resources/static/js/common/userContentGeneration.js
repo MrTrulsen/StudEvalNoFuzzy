@@ -75,10 +75,10 @@ function generateSliderContent(questions, questionIndex) {
     var time = questions[questionIndex]["time"] * 60;
     var importance = questions[questionIndex]["importance"] * 100;
 
-    generateSliders("difficulty", "Difficulty", difficulty);
-    generateSliders("complexity", "Complexity", complexity);
+    generateSliders("difficulty", "Difficulty", Math.round(difficulty));
+    generateSliders("complexity", "Complexity", Math.round(complexity));
     generateSliders("time", "Time", Math.round(time));
-    generateSliders("importance", "Importance", importance);
+    generateSliders("importance", "Importance", Math.round(importance));
 
     document.getElementById("questionArea").append(wrapper);
 
@@ -232,6 +232,63 @@ function generateRemoveUserField() {
         btn.setAttribute("onclick", onclickFunction);
         buttonPlacement.append(btn);
     }
+}
+
+// Generates buttons at the bottom of the question card
+function generateQuestionCardButtons() {
+    var buttonBar = document.createElement("nav");
+    buttonBar.id = "buttonBar";
+    buttonBar.className = "navbar navbar-light container";
+
+    var savePlacement = document.createElement("div");
+    savePlacement.id = "savePlacement";
+    savePlacement.className = "navbar-nav ml-auto";
+    buttonBar.append(savePlacement);
+
+    if (isStudent === true) {
+        var submitQuestion = document.createElement("div");
+        submitQuestion.id = "submitQuestion";
+        submitQuestion.className = "nav-item navbar-nav mr-auto";
+        buttonBar.append(submitQuestion);
+
+        var submitQuestionBtn = document.createElement("button");
+        submitQuestionBtn.id = "submitQuestionBtn";
+        submitQuestionBtn.className = "btn btn-primary";
+        submitQuestionBtn.innerHTML = "Submit";
+        submitQuestionBtn.setAttribute("type", "submit");
+        submitQuestionBtn.setAttribute("onclick", "submitAnswers(answers); location.href='/studentpage'");
+        submitQuestion.append(submitQuestionBtn);
+    }
+
+    else {
+        var saveQuestion = document.createElement("div");
+        saveQuestion.id = "saveQuestion";
+        saveQuestion.className = "nav-item";
+        savePlacement.append(saveQuestion);
+
+        var saveBtn = document.createElement("button");
+        saveBtn.id = "saveBtn";
+        saveBtn.className = "btn btn-primary";
+        saveBtn.innerHTML = "Save";
+        saveBtn.setAttribute("onclick", "getUpdatedValues()");
+        saveQuestion.append(saveBtn);
+
+        var deleteQuestion = document.createElement("div");
+        deleteQuestion.id = "deleteQuestion";
+        deleteQuestion.className = "nav-item navbar-nav mr-auto";
+        buttonBar.append(deleteQuestion);
+
+        var deleteQuestionBtn = document.createElement("button");
+        deleteQuestionBtn.id = "deleteQuestionBtn";
+        deleteQuestionBtn.className = "btn btn-primary";
+        deleteQuestionBtn.innerHTML = "Delete";
+        deleteQuestionBtn.setAttribute("type", "submit");
+        deleteQuestionBtn.setAttribute("data-toggle", "modal");
+        deleteQuestionBtn.setAttribute("data-target", "#modalDeleteQuestion");
+        deleteQuestion.append(deleteQuestionBtn);
+    }
+
+    document.getElementById("buttonArea").append(buttonBar);
 }
 
 // Generates currentUser display to display the current user logged in

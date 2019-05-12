@@ -1,4 +1,6 @@
 
+var isStudent = false;
+
 // Generates a question based on user input
 function generateQuestion() {
     var text = document.getElementById('textInput');

@@ -59,6 +59,5 @@ function updateInputField(field) {
 // Gets the currentUser from the backend
 async function getCurrentUserToDisplay() {
     const user = await getCurrentUser();
-    console.log(currentUser);
     generateCurrentUserDisplay(currentUser);
 }

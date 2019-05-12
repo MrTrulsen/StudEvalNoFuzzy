@@ -5,9 +5,6 @@ window.addEventListener('load',function() {
     // Find this user and prints it in the header
     getCurrentUserToDisplay();
 
-    // Stores the variable isStudent
-    setIsStudent();
-
     // Loads the available evaluations
     loadEvaluations(isStudent);
 });
@@ -27,9 +24,4 @@ function setEvalId(btn) {
     console.log("Evalutaion ID: ", parentId);
     evalId = parentId;
     localStorage.setItem("evalId", evalId);
-}
-
-// Sets a isStudent variable as a global variable to be used between documents
-function setIsStudent() {
-    localStorage.setItem("isStudent", isStudent);
 }

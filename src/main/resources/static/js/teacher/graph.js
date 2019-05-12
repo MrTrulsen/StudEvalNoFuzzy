@@ -5,7 +5,6 @@ var chart;
 
 window.addEventListener('load', function() {
 // Initializes a line chart inside the result modal
-    setTimeout(function () {
         chart = new CanvasJS.Chart("chartContainer", {
             exportEnabled: true,
             animationEnabled: true,
@@ -58,13 +57,12 @@ window.addEventListener('load', function() {
             e.dataSeries.visible = !(typeof (e.dataSeries.visible) === "undefined" || e.dataSeries.visible);
             chart.render();
         }
-    }, 1000);
 });
 
 //Gathers all questions and answers
 function gatherQuestions() {
     loadAnswers();
-    loadQuestions();
+    loadQuestions(false);
 
     questionDataPoints = [];
     answerDataPoints = [];

@@ -9,22 +9,15 @@ window.addEventListener('load',function() {
     // Gets the stored evalId and sets it as a global variable
     evalId = localStorage.getItem("evalId");
 
-    // Gets the stored isStudent and sets it as a global variable
-    isStudent = localStorage.getItem("isStudent");
-
     // Loads the available questions
     loadQuestions(true);
 });
 
+// Gets the updated values in the evaluation
 function getUpdatedValues() {
-    if (isStudent === true) {
-        var questionId =  questions[questionIndex]['question_id'];
-    }
+    console.log("Getting updated values...");
 
-    else {
-        var text = document.getElementById('questionText').innerHTML;
-    }
-
+    var questionId =  questions[questionIndex]['question_id'];
     var difficulty = document.getElementById('difficultyOutput').value;
     var complexity = document.getElementById('complexityOutput').value;
     var time = document.getElementById('timeOutput').value;
@@ -44,13 +37,16 @@ function getUpdatedValues() {
         }
 
         else {
-            console.log("Object already exists");
+            console.log("Autosave: The answer has not changed. Nothing is saved.");
             answers[questionIndex] = answer;
         }
     }
 
     else {
+        var text = document.getElementById('questionText').innerHTML;
+
         var question = {
+            question_id: questionId,
             text: text,
             difficulty: difficulty / 100,
             complexity: complexity / 100,
@@ -58,6 +54,7 @@ function getUpdatedValues() {
             importance: importance / 100
         };
 
+        console.log(isStudent === true);
         saveQuestion(question);
     }
 }
@@ -152,12 +149,12 @@ function displaySliderValue(slider) {
 function updateSlider(output) {
     var slider = document.getElementById(output.id.slice(0, - 6) + "Slider");
 
-    if (output.value > output.max) {
+    if (parseInt(output.value) > parseInt(output.max)) {
         output.value = output.max;
         slider.value = output.max;
     }
 
-    else if (output.value < output.min) {
+    else if (parseInt(output.value) < parseInt(output.min)) {
         output.value = output.min;
         slider.value = output.min;
     }
