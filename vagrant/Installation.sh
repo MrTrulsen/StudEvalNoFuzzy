@@ -27,6 +27,7 @@ echo "Installing Requirements"
 
 	# Creating database, granting access to root
 	mysql -u root -p$DBPASSW -e "CREATE DATABASE IF NOT EXISTS $DBNAME;" >> $LOGFILE 2>&1
+	mysql -u root -p$DBPASSW $DBNAME < generate_tables.sql >> $LOGFILE 2>&1
 	mysql -u root -p$DBPASSW -e "GRANT ALL ON $DBNAME.* TO '$DBUSER'@'%' IDENTIFIED BY '$DBPASSW';" >> $LOGFILE 2>&1
 	mysql -u root -p$DBPASSW -e "FLUSH PRIVILEGES;" >> $LOGFILE 2>&1
 
