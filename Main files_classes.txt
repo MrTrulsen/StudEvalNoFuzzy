@@ -1,0 +1,5 @@
+﻿This is a simple text document listing the main files/classes. 
+The frontend classes path is src/main/resources. The backend classes path is java/com.StudEval.StudEvalNoFuzzy. 
+
+
+We have seven different packages in backend. Evaluation, Interfaces, PageControllers, Repositories, RestControllers, Security and User. Our RestController are under Restcontrollers. Everything with security is under security. The main repository class is under repositories.
