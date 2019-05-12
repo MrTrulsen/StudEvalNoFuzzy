@@ -186,7 +186,7 @@ h2 {
     transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
 }
 
-#addEvalCourseId, #addEvalCourseName, #addEvalDates, #removeCourseId, #text, #difficulty, #complexity, #time, #studentEmail {
+#courseId, #courseName, #dates, #removeCourseId, #text, #difficulty, #complexity, #time, #studentEmail {
     padding-bottom: 20px;
     border-bottom: solid;
     border-width: 1px;

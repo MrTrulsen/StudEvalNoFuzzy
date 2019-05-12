@@ -2,40 +2,22 @@
 // Checks for error at user input inside modal for adding question
 function checkForErrorInAddQuestion(question, text, complexity, time, difficulty, importance) {
 
-    if (text.length === 0) {
-        showErrorMessage("text", "The field can not be empty");
+    if (text.value.length === 0 || difficulty.value.length === 0 || complexity.value.length === 0 ||
+        time.value.length === 0 || importance.value.length === 0) {
+
+        checkEmptyField(text);
+        checkEmptyField(difficulty);
+        checkEmptyField(complexity);
+        checkEmptyField(time);
+        checkEmptyField(importance);
     }
 
-    else if (difficulty.length === 0) {
-        showErrorMessage("difficulty", "The field can not be empty");
-    }
+    else if (difficulty.value > 100 || complexity.value > 100 || time.value > 100 || importance.value > 100) {
 
-    else if (difficulty > 100) {
-        showErrorMessage("difficulty", "This value can not exceed a total of 100");
-    }
-
-    else if (complexity.length === 0) {
-        showErrorMessage("complexity", "The field can not be empty");
-    }
-
-    else if (complexity > 100) {
-        showErrorMessage("complexity", "This value can not exceed a total of 100");
-    }
-
-    else if (time.length === 0) {
-        showErrorMessage("time", "The field can not be empty");
-    }
-
-    else if (time > 100) {
-        showErrorMessage("time", "This value can not exceed a total of 100");
-    }
-
-    else if (importance.length === 0) {
-        showErrorMessage("importance", "The field can not be empty");
-    }
-
-    else if (importance > 100) {
-        showErrorMessage("importance", "This value can not exceed a total of 100");
+        checkForMaximumValue(difficulty);
+        checkForMaximumValue(complexity);
+        checkForMaximumValue(time);
+        checkForMaximumValue(importance);
     }
 
     else {
@@ -46,23 +28,30 @@ function checkForErrorInAddQuestion(question, text, complexity, time, difficulty
 // Checks for error at user input inside modal for adding evaluation
 function checkForErrorInAddEvaluation(evaluation, courseId, courseName, evalDates, examTime) {
 
-    if (courseId.length === 0) {
-        showErrorMessage("addEvalCourseId", "The field can not be empty");
-    }
+    if (courseId.value.length === 0 || courseName.value.length === 0 || evalDates.value.length === 0 ||
+        examTime.value.length === 0) {
 
-    else if (courseName.length === 0) {
-        showErrorMessage("addEvalCourseName", "The field can not be empty");
-    }
-
-    else if (evalDates.length === 0) {
-        showErrorMessage("addEvalDates", "The field can not be empty");
-    }
-
-    else if (examTime.length === 0) {
-        showErrorMessage("addEvalExamTime", "The field can not be empty");
+        checkEmptyField(courseId);
+        checkEmptyField(courseName);
+        checkEmptyField(evalDates);
+        checkEmptyField(examTime);
     }
 
     else {
         addEvaluation(evaluation, courseName);
+    }
+}
+
+// Checks if input field is empty
+function checkEmptyField(field) {
+    if (field.value.length === 0) {
+        showErrorMessage(field.id.slice(0, - 5), "The field can not be empty");
+    }
+}
+
+// Checks if input field's value is over 100
+function checkForMaximumValue(field) {
+    if (field.value.length > 0) {
+        showErrorMessage(field.id.slice(0, - 5), "The field can not be empty");
     }
 }

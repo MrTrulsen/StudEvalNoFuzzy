@@ -75,10 +75,10 @@ function generateSliderContent(questions, questionIndex) {
     var time = questions[questionIndex]["time"] * 60;
     var importance = questions[questionIndex]["importance"] * 100;
 
-    generateSliders("difficulty", "Difficulty", Math.round(difficulty));
-    generateSliders("complexity", "Complexity", Math.round(complexity));
+    generateSliders("difficulty", "Difficulty", difficulty);
+    generateSliders("complexity", "Complexity", complexity);
     generateSliders("time", "Time", Math.round(time));
-    generateSliders("importance", "Importance", Math.round(importance));
+    generateSliders("importance", "Importance", importance);
 
     document.getElementById("questionArea").append(wrapper);
 

@@ -96,7 +96,6 @@ function changePassword(oldPassword, newPassword) {
 
 // Deletes a question from the database
 function deleteUser() {
-    //TODO: Get userId
     console.log("Deleting user: ");
     fetch("/deleteUser/" , {method: "DELETE"})
         .then(function (response) {

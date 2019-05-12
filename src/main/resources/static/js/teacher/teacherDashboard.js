@@ -9,21 +9,21 @@ var questions = [];
 
 // Adds a new evaluation by making a card with user input at the dashboard
 function generateEvaluation() {
-    var courseId = document.getElementById("courseIdInput").value;
-    var courseName = document.getElementById("courseNameInput").value;
+    var courseId = document.getElementById("courseIdInput");
+    var courseName = document.getElementById("courseNameInput");
 
-    var evalDates = document.getElementById('datesInput').value;
-    var examTime = document.getElementById('examTimeInput').value;
+    var evalDates = document.getElementById('datesInput');
+    var examTime = document.getElementById('examTimeInput');
 
-    var evalDatesArray = evalDates.split(" - ", 2);
+    var evalDatesArray = evalDates.value.split(" - ", 2);
     var start = evalDatesArray[0];
     var end = evalDatesArray[1];
 
     var evaluation = {
-        courseId: courseId,
-        startDate: start,
-        stopDate: end,
-        timeOfExam: examTime
+        courseId: courseId.value,
+        startDate: start.value,
+        stopDate: end.value,
+        timeOfExam: examTime.value
     };
 
     console.log(evaluation);
@@ -38,7 +38,7 @@ $(function() {
 
     $('input[name="addEval"]').daterangepicker({
         startDate: start,
-        endDate: start, //TODO: Plus some days (Max 1 week)
+        endDate: start,
         minDate: moment(),
         maxDate: moment().add(1, 'month'),
         locale: {

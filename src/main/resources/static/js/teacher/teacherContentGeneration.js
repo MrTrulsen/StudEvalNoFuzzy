@@ -1,3 +1,4 @@
+
 // Generates buttons at the bottom of the question card
 function generateQuestionCardButtons() {
     var buttonBar = document.createElement("nav");

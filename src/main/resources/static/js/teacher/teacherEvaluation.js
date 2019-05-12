@@ -1,24 +1,23 @@
 
 // Generates a question based on user input
 function generateQuestion() {
-    var text = document.getElementById('textInput').value;
-    var difficulty = document.getElementById('difficultyInput').value;
-    var complexity = document.getElementById('complexityInput').value;
-    var time = document.getElementById('timeInput').value;
-    var importance = document.getElementById('importanceInput').value;
-    var btn = document.getElementById('saveQuestionBtn');
+    var text = document.getElementById('textInput');
+    var difficulty = document.getElementById('difficultyInput');
+    var complexity = document.getElementById('complexityInput');
+    var time = document.getElementById('timeInput');
+    var importance = document.getElementById('importanceInput');
 
     var question = {
-        text: text,
-        difficulty: difficulty / 100,
-        complexity: complexity / 100,
-        time: time / 60,
-        importance: importance / 100
+        text: text.value,
+        difficulty: difficulty.value / 100,
+        complexity: complexity.value/ 100,
+        time: time.value / 60,
+        importance: importance.value / 100
     };
 
     console.log(question);
 
-    checkForErrorInAddQuestion(question, text, complexity, time, difficulty, importance, btn);
+    checkForErrorInAddQuestion(question, text, complexity, time, difficulty, importance);
 }
 
 // Finds the active question for deletion inside the evaluation

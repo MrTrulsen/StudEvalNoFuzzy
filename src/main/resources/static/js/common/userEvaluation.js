@@ -177,7 +177,7 @@ var update = function () {
 };
 
 $(document).ready(function(){
-    datetime = $('#timeView')
+    datetime = $('#timeView');
     update();
     setInterval(update, 1000);
 });
